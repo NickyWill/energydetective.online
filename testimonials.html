@@ -1,0 +1,390 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Testimonials — Energy Detective</title>
+<meta name="description" content="Real words, real shifts, real relief — client stories, in their own words.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_shared/premium2.css">
+<style>
+  :root{
+    --charcoal:oklch(0.253 0.005 67.6); --cream:oklch(0.962 0.009 84.6); --gold:oklch(0.702 0.074 78.9);
+    --forest:oklch(0.450 0.027 155.2); --inkc:oklch(0.40 0.006 75);
+    --disp:'Instrument Serif',serif; --sans:'Poppins',sans-serif;
+    --bg:var(--charcoal); --ink:var(--cream); --accent:var(--gold);
+    --hair:color-mix(in oklch,var(--inkc) 14%,transparent);
+  }
+  body{background:var(--cream);color:var(--inkc);font-family:var(--sans);font-weight:300;line-height:1.75;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--gold);color:var(--charcoal)}
+  .wrap{max-width:680px;margin:0 auto;padding:0 clamp(20px,4vw,56px)}
+  .wrap-wide{max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,56px)}
+
+  nav{position:fixed;inset:0 0 auto 0;z-index:60;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px clamp(20px,4vw,40px);transition:.4s;border-bottom:1px solid transparent}
+  nav.solid{background:color-mix(in oklch,var(--charcoal) 88%,transparent);backdrop-filter:blur(14px);border-color:color-mix(in oklch,var(--cream) 14%,transparent);padding:14px clamp(20px,4vw,40px)}
+  .wm{font-family:var(--disp);line-height:1.15}
+  .wm .n{font-style:italic;font-size:16px;color:var(--cream)}
+  .wm .t{display:block;font-family:var(--sans);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:color-mix(in oklch,var(--cream) 68%,transparent);margin-top:2px}
+  .nl{display:flex;gap:26px;font-size:13px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:color-mix(in oklch,var(--cream) 92%,transparent);align-items:center}
+  .nl a:hover{color:var(--cream)}.nl a.active{color:var(--gold)}
+  .ncta{font-family:var(--disp);font-style:italic;font-size:16px;color:var(--gold);white-space:nowrap}
+
+  .band{position:relative;padding:clamp(80px,12vh,140px) 0}
+  .band-dark{background:var(--charcoal);color:var(--cream)}
+  .band-cream{background:var(--cream);color:var(--inkc)}
+  .band-dark p{color:color-mix(in oklch,var(--cream) 86%,transparent)}
+  .band-dark .eyebrow{color:var(--gold)}
+  .band-cream .eyebrow{color:var(--forest)}
+
+  .eyebrow{font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;margin-bottom:20px;text-align:center}
+  .h1{font-family:var(--disp);font-weight:300;font-size:clamp(38px,6vw,68px);line-height:1.1;text-align:center;max-width:18ch;margin:0 auto}
+  .h2{font-family:var(--disp);font-weight:400;font-style:italic;font-size:clamp(26px,3.6vw,38px);line-height:1.2;text-align:center;max-width:22ch;margin:0 auto 20px}
+  .lede{font-size:17px;line-height:1.8;max-width:62ch;margin:20px auto 0;text-align:center}
+  .confnote{font-family:var(--disp);font-style:italic;font-size:clamp(18px,2.2vw,22px);line-height:1.6;max-width:52ch;margin:26px auto 0;text-align:center;color:var(--gold)}
+  .center{text-align:center}
+
+  .stats{display:flex;justify-content:center;gap:clamp(30px,7vw,90px);flex-wrap:wrap;margin-top:50px}
+  .stats .s{text-align:center}
+  .stats .s b{display:block;font-family:var(--disp);font-size:clamp(34px,4vw,46px);color:var(--gold);font-weight:400}
+  .stats .s > span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:color-mix(in oklch,var(--cream) 78%,transparent)}
+
+  .tfull{max-width:640px;margin:0 auto;text-align:center}
+  .tfull .rule{width:36px;height:1px;background:var(--gold);margin:0 auto 22px;opacity:.7}
+  .tfull .tk{font-family:var(--disp);font-style:italic;font-weight:400;font-size:clamp(22px,2.8vw,28px);margin:0 0 26px;line-height:1.35;max-width:26ch;margin-left:auto;margin-right:auto}
+  .tfull p{font-size:16.5px;line-height:1.85;margin:0 0 20px;text-align:center}
+  .tfull p:last-of-type{margin-bottom:0}
+  .tfull .tattr{margin-top:26px;font-size:13px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);text-align:center}
+  .band-cream .tfull .tattr{color:var(--forest)}
+
+  .tplate{position:relative;overflow:hidden;text-align:center;height:auto}
+  .tplate .bgimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.4;animation:kenburns 26s ease-in-out infinite alternate}
+  @keyframes kenburns{0%{transform:scale(1) translate(0,0)}100%{transform:scale(1.14) translate(-2%,-1.5%)}}
+  .tplate::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,color-mix(in oklch,var(--charcoal) 82%,transparent),color-mix(in oklch,var(--charcoal) 90%,transparent))}
+  .tplate .twrap{position:relative;z-index:2}
+  .tplate .tfull p{color:var(--cream);text-align:center}
+  .tplate .tfull .tk{color:var(--cream)}
+  .tplate .tfull .rule{background:var(--gold)}
+
+  .tplate-light{position:relative;overflow:hidden;text-align:center;height:auto}
+  .tplate-light .bgimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;animation:kenburns 26s ease-in-out infinite alternate}
+  .tplate-light::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,color-mix(in oklch,var(--cream) 74%,transparent),color-mix(in oklch,var(--cream) 86%,transparent))}
+  .tplate-light .twrap{position:relative;z-index:2}
+  .tplate-light .tfull p{color:var(--inkc)}
+  .tplate-light .tfull .tk{color:var(--inkc)}
+  .tplate-light .tfull .tattr{color:var(--forest)}
+  .tplate-light .tfull .rule{background:var(--gold)}
+
+  .tvideo{position:relative;min-height:80vh;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:100px 0;background:var(--charcoal)}
+  .tvideo video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s linear}
+  .tvideo video.on{opacity:1}
+  .tvideo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,color-mix(in oklch,var(--charcoal) 62%,transparent),color-mix(in oklch,var(--charcoal) 48%,transparent) 40%,color-mix(in oklch,var(--charcoal) 48%,transparent) 60%,color-mix(in oklch,var(--charcoal) 68%,transparent))}
+  .tvideo .twrap{position:relative;z-index:2;max-width:640px}
+  .tvideo .tfull p{color:var(--cream);text-shadow:0 2px 12px rgba(0,0,0,.4)}
+  .tvideo .tfull .tk{color:var(--cream);text-shadow:0 2px 14px rgba(0,0,0,.45)}
+  .tvideo .tfull .tattr{color:var(--gold);text-shadow:0 2px 8px rgba(0,0,0,.5)}
+  .tvideo .mvq{font-family:var(--disp);font-style:italic;font-weight:400;font-size:clamp(32px,5.2vw,58px);line-height:1.3;color:#fff;text-align:center;text-shadow:0 2px 20px rgba(0,0,0,.5);margin:0 auto;max-width:19ch}
+  .tvideo .mvsign{font-family:var(--sans);font-weight:500;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);text-align:center;margin-top:26px;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+
+  .tminis{max-width:760px;margin:0 auto;border-top:1px solid var(--hair)}
+  .tminis .m{padding:26px 0;border-bottom:1px solid var(--hair)}
+  .tminis .m p{margin:0 0 8px;font-size:15.5px;line-height:1.7}
+  .tminis .m .tattr{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+  .band-cream .tminis .m .tattr{color:var(--forest)}
+
+  .stepnum{font-family:var(--disp);font-weight:300;color:var(--gold);font-size:44px;margin-bottom:10px;font-variant-numeric:oldstyle-nums}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;max-width:1000px;margin:50px auto 0}
+  .steps h3{font-family:var(--disp);font-weight:400;font-size:22px;margin:0 0 10px}
+  .steps p{font-size:15px;line-height:1.65;margin:0;color:color-mix(in oklch,var(--inkc) 86%,transparent)}
+  .band-dark .steps p{color:color-mix(in oklch,var(--cream) 86%,transparent)}
+
+  .btn{display:inline-block;padding:16px 36px;background:var(--gold);color:var(--charcoal);font-family:var(--sans);font-weight:500;font-size:14px;letter-spacing:.05em;text-transform:uppercase;border-radius:3px;transition:.25s}
+  .btn:hover{filter:brightness(1.06)}
+
+  .menu-btn{display:none;flex-direction:column;gap:5px;width:26px;padding:6px 0;background:none;border:none;cursor:pointer}
+  .menu-btn span{display:block;width:100%;height:1px;background:var(--cream)}
+  .mnav{position:fixed;inset:0;z-index:70;background:var(--charcoal);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;opacity:0;pointer-events:none;transition:opacity .35s}
+  .mnav.open{opacity:1;pointer-events:auto}
+  .mnav a{font-family:var(--disp);font-style:italic;font-size:26px;color:var(--cream)}
+  .mnav a.active{color:var(--gold)}
+  .mnav .mclose{position:absolute;top:26px;right:24px;background:none;border:none;color:var(--cream);font-size:28px;line-height:1;cursor:pointer;font-family:var(--sans);font-weight:300}
+
+  footer{background:var(--charcoal);color:var(--cream);border-top:1px solid color-mix(in oklch,var(--cream) 14%,transparent);padding:42px 0}
+  .fwm{font-family:var(--disp);font-style:italic;font-size:15px}
+  .ffoot{display:flex;justify-content:space-between;width:100%;flex-wrap:wrap;gap:14px;align-items:center}
+  .fnl{display:flex;flex-wrap:wrap;row-gap:10px;gap:22px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:color-mix(in oklch,var(--cream) 74%,transparent);align-items:center}
+  .fnl a{white-space:nowrap}
+  .fnl .ig{display:inline-flex;padding:2px}
+  .fnl .ig svg{width:15px;height:15px;display:block}
+  .fnl a:hover{color:var(--cream)}
+
+  @media(max-width:820px){.nl{display:none}.menu-btn{display:flex}.wm .t{display:none}.steps{grid-template-columns:1fr;gap:30px}}
+
+  .cur{background:var(--gold);mix-blend-mode:normal;box-shadow:0 0 10px color-mix(in oklch,var(--gold) 55%,transparent)}
+  .cur-r{width:26px;height:26px;margin:-13px 0 0 -13px;border-color:color-mix(in oklch,var(--gold) 60%,transparent);mix-blend-mode:normal}
+  .cur-r.hot{width:42px;height:42px;margin:-21px 0 0 -21px;background:color-mix(in oklch,var(--gold) 14%,transparent);border-color:color-mix(in oklch,var(--gold) 75%,transparent)}
+</style></head><body>
+
+<div class="intro"><div class="ipct">0</div><div class="ibar"></div></div>
+
+<nav id="nav">
+  <a class="wm" href="index.html"><span class="n">Nicky Williams</span><span class="t">Founder of The Deep Release Method&trade;</span></a>
+  <div class="nl">
+    <a href="index.html">Home</a><a href="about.html">About</a>
+    <a href="work-with-me.html">Work With Me</a><a href="testimonials.html" class="active">Testimonials</a>
+  </div>
+  <a class="ncta" href="mailto:hello@energydetective.online?subject=New%20enquiry" data-magnetic>Contact Nicky</a>
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mnav" id="mnav">
+  <button class="mclose" id="mnavClose" aria-label="Close menu">✕</button>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="work-with-me.html">Work With Me</a>
+  <a href="testimonials.html" class="active">Testimonials</a>
+  <a href="mailto:hello@energydetective.online?subject=New%20enquiry">Contact Nicky</a>
+</div>
+
+<section class="band band-dark" style="padding-top:clamp(140px,20vh,200px)">
+  <div class="wrap">
+    <div class="eyebrow">Client Stories</div>
+    <h1 class="h1">Real Words. Real Shifts. Real Relief.</h1>
+    <p class="lede">Here's what changed once these clients worked with me, in their own words.</p>
+    <p class="confnote">Every word on this page is real. Some client names are shared with permission, some are kept strictly private. What's shared with me stays confidential, always.</p>
+    <div class="stats">
+      <div class="s"><b><span data-count="700">0</span>+</b><span>Sessions Delivered</span></div>
+      <div class="s"><b><span data-count="5">0</span>★</b><span>Average Rating</span></div>
+      <div class="s"><b><span data-count="100">0</span>%</b><span>Remote · Worldwide</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band band-cream" data-reveal>
+  <div class="wrap">
+    <div class="tfull">
+      <div class="rule"></div>
+      <p class="tk">"It's honestly like Nicky has turned a tap on"</p>
+      <p>I went in feeling really anxious, lost and rubbish about money and the way she was able to trace way, way back to what's happened in my past and stuck to me as the reason why I've been feeling like this, is mind-blowing.</p>
+      <p>Even after our first session I started feeling a sense of calm and ease which I hadn't felt for ages. I feel happier, calmer, there's been positive changes at home, work has picked up. It's honestly like Nicky has turned a tap on. Everything feels like it's flowing again instead of stuck and stagnant.</p>
+      <div class="tattr">— Trish</div>
+    </div>
+  </div>
+</section>
+
+<section class="tvideo" data-reveal>
+  <video class="on" id="streamA" autoplay muted playsinline preload="auto" src="assets/stream/hero.mp4?v=5"></video>
+  <video id="streamB" muted playsinline preload="auto" src="assets/stream/hero.mp4?v=5"></video>
+  <div class="twrap wrap">
+    <p class="mvq">I clear the blocks you feel deeply but can't see, so your life can flow with ease again.</p>
+    <div class="mvsign">Nicky Williams · Energy Detective</div>
+  </div>
+</section>
+
+<section class="tplate-light band" data-reveal>
+  <img class="bgimg" src="assets/t-dawn.jpg" alt="">
+  <div class="twrap wrap">
+    <div class="tfull">
+      <div class="rule"></div>
+      <p class="tk">"So much more than I expected"</p>
+      <p>The first morning, I woke up from a dream so real I felt like I was emerging from an out of body experience. For years I have had trouble going to sleep and staying asleep post-menopause. I woke up early from a deep, restorative sleep and did not need coffee.</p>
+      <p>Physically, I am in an environment where I am exposed to mould. I would wake up with eyes swollen, red, itchy, and nose dripping all through the day. Now I no longer need boxes of tissues and eye drops. My workouts are longer and more intense.</p>
+      <p>For several months I had been experiencing brain fog, not remembering names, places, or words. Since working with Nicky, I can feel a greater heart-brain dialogue and coherence. This is sooooo much more than I expected.</p>
+      <div class="tattr">— Courtney</div>
+    </div>
+  </div>
+</section>
+
+<section class="tplate band" data-reveal>
+  <img class="bgimg" src="assets/g3.jpg" alt="">
+  <div class="twrap wrap">
+    <div class="tfull">
+      <div class="rule"></div>
+      <p class="tk">"She cleared my energetic loft"</p>
+      <p>Before working with Nicky, my sleep was poor. I woke many times a night with a racing mind and felt constantly tired and unfocused. After just four sessions, the change has been incredible. I fall asleep easily, sleep deeply, better than I have in decades, and if I wake, I drift straight back off.</p>
+      <p>I was amazed by how powerful the remote sessions were and how much Nicky was able to identify, heal and clear, even things I didn't realise were stored in my energy.</p>
+      <p>I now feel lighter, calmer, clearer, more joyful, and truly at peace. An absolutely mind-blowing experience. Thank you, Nicky, for helping me clear out my energetic loft and come home to me.</p>
+      <div class="tattr">— Sarah</div>
+    </div>
+  </div>
+</section>
+
+<section class="tplate-light band" data-reveal>
+  <img class="bgimg" src="assets/t-texture.jpg" alt="">
+  <div class="twrap wrap">
+    <div class="tfull">
+      <div class="rule"></div>
+      <p class="tk">"Networking like a ninja"</p>
+      <p>I've been out to a co-working session this morning and was reflecting on the ease at which I am now talking about my business to complete strangers. I've just had a conversation with a senior exec about coming in and doing some stress resilience coaching.</p>
+      <p>It's difficult to articulate. I just feel different at a very deep level. The doubts and fears which were holding me back are gone. Since our work I have onboarded four new clients, and have been networking like a ninja.</p>
+      <p>The other week I attended an after-work networking session and did their network wall. Honestly, a few months back there is absolutely no way I would have done that. The terror would have taken hold and I would have shut down.</p>
+      <div class="tattr">— Claire</div>
+    </div>
+  </div>
+</section>
+
+<section class="band band-dark" data-reveal>
+  <div class="wrap">
+    <div class="tminis">
+      <div class="m"><p>"Nicky is such a phenomenal support. I feel a true sense of the challenges and sticky patterns of my subconscious just being gone."</p><div class="tattr">Client</div></div>
+      <div class="m"><p>"You just have to try it. Words can't explain. Nicky finds the hidden energy drains and cleans up your field in a way the mind cannot access."</p><div class="tattr">Dione</div></div>
+      <div class="m"><p>"Reduction in cravings. Sugar now a neutral experience. Not interested in any cookies or doughnuts. Losing weight. More energy. Feeling depression lightening."</p><div class="tattr">Client</div></div>
+      <div class="m"><p>"I experienced Nicky's energy clearing and found it to be very impactful. It felt like a lightness of spirit around me. Nicky is the consummate professional and truly has your wellbeing at heart."</p><div class="tattr">Client</div></div>
+      <div class="m"><p>"I have been working with Nicky around my blocks with money, with energy, and other things that keep me back, and I can't even believe how much has been uncovered. I respect Nicky so much."</p><div class="tattr">Carol</div></div>
+      <div class="m"><p>"Today found myself feeling happy and light, have not felt that in months and months. I was able to get much accomplished without feeling resentful and needing to crash for a nap afterwards."</p><div class="tattr">Client</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="band band-cream" data-reveal>
+  <div class="wrap">
+    <div class="tminis">
+      <div class="m"><p>"I am feeling that my energy is much more of my own. I feel like I am gaining greater strength in my body, mind, and spirit. I am less anxious."</p><div class="tattr">Client</div></div>
+      <div class="m"><p>"Thank you for your help in helping me transmute the past into a beautiful future. Thank you for your gracious and transforming work. Words cannot convey my gratitude."</p><div class="tattr">Client</div></div>
+      <div class="m"><p>"Nicky, thank you so much. The healing experience has been so powerful. My gratitude is beyond what words may convey."</p><div class="tattr">Client</div></div>
+      <div class="m"><p>"Feeling full of gratitude for breath, expansion, joy, peace, and new experiences of centredness. An answer to many prayers and intentions for new upgrades and necessary healing."</p><div class="tattr">Client</div></div>
+      <div class="m"><p>"Taste restored and more aware of aromas. Feeling so thankful for the clearing, enhancing, protection and insights for clarity, pushing forward my growth and ability to experience joy in new ways."</p><div class="tattr">Client</div></div>
+      <div class="m"><p>"WOW. Truly amazing what you shared after rummaging in the boxes in my loft, what a gift you have. I have noticed that my sleep has felt more restful and I've felt more awake during the day."</p><div class="tattr">Client</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="tplate band" data-reveal>
+  <img class="bgimg" src="assets/t-lamp.jpg" alt="">
+  <div class="twrap wrap">
+    <div class="tfull">
+      <div class="rule"></div>
+      <p class="tk">"I am no longer a permanently exhausted pigeon"</p>
+      <p>Before I started working with Nicky, my sleep was very broken. I'd wake up in the middle of the night several times, some nights not being able to get back to sleep for hours. I was permanently tired.</p>
+      <p>I was surprised at how it worked, despite us not having to spend any time together other than comms via email. So if a dog or child wakes me in the night, often, I can get back to sleep. It is all fine. I am no longer a permanently exhausted pigeon.</p>
+      <div class="tattr">— Louise</div>
+    </div>
+  </div>
+</section>
+
+<section class="band band-cream" data-reveal>
+  <div class="wrap">
+    <div class="tminis">
+      <div class="m"><p>"I'm mind blown. That was incredible. I have the steps to move forward without fear, overwhelm or second-guessing. This was life changing."</p><div class="tattr">Client</div></div>
+      <div class="m"><p>"Nicky is amazing. Deeply intuitive and very supportive. When I had a huge energy dip and told Nicky, she immediately tuned in and supported me, which was so amazing and very much appreciated."</p><div class="tattr">Sandy</div></div>
+      <div class="m"><p>"My cravings disappeared fast, my mind quietened, and I feel like myself again."</p><div class="tattr">Client</div></div>
+      <div class="m"><p>"Her readings are so clear and accurate. So many tears, but also so much hope. I felt completely safe and supported."</p><div class="tattr">Client</div></div>
+      <div class="m"><p>"Nicky has a profound gift for tuning into the negative beliefs and stories that live inside of our being. She doesn't just give a reading, she actually tunes in and clears the energy that holds the belief in place."</p><div class="tattr">Aimee</div></div>
+      <div class="m"><p>"No more desire for sugar to get a hit. Not interested in snacking. My body is less inflamed. I am feeling a difference."</p><div class="tattr">Client</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="band band-dark" data-reveal>
+  <div class="wrap">
+    <div class="tminis">
+      <div class="m"><p>"Feeling much gratitude to be moved up into greater healing and peace. Your work has been miraculous, feeling like answers to many, many prayers being answered."</p><div class="tattr">Client</div></div>
+      <div class="m"><p>"Just WOW again. Blown away by all of this, it's all spot on and I was able to resonate with all of it."</p><div class="tattr">Client</div></div>
+      <div class="m"><p>"Just Wow! We are blown away by this, thank you so much, I am beyond grateful for the work you have done, it's amazing. I'm going to listen to this again and again."</p><div class="tattr">Client</div></div>
+      <div class="m"><p>"I woke up this morning and my throat pain is completely gone. It literally hurt to speak and swallow before. Feels a hundred percent better overnight."</p><div class="tattr">Client</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="tplate-light band" data-reveal>
+  <img class="bgimg" src="assets/t-texture.jpg" alt="">
+  <div class="twrap wrap">
+    <div class="tfull">
+      <div class="rule"></div>
+      <p class="tk">"The most complete release I've experienced, and I've tried a lot"</p>
+      <p>I don't know what Nicky does and I've never met her, but the work she does is the most complete and immediate release of habits and energy and emotions that I've ever experienced. And I've tried a lot over the last 30 years.</p>
+      <p>One day I was held hostage by thoughts of eating my favourite sweet foods. The next day, and still holding, I was not. I could drive through fast food with no dessert added. I could walk down the ice cream aisle and not be even tempted.</p>
+      <p>If you've lost hope that you can overcome the impossible patterns, habits, fears, or whatever, try Nicky's energy clearings. I can't recommend her highly enough.</p>
+      <div class="tattr">— Anna</div>
+    </div>
+  </div>
+</section>
+
+<section class="tplate band" data-reveal>
+  <img class="bgimg" src="assets/t-detective.jpg" alt="">
+  <div class="twrap wrap">
+    <div class="tfull">
+      <div class="rule"></div>
+      <p class="tk">"She solves the case"</p>
+      <p>Nicky has been so spot-on in getting to the root cause of blocks I have had around money, abundance and health. The best part is that she then clears those blocks. Really clears them. And she does it all without you even knowing when or how.</p>
+      <p>It's liberating to have someone who can read my field so accurately without me having to be there or go into a big story about what I need. She solves the case of who, what, and why of any issue like the brilliant detective she is.</p>
+      <div class="tattr">— Client</div>
+    </div>
+  </div>
+</section>
+
+<section class="band band-cream" data-reveal>
+  <div class="wrap">
+    <div class="eyebrow">How it works</div>
+    <div class="h2">Three steps.</div>
+    <p class="lede">You don't need to relive your trauma or explain yourself, your subconscious does it for you.</p>
+    <div class="steps">
+      <div><div class="stepnum">01</div><h3>Book your session</h3><p>Choose what's calling loudest right now. You don't need to diagnose yourself. Just tell me what's going on.</p></div>
+      <div><div class="stepnum">02</div><h3>I find what's actually driving it</h3><p>Every session is remote. I trace the pattern back to where it started, and clear it at the root, not the surface symptom you came in with.</p></div>
+      <div><div class="stepnum">03</div><h3>You feel the shift</h3><p>Most clients notice something within days, lighter, calmer, less braced. Old data doesn't ask twice once it's actually gone.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band band-dark" data-reveal>
+  <div class="wrap center">
+    <div class="eyebrow">Ready to find out for yourself?</div>
+    <div class="h2" style="font-size:clamp(32px,5vw,52px)">See what's right for you.</div>
+    <a class="btn" href="work-with-me.html" data-magnetic>Work With Me →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap-wide ffoot">
+    <span class="fwm">Nicky Williams · Energy Detective</span>
+    <div class="fnl"><a href="index.html">Home</a><a href="about.html">About</a><a href="work-with-me.html">Work With Me</a><a href="testimonials.html">Testimonials</a><a href="policies-hub.html">Policies</a><a class="ig" href="https://www.instagram.com/energydetective.online/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.3" cy="6.7" r="0.6" fill="currentColor" stroke="none"></circle></svg></a></div>
+  </div>
+</footer>
+
+<script src="_shared/premium2.js"></script>
+<script>
+  addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('solid',scrollY>60),{passive:true});
+  const mnav=document.getElementById('mnav');
+  document.getElementById('menuBtn').addEventListener('click',()=>mnav.classList.add('open'));
+  document.getElementById('mnavClose').addEventListener('click',()=>mnav.classList.remove('open'));
+  mnav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mnav.classList.remove('open')));
+
+  const counters=[...document.querySelectorAll('[data-count]')];
+  const easeOut=t=>1-Math.pow(1-t,3);
+  function countUp(el){
+    const target=+el.dataset.count, dur=1400, start=performance.now();
+    function tick(now){
+      const p=Math.min(1,(now-start)/dur);
+      el.textContent=Math.round(target*easeOut(p)).toLocaleString();
+      if(p<1)requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  const statsIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){counters.forEach(countUp);statsIO.disconnect();}}),{threshold:.2,rootMargin:'0px 0px -10% 0px'});
+  const statsEl=document.querySelector('.stats');
+  if(statsEl)statsIO.observe(statsEl);
+
+  (function(){
+    const a=document.getElementById('streamA'), b=document.getElementById('streamB');
+    if(!a||!b)return;
+    const FADE=1.0;
+    let active=a, idle=b, swapping=false;
+    idle.currentTime=0;
+    active.play().catch(()=>{});
+    function onTime(){
+      if(swapping||!active.duration)return;
+      if(active.duration-active.currentTime<=FADE){
+        swapping=true;
+        idle.currentTime=0;
+        idle.play().catch(()=>{});
+        idle.classList.add('on');
+        active.classList.remove('on');
+        const prevActive=active;
+        active=idle; idle=prevActive;
+        active.removeEventListener('timeupdate',onTime);
+        active.addEventListener('timeupdate',onTime);
+        setTimeout(()=>{ idle.pause(); idle.currentTime=0; swapping=false; },FADE*1000+80);
+      }
+    }
+    active.addEventListener('timeupdate',onTime);
+  })();
+</script>
+</body></html>

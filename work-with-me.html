@@ -1,0 +1,453 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Work With Me — Energy Detective</title>
+<meta name="description" content="Two ways to clear the old data running your life: a single Block Release Session or Rewire's deeper four-week work. Fully remote, no reliving required.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Work With Me — Energy Detective">
+<meta property="og:description" content="Two ways to clear the old data running your life: a single Block Release Session or Rewire's deeper four-week work. Fully remote, no reliving required.">
+<meta property="og:url" content="https://energydetective.online/work-with-me.html">
+<meta property="og:image" content="https://energydetective.online/assets/hwm.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_shared/premium2.css">
+<style>
+  :root{
+    --charcoal:oklch(0.253 0.005 67.6); --cream:oklch(0.962 0.009 84.6); --gold:oklch(0.702 0.074 78.9);
+    --forest:oklch(0.450 0.027 155.2); --inkc:oklch(0.40 0.006 75);
+    --disp:'Instrument Serif',serif; --sans:'Poppins',sans-serif;
+    --bg:var(--charcoal); --ink:var(--cream); --accent:var(--gold);
+    --hair:color-mix(in oklch,var(--inkc) 14%,transparent);
+  }
+  body{background:var(--cream);color:var(--inkc);font-family:var(--sans);font-weight:300;line-height:1.75;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--gold);color:var(--charcoal)}
+  .wrap{max-width:680px;margin:0 auto;padding:0 clamp(20px,4vw,56px)}
+  .wrap-wide{max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,56px)}
+
+  nav{position:fixed;inset:0 0 auto 0;z-index:60;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px clamp(20px,4vw,40px);transition:.4s;border-bottom:1px solid transparent}
+  nav.solid{background:color-mix(in oklch,var(--charcoal) 88%,transparent);backdrop-filter:blur(14px);border-color:color-mix(in oklch,var(--cream) 14%,transparent);padding:14px clamp(20px,4vw,40px)}
+  .wm{font-family:var(--disp);line-height:1.15}
+  .wm .n{font-style:italic;font-size:16px;color:var(--cream)}
+  .wm .t{display:block;font-family:var(--sans);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:color-mix(in oklch,var(--cream) 68%,transparent);margin-top:2px}
+  .nl{display:flex;gap:26px;font-size:13px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:color-mix(in oklch,var(--cream) 92%,transparent);align-items:center}
+  .nl a:hover{color:var(--cream)}.nl a.active{color:var(--gold)}
+  .ncta{font-family:var(--disp);font-style:italic;font-size:16px;color:var(--gold);white-space:nowrap}
+
+  .menu-btn{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:44px;background:none;border:none;cursor:pointer}
+  .menu-btn span{display:block;width:26px;height:1px;background:var(--cream)}
+  .mnav{position:fixed;inset:0;z-index:70;background:var(--charcoal);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;opacity:0;pointer-events:none;transition:opacity .35s}
+  .mnav.open{opacity:1;pointer-events:auto}
+  .mnav a{font-family:var(--disp);font-style:italic;font-size:26px;color:var(--cream);padding:10px 0}
+  .mnav a.active{color:var(--gold)}
+  .mnav .mclose{position:absolute;top:18px;right:16px;padding:8px;background:none;border:none;color:var(--cream);font-size:28px;line-height:1;cursor:pointer;font-family:var(--sans);font-weight:300}
+
+  .band{position:relative;padding:clamp(80px,12vh,140px) 0}
+  .band-dark{background:var(--charcoal);color:var(--cream)}
+  .band-cream{background:var(--cream);color:var(--inkc)}
+  .band-dark p{color:color-mix(in oklch,var(--cream) 86%,transparent)}
+  .band-dark .eyebrow{color:var(--gold)}
+  .band-cream .eyebrow{color:var(--forest)}
+
+  .eyebrow{font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;margin-bottom:20px;text-align:center}
+  .rule{width:36px;height:1px;background:var(--gold);margin:0 auto 20px;opacity:.7}
+  h1.h1,.h1{font-family:var(--disp);font-weight:300;font-size:clamp(38px,6vw,72px);line-height:1.05;text-align:center;max-width:16ch;margin:0 auto}
+  .h2{font-family:var(--disp);font-weight:400;font-style:italic;font-size:clamp(26px,3.6vw,38px);line-height:1.2;text-align:center;max-width:20ch;margin:0 auto 30px}
+  .lede{font-size:17px;line-height:1.8;max-width:62ch;margin:24px auto 0;text-align:center}
+  .center{text-align:center}
+  .cta-link{display:inline-block;margin-top:26px;font-family:var(--sans);font-weight:500;font-size:15px;letter-spacing:.04em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid color-mix(in oklch,var(--gold) 55%,transparent);padding-bottom:4px}
+  .band-cream .cta-link{color:var(--forest);border-color:color-mix(in oklch,var(--forest) 55%,transparent)}
+
+  .btn{display:inline-block;padding:15px 34px;background:var(--gold);color:var(--charcoal);font-family:var(--sans);font-weight:500;font-size:14px;letter-spacing:.06em;text-transform:uppercase;border-radius:3px;transition:.25s}
+  .btn:hover{filter:brightness(1.06)}
+
+  .vidembed{position:relative;width:100%;max-width:760px;margin:44px auto 0;aspect-ratio:16/9;border-radius:4px;overflow:hidden;border:1px solid color-mix(in oklch,var(--cream) 20%,transparent)}
+  .vidembed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+  .stats{display:flex;justify-content:center;gap:clamp(28px,6vw,64px);flex-wrap:wrap;margin-top:38px}
+  .stats .s{text-align:center}
+  .stats .s b{display:block;font-family:var(--disp);font-size:clamp(24px,2.8vw,30px);color:var(--gold);font-weight:400}
+  .stats .s span{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:color-mix(in oklch,var(--cream) 78%,transparent)}
+
+  .modal-overlay{position:fixed;inset:0;z-index:80;background:color-mix(in oklch,var(--charcoal) 70%,transparent);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .3s}
+  .modal-overlay.open{opacity:1;pointer-events:auto}
+  .modal-panel{position:relative;background:var(--cream);color:var(--inkc);max-width:480px;width:100%;max-height:88vh;overflow-y:auto;padding:44px 38px;border-radius:4px;transform:translateY(12px);transition:transform .3s}
+  .modal-overlay.open .modal-panel{transform:translateY(0)}
+  .modal-close{position:absolute;top:16px;right:18px;background:none;border:none;color:var(--inkc);font-size:18px;line-height:1;cursor:pointer;padding:6px}
+  .modal-eyebrow{font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--forest);text-align:center;margin-bottom:10px}
+  .modal-title{font-family:var(--disp);font-weight:400;font-style:italic;font-size:34px;text-align:center;margin:0 0 10px}
+  .modal-price{font-family:var(--disp);font-size:26px;color:var(--gold);text-align:center;margin-bottom:26px}
+  .modal-price span{font-family:var(--sans);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--forest);margin-left:4px}
+  .modal-list{list-style:none;margin:0 0 26px;padding:0;border-top:1px solid var(--hair)}
+  .modal-list li{padding:14px 0 14px 24px;border-bottom:1px solid var(--hair);position:relative;font-size:15px;line-height:1.55}
+  .modal-list li::before{content:"—";position:absolute;left:0;color:var(--gold)}
+  .modal-note{font-size:13.5px;line-height:1.6;color:color-mix(in oklch,var(--inkc) 85%,transparent);text-align:center;margin:0 0 28px}
+  .modal-note a{color:var(--forest);border-bottom:1px solid color-mix(in oklch,var(--forest) 45%,transparent)}
+  .modal-cta{display:block;text-align:center;width:100%}
+
+  .tc-v2-embeddable-trigger-el.btn{background:var(--gold) !important;color:var(--charcoal) !important;border-radius:3px !important;padding:15px 34px !important;font-family:var(--sans) !important;font-weight:500 !important;font-size:14px !important;letter-spacing:.06em !important;text-transform:uppercase !important;box-shadow:none !important}
+  .modal-policy{display:block;text-align:center;margin-top:18px;font-size:12.5px;letter-spacing:.04em;color:var(--forest);border-bottom:1px solid color-mix(in oklch,var(--forest) 45%,transparent);padding-bottom:2px;width:fit-content;margin-left:auto;margin-right:auto}
+
+  .sub{font-family:var(--disp);font-weight:400;font-style:italic;font-size:clamp(26px,3.6vw,40px);text-align:center;margin:0 0 36px;line-height:1.15}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,70px);align-items:center}
+  .split.flip .stxt{order:2}
+  .split img{width:100%;display:block;aspect-ratio:4/5;object-fit:cover;border-radius:2px}
+  .split.flip img{aspect-ratio:1/1;max-width:380px;margin:0 auto}
+  .split .stxt .sub{text-align:left;margin-bottom:22px}
+  .split .stxt p{text-align:left}
+  .meet{display:inline-flex;align-items:center;gap:8px;margin-top:26px;font-family:var(--sans);font-weight:500;font-size:16px;color:var(--forest);border-bottom:1px solid color-mix(in oklch,var(--forest) 55%,transparent);padding-bottom:4px;transition:.3s}
+  .meet:hover{border-color:var(--forest)}
+
+  .hw .sub{text-align:left;margin-bottom:18px}
+  .hw .hwlede{font-size:17px;line-height:1.7;color:color-mix(in oklch,var(--inkc) 82%,transparent);max-width:44ch;margin:0 0 44px}
+  .hwrows{border-top:1px solid var(--hair)}
+  .hwrow{display:grid;grid-template-columns:auto 1fr;gap:clamp(18px,3vw,34px);align-items:start;padding:30px 0;border-bottom:1px solid var(--hair);color:inherit;transition:.25s}
+  .hwrow:hover{background:color-mix(in oklch,var(--forest) 5%,transparent)}
+  .hwrow .hwn{font-family:var(--disp);font-weight:300;font-size:clamp(40px,4.4vw,54px);line-height:1;color:var(--gold);font-variant-numeric:oldstyle-nums}
+  .hwrow h3{font-family:var(--disp);font-weight:400;font-size:clamp(21px,2.6vw,26px);line-height:1.15;margin:6px 0 8px}
+  .hwrow p{font-size:15.5px;line-height:1.6;color:color-mix(in oklch,var(--inkc) 82%,transparent);margin:0;max-width:38ch}
+  .hwquick{display:inline-block;margin-top:14px;font-family:var(--sans);font-weight:500;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--forest);border-bottom:1px solid color-mix(in oklch,var(--forest) 55%,transparent);padding-bottom:2px}
+
+  .tplate{position:relative;overflow:hidden;text-align:center;height:auto}
+  .tplate .bgimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.4;animation:kenburns 26s ease-in-out infinite alternate}
+  @keyframes kenburns{0%{transform:scale(1) translate(0,0)}100%{transform:scale(1.14) translate(-2%,-1.5%)}}
+  .tplate::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,color-mix(in oklch,var(--charcoal) 82%,transparent),color-mix(in oklch,var(--charcoal) 90%,transparent))}
+  .tplate .twrap{position:relative;z-index:2;max-width:640px;margin:0 auto;padding:0 clamp(20px,4vw,56px)}
+  .tplate .tq{font-family:var(--disp);font-style:italic;font-weight:400;font-size:clamp(22px,2.8vw,28px);line-height:1.4;color:var(--cream);margin:0 0 20px}
+  .tplate .tattr{font-size:13px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+  .tplate .rule{width:36px;height:1px;background:var(--gold);margin:0 auto 22px;opacity:.7}
+
+  .standout{font-style:italic;font-weight:600;color:var(--gold)}
+
+  .checklist{max-width:960px;margin:44px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:2px 40px}
+  .checklist .ci{font-size:14.5px;line-height:1.6;color:color-mix(in oklch,var(--cream) 85%,transparent);padding:8px 0 8px 20px;position:relative;text-align:left}
+  .checklist .ci::before{content:"—";position:absolute;left:0;color:var(--gold)}
+  @media(max-width:820px){.checklist{grid-template-columns:1fr}}
+
+  .midvideo{position:relative;height:80vh;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .midvideo video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .midvideo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,color-mix(in oklch,var(--charcoal) 42%,transparent),color-mix(in oklch,var(--charcoal) 18%,transparent) 40%,color-mix(in oklch,var(--charcoal) 18%,transparent) 60%,color-mix(in oklch,var(--charcoal) 50%,transparent))}
+  .mvq{position:relative;z-index:2;text-align:center;padding:0 clamp(20px,6vw,40px)}
+  .mvq p{font-family:var(--disp);font-weight:400;font-size:clamp(21px,2.8vw,32px);line-height:1.5;color:var(--cream);max-width:30ch;margin:0 auto;text-shadow:0 2px 30px rgba(0,0,0,.5)}
+  .mvq .tattr{margin-top:20px;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--cream);text-shadow:0 2px 4px rgba(0,0,0,.7),0 2px 20px rgba(0,0,0,.6)}
+
+  .rowlist{max-width:900px;margin:56px auto 0;border-top:1px solid var(--hair)}
+  .rowlist .r{padding:32px 0;border-bottom:1px solid var(--hair)}
+  .rowlist .r .rk{font-size:12px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+  .rowlist .r h3{font-family:var(--disp);font-weight:400;font-size:clamp(21px,2.6vw,27px);margin:0 0 10px}
+  .rowlist .r p{margin:0;max-width:60ch;font-size:16px;line-height:1.7}
+
+  .offer{max-width:760px;margin:56px auto 0;text-align:center}
+  .offer .price{font-family:var(--disp);font-size:clamp(40px,6vw,58px);color:var(--gold);margin:0}
+  .offer .cadence{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--forest);margin-top:6px}
+  .band-dark .offer .cadence{color:var(--gold)}
+  .offer .scarcity{font-size:14px;font-style:italic;margin-top:16px;color:var(--forest)}
+  .band-dark .offer .scarcity{color:color-mix(in oklch,var(--cream) 80%,transparent)}
+  .offer .feats{margin:34px 0 0;text-align:left;max-width:520px;margin-left:auto;margin-right:auto}
+  .offer .feats li{list-style:none;padding:14px 0 14px 26px;border-bottom:1px solid var(--hair);position:relative;font-size:15.5px;line-height:1.6}
+  .offer .feats li::before{content:"—";position:absolute;left:0;color:var(--gold)}
+  .offer .feats li:last-child{border-bottom:none}
+  .offer .feats b{font-weight:500;color:var(--charcoal)}
+  .band-dark .offer .feats b{color:var(--cream)}
+
+  .catrow{max-width:820px;margin:20px auto 0}
+  .catrow .c{padding:28px 0;border-bottom:1px solid var(--hair)}
+  .catrow .c .ck{font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+  .catrow .c h4{font-family:var(--disp);font-weight:400;font-size:22px;margin:0 0 8px}
+  .catrow .c p{margin:0;font-size:15.5px;line-height:1.65;color:color-mix(in oklch,var(--inkc) 88%,transparent);max-width:60ch}
+
+  .deep-num{font-family:var(--disp);font-weight:300;color:var(--gold);font-size:34px;margin-bottom:8px;font-variant-numeric:oldstyle-nums}
+  .deep-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;max-width:1000px;margin:44px auto 0}
+  .deep-grid p{font-size:15px;line-height:1.6;margin:0;color:color-mix(in oklch,var(--inkc) 88%,transparent)}
+  .badge{display:inline-block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--forest);border:1px solid color-mix(in oklch,var(--forest) 40%,transparent);padding:6px 14px;border-radius:20px;margin-bottom:20px}
+
+  .reassure{font-family:var(--disp);font-style:italic;font-size:clamp(19px,2.4vw,24px);line-height:1.6;text-align:center;max-width:44ch;margin:0 auto;color:var(--forest)}
+
+  .narrative-wide{max-width:720px;margin:0 auto}
+  .narrative-wide p{font-size:17px;line-height:1.85;margin:0 0 24px}
+  .narrative-wide p:last-child{margin-bottom:0}
+  .narrative-wide p b{color:var(--cream);font-weight:500}
+
+  details{max-width:760px;margin:0 auto;border-bottom:1px solid var(--hair)}
+  details:first-of-type{border-top:1px solid var(--hair)}
+  details summary{cursor:pointer;list-style:none;padding:26px 30px 26px 0;position:relative;font-family:var(--disp);font-size:19px;font-weight:400}
+  details summary::-webkit-details-marker{display:none}
+  details summary::after{content:"+";position:absolute;right:0;top:24px;font-size:22px;color:var(--gold);transition:.25s}
+  details[open] summary::after{content:"–"}
+  details p{margin:0 0 26px;font-size:15.5px;line-height:1.7;color:color-mix(in oklch,var(--inkc) 88%,transparent);max-width:62ch}
+
+  footer{background:var(--charcoal);color:var(--cream);border-top:1px solid color-mix(in oklch,var(--cream) 14%,transparent);padding:42px 0}
+  .fwm{font-family:var(--disp);font-style:italic;font-size:15px}
+  .ffoot{display:flex;justify-content:space-between;width:100%;flex-wrap:wrap;gap:14px;align-items:center}
+  .fnl{display:flex;flex-wrap:wrap;row-gap:10px;gap:22px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:color-mix(in oklch,var(--cream) 74%,transparent);align-items:center}
+  .fnl a{white-space:nowrap}
+  .fnl .ig{display:inline-flex;padding:2px}
+  .fnl .ig svg{width:15px;height:15px;display:block}
+  .fnl a:hover{color:var(--cream)}
+
+  @media(max-width:820px){.nl{display:none}.menu-btn{display:flex}.wm .t{display:none}.deep-grid{grid-template-columns:1fr;gap:24px}.split{grid-template-columns:1fr;gap:24px}.split.flip .stxt{order:0}}
+
+  .cur{background:var(--gold);mix-blend-mode:normal;box-shadow:0 0 10px color-mix(in oklch,var(--gold) 55%,transparent)}
+  .cur-r{width:26px;height:26px;margin:-13px 0 0 -13px;border-color:color-mix(in oklch,var(--gold) 60%,transparent);mix-blend-mode:normal}
+  .cur-r.hot{width:42px;height:42px;margin:-21px 0 0 -21px;background:color-mix(in oklch,var(--gold) 14%,transparent);border-color:color-mix(in oklch,var(--gold) 75%,transparent)}
+</style></head><body>
+
+<div class="intro"><div class="ipct">0</div><div class="ibar"></div></div>
+
+<nav id="nav">
+  <a class="wm" href="index.html"><span class="n">Nicky Williams</span><span class="t">Founder of The Deep Release Method&trade;</span></a>
+  <div class="nl">
+    <a href="index.html">Home</a><a href="about.html">About</a>
+    <a href="work-with-me.html" class="active">Work With Me</a><a href="testimonials.html">Testimonials</a>
+  </div>
+  <a class="ncta" href="mailto:hello@energydetective.online?subject=New%20enquiry" data-magnetic>Contact Nicky</a>
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mnav" id="mnav">
+  <button class="mclose" id="mnavClose" aria-label="Close menu">✕</button>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="work-with-me.html" class="active">Work With Me</a>
+  <a href="testimonials.html">Testimonials</a>
+  <a href="mailto:hello@energydetective.online?subject=New%20enquiry">Contact Nicky</a>
+</div>
+
+<section class="band band-dark" style="padding-top:clamp(140px,20vh,200px)">
+  <div class="wrap">
+    <div class="eyebrow">The Work</div>
+    <h1 class="h1">Work with me</h1>
+    <p class="lede">You've done the mindset work, the affirmations, the therapy. And still, you don't recognise who's looking back at you.</p>
+    <p class="lede"><span class="standout">That's not you failing to change, to get better or to heal.</span> It's old data your nervous system is still running.</p>
+    <p class="lede">I find it and clear it, remotely, so you don't have to relive a word of it.</p>
+    <div class="vidembed"><iframe src="https://www.youtube-nocookie.com/embed/pf97kKb74CQ" title="Work With Me — Energy Detective" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>
+    <div class="center"><a class="cta-link" href="testimonials.html">Check Out Client Results →</a></div>
+    <div class="stats">
+      <div class="s"><b>700+</b><span>Sessions Delivered</span></div>
+      <div class="s"><b>5★</b><span>Average Rating</span></div>
+      <div class="s"><b>100%</b><span>Remote · Worldwide</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band band-cream hw">
+  <div class="wrap-wide split" data-reveal>
+    <div class="stxt">
+      <h2 class="sub">Two ways in</h2>
+      <p class="hwlede">Depending on how deep you're ready to go.</p>
+      <div class="hwrows">
+        <div class="hwrow">
+          <div class="hwn">01</div>
+          <div><h3>Block Release Session</h3><p>One remote session to clear whatever's weighing you down right now. $147.</p><a class="hwquick" href="#block-release-buy">Book now →</a></div>
+        </div>
+        <div class="hwrow">
+          <div class="hwn">02</div>
+          <div><h3>Rewire</h3><p>Over four weekly sessions, we go wherever the subconscious leads. No single focus imposed. No area off limits. $555.</p><a class="hwquick" href="#rewire-buy">Book now →</a></div>
+        </div>
+      </div>
+    </div>
+    <img src="assets/hwm.jpg" alt="A sandy path through dunes overlooking the sea">
+  </div>
+</section>
+
+<section class="band band-dark" data-reveal>
+  <div class="wrap">
+    <div class="eyebrow">Two ways to work together</div>
+    <h2 class="h2">One session, or diving deeper?</h2>
+    <p class="lede">The choice is yours.</p>
+    <p class="lede">A single Block Release Session is a taste of what this work feels like with the Deep Release Method™.</p>
+    <p class="lede">Rewire is for when you already know you've been holding this for too long and we need to go deeper. Four sessions, over four consecutive weeks, booked in from the start so you've got consistency and support the whole way through.</p>
+    <p class="lede">Both are entirely remote. No calls, no reliving anything. Just tell me what's going on, and I'll get to work.</p>
+  </div>
+</section>
+
+<section class="band band-cream">
+  <div class="wrap-wide split flip" data-reveal>
+    <img src="assets/nicky-beach-2.png" alt="Nicky Williams">
+    <div class="stxt">
+      <h2 class="sub">Whichever you choose, it's still me</h2>
+      <p>I'm not handing you off to a script or a system. Every session is me working directly with your energy, the same way I've worked with hundreds of clients around the world.</p>
+      <p>I don't need your full story to find what's running the show. I just need you willing to let it go.</p>
+      <a class="meet" href="about.html">More about my approach →</a>
+    </div>
+  </div>
+</section>
+
+<section class="tplate band" data-reveal>
+  <img class="bgimg" src="assets/g3.jpg" alt="">
+  <div class="twrap">
+    <div class="rule"></div>
+    <p class="tq">"It's honestly like Nicky has turned a tap on. Everything feels like it's flowing again instead of stuck and stagnant."</p>
+    <div class="tattr">— Trish</div>
+  </div>
+</section>
+
+<section class="band band-cream" data-reveal>
+  <div class="wrap">
+    <div class="eyebrow">Remote healing</div>
+    <h2 class="h2">Freedom, at speed</h2>
+    <p class="lede">I don't stop at the first thing I find. I work fast, and once I'm in your chosen area, I clear everything that's ready to go, not just one block.</p>
+    <p class="lede">Tell me what's going on in a line or two, no call, no reliving it, no story required, and I'll get to work using the Deep Release Method™.</p>
+  </div>
+</section>
+
+<section class="band band-dark" data-reveal>
+  <div class="wrap-wide">
+    <div class="eyebrow">At A Glance</div>
+    <h2 class="h2">Just some of the areas I work with</h2>
+    <div class="checklist">
+      <div class="ci">Emotional heaviness</div><div class="ci">Feeling disconnected</div><div class="ci">Feeling numb or flat</div><div class="ci">Body shame</div><div class="ci">Body disconnect</div><div class="ci">Struggle to trust yourself</div><div class="ci">Cravings you can't explain</div><div class="ci">Anxiety</div><div class="ci">Overthinking</div><div class="ci">Spiralling thoughts</div><div class="ci">Racing mind</div><div class="ci">Brain fog</div><div class="ci">Depression</div><div class="ci">Sadness</div><div class="ci">Grief</div><div class="ci">Guilt</div><div class="ci">Shame</div><div class="ci">Anger</div><div class="ci">Fear of being seen</div><div class="ci">Fear of failure</div><div class="ci">Fear of judgement</div><div class="ci">Procrastination</div><div class="ci">Self-sabotage</div><div class="ci">Indecisiveness</div><div class="ci">Low self-esteem</div><div class="ci">Negative self-talk</div><div class="ci">Feeling stuck</div><div class="ci">Stuck / stagnated in life</div><div class="ci">Lack of motivation</div><div class="ci">Insomnia</div><div class="ci">Disrupted sleep</div><div class="ci">Exhaustion</div><div class="ci">Waking up already tired</div><div class="ci">Tension headaches</div><div class="ci">Muscle tension</div><div class="ci">Inner criticism</div><div class="ci">Hypervigilance</div><div class="ci">Catastrophising</div><div class="ci">Fight-flight emotional responses</div><div class="ci">Loneliness</div><div class="ci">Sugar or food cravings</div><div class="ci">Inherited emotional patterns</div><div class="ci">Old negative beliefs</div><div class="ci">Unresolved trauma</div><div class="ci">Relationship patterns</div><div class="ci">People pleasing</div><div class="ci">Lack of boundaries</div><div class="ci">Networking or visibility fear</div><div class="ci">Moving on from the past</div><div class="ci">Inherited trauma</div><div class="ci">Family patterns you didn't choose</div><div class="ci">Repeating the same mistakes</div><div class="ci">Energetic blocks</div>
+    </div>
+  </div>
+</section>
+
+<section class="band band-cream" id="block-release" data-reveal>
+  <div class="wrap">
+    <div class="eyebrow">Not sure where to start?</div>
+    <h2 class="h2">Free Choice Block Release</h2>
+    <p class="lede">You know something's off, you just can't put your finger on it. That's fine, you don't need to diagnose yourself. Give me a line or two on what's going on, and I'll go looking through your subconscious and nervous system for whatever's most ready to let go, right now.</p>
+    <div class="catrow">
+      <div class="c"><div class="ck">Free Choice</div><h4>Just Know Something's Off</h4><p>No money story, no business fear, no clean category, just a general sense that something isn't right. You don't need a label for it. That's plenty for me to go on. I'll go in and clear whatever's most active right now.</p></div>
+      <div class="c"><div class="ck">Money</div><h4>Money Block Release</h4><p>You've done the budgets, the mindset work, maybe even the vision board. Money still feels like it slips through your fingers, or refuses to show up at all. That's not a strategy problem, it's old data filed under "not safe to have this." One session to find it and clear it.</p></div>
+      <div class="c"><div class="ck">Business</div><h4>Business Block Release</h4><p>You've got the offer, the plan, the ability. So why does something invisible keep pulling you back the moment you're actually ready to expand? That's not a lack of drive. It's a fear or a ceiling your system is still bracing against. Found and cleared, in one session.</p></div>
+      <div class="c"><div class="ck">Health</div><h4>Health Block Release</h4><p>Same flare-up, different day, no matter what you try. Supplements, protocols, willpower, none of it touches what's actually running the show. This works at the layer physical approaches can't reach, the emotional and energetic weight your body has been carrying quietly for years.</p></div>
+      <div class="c"><div class="ck">Relationships</div><h4>Relationship Block Release</h4><p>You might feel broken, like relationships just aren't meant to work for you. They are. Underneath it, you're carrying stored emotions and beliefs, patterns you didn't choose and probably can't name, that are quietly sabotaging your relationship success. This session finds them and clears them.</p></div>
+      <div class="c"><div class="ck">Emotional Eating</div><h4>Emotional Eating Block Release</h4><p>You know you're not hungry when you reach for it, but you reach anyway, and the cycle just repeats itself. Willpower, diets and hacks were never going to fix this, because it was never about the food. Name your top trigger foods, and I'll go in and clear what's actually driving you to them, so the pull finally loses its grip.</p></div>
+    </div>
+    <div class="offer" id="block-release-buy" style="margin-top:40px">
+      <p class="price">$147</p>
+      <div class="cadence">Single Session · Choose Your Focus At Checkout</div>
+      <div style="margin-top:30px" class="tc-embed-wrap">
+        <div class="builder-v2-widget tc-v2-widget-embeddable_button tc-v2-embeddable-trigger" data-widget-layout="embeddable_button" data-thrivecart-account="nickywilliams" data-thrivecart-tpl="v2" data-thrivecart-product="76" data-thrivecart-modal="on" data-thrivecart-modal-opts="{&quot;style_modal_width&quot;:&quot;40&quot;,&quot;style_content_border_radius&quot;:&quot;0.5&quot;,&quot;attr_modal_background&quot;:&quot;on&quot;,&quot;style_modal_background_color&quot;:&quot;#000000&quot;,&quot;style_modal_background_opacity&quot;:&quot;40&quot;,&quot;attr_modal_blur&quot;:&quot;off&quot;,&quot;attr_content_shadow&quot;:&quot;off&quot;}">
+          <div data-size="auto" data-style="rounded" data-align="center" data-block="embeddable_button" class="builder-v2-block builder-v2-block-embeddable_button">
+            <button class="tc-v2-embeddable-trigger-el button btn" style="border:none;cursor:pointer" data-magnetic>
+              <span class="builder-v2-block builder-v2-block-plaintext" data-block="plaintext" data-block-opts="{&quot;text_editor_toolbar&quot;:&quot;plain&quot;}">Book Your Block Release Session →</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band band-dark" id="rewire" data-reveal>
+  <div class="wrap">
+    <div class="eyebrow">Ready to go deeper?</div>
+    <h2 class="h2">Rewire</h2>
+    <p class="lede" style="margin-top:8px">4 Deep Release Sessions over 4 consecutive weeks.</p>
+    <p class="lede">A single Block Release Session clears whatever's most ready to go, in one session. But you already know there's more underneath. Rewire is four personalised sessions over four weeks, going deeper each time: the anxiety, the self-sabotage, the people-pleasing, whatever you've been carrying for decades, <span class="standout">one layer giving way to the next.</span></p>
+    <div class="offer" id="rewire-buy">
+      <p class="price">$555</p>
+      <div class="cadence">4 Sessions · 4 Weeks</div>
+      <div style="margin-top:30px"><button type="button" class="btn" id="rewireOpenBtn" data-magnetic>Book Your Rewire →</button></div>
+    </div>
+  </div>
+</section>
+
+<div class="modal-overlay" id="rewireModal">
+  <div class="modal-panel">
+    <button type="button" class="modal-close" id="rewireCloseBtn" aria-label="Close">✕</button>
+    <div class="modal-eyebrow">Ready to go deeper?</div>
+    <h3 class="modal-title">Rewire</h3>
+    <div class="modal-price">$555 <span>· 4 Sessions · 4 Weeks</span></div>
+    <ul class="modal-list">
+      <li>4 weekly remote energy healing sessions</li>
+      <li>Highly personalised feedback by video summary</li>
+      <li>Confidential communication via email throughout</li>
+      <li>Current start date: 2–4 weeks from booking</li>
+    </ul>
+    <p class="modal-note">Any questions before booking, please email Nicky at <a href="mailto:hello@energydetective.online?subject=Rewire%20question">hello@energydetective.online</a>.</p>
+    <div class="builder-v2-widget tc-v2-widget-embeddable_button tc-v2-embeddable-trigger modal-cta" data-widget-layout="embeddable_button" data-thrivecart-account="nickywilliams" data-thrivecart-tpl="v2" data-thrivecart-product="23" data-thrivecart-modal="on" data-thrivecart-modal-opts="{&quot;style_modal_width&quot;:&quot;40&quot;,&quot;style_content_border_radius&quot;:&quot;0.5&quot;,&quot;attr_modal_background&quot;:&quot;on&quot;,&quot;style_modal_background_color&quot;:&quot;#000000&quot;,&quot;style_modal_background_opacity&quot;:&quot;40&quot;,&quot;attr_modal_blur&quot;:&quot;off&quot;,&quot;attr_content_shadow&quot;:&quot;off&quot;}">
+      <div data-size="auto" data-style="rounded" data-align="center" data-block="embeddable_button" class="builder-v2-block builder-v2-block-embeddable_button">
+        <button class="tc-v2-embeddable-trigger-el button btn" style="width:100%;border:none;cursor:pointer">
+          <span class="builder-v2-block builder-v2-block-plaintext" data-block="plaintext" data-block-opts="{&quot;text_editor_toolbar&quot;:&quot;plain&quot;}">Continue to Secure Checkout →</span>
+        </button>
+      </div>
+    </div>
+    <a class="modal-policy" href="https://energydetective.online/client-agreement/" target="_blank" rel="noopener">Read the client agreement →</a>
+  </div>
+</div>
+
+<section class="midvideo">
+  <video autoplay muted loop playsinline src="assets/about/hero.mp4"></video>
+  <div class="mvq" data-reveal>
+    <p>"The doubts and fears which were holding me back are gone."</p>
+    <div class="tattr">— Claire</div>
+  </div>
+</section>
+
+<section class="band band-cream" style="padding:clamp(60px,9vh,90px) 0" data-reveal>
+  <div class="wrap">
+    <p class="reassure">You don't need to retell the story. You don't need to be on a call. You don't need to do anything at all.</p>
+  </div>
+</section>
+
+<section class="band band-dark" data-reveal>
+  <div class="wrap narrative-wide">
+    <div class="eyebrow" style="margin-bottom:10px">Why this works when everything else hasn't</div>
+    <h2 class="h2" style="margin-bottom:40px;max-width:34ch">You haven't failed to change.<br>You've been working at the wrong level.</h2>
+    <p><b>Here's what's actually happening underneath.</b></p>
+    <p>Your subconscious runs on an internal guidance system, built from everything that's ever happened to you (and before you). What you felt, how your body reacted, what was happening around you, all logged together as one signal.</p>
+    <p>Every time something significant happens, illness, loss, fear, shame, a relationship that left a mark, your subconscious doesn't just remember it. It programs it in, as data your system will use to keep you safe from now on.</p>
+    <p>It's your reference point.</p>
+    <p>When something similar comes up again, a similar feeling, a similar dynamic, a similar threat, your subconscious doesn't stop to think. It runs the closest matching response it's got on file, instantly, automatically, below the level of conscious thought or feeling.</p>
+    <p>That's why you can know better and still do the same thing. That's why the pattern keeps returning even after years of work. That's why willpower, therapy, and conscious effort can only do so much.</p>
+    <p><b>They operate where you can think. Your inner guidance system runs somewhere thinking can't reach.</b></p>
+    <p>Your GPS will always override your thoughts, feelings and emotions.</p>
+    <p>And it goes deeper than your own history. Some of the data running your life wasn't programmed by anything that happened to you personally. It was inherited, passed down through generations before you were even born, just like your eye colour was passed down.</p>
+    <p>The anxiety with no obvious source. The money story that doesn't match your actual experience. The relationship pattern that skips a generation. None of that started with you. But it's still running your system as if it did.</p>
+    <p>This is why I don't need your full story. I don't work at the level of the story. I work at the level of the signal, finding whatever's active, and clearing it.</p>
+    <p>Not managing your future responses. Not reframing the belief, or getting you to practice better, high vibe emotions.</p>
+    <p><b>I clear the data beneath that.</b></p>
+    <p><b>That's what makes this different from everything else you've tried. And that's why it reaches the part nothing else has.</b></p>
+  </div>
+</section>
+
+<section class="band band-cream" data-reveal>
+  <div class="wrap">
+    <div class="eyebrow">Everything you need to know</div>
+    <h2 class="h2" style="margin-bottom:50px">Frequently Asked Questions</h2>
+    <details open><summary>How does a distance session work if we're not on a call?</summary><p>All sessions are done remotely. There is no call, Zoom or appointment time. With your permission, I connect to your energy field, identify what needs to be released and clear it. You simply go about your day and receive your personalised video once the session is complete.</p></details>
+    <details><summary>Do I need to talk about or relive my past?</summary><p>No. I don't work at the level of the story. I work at the level of the signal. You don't need to explain anything or revisit anything painful.</p></details>
+    <details><summary>What's the difference between Block Release and Rewire?</summary><p>A Block Release Session is one sitting, aimed at whatever's most active for you right now. Rewire is four sessions over four weeks, for working through more than one layer as it surfaces. Both are entirely remote, using the Deep Release Method™, with no call needed at all.</p></details>
+    <details><summary>Which option is right for me?</summary><p>If there's one specific thing on your mind, start with a Block Release Session. If a session clears something and you feel there's more underneath, Rewire is your next step. Still not sure? Email me at hello@energydetective.online and I'll help you decide.</p></details>
+    <details><summary>Do I need to believe in energy work for it to work?</summary><p>No. Plenty of my clients started out as sceptics. You don't need to believe in it, you just need to be willing to let it happen. Your belief is not required for the clearing to work.</p></details>
+    <details><summary>When will I notice changes?</summary><p>Some shifts are immediate. Others unfold over days or weeks as your subconscious and nervous system settle into what's been cleared. Your personalised video will tell you what to watch for.</p></details>
+    <details><summary>How do I get started?</summary><p>Choose the option that feels right for where you are right now and follow the link. If you're unsure, read what clients have said on the testimonials page or send a message to hello@energydetective.online.</p></details>
+  </div>
+</section>
+
+<section class="band band-dark" data-reveal>
+  <div class="wrap center">
+    <div class="eyebrow">Not sure where to start?</div>
+    <h2 class="h2">Read what my clients say first.</h2>
+    <div style="display:flex;gap:30px;justify-content:center;flex-wrap:wrap;margin-top:10px">
+      <a class="cta-link" href="testimonials.html">Read Testimonials →</a>
+      <a class="cta-link" href="mailto:hello@energydetective.online?subject=New%20enquiry">Ask Me A Question →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap-wide ffoot">
+    <span class="fwm">Nicky Williams · Energy Detective</span>
+    <div class="fnl"><a href="index.html">Home</a><a href="about.html">About</a><a href="work-with-me.html">Work With Me</a><a href="testimonials.html">Testimonials</a><a href="policies-hub.html">Policies</a><a class="ig" href="https://www.instagram.com/energydetective.online/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.3" cy="6.7" r="0.6" fill="currentColor" stroke="none"></circle></svg></a></div>
+  </div>
+</footer>
+
+<script async src="//tinder.thrivecart.com/embed/v2/thrivecart.js"></script>
+<script src="_shared/premium2.js"></script>
+<script>
+  addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('solid',scrollY>60),{passive:true});
+  const mnav=document.getElementById('mnav');
+  document.getElementById('menuBtn').addEventListener('click',()=>mnav.classList.add('open'));
+  document.getElementById('mnavClose').addEventListener('click',()=>mnav.classList.remove('open'));
+  mnav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mnav.classList.remove('open')));
+
+  const rewireModal=document.getElementById('rewireModal');
+  document.getElementById('rewireOpenBtn').addEventListener('click',()=>rewireModal.classList.add('open'));
+  document.getElementById('rewireCloseBtn').addEventListener('click',()=>rewireModal.classList.remove('open'));
+  rewireModal.addEventListener('click',e=>{ if(e.target===rewireModal) rewireModal.classList.remove('open'); });
+  addEventListener('keydown',e=>{ if(e.key==='Escape') rewireModal.classList.remove('open'); });
+</script>
+</body></html>

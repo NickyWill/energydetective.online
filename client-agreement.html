@@ -1,0 +1,225 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Agreement | Energy Detective</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --charcoal:oklch(0.253 0.005 67.6); --cream:oklch(0.962 0.009 84.6); --gold:oklch(0.702 0.074 78.9);
+    --forest:oklch(0.450 0.027 155.2); --sage:oklch(0.72 0.03 155); --tan:oklch(0.847 0.031 78.8); --plum:var(--forest);
+    --disp:'Instrument Serif',serif; --sans:'Poppins',sans-serif;
+    --hair:color-mix(in oklch,var(--forest) 16%,transparent);
+  }
+  *{box-sizing:border-box}
+  body{background:var(--cream);color:var(--charcoal);font-family:var(--sans);font-weight:300;font-size:16px;line-height:1.75;margin:0;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3{font-family:var(--disp);color:var(--forest);font-weight:400;line-height:1.2}
+  a{color:var(--plum);text-decoration:underline;text-decoration-color:var(--tan)}
+  a:hover{text-decoration-color:var(--plum)}
+  ::selection{background:var(--gold);color:var(--charcoal)}
+
+  nav{position:fixed;inset:0 0 auto 0;z-index:60;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:20px clamp(20px,4vw,40px);background:var(--charcoal);border-bottom:1px solid color-mix(in oklch,var(--cream) 14%,transparent)}
+  .wm{font-family:var(--disp);line-height:1.15;text-decoration:none}
+  .wm .n{font-style:italic;font-size:16px;color:var(--cream)}
+  .wm .t{display:block;font-family:var(--sans);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:color-mix(in oklch,var(--cream) 68%,transparent);margin-top:2px}
+  .nl{display:flex;gap:26px;font-size:13px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;align-items:center}
+  .nl a{color:color-mix(in oklch,var(--cream) 92%,transparent);text-decoration:none}
+  .nl a:hover{color:var(--cream)}
+  .ncta{font-family:var(--disp);font-style:italic;font-size:16px;color:var(--gold);white-space:nowrap;text-decoration:none}
+  .menu-btn{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:44px;background:none;border:none;cursor:pointer}
+  .menu-btn span{display:block;width:26px;height:1px;background:var(--cream)}
+  .mnav{position:fixed;inset:0;z-index:70;background:var(--charcoal);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;opacity:0;pointer-events:none;transition:opacity .35s}
+  .mnav.open{opacity:1;pointer-events:auto}
+  .mnav a{font-family:var(--disp);font-style:italic;font-size:26px;color:var(--cream);padding:10px 0;text-decoration:none}
+  .mnav .mclose{position:absolute;top:18px;right:16px;padding:8px;background:none;border:none;color:var(--cream);font-size:28px;line-height:1;cursor:pointer;font-family:var(--sans);font-weight:300}
+  @media(max-width:820px){.nl{display:none}.menu-btn{display:flex}.wm .t{display:none}}
+
+  .wrap{max-width:680px;margin:0 auto;padding:calc(90px + 4rem) 1.5rem 6rem}
+  h1{font-size:2.4rem;margin-bottom:.3em}
+  h2{font-size:1.5rem;margin-top:2.2em;margin-bottom:.6em}
+  .eyebrow{font-size:.85rem;color:var(--forest);margin-bottom:1rem}
+  .eyebrow a{text-decoration:none}
+  .meta{color:color-mix(in oklch,var(--charcoal) 65%,transparent);font-size:.9rem;margin-bottom:2.5rem}
+  ul,ol{padding-left:1.3rem} li{margin-bottom:.5em}
+  .card{background:#fff;border:1px solid var(--tan);border-radius:4px;padding:1.2rem 1.6rem;margin:1.2rem 0}
+  hr{border:none;border-top:1px solid var(--tan);margin:3rem 0}
+  .hub-list{list-style:none;padding:0}
+  .hub-item{border-bottom:1px solid var(--tan);padding:1.6rem 0}
+  .hub-item h3{margin-top:0;margin-bottom:.4em;color:var(--forest);font-family:var(--disp);font-size:1.4rem;font-weight:400}
+  .hub-item p{margin:.4em 0 .9em}
+  .related-list{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:.8rem;margin:1.5rem 0}
+  .related-list li{background:#fff;border:1px solid var(--tan);border-radius:4px;padding:.5rem 1rem;margin:0}
+  .related-list a{text-decoration:none}
+  .contact-block{background:var(--forest);color:var(--cream);padding:2rem;border-radius:4px;margin-top:3rem}
+  .contact-block a{color:var(--gold)}
+  .contact-block h2{color:var(--cream);margin-top:0}
+
+  footer{background:var(--charcoal);color:var(--cream);border-top:1px solid color-mix(in oklch,var(--cream) 14%,transparent);padding:42px 0}
+  .wrap-wide{max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,56px)}
+  .fwm{font-family:var(--disp);font-style:italic;font-size:15px}
+  .ffoot{display:flex;justify-content:space-between;width:100%;flex-wrap:wrap;gap:14px;align-items:center}
+  .fnl{display:flex;flex-wrap:wrap;row-gap:10px;gap:22px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:color-mix(in oklch,var(--cream) 74%,transparent);align-items:center}
+  .fnl a{white-space:nowrap;text-decoration:none;color:inherit}
+  .fnl a:hover{color:var(--cream)}
+  .fnl .ig{display:inline-flex;padding:2px}
+  .fnl .ig svg{width:15px;height:15px;display:block}
+</style></head><body>
+<nav id="nav">
+  <a class="wm" href="index.html"><span class="n">Nicky Williams</span><span class="t">Founder of The Deep Release Method&trade;</span></a>
+  <div class="nl">
+    <a href="index.html">Home</a><a href="about.html">About</a><a href="work-with-me.html">Work With Me</a><a href="testimonials.html">Testimonials</a>
+  </div>
+  <a class="ncta" href="mailto:hello@energydetective.online?subject=New%20enquiry">Contact Nicky</a>
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mnav" id="mnav">
+  <button class="mclose" id="mnavClose" aria-label="Close menu">&#10005;</button>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="work-with-me.html">Work With Me</a>
+  <a href="testimonials.html">Testimonials</a>
+  <a href="mailto:hello@energydetective.online?subject=New%20enquiry">Contact Nicky</a>
+</div>
+
+<div class="wrap">
+
+  <p class="eyebrow"><a href="policies-hub.html">← Back to Policies, Terms and Accessibility</a></p>
+
+  <h1>Client Agreement</h1>
+  <p class="meta">Applies to all sessions, programmes, and products — effective on purchase or booking. Last updated: September 2026</p>
+
+  <p>This agreement sets out the terms of working with Nicky Williams and Energy Detective. It applies to all clients — whether you are purchasing a single session, an Energy Files product, an Extended Programme, or any other offer listed on this website.</p>
+
+  <p>By purchasing or booking, you confirm that you have read, understood, and agreed to the terms below. This agreement sits alongside the Energy Work Disclaimer, Medical Disclaimer, Privacy Policy, and Terms and Conditions published on this website.</p>
+
+  <p><strong>This agreement sits alongside the following policies:</strong></p>
+  <ul class="related-list">
+    <li><a href="energy-work-disclaimer.html">Energy Work Disclaimer</a></li>
+    <li><a href="medical-disclaimer.html">Medical Disclaimer</a></li>
+    <li><a href="terms-and-conditions.html">Terms &amp; Conditions</a></li>
+    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+  </ul>
+
+  <h2>01. What Energy Detective Provides</h2>
+  <p>Energy Detective offers remote, asynchronous energy-based sessions and programmes using the Deep Release Method™. Work is carried out by Nicky on your behalf, at a distance, without a live call or in-person appointment.</p>
+  <p>Depending on the product or programme you have purchased, delivery may include:</p>
+  <ul>
+    <li>A personalised video recording of session findings</li>
+    <li>Written session notes or summaries</li>
+    <li>Digital resources, workbooks, or lesson materials</li>
+    <li>Structured multi-session programmes with defined scope and duration</li>
+  </ul>
+  <p>The exact format and scope of each offer is described on the relevant sales or product page. Nothing in this agreement expands that scope beyond what was purchased.</p>
+
+  <h2>02. What Energy Work Is — and Is Not</h2>
+  <p>The Deep Release Method™ is a complementary, energy-based approach. It is not a form of medical, psychological, or psychiatric treatment.</p>
+  <p>Energy work does not diagnose, treat, cure, or prevent any medical or psychological condition. Nothing provided by Energy Detective constitutes medical advice, psychological advice, or a clinical recommendation of any kind.</p>
+  <p>Energy work is intended to support emotional clarity, energetic balance, and personal wellbeing. It works alongside — and does not replace — professional medical or mental health care.</p>
+  <p>Results vary between individuals and cannot be predicted or guaranteed. Your outcomes will depend on factors including personal history, emotional readiness, and individual energy patterns.</p>
+
+  <h2>03. Scope of Work and What Falls Outside It</h2>
+  <p>Energy Detective works within a defined scope. The following fall outside that scope and cannot be addressed within any session or programme:</p>
+  <div class="card">
+    <p><strong>Outside scope — Energy Detective does not provide:</strong></p>
+    <ul>
+      <li>Crisis support or mental health intervention</li>
+      <li>Diagnosis or treatment of any medical or psychological condition</li>
+      <li>Advice on psychiatric medication, dosage, or withdrawal</li>
+      <li>Substitute care for clients under active psychiatric treatment</li>
+      <li>Emergency or urgent care of any kind</li>
+      <li>Therapeutic counselling or psychotherapy</li>
+      <li>Support for acute suicidal ideation, self-harm, or psychotic episodes</li>
+    </ul>
+  </div>
+  <p>If any of the above applies to your situation, you are encouraged to seek support from a qualified medical or mental health professional. Energy Detective is not the right fit for clients whose primary need is clinical mental health care.</p>
+  <p>Nicky reserves the right to decline or discontinue work with any client where the session content moves into territory outside this scope — without refund where sessions have already been delivered.</p>
+
+  <h2>04. Mental Health and Medication — Your Responsibility to Disclose</h2>
+  <p>Energy work can surface emotions, memories, and patterns that have been held below conscious awareness. For most people, this is a normal and manageable part of the process.</p>
+  <p>However, if you are currently experiencing — or have a history of — significant mental health challenges, it is important that this is disclosed before work begins.</p>
+  <p>You agree to inform Energy Detective if you are currently under the care of a psychiatrist or mental health team, taking prescribed psychiatric medication, experiencing active mental health episodes, or have been hospitalised for psychiatric reasons within the past two years.</p>
+  <p>This information is held in confidence and is used solely to ensure the work is appropriate for your situation.</p>
+  <p>Failure to disclose this information does not transfer responsibility to Energy Detective. You remain fully responsible for the information you provide at intake and throughout the working relationship.</p>
+  <p>Energy Detective does not provide advice on psychiatric medication under any circumstances. If you have questions about your medication, please consult your prescribing doctor.</p>
+
+  <h2>05. Your Responsibilities as a Client</h2>
+  <p>By purchasing or booking, you confirm and agree to the following:</p>
+  <ul>
+    <li>You are 18 years of age or older (or have parental consent where applicable)</li>
+    <li>The information you provide is accurate and complete to the best of your knowledge</li>
+    <li>You will disclose any relevant medical or mental health information before sessions begin</li>
+    <li>You will seek professional medical or mental health support where this is needed</li>
+    <li>You will not discontinue or alter prescribed treatment based on anything provided by Energy Detective</li>
+    <li>You understand that energy work is a complementary support, not a replacement for professional care</li>
+    <li>You accept full responsibility for your own wellbeing and the decisions you make</li>
+  </ul>
+
+  <h2>06. Remote Sessions — How This Works</h2>
+  <p>All sessions with Energy Detective are carried out remotely and asynchronously. There are no live calls, video appointments, or in-person meetings.</p>
+  <p>By purchasing or booking, you give explicit consent for Nicky to carry out remote energetic work on your behalf, using the details and intentions you provide at intake.</p>
+  <p>You are not required to be present during the session. Nicky will work at the scheduled or allocated time and deliver findings to you as described on your product or programme page.</p>
+
+  <h2>07. Confidentiality</h2>
+  <p>All personal information shared with Energy Detective is held in strict confidence. This includes your intake details, session content, and any disclosures made during the working relationship.</p>
+  <p>Information will not be shared with any third party except:</p>
+  <ul>
+    <li>Where required by law</li>
+    <li>Where disclosure is necessary to prevent serious harm to you or another person</li>
+  </ul>
+  <p>For full details on how your data is collected, stored, and protected, please refer to the <a href="privacy-policy.html">Privacy Policy</a> published on this website.</p>
+
+  <h2>08. Processing and After-Effects</h2>
+  <p>Energy work can sometimes result in a period of processing after a session. This may include temporary emotional sensitivity, tiredness, vivid dreams, or the surfacing of old feelings. This is a normal part of energetic release and typically passes within 24–72 hours.</p>
+  <p>If you experience anything that concerns you following a session, please contact <a href="mailto:hello@energydetective.online">hello@energydetective.online</a>. If you experience a mental health crisis at any time, please contact your GP, NHS 111, or emergency services immediately.</p>
+
+  <h2>09. Extended Programme Terms</h2>
+  <p>Refund and cancellation terms for individual products and programmes are set out on the relevant sales page at the point of purchase.</p>
+  <p>For the purposes of this agreement, an <strong>"Extended Programme"</strong> means any multi-session or ongoing 1:1 container purchased with Energy Detective, including but not limited to Rewire and Deep Body Release, or any future named programme of a similar nature.</p>
+  <p>For all Extended Programme clients, the following additionally apply:</p>
+  <ul>
+    <li>Sessions are carried out promptly following intake — once a session has been delivered, it is non-refundable</li>
+    <li>Unused sessions do not roll over unless agreed in writing</li>
+    <li>Programmes are non-transferable to another individual</li>
+    <li>Where Nicky determines that the work falls outside scope, she reserves the right to discontinue the programme with a pro-rata refund for undelivered sessions only</li>
+  </ul>
+
+  <h2>10. Limitation of Liability</h2>
+  <p>To the fullest extent permitted by the laws of England and Wales, Nicky Williams and Energy Detective are not liable for any direct, indirect, incidental, or consequential loss, harm, or damage resulting from:</p>
+  <ul>
+    <li>Your use of any session, programme, or digital product</li>
+    <li>Reliance on any information provided</li>
+    <li>Decisions made as a result of or following a session</li>
+    <li>Emotional responses arising during or after energy work</li>
+  </ul>
+  <p>Nothing in this agreement excludes or limits liability where it cannot legally be excluded or limited.</p>
+
+  <h2>11. Agreement and Governing Law</h2>
+  <p>By purchasing a product, booking a session, or accessing client materials, you confirm that:</p>
+  <ul>
+    <li>You have read and understood this Client Agreement</li>
+    <li>You agree to its terms</li>
+    <li>You accept full responsibility for your participation and wellbeing</li>
+  </ul>
+  <p>This agreement is governed by the laws of England and Wales. Any disputes will be subject to UK jurisdiction.</p>
+  <p>This agreement may be updated from time to time. The current version is always published on this page. Continued use of services following an update constitutes acceptance of the revised terms.</p>
+
+  <hr>
+  <p>Questions about this agreement or any of the policies on this website? <a href="mailto:hello@energydetective.online">hello@energydetective.online</a> · Energy Detective · United Kingdom</p>
+
+</div>
+
+<footer>
+  <div class="wrap-wide ffoot">
+    <span class="fwm">Nicky Williams &middot; Energy Detective</span>
+    <div class="fnl"><a href="index.html">Home</a><a href="about.html">About</a><a href="work-with-me.html">Work With Me</a><a href="testimonials.html">Testimonials</a><a href="policies-hub.html">Policies</a><a class="ig" href="https://www.instagram.com/energydetective.online/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.3" cy="6.7" r="0.6" fill="currentColor" stroke="none"></circle></svg></a></div>
+  </div>
+</footer>
+
+<script>
+  const mnav=document.getElementById('mnav');
+  document.getElementById('menuBtn').addEventListener('click',()=>mnav.classList.add('open'));
+  document.getElementById('mnavClose').addEventListener('click',()=>mnav.classList.remove('open'));
+  mnav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mnav.classList.remove('open')));
+</script>
+
+</body></html>
