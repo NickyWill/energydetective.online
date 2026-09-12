@@ -125,8 +125,7 @@
   /* ---------- body map: light travels the body, emotions rise and let go ---------- */
   .bodymap{position:relative;height:88vh;min-height:560px;overflow:hidden;background:var(--charcoal)}
   .bm-frame{position:absolute;left:0;top:0}
-  .bm-frame video,.bm-frame img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
-  .bm-frame video{opacity:0;transition:opacity 1.4s linear} .bm-frame video.on{opacity:1}
+  .bm-frame img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
   .bm-vignette{position:absolute;inset:0;background:
     linear-gradient(180deg,color-mix(in oklch,var(--charcoal) 55%,transparent),transparent 30%,transparent 70%,color-mix(in oklch,var(--charcoal) 70%,transparent)),
     radial-gradient(70% 90% at 50% 50%,transparent 45%,color-mix(in oklch,var(--charcoal) 60%,transparent) 100%)}
@@ -274,7 +273,6 @@
 <section class="bodymap" id="bodymap">
   <div class="bm-frame" id="bmFrame">
     <img src="assets/bodymap/dark-back-web.jpg" alt="" loading="lazy">
-    <video id="bmVid" muted playsinline loop preload="metadata" src="assets/bodymap/loop.mp4?v=3"></video>
     <div class="bm-vignette"></div>
     <div class="bm-glow" id="bmGlow"></div>
     <div id="bmBubbles"></div>
@@ -455,7 +453,7 @@
     /* kinds of block, mixed in one per visit, shown in gold */
     const KINDS=['Pre-conception','Limiting beliefs','Heart walls','Inherited blocks','Ancestral','Old agreements','Unhealthy cords','Physical trauma','Emotional blocks','Prenatal emotions','Inner child'];
     const PER_VISIT=2, HOLD=5400, RISE=4200, AR=16/9; let kindIdx=0;
-    const sec=document.getElementById('bodymap'), frame=document.getElementById('bmFrame'), vid=document.getElementById('bmVid'),
+    const sec=document.getElementById('bodymap'), frame=document.getElementById('bmFrame'),
           glow=document.getElementById('bmGlow'), bubbles=document.getElementById('bmBubbles'), title=document.getElementById('bmTitle'), legend=document.getElementById('bmLegend');
     if(!sec) return;
     const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -479,9 +477,8 @@
       setTimeout(()=>glow.classList.remove('on'),HOLD-900);
     }
     function step(){visit(REGIONS[idx]);idx=(idx+1)%REGIONS.length;if(idx===0)pass++;setTimeout(step,HOLD);}
-    /* start only when the band is on screen, so it doesn't run (or load the video) unseen */
-    new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting&&!started){started=true;step();
-      if(!reduced){vid.addEventListener('canplay',()=>{vid.play().then(()=>vid.classList.add('on')).catch(()=>{});},{once:true});vid.load();}}});},{rootMargin:'200px'}).observe(sec);
+    /* start only when the band is on screen, so it doesn't run unseen */
+    new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting&&!started){started=true;step();}});},{rootMargin:'200px'}).observe(sec);
   })();
 </script>
 </body></html>
