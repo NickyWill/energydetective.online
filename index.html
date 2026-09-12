@@ -141,7 +141,7 @@
     font-family:var(--disp);font-style:italic;font-size:clamp(15px,2.3vmin,24px);line-height:1.1;color:var(--cream);
     opacity:0;pointer-events:none;will-change:transform,opacity;animation:bmrise var(--t) cubic-bezier(.25,.5,.3,1) var(--d) forwards}
   .bubble span{animation:bmsway 3.2s ease-in-out var(--d) infinite alternate;display:block}
-  .bubble.kind{color:var(--gold);box-shadow:inset 0 0 0 1px color-mix(in oklch,var(--gold) 45%,transparent),0 0 44px color-mix(in oklch,var(--gold) 22%,transparent)}
+  .bubble.kind{color:var(--cream);box-shadow:inset 0 0 0 1px color-mix(in oklch,var(--gold) 45%,transparent),0 0 44px color-mix(in oklch,var(--gold) 22%,transparent)}
   @keyframes bmrise{0%{opacity:0;transform:translate(0,0) scale(.55)}12%{opacity:1}75%{opacity:.85}100%{opacity:0;transform:translate(var(--dx),-26vh) scale(1.12)}}
   @keyframes bmsway{from{transform:translateX(-.35vmin)}to{transform:translateX(.35vmin)}}
   .bm-copy{position:absolute;left:clamp(20px,5vw,72px);bottom:clamp(28px,7vh,72px);max-width:34ch;z-index:3}
@@ -273,8 +273,8 @@
 
 <section class="bodymap" id="bodymap">
   <div class="bm-frame" id="bmFrame">
-    <img src="assets/bodymap/dark-b-web.jpg" alt="" loading="lazy">
-    <video id="bmVid" muted playsinline loop preload="metadata" src="assets/bodymap/loop.mp4?v=2"></video>
+    <img src="assets/bodymap/dark-back-web.jpg" alt="" loading="lazy">
+    <video id="bmVid" muted playsinline loop preload="metadata" src="assets/bodymap/loop.mp4?v=3"></video>
     <div class="bm-vignette"></div>
     <div class="bm-glow" id="bmGlow"></div>
     <div id="bmBubbles"></div>
@@ -441,14 +441,14 @@
     const REGIONS=[
       {id:'glands',    title:'The glands',          x:50,  y:33, words:ROWS.pelvis,  off:1},
       {id:'lungs',     title:'The lungs',           x:50,  y:42, words:ROWS.lungs},
-      {id:'heart',     title:'The heart',           x:53,  y:50, words:ROWS.heart},
-      {id:'spleen',    title:'The spleen',          x:58,  y:57, words:ROWS.stomach, off:3},
-      {id:'liver',     title:'The liver',           x:45,  y:59, words:ROWS.liver},
-      {id:'stomach',   title:'The stomach',         x:54,  y:62, words:ROWS.stomach},
-      {id:'gall',      title:'The gall bladder',    x:46,  y:66, words:ROWS.liver,   off:2},
+      {id:'heart',     title:'The heart',           x:47,  y:50, words:ROWS.heart},
+      {id:'spleen',    title:'The spleen',          x:42,  y:57, words:ROWS.stomach, off:3},
+      {id:'liver',     title:'The liver',           x:55,  y:59, words:ROWS.liver},
+      {id:'stomach',   title:'The stomach',         x:46,  y:62, words:ROWS.stomach},
+      {id:'gall',      title:'The gall bladder',    x:54,  y:66, words:ROWS.liver,   off:2},
       {id:'smallint',  title:'The small intestine', x:50,  y:69, words:ROWS.heart,   off:3},
-      {id:'kidneys',   title:'The kidneys',         x:42,  y:72, words:ROWS.kidneys},
-      {id:'colon',     title:'The colon',           x:52,  y:75, words:ROWS.lungs,   off:3},
+      {id:'kidneys',   title:'The kidneys',         x:58,  y:72, words:ROWS.kidneys},
+      {id:'colon',     title:'The colon',           x:48,  y:75, words:ROWS.lungs,   off:3},
       {id:'bladder',   title:'The bladder',         x:50,  y:82, words:ROWS.kidneys, off:1},
       {id:'sexual',    title:'The sexual organs',   x:50,  y:88, words:ROWS.pelvis},
     ];
