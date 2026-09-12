@@ -106,7 +106,10 @@
   .sub{font-family:var(--disp);font-weight:400;font-style:italic;font-size:clamp(26px,3.6vw,40px);text-align:center;margin:0 0 36px;line-height:1.15}
   .narrative p{font-size:17px;line-height:1.8;margin:0 0 26px;text-align:center;max-width:64ch;margin-left:auto;margin-right:auto}
   .narrative p:last-child{margin-bottom:0}
-  .narrative p.hope-tease{font-family:var(--disp);font-weight:300;font-style:italic;font-size:clamp(36px,5.6vw,60px);color:var(--forest);margin-top:24px;max-width:none;width:100vw;position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;padding:0 24px}
+  .narrative .rule{width:40px;height:1px;background:color-mix(in oklch,var(--forest) 45%,transparent);margin:34px auto}
+  .narrative .btn{display:inline-block;margin-top:10px}
+  .ministat{font-family:var(--disp);font-style:italic;font-size:clamp(19px,2.4vw,24px);line-height:1.5;color:var(--forest);max-width:52ch;margin:34px auto;text-align:center;border:none;padding:0}
+  .ministat span{display:block;font-family:var(--sans);font-style:normal;font-weight:500;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--charcoal);margin-top:14px}
   .band-cream p b{color:var(--charcoal);font-weight:600}
   .band-dark .sub{color:var(--cream)}
   .band-dark p{color:color-mix(in oklch,var(--cream) 86%,transparent)}
@@ -153,6 +156,7 @@
   .tplate::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,color-mix(in oklch,var(--charcoal) 88%,transparent),color-mix(in oklch,var(--charcoal) 94%,transparent))}
   .tplate .twrap{position:relative;z-index:2;max-width:880px}
   .qmark{font-family:var(--disp);font-style:italic;font-size:clamp(70px,9vw,110px);line-height:.6;color:var(--gold);margin:0 0 4px}
+  .tq-title{font-family:var(--disp);font-style:italic;font-weight:400;font-size:clamp(22px,2.8vw,28px);color:var(--gold);margin:0 0 20px}
   .tq{font-family:var(--sans);font-weight:300;font-size:clamp(16px,1.5vw,18px);line-height:1.8;color:var(--cream);margin:0 0 20px}
   .tq:first-of-type{font-size:clamp(18px,1.8vw,21px)}
   .tattr{font-size:14px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-top:22px}
@@ -180,16 +184,13 @@
   .cur-r{width:26px;height:26px;margin:-13px 0 0 -13px;border-color:color-mix(in oklch,var(--gold) 60%,transparent);mix-blend-mode:normal}
   .cur-r.hot{width:42px;height:42px;margin:-21px 0 0 -21px;background:color-mix(in oklch,var(--gold) 14%,transparent);border-color:color-mix(in oklch,var(--gold) 75%,transparent)}
 </style></head><body>
-
-<div class="intro"><div class="ipct">0</div><div class="ibar"></div></div>
-
 <nav id="nav">
-  <a class="wm" href="index.html"><span class="n">Nicky Williams</span><span class="t">Founder of The Deep Release Method&trade;</span></a>
+  <a class="wm" href="/"><span class="n">Nicky Williams</span><span class="t">Founder of The Deep Release Method&trade;</span></a>
   <div class="nl">
-    <a href="index.html" class="active">Home</a>
-    <a href="about.html">About</a>
-    <a href="work-with-me.html">Work With Me</a>
-    <a href="testimonials.html">Testimonials</a>
+    <a href="/" class="active">Home</a>
+    <a href="/about">About</a>
+    <a href="/work-with-me">Work With Me</a>
+    <a href="/testimonials">Testimonials</a>
   </div>
   <a class="ncta" href="mailto:hello@energydetective.online?subject=New%20enquiry" data-magnetic>Contact Nicky</a>
   <button class="menu-btn" id="menuBtn" aria-label="Open menu"><span></span><span></span><span></span></button>
@@ -197,10 +198,10 @@
 
 <div class="mnav" id="mnav">
   <button class="mclose" id="mnavClose" aria-label="Close menu">✕</button>
-  <a href="index.html" class="active">Home</a>
-  <a href="about.html">About</a>
-  <a href="work-with-me.html">Work With Me</a>
-  <a href="testimonials.html">Testimonials</a>
+  <a href="/" class="active">Home</a>
+  <a href="/about">About</a>
+  <a href="/work-with-me">Work With Me</a>
+  <a href="/testimonials">Testimonials</a>
   <a href="mailto:hello@energydetective.online?subject=New%20enquiry">Contact Nicky</a>
 </div>
 
@@ -210,7 +211,7 @@
   <div class="vin">
     <h1 class="vtitle">ENERGY<br>DETECTIVE</h1>
     <div class="veye">Remote Sessions Worldwide</div>
-    <p class="vsub">Most people wait til it costs them their health, their business, their marriage, their mind.<br><b>Don't be most people. Heal first.</b></p>
+    <p class="vsub"><b>You look fine. You don't feel fine.</b><br>Stuck on money, health, relationships or business? I find the block and clear it.</p>
   </div>
 </header>
 
@@ -219,7 +220,7 @@
     <h2>You're exhausted, frustrated,<br>and <span class="hl">wondering where you've gone.</span></h2>
     <h2>You're living at a fraction of your potential<br>and questioning... <em>is this really it?</em></h2>
     <h2>You <i>think</i> you've tried every solution.<br><span class="standout">But you've never tried this.</span></h2>
-    <a class="hook-cta" href="work-with-me.html#block-release" data-magnetic>Ready now? Book Block Release →</a>
+    <a class="hook-cta" href="/work-with-me#block-release" data-magnetic>Book your session and get to the bottom of what's actually going on →</a>
   </div>
 </section>
 
@@ -227,11 +228,16 @@
   <div class="wrap">
     <h2 class="sub" data-reveal>You don't recognise yourself anymore.</h2>
     <div data-reveal>
-      <p>You're still doing everything. Still there for everyone. Still capable, still coping (just), still holding it together on the outside. <b>But something feels wrong, and it's hard to put a finger on what.</b></p>
-      <p>It's rarely just one thing. The health question that won't resolve. The relationship that's wobbly. The children that don't need you any more. An aging parent who needs more of you now. <b>The sense that somewhere along the way, you lost yourself, and you're not sure when.</b></p>
-      <p>You've probably told yourself it's just this stage of life. Perimenopause. Grief. A hard year. Some of it is. But underneath it, you know it's more.</p>
-      <p>And you've searched every which way to try to solve it. Journalling, workshops, therapy, somatic classes. But you still feel flat, lost, and you're wondering where you went, and if it's actually possible to find yourself again, or if this is just the way life is now.</p>
-      <p class="hope-tease">It doesn't have to be this way.</p>
+      <p>You're still doing everything, still holding it together. But something's off, and you can't quite name what.</p>
+      <p><b>That's because your body keeps the score.</b></p>
+      <div class="rule"></div>
+      <p>Using muscle testing, I ask your body yes-or-no questions to find exactly what's behind your issues.</p>
+      <div class="rule"></div>
+      <p>40 years studying energy work, and in 2026 alone, 700+ people have booked a session with me.</p>
+      <p>From my garden office in North Devon, serving worldwide.</p>
+      <blockquote class="ministat">"It's honestly like Nicky has turned a tap on. Everything feels like it's flowing again instead of stuck and stagnant."<span>— Trish</span></blockquote>
+      <p>You don't need to relive anything or believe in energy work, your subconscious does the work, not your mind.</p>
+      <a class="btn" href="/work-with-me#block-release" data-magnetic>Book your session and get to the bottom of what's actually going on →</a>
     </div>
   </div>
 </section>
@@ -242,7 +248,6 @@
     <div class="ts-item"><span class="ts-dot"></span><p class="ts-line" data-reveal>Still waiting.</p></div>
     <div class="ts-item"><span class="ts-dot"></span><p class="ts-line" data-reveal>20 years.</p></div>
     <div class="ts-item"><span class="ts-dot"></span><p class="ts-line" data-reveal>Still waiting.</p></div>
-    <div class="ts-item"><span class="ts-dot"></span><p class="ts-line ts-final" data-reveal>How many more years until you make time for you?</p></div>
     <div class="ts-item"><span class="ts-dot"></span><p class="ts-line ts-final" data-reveal>How many more years until you finally make time to heal?</p></div>
   </div>
 </section>
@@ -252,15 +257,12 @@
     <h2 class="sub">Here's what's actually happening</h2>
     <p>Every experience, every emotion that felt too much, every moment it wasn't safe to feel what you felt, got logged.</p>
     <p>The time you were small and had to stay quiet.</p>
-    <p>The fears about money you picked up from the adults who surrounded you.</p>
+    <p>The fears about money you picked up from the adults around you.</p>
     <p>The relationship that taught you love can't be trusted.</p>
-    <p>The time you weren't chosen, weren't enough, didn't fit.</p>
-    <p>Your subconscious logged all of it, and built you an inner guidance system from it, running underneath everything you do, using everything it's ever learned about you to try to keep you safe.</p>
-    <p>It's been trying to protect you ever since.</p>
-    <p><b>But it hasn't. It's kept you stuck.</b> Repeating the same patterns, the same behaviours, the same harsh self talk, for longer than you'd probably like to admit.</p>
-    <p>Because that information is outdated. Some of it is decades old. Some of it never even belonged to you, it was handed down, absorbed, inherited before you had a say in it.</p>
-    <p>And your subconscious is holding you hostage right now, as if it's protecting your life.</p>
-    <p>So it sends you the wrong way. Tells you to stay quiet when you want to speak. To hold the tears back when you want to cry. To make yourself smaller, to fit in, to disappear a little, just to feel safe.</p>
+    <p>Your subconscious logged all of it, and built you an inner guidance system from it, running underneath everything you do, trying to keep you safe.</p>
+    <p><b>But it hasn't. It's kept you stuck</b>, repeating the same patterns, the same harsh self-talk, for longer than you'd probably like to admit.</p>
+    <p>Because that information is outdated. Some of it is decades old. Some of it never even belonged to you.</p>
+    <p>And right now, it's still sending you the wrong way. Telling you to stay quiet, to make yourself smaller, just to feel safe.</p>
   </div>
 </section>
 
@@ -275,23 +277,18 @@
 <section class="band band-dark gps" data-reveal>
   <div class="wrap">
     <h2 class="sub">Think about it like this</h2>
-    <p>Your old shizzle has caused blocks in the road, sometimes these cause slight re-routes, sometimes, it's a complete wall.</p>
-    <p>Your GPS only knows what it's been told. It doesn't know the road's changed now, the toxic relationship has ended, the bully at school is now a nun, or that you may have come from humble beginnings and you're now very comfortable. It just keeps recalculating from old information, sending you down the same route, again and again, certain it's still right. Keeping you in the safe zone, which doesn't feel safe at all, does it?</p>
-    <p><b>That's what's happening inside you.</b></p>
-    <p>Your inner guidance system is working from a map that's decades out of date, one built when you were small, or scared, or told who you were before you'd had the chance to find out for yourself.</p>
-    <p>It doesn't need therapy to talk it through. It doesn't need another affirmation, another journal, another workshop asking you to think your way out of it. Thinking was never where this lived.</p>
-    <p><b>It needs updating.</b></p>
-    <p>That's what we do here. We go straight to where the old information sits, and we clear it up and update it to get you finally back in the driver's seat.</p>
+    <p>Think of it like a GPS still running on an outdated map, it doesn't know the road's been rebuilt, the diversion's long gone, and the way ahead is actually clear now. It just keeps recalculating from old information, sending you down the same route, again and again, certain it's still right.</p>
+    <p>It doesn't need therapy to talk it through. It doesn't need another journal, another workshop asking you to think your way out of it. Thinking was never where this lived. <b>Your internal GPS needs updating.</b></p>
   </div>
 </section>
 
 <section class="band band-cream drm" data-reveal>
   <div class="wrap">
     <h2 class="sub">This is the Deep Release Method™</h2>
-    <p>We don't talk about your blocks. You've done that already, right? I clear them.</p>
-    <p>Your subconscious already knows exactly what needs to shift, and where, it's been trying to get your attention. So instead of asking you to explain, analyse, or relive anything, I go straight to your energetic system and ask it directly.</p>
+    <p>We don't talk about your issues. You've done that already, right? I clear them.</p>
+    <p>Your subconscious already knows exactly what needs to shift, and where it's been trying to get your attention. So instead of asking you to explain, analyse, or relive anything, I go straight to your subconscious and ask it directly.</p>
     <p><b>No digging through old stories. No reliving what happened. Just clearing it, so it stops running you.</b></p>
-    <p>The Deep Release Method™ is my own, built from years of training and thousands of hours with clients. I'm guided entirely by what your subconscious says needs attention that day, and every session is deeply personal and confidential to you.</p>
+    <p>I'm guided entirely by what your subconscious says needs attention that day, and every session is deeply personal and confidential to you.</p>
     <p><b>This is the work that goes where thinking can't.</b> And it's why so many of my clients feel a shift, sometimes within a single session, that years of talking never quite got them to.</p>
   </div>
 </section>
@@ -311,7 +308,7 @@
 <section class="band band-dark closing-cta" data-reveal>
   <div class="wrap">
     <p>You've tried <em>understanding</em> your way out of this. This time, try <em>clearing</em> your way out instead.</p>
-    <a class="btn" href="work-with-me.html#block-release" data-magnetic>Book Block Release →</a>
+    <a class="btn" href="/work-with-me#block-release" data-magnetic>Book your session and start clearing what's stuck →</a>
   </div>
 </section>
 
@@ -332,7 +329,7 @@
       <p>I find what's been running quietly underneath everything you've already tried.</p>
       <p>I know this terrain from the inside. Forty years of living it. A decade working with over 6,000 women. I understand why capable, intelligent women keep hitting the same walls despite doing everything right.</p>
       <p>I work remotely, exclusively, from a garden room not far from the sea in North Devon, with women who are done with talking and ready for something that reaches the part nothing else has.</p>
-      <a class="meet" href="about.html">Meet Nicky →</a>
+      <a class="meet" href="/about">Meet Nicky →</a>
     </div>
   </div>
 </section>
@@ -341,49 +338,26 @@
   <img src="assets/g2.jpg" alt="">
   <div class="twrap wrap">
     <div class="qmark" aria-hidden="true">&ldquo;</div>
-    <p class="tq">I don't know what Nicky does and I've never met her, but the work she does is the most complete and immediate release of habits and energy and emotions that I've ever experienced, and I've tried a lot over the last 30 years.</p>
-    <p class="tq">One day I was held hostage by fear of moving forward in a new line of work. The next day I was feeling totally confident that what I was doing was the right thing.</p>
-    <p class="tq">One day I was held hostage by thoughts of eating my favourite sweet foods. The next day, and still holding, I was not. I could drive through fast food with no dessert added. I could walk down the ice cream aisle at the store and not be even tempted.</p>
-    <p class="tq">If you've lost hope that you can overcome the impossible patterns, habits, fears, or whatever, try Nicky's energy clearings. She was able to release what had been impossible for me to overcome in a few short sessions. I can't recommend her highly enough.</p>
-    <div class="tattr">— Anna</div>
-    <a class="tcta" href="testimonials.html">Read more client words →</a>
-  </div>
-</section>
-
-<section class="band band-cream hw">
-  <div class="wrap-wide split" data-reveal>
-    <div class="stxt">
-      <h2 class="sub">How we work together</h2>
-      <p class="hwlede">Two ways in, depending on how deep you're ready to go.</p>
-      <div class="hwrows">
-        <div class="hwrow">
-          <div class="hwn">01</div>
-          <div><h3>Block Release Session</h3><p>One remote session to clear what's most active right now.</p></div>
-        </div>
-        <div class="hwrow">
-          <div class="hwn">02</div>
-          <div><h3>Rewire</h3><p>Four weeks, working through whatever comes up, layer by layer.</p></div>
-        </div>
-      </div>
-      <div class="hwcta-wrap"><a class="btn" href="work-with-me.html" data-magnetic>Work With Me →</a></div>
-    </div>
-    <img src="assets/hwm.jpg" alt="A sandy path through dunes overlooking the sea">
+    <p class="tq-title">She solves the case</p>
+    <p class="tq">Nicky has been so spot-on in getting to the root cause of blocks I have had around money, abundance and health. The best part is that she then clears those blocks. Really clears them. And she does it all without you even knowing when or how.</p>
+    <p class="tq">It's liberating to have someone who can read my field so accurately without me having to be there or go into a big story about what I need. She solves the case of who, what, and why of any issue like the brilliant detective she is.</p>
+    <div class="tattr">— Client</div>
+    <a class="tcta" href="/testimonials">Read more client words →</a>
   </div>
 </section>
 
 <section class="band-dark belief" data-reveal>
   <div class="wrap">
     <div class="eyebrow" style="margin-top:22px">The big question</div>
-    <h2>Do you need to believe for this to work?<br><span class="no">No.</span> <span class="standout">You just have to be willing to participate.</span></h2>
-    <p class="belief-line">There's a reason you've been guided here.</p>
-    <a class="btn" href="work-with-me.html#block-release" data-magnetic style="margin-top:36px">Yes, I'm ready →</a>
+    <h2>Do you need to believe for this to work?<br><span class="no">No.</span> <span class="standout">You just have to be willing to try something you've never tried before.</span></h2>
+    <a class="btn" href="/work-with-me" data-magnetic style="margin-top:36px">Work With Me →</a>
   </div>
 </section>
 
 <footer>
   <div class="wrap-wide ffoot">
     <span class="fwm">Nicky Williams · Energy Detective</span>
-    <div class="fnl"><a href="index.html">Home</a><a href="about.html">About</a><a href="work-with-me.html">Work With Me</a><a href="testimonials.html">Testimonials</a><a href="policies-hub.html">Policies</a><a class="ig" href="https://www.instagram.com/energydetective.online/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.3" cy="6.7" r="0.6" fill="currentColor" stroke="none"></circle></svg></a></div>
+    <div class="fnl"><a href="/">Home</a><a href="/about">About</a><a href="/work-with-me">Work With Me</a><a href="/testimonials">Testimonials</a><a href="/policies-hub">Policies</a><a class="ig" href="https://www.instagram.com/energydetective.online/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.3" cy="6.7" r="0.6" fill="currentColor" stroke="none"></circle></svg></a></div>
   </div>
 </footer>
 
