@@ -135,9 +135,9 @@
   .bm-glow.on{opacity:1}
   .bubble{position:absolute;left:0;top:0;width:13vmin;height:13vmin;margin:-6.5vmin 0 0 -6.5vmin;border-radius:50%;
     display:grid;place-items:center;text-align:center;padding:1vmin;
-    background:radial-gradient(circle at 40% 35%,oklch(0.97 0.02 85 / .28),oklch(0.90 0.05 85 / .10) 55%,transparent 72%);
+    background:radial-gradient(circle at 50% 50%,color-mix(in oklch,var(--charcoal) 58%,transparent) 0%,color-mix(in oklch,var(--charcoal) 42%,transparent) 38%,oklch(0.92 0.05 85 / .16) 58%,transparent 72%);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
     box-shadow:inset 0 0 0 1px oklch(0.96 0.01 85 / .18),0 0 40px oklch(0.80 0.09 82 / .18);
-    font-family:var(--disp);font-style:italic;font-size:clamp(15px,2.3vmin,24px);line-height:1.1;color:var(--cream);
+    font-family:var(--disp);font-style:italic;font-size:clamp(16px,2.5vmin,26px);line-height:1.1;color:var(--cream);text-shadow:0 1px 2px rgba(0,0,0,.65),0 0 16px rgba(0,0,0,.5);
     opacity:0;pointer-events:none;will-change:transform,opacity;animation:bmrise var(--t) cubic-bezier(.25,.5,.3,1) var(--d) forwards}
   .bubble span{animation:bmsway 3.2s ease-in-out var(--d) infinite alternate;display:block}
   .bubble.kind{color:var(--cream);box-shadow:inset 0 0 0 1px color-mix(in oklch,var(--gold) 45%,transparent),0 0 44px color-mix(in oklch,var(--gold) 22%,transparent)}
