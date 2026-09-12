@@ -57,8 +57,7 @@
   .hook i{font-style:italic}
   .hook .hl{font-style:italic;color:var(--gold)}
   .hook .standout{font-style:italic;font-weight:600;color:var(--gold)}
-  .hook-cta{display:inline-block;margin-top:40px;max-width:34ch;padding:18px 36px;background:var(--gold);color:var(--charcoal);font-family:var(--sans);font-weight:500;font-size:14px;line-height:1.5;letter-spacing:.03em;text-transform:uppercase;border-radius:3px;transition:.25s}
-  .hook-cta:hover{filter:brightness(1.06)}
+  .hook .btn{margin-top:40px}
 
   .timeseq{position:relative;background:var(--charcoal);text-align:center;padding:clamp(90px,13vh,140px) 0}
   .timeseq::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(60% 55% at 50% 50%,transparent 0%,color-mix(in oklch,black 38%,transparent) 100%)}
@@ -82,20 +81,20 @@
   .gps .sub{text-align:center}
   .gps p{text-align:center;max-width:66ch;margin-left:auto;margin-right:auto}
 
-  .drm .sub,.wts .sub{text-align:center}
+  .drm .sub{text-align:center}
   .photo-break{position:relative;height:min(64vh,560px);overflow:hidden;background:var(--charcoal)}
   @media(max-width:600px){.photo-break{height:min(46vh,380px)}}
   .photo-break img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
   .photo-break::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,color-mix(in oklch,var(--charcoal) 24%,transparent) 0%,transparent 18%,transparent 82%,color-mix(in oklch,var(--charcoal) 24%,transparent) 100%)}
   .photo-break.has-quote::after{background:color-mix(in oklch,var(--charcoal) 42%,transparent)}
-  .photo-break.portrait{height:auto;display:flex;justify-content:center;padding:clamp(90px,13vh,140px) 0}
-  @media(max-width:600px){.photo-break.portrait{padding:48px 0}}
+  .photo-break.portrait{height:auto;display:flex;justify-content:center;padding:clamp(90px,13vh,140px) 0 40px}
+  @media(max-width:600px){.photo-break.portrait{padding:48px 0 28px}}
   .photo-break.portrait::after{content:none}
-  .photo-break.portrait img{position:static;width:auto;height:auto;max-width:min(100%,760px);max-height:88vh;object-fit:contain;margin:0 auto}
+  .photo-break.portrait img{position:static;width:auto;height:auto;max-width:min(80%,440px);max-height:56vh;object-fit:contain;margin:0 auto;border-radius:2px}
   .pb-quote{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 24px}
   .pb-quote p{font-family:var(--disp);font-weight:400;font-style:normal;font-size:clamp(26px,3.4vw,38px);color:#fff;margin:0 0 26px;max-width:24ch}
   .pb-quote p:last-child{margin-bottom:0}
-  .drm p,.wts p{text-align:center;max-width:64ch;margin-left:auto;margin-right:auto}
+  .drm p{text-align:center;max-width:64ch;margin-left:auto;margin-right:auto}
 
   .closing-cta{text-align:center;padding:clamp(90px,12vh,130px) 0}
   .closing-cta p{font-family:var(--disp);font-style:normal;font-size:clamp(28px,4.4vw,46px);max-width:34ch;margin:0 auto 34px;line-height:1.35}
@@ -105,6 +104,7 @@
 
   .eyebrow{font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--forest);margin-bottom:22px;text-align:center}
   .sub{font-family:var(--disp);font-weight:400;font-style:italic;font-size:clamp(26px,3.6vw,40px);text-align:center;margin:0 0 36px;line-height:1.15}
+  .narrative{text-align:center}
   .narrative p{font-size:17px;line-height:1.8;margin:0 0 26px;text-align:center;max-width:64ch;margin-left:auto;margin-right:auto}
   .narrative p:last-child{margin-bottom:0}
   .narrative .rule{width:40px;height:1px;background:color-mix(in oklch,var(--forest) 45%,transparent);margin:34px auto}
@@ -122,13 +122,42 @@
   .split .stxt .sub{text-align:left;margin-bottom:22px}
   .split .stxt p{text-align:left}
 
-  .midvideo{position:relative;height:80vh;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--charcoal)}
-  .midvideo video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s linear}
-  .midvideo video.on{opacity:1}
-  .midvideo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,color-mix(in oklch,var(--charcoal) 42%,transparent),color-mix(in oklch,var(--charcoal) 18%,transparent) 40%,color-mix(in oklch,var(--charcoal) 18%,transparent) 60%,color-mix(in oklch,var(--charcoal) 50%,transparent))}
-  .mvq{position:relative;z-index:2;text-align:center;padding:0 clamp(20px,6vw,40px)}
-  .mvq p{font-family:var(--disp);font-weight:400;font-size:clamp(21px,2.8vw,32px);line-height:1.5;color:var(--cream);max-width:30ch;margin:0 auto;text-shadow:0 2px 30px rgba(0,0,0,.5)}
-  .mvq .tattr{margin-top:20px;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--cream);text-shadow:0 2px 4px rgba(0,0,0,.7),0 2px 20px rgba(0,0,0,.6)}
+  /* ---------- body map: light travels the body, emotions rise and let go ---------- */
+  .bodymap{position:relative;height:88vh;min-height:560px;overflow:hidden;background:var(--charcoal)}
+  .bm-frame{position:absolute;left:0;top:0}
+  .bm-frame video,.bm-frame img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
+  .bm-frame video{opacity:0;transition:opacity 1.4s linear} .bm-frame video.on{opacity:1}
+  .bm-vignette{position:absolute;inset:0;background:
+    linear-gradient(180deg,color-mix(in oklch,var(--charcoal) 55%,transparent),transparent 30%,transparent 70%,color-mix(in oklch,var(--charcoal) 70%,transparent)),
+    radial-gradient(70% 90% at 50% 50%,transparent 45%,color-mix(in oklch,var(--charcoal) 60%,transparent) 100%)}
+  .bm-glow{position:absolute;width:34vmin;height:34vmin;left:0;top:0;transform:translate(-50%,-50%);border-radius:50%;
+    background:radial-gradient(circle,oklch(0.93 0.06 85 / .55) 0%,oklch(0.80 0.09 82 / .32) 28%,oklch(0.70 0.07 79 / .10) 55%,transparent 72%);
+    mix-blend-mode:screen;opacity:0;transition:opacity 1.2s ease;pointer-events:none;filter:blur(2px)}
+  .bm-glow.on{opacity:1}
+  .bubble{position:absolute;left:0;top:0;width:13vmin;height:13vmin;margin:-6.5vmin 0 0 -6.5vmin;border-radius:50%;
+    display:grid;place-items:center;text-align:center;padding:1vmin;
+    background:radial-gradient(circle at 40% 35%,oklch(0.97 0.02 85 / .28),oklch(0.90 0.05 85 / .10) 55%,transparent 72%);
+    box-shadow:inset 0 0 0 1px oklch(0.96 0.01 85 / .18),0 0 40px oklch(0.80 0.09 82 / .18);
+    font-family:var(--disp);font-style:italic;font-size:clamp(15px,2.3vmin,24px);line-height:1.1;color:var(--cream);
+    opacity:0;pointer-events:none;will-change:transform,opacity;animation:bmrise var(--t) cubic-bezier(.25,.5,.3,1) var(--d) forwards}
+  .bubble span{animation:bmsway 3.2s ease-in-out var(--d) infinite alternate;display:block}
+  .bubble.kind{color:var(--gold);box-shadow:inset 0 0 0 1px color-mix(in oklch,var(--gold) 45%,transparent),0 0 44px color-mix(in oklch,var(--gold) 22%,transparent)}
+  @keyframes bmrise{0%{opacity:0;transform:translate(0,0) scale(.55)}12%{opacity:1}75%{opacity:.85}100%{opacity:0;transform:translate(var(--dx),-26vh) scale(1.12)}}
+  @keyframes bmsway{from{transform:translateX(-.35vmin)}to{transform:translateX(.35vmin)}}
+  .bm-copy{position:absolute;left:clamp(20px,5vw,72px);bottom:clamp(28px,7vh,72px);max-width:34ch;z-index:3}
+  .bm-eye{font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:color-mix(in oklch,var(--cream) 62%,transparent);margin:0 0 12px}
+  .bm-title{font-family:var(--disp);font-weight:300;font-style:italic;font-size:clamp(30px,4vw,48px);line-height:1.05;margin:0 0 12px;color:var(--gold);transition:opacity .5s}
+  .bm-title.fade{opacity:0}
+  .bm-line{font-size:14.5px;line-height:1.6;margin:0;color:color-mix(in oklch,var(--cream) 78%,transparent)}
+  .bm-line a{color:var(--gold);border-bottom:1px solid color-mix(in oklch,var(--gold) 50%,transparent)}
+  .bm-legend{position:absolute;right:clamp(20px,5vw,72px);top:50%;transform:translateY(-50%);z-index:3;list-style:none;margin:0;padding:0;display:grid;gap:10px}
+  .bm-legend li{display:grid;grid-template-columns:2ch 1fr;gap:14px;align-items:baseline;font-family:var(--disp);font-style:italic;font-size:17px;color:color-mix(in oklch,var(--cream) 40%,transparent);transition:color .5s}
+  .bm-legend li i{font-style:normal;font-family:var(--sans);font-size:10px;letter-spacing:.14em;color:color-mix(in oklch,var(--cream) 34%,transparent)}
+  .bm-legend li.on,.bm-legend li.on i{color:var(--gold)}
+  .bodymap::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.07;mix-blend-mode:overlay;z-index:4;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+  @media(max-width:760px){.bodymap{height:78vh;min-height:520px}.bm-legend{display:none}.bm-copy{max-width:26ch}.bubble{width:15vmin;height:15vmin;margin:-7.5vmin 0 0 -7.5vmin}}
+  @media (prefers-reduced-motion: reduce){.bm-glow{transition:none}.bubble{animation:none;opacity:0}.bm-legend li{color:color-mix(in oklch,var(--cream) 70%,transparent)}}
 
   .meet{display:inline-flex;align-items:center;gap:8px;margin-top:26px;font-family:var(--sans);font-weight:500;font-size:16px;color:var(--forest);border-bottom:1px solid color-mix(in oklch,var(--forest) 55%,transparent);padding-bottom:4px;transition:.3s}
   .meet:hover{border-color:var(--forest)}
@@ -220,7 +249,7 @@
     <h2>You're exhausted, frustrated,<br>and <span class="hl">wondering where you've gone.</span></h2>
     <h2>You're living at a fraction of your potential<br>and questioning... <em>is this really it?</em></h2>
     <h2>You <i>think</i> you've tried every solution.<br><span class="standout">But you've never tried this.</span></h2>
-    <a class="hook-cta" href="/work-with-me#block-release" data-magnetic>Book your session and get to the bottom of what's actually going on →</a>
+    <a class="btn" href="/work-with-me#block-release" data-magnetic>Book your session →</a>
   </div>
 </section>
 
@@ -233,13 +262,29 @@
       <div class="rule"></div>
       <p>Using muscle testing, I ask your body yes-or-no questions to find exactly what's behind your issues.</p>
       <div class="rule"></div>
-      <p>40 years studying energy work, and in 2026 alone, 700+ people have booked a session with me.</p>
+      <p>700+ sessions delivered in 2026 alone. 5★ average rating.</p>
       <p>From my garden office in North Devon, serving worldwide.</p>
       <blockquote class="ministat">"It's honestly like Nicky has turned a tap on. Everything feels like it's flowing again instead of stuck and stagnant."<span>— Trish</span></blockquote>
       <p>You don't need to relive anything or believe in energy work, your subconscious does the work, not your mind.</p>
-      <a class="btn" href="/work-with-me#block-release" data-magnetic>Book your session and get to the bottom of what's actually going on →</a>
+      <a class="btn" href="/work-with-me#block-release" data-magnetic>Book your session →</a>
     </div>
   </div>
+</section>
+
+<section class="bodymap" id="bodymap">
+  <div class="bm-frame" id="bmFrame">
+    <img src="assets/bodymap/dark-b-web.jpg" alt="" loading="lazy">
+    <video id="bmVid" muted playsinline loop preload="metadata" src="assets/bodymap/loop.mp4?v=2"></video>
+    <div class="bm-vignette"></div>
+    <div class="bm-glow" id="bmGlow"></div>
+    <div id="bmBubbles"></div>
+  </div>
+  <div class="bm-copy">
+    <p class="bm-eye">Where it gets stored</p>
+    <h2 class="bm-title" id="bmTitle">The heart</h2>
+    <p class="bm-line">Old emotions lodge in the body and stay there. Block Release finds them, and lets them go. <a href="/work-with-me#block-release">Book a session →</a></p>
+  </div>
+  <ol class="bm-legend" id="bmLegend"></ol>
 </section>
 
 <section class="timeseq">
@@ -255,13 +300,13 @@
 <section class="band band-cream logging" data-reveal>
   <div class="wrap">
     <h2 class="sub">Here's what's actually happening</h2>
-    <p>Every experience, every emotion that felt too much, every moment it wasn't safe to feel what you felt, got logged.</p>
+    <p><b>Every experience, every emotion that felt too much</b>, every moment it wasn't safe to feel what you felt, got logged.</p>
     <p>The time you were small and had to stay quiet.</p>
-    <p>The fears about money you picked up from the adults around you.</p>
-    <p>The relationship that taught you love can't be trusted.</p>
+    <p><b>The fears</b> about money you picked up from the adults around you.</p>
+    <p><b>The relationship</b> that taught you love can't be trusted.</p>
     <p>Your subconscious logged all of it, and built you an inner guidance system from it, running underneath everything you do, trying to keep you safe.</p>
-    <p><b>But it hasn't. It's kept you stuck</b>, repeating the same patterns, the same harsh self-talk, for longer than you'd probably like to admit.</p>
-    <p>Because that information is outdated. Some of it is decades old. Some of it never even belonged to you.</p>
+    <p>But it hasn't. <b>It's kept you stuck</b>, repeating the same patterns, the same harsh self-talk, for longer than you'd probably like to admit.</p>
+    <p><b>Because that information is outdated.</b> Some of it is decades old. Some of it never even belonged to you.</p>
     <p>And right now, it's still sending you the wrong way. Telling you to stay quiet, to make yourself smaller, just to feel safe.</p>
   </div>
 </section>
@@ -285,25 +330,15 @@
 <section class="band band-cream drm" data-reveal>
   <div class="wrap">
     <h2 class="sub">This is the Deep Release Method™</h2>
-    <p>We don't talk about your issues. You've done that already, right? I clear them.</p>
+    <p><b>We don't talk about your issues.</b> You've done that already, right? <b>I clear them.</b></p>
     <p>Your subconscious already knows exactly what needs to shift, and where it's been trying to get your attention. So instead of asking you to explain, analyse, or relive anything, I go straight to your subconscious and ask it directly.</p>
-    <p><b>No digging through old stories. No reliving what happened. Just clearing it, so it stops running you.</b></p>
-    <p>I'm guided entirely by what your subconscious says needs attention that day, and every session is deeply personal and confidential to you.</p>
-    <p><b>This is the work that goes where thinking can't.</b> And it's why so many of my clients feel a shift, sometimes within a single session, that years of talking never quite got them to.</p>
+    <p>No digging through old stories. No reliving what happened. Just clearing it, so it stops running you.</p>
+    <p><b>I'm guided entirely by what your subconscious says needs attention</b> that day, and every session is deeply personal and confidential to you.</p>
+    <p>This is the work that goes where thinking can't. And it's why so many of my clients feel a shift, sometimes within a single session, that years of talking never quite got them to.</p>
   </div>
 </section>
 
 <section class="photo-break portrait" data-reveal><img src="assets/nicky-path.jpg" alt="Nicky walking a path through the countryside"></section>
-
-<section class="band band-cream wts" data-reveal>
-  <div class="wrap">
-    <h2 class="sub">Where to start</h2>
-    <p>You've probably already tried to fix this. Books. Workshops. Therapy. A bit of everything.</p>
-    <p>Here's the truth. Most people who try one session with me don't stop at one. Not because I talk them into it. Because they feel the impact that all the other shizzle never touched, and once you've felt that, you want more of it.</p>
-    <p><b>Block Release is where that starts.</b> One session. You just need to be willing to find out what the Energy Detective is about.</p>
-    <p>From there, most people ask for more themselves. The next step is Rewire, this gives you four sessions, four consecutive weeks, entirely focused on you, on any and all subjects, always kept confidential.</p>
-  </div>
-</section>
 
 <section class="band band-dark closing-cta" data-reveal>
   <div class="wrap">
@@ -312,14 +347,6 @@
   </div>
 </section>
 
-<section class="midvideo">
-  <video class="on" id="midVidA" autoplay muted playsinline preload="auto" src="assets/sec/hero.mp4?v=3"></video>
-  <video id="midVidB" muted playsinline preload="auto" src="assets/sec/hero.mp4?v=3"></video>
-  <div class="mvq" data-reveal>
-    <p>"You just have to try it. Words can't explain. Nicky finds the hidden energy drains and cleans up your field in a way the mind cannot access."</p>
-    <div class="tattr">— Dione</div>
-  </div>
-</section>
 
 <section class="band band-cream">
   <div class="wrap-wide split flip" data-reveal>
@@ -397,6 +424,64 @@
     active.addEventListener('timeupdate',onTime);
   }
   crossfadeLoop('heroVidA','heroVidB');
-  crossfadeLoop('midVidA','midVidB');
+
+  /* ---------- body map ----------
+     x,y = where the light sits, as % of the 16:9 video frame.
+     Three words rise per visit; the next visit shows the next three. */
+  (function(){
+    const ROWS={
+      heart:  ['Abandonment','Betrayal','Forlorn','Love unreceived','Insecurity','Vulnerability','Heartache'],
+      stomach:['Anxiety','Worry','Despair','Helplessness','Hopelessness','Low self-esteem','Lack of control'],
+      lungs:  ['Grief','Sorrow','Sadness','Rejection','Discouragement','Self-abuse'],
+      liver:  ['Guilt','Resentment','Bitterness','Frustration','Taken for granted'],
+      kidneys:['Fear','Dread','Unsupported'],
+      pelvis: ['Overwhelm','Shame']
+    };
+    /* twelve places, top to bottom. x,y = % of the 16:9 frame. off = which word to start on, so paired areas differ */
+    const REGIONS=[
+      {id:'glands',    title:'The glands',          x:50,  y:33, words:ROWS.pelvis,  off:1},
+      {id:'lungs',     title:'The lungs',           x:50,  y:42, words:ROWS.lungs},
+      {id:'heart',     title:'The heart',           x:53,  y:50, words:ROWS.heart},
+      {id:'spleen',    title:'The spleen',          x:58,  y:57, words:ROWS.stomach, off:3},
+      {id:'liver',     title:'The liver',           x:45,  y:59, words:ROWS.liver},
+      {id:'stomach',   title:'The stomach',         x:54,  y:62, words:ROWS.stomach},
+      {id:'gall',      title:'The gall bladder',    x:46,  y:66, words:ROWS.liver,   off:2},
+      {id:'smallint',  title:'The small intestine', x:50,  y:69, words:ROWS.heart,   off:3},
+      {id:'kidneys',   title:'The kidneys',         x:42,  y:72, words:ROWS.kidneys},
+      {id:'colon',     title:'The colon',           x:52,  y:75, words:ROWS.lungs,   off:3},
+      {id:'bladder',   title:'The bladder',         x:50,  y:82, words:ROWS.kidneys, off:1},
+      {id:'sexual',    title:'The sexual organs',   x:50,  y:88, words:ROWS.pelvis},
+    ];
+    /* kinds of block, mixed in one per visit, shown in gold */
+    const KINDS=['Pre-conception','Limiting beliefs','Heart walls','Inherited blocks','Ancestral','Old agreements','Unhealthy cords','Physical trauma','Emotional blocks','Prenatal emotions','Inner child'];
+    const PER_VISIT=2, HOLD=5400, RISE=4200, AR=16/9; let kindIdx=0;
+    const sec=document.getElementById('bodymap'), frame=document.getElementById('bmFrame'), vid=document.getElementById('bmVid'),
+          glow=document.getElementById('bmGlow'), bubbles=document.getElementById('bmBubbles'), title=document.getElementById('bmTitle'), legend=document.getElementById('bmLegend');
+    if(!sec) return;
+    const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function fit(){const w=sec.clientWidth,h=sec.clientHeight;let FW,FH;if(w/h>AR){FW=w;FH=w/AR}else{FH=h;FW=h*AR}
+      frame.style.width=FW+'px';frame.style.height=FH+'px';frame.style.left=((w-FW)/2)+'px';frame.style.top=((h-FH)/2)+'px';}
+    addEventListener('resize',fit); fit();
+    REGIONS.forEach((r,i)=>{const li=document.createElement('li');li.innerHTML='<i>'+String(i+1).padStart(2,'0')+'</i><span>'+r.title+'</span>';li.dataset.id=r.id;legend.appendChild(li);});
+    let idx=0,pass=0,started=false;
+    function visit(r){
+      glow.style.left=r.x+'%';glow.style.top=r.y+'%';
+      title.classList.add('fade'); setTimeout(()=>{title.textContent=r.title;title.classList.remove('fade');},500);
+      [...legend.children].forEach(li=>li.classList.toggle('on',li.dataset.id===r.id));
+      glow.classList.add('on');
+      if(!reduced){const start=(pass*PER_VISIT+(r.off||0))%r.words.length, pick=[];
+        for(let k=0;k<PER_VISIT;k++) pick.push({w:r.words[(start+k)%r.words.length]});
+        pick.splice(1,0,{w:KINDS[kindIdx++%KINDS.length],kind:true});
+        pick.forEach((p,k)=>{const b=document.createElement('div');b.className='bubble'+(p.kind?' kind':'');
+          b.style.left=r.x+'%';b.style.top=r.y+'%';b.style.setProperty('--d',(700+k*700)+'ms');b.style.setProperty('--t',RISE+'ms');
+          b.style.setProperty('--dx',((k-1)*4+(Math.random()*2-1))+'vmin');b.innerHTML='<span>'+p.w+'</span>';
+          bubbles.appendChild(b); setTimeout(()=>b.remove(),700+k*700+RISE+100);});}
+      setTimeout(()=>glow.classList.remove('on'),HOLD-900);
+    }
+    function step(){visit(REGIONS[idx]);idx=(idx+1)%REGIONS.length;if(idx===0)pass++;setTimeout(step,HOLD);}
+    /* start only when the band is on screen, so it doesn't run (or load the video) unseen */
+    new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting&&!started){started=true;step();
+      if(!reduced){vid.addEventListener('canplay',()=>{vid.play().then(()=>vid.classList.add('on')).catch(()=>{});},{once:true});vid.load();}}});},{rootMargin:'200px'}).observe(sec);
+  })();
 </script>
 </body></html>
