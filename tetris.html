@@ -67,6 +67,12 @@
   .next-wrap .lbl{font-size:9.5px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
   #next{display:block}
 
+  /* ---------- current piece identity — panel only, never on the board ---------- */
+  .current-wrap{display:flex;flex-direction:column;gap:4px;align-items:flex-end;max-width:104px;text-align:right}
+  .current-wrap .lbl{font-size:9.5px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin-bottom:2px}
+  .cur-name{font-family:var(--disp);font-style:italic;font-weight:400;font-size:clamp(17px,2.2vw,20px);line-height:1.15}
+  .cur-organ{font-family:var(--sans);font-weight:300;font-size:10.5px;line-height:1.4;color:var(--dim)}
+
   /* ---------- nervous system barometer: same quiet treatment as the stats ---------- */
   .baro-wrap{display:flex;flex-direction:column;gap:9px;align-items:flex-end;margin-top:2px}
   .baro-wrap .lbl{font-size:9.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);text-align:right;max-width:70px;line-height:1.4}
@@ -89,6 +95,17 @@
   .overlay h2{font-family:var(--disp);font-weight:300;font-style:italic;font-size:clamp(26px,4.5vw,38px);margin:0;color:var(--ink)}
   .overlay .score-line{font-size:13px;color:var(--dim);letter-spacing:.04em}
   .overlay .score-line b{font-family:var(--disp);font-style:italic;color:var(--gold);font-size:18px;font-weight:400}
+  .overlay .score-line.minor{opacity:.6;font-size:11.5px}
+  .overlay .score-line.minor b{font-size:14px}
+
+  /* ---------- end-of-game: the two figures that actually matter ---------- */
+  .end-stats{display:flex;gap:clamp(30px,9vw,60px);justify-content:center;margin:2px 0 4px}
+  .end-stats .end-stat{text-align:center}
+  .end-stats .lbl{display:block;font-size:9.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:7px}
+  .end-stats .val{font-family:var(--disp);font-style:italic;font-weight:400;font-size:clamp(28px,5vw,38px);line-height:1;font-variant-numeric:tabular-nums}
+  .end-stats .val.released{color:#7bbf7b}
+  .end-stats .val.held{color:var(--ink);opacity:.85}
+  .closing-msg{min-height:1.3em;margin:0;font-family:var(--disp);font-style:italic;font-size:14px;color:var(--dim);max-width:36ch}
   .ov-btn{
     margin-top:6px;font-family:var(--sans);font-weight:500;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;
     color:var(--bg-deep);background:var(--gold);border:none;border-radius:2px;padding:13px 30px;cursor:pointer;transition:filter .2s;
@@ -172,12 +189,23 @@
       <div class="overlay" id="overOverlay">
         <p class="ov-eyebrow">The board filled</p>
         <h2>Game Over</h2>
-        <p class="score-line">Score <b id="finalScore">0</b> · Best <b id="bestScore">0</b></p>
+        <div class="end-stats">
+          <div class="end-stat"><span class="lbl">Released</span><span class="val released" id="endReleased">0</span></div>
+          <div class="end-stat"><span class="lbl">Still Held</span><span class="val held" id="endHeld">0</span></div>
+        </div>
+        <p class="score-line minor">Score <b id="finalScore">0</b> · Best <b id="bestScore">0</b></p>
+        <!-- placeholder — closing line to be written by hand -->
+        <p class="closing-msg" id="closingMsg"></p>
         <button class="ov-btn" id="retryBtn">Play Again</button>
       </div>
     </div>
 
     <div class="panel right">
+      <div class="current-wrap">
+        <span class="lbl">Current</span>
+        <span class="cur-name" id="curName">—</span>
+        <span class="cur-organ" id="curOrgan"></span>
+      </div>
       <div class="next-wrap">
         <span class="lbl">Next</span>
         <canvas id="next" width="100" height="100"></canvas>
@@ -274,10 +302,9 @@
   let best = 0;
   try { best = +(localStorage.getItem('ed_tetris_best')||0) || 0; } catch(e){}
 
-  // quiet, caption-scale text that appears when a piece spawns and
-  // again when it lands — several can be alive at once
-  let captions = [];
-  // the soft green flash + "Released" word on a line clear
+  // the soft green flash + "Released" word on a line clear (this
+  // one does live on the board — only the emotion name/organ text
+  // is confined to the Current panel)
   let clearFx = [];
 
   function emptyBoard(){
@@ -297,32 +324,21 @@
     score = 0; level = 1; linesCleared = 0;
     dropInterval = 1000;
     acc = 0; lastT = 0;
-    captions = []; clearFx = [];
+    clearFx = [];
     updateHUD();
   }
 
   // ============================================================
-  // CAPTIONS — small italic-serif name + one line naming where
-  // that emotion is commonly held, shown briefly near the piece.
+  // CURRENT PIECE IDENTITY — lives only in the side panel, never
+  // drawn on or above the board itself.
   // ============================================================
-  function pieceBounds(p){
-    let minR=99, maxR=-99, minC=99, maxC=-99;
-    for(const [r,c] of p.cells){
-      minR=Math.min(minR,r); maxR=Math.max(maxR,r);
-      minC=Math.min(minC,c); maxC=Math.max(maxC,c);
-    }
-    return { minR:minR+p.y, maxR:maxR+p.y, minC:minC+p.x, maxC:maxC+p.x };
-  }
-  function showCaption(p){
-    const b = pieceBounds(p);
-    captions.push({
-      emo: p.emo,
-      cx: ((b.minC+b.maxC+1)/2) * CELL,
-      topY: Math.max(0, (b.minR-HIDDEN_ROWS)*CELL),
-      bottomY: (b.maxR-HIDDEN_ROWS+1)*CELL,
-      start: performance.now()
-    });
-    if(captions.length>4) captions.shift();
+  const curNameEl = document.getElementById('curName');
+  const curOrganEl = document.getElementById('curOrgan');
+  function updateCurrent(p){
+    const e = EMOTIONS[p.emo];
+    curNameEl.textContent = e.name;
+    curNameEl.style.color = e.hex;
+    curOrganEl.textContent = `held in ${e.organ}`;
   }
 
   function collides(cells, n, x, y){
@@ -359,7 +375,6 @@
   }
 
   function lockPiece(){
-    showCaption(active); // this piece, named, where it landed
     for(const [r,c] of active.cells){
       const br = active.y+r, bc = active.x+c;
       if(br>=0) board[br][bc] = active.emo;
@@ -368,7 +383,7 @@
     if(cleared>0) applyScore(cleared);
     active = spawnPiece(nextT);
     nextT = nextType();
-    showCaption(active); // the next piece, named, as it appears
+    updateCurrent(active);
     if(collides(active.cells, active.n, active.x, active.y)){
       gameOver();
     }
@@ -450,11 +465,15 @@
   function drawOrb(ctx, cx, cy, radius, hex, intensity, coreAlpha){
     ctx.save();
     ctx.globalCompositeOperation = 'lighter';
+    // a tight glow, not a fog — the halo reads as an edge, not a wash
     ctx.shadowColor = hex;
-    ctx.shadowBlur = 10 + intensity*16;
-    const grad = ctx.createRadialGradient(cx-radius*0.25, cy-radius*0.3, radius*0.05, cx, cy, radius);
+    ctx.shadowBlur = 3 + intensity*5;
+    // solid, legible centre out to ~45% of the radius; only the
+    // outer ring softens into the glow
+    const grad = ctx.createRadialGradient(cx-radius*0.2, cy-radius*0.25, radius*0.05, cx, cy, radius);
     grad.addColorStop(0, hexAlpha(hex, coreAlpha));
-    grad.addColorStop(0.55, hexAlpha(hex, coreAlpha*0.55));
+    grad.addColorStop(0.45, hexAlpha(hex, coreAlpha));
+    grad.addColorStop(0.8, hexAlpha(hex, coreAlpha*0.45));
     grad.addColorStop(1, hexAlpha(hex, 0));
     ctx.fillStyle = grad;
     ctx.beginPath();
@@ -532,13 +551,13 @@
     bctx.fillStyle = vg;
     bctx.fillRect(0,0,W,H);
 
-    renderCaptions(W);
     renderClearFx(W, radius);
     renderNext();
     renderBaro();
   }
 
-  // ---------- small, italic-serif caption text, clamped inside the board ----------
+  // ---------- small, italic-serif text, clamped inside the board (used only
+  // by the release flash — emotion names live in the Current panel instead) ----------
   function fillCenteredText(ctx, text, cx, y, font, color, alpha, boardW){
     ctx.save();
     ctx.font = font; ctx.textAlign = 'center'; ctx.globalAlpha = alpha; ctx.fillStyle = color;
@@ -546,22 +565,6 @@
     const x = Math.min(boardW - w/2 - 4, Math.max(w/2 + 4, cx));
     ctx.fillText(text, x, y);
     ctx.restore();
-  }
-  const CAP_IN = 160, CAP_OUT = 450, CAP_TOTAL = 1900;
-  function renderCaptions(W){
-    const now = performance.now();
-    captions = captions.filter(cap=>{
-      const t = now - cap.start;
-      if(t >= CAP_TOTAL) return false;
-      const alpha = t<CAP_IN ? t/CAP_IN : (t>CAP_TOTAL-CAP_OUT ? (CAP_TOTAL-t)/CAP_OUT : 1);
-      const e = EMOTIONS[cap.emo];
-      const above = cap.topY > 32;
-      const yName = above ? cap.topY - 8 : cap.bottomY + 20;
-      const yOrgan = above ? yName - 14 : yName + 15;
-      fillCenteredText(bctx, e.name, cap.cx, yName, "italic 400 14px 'Instrument Serif', Georgia, serif", e.hex, alpha, W);
-      fillCenteredText(bctx, `held in ${e.organ}`, cap.cx, yOrgan, "300 10.5px 'Poppins', sans-serif", 'rgba(233,228,218,0.72)', alpha*0.9, W);
-      return true;
-    });
   }
 
   // ---------- soft green flash + fading "Released" word on a line clear ----------
@@ -585,7 +588,8 @@
   }
 
   // ---------- nervous system barometer: calm and muted low, deep amber/rust high ----------
-  const BARO_CALM = '#7f9788', BARO_HEAVY = '#9a5a2e';
+  // muted sage-charcoal at rest, warming only near the very top
+  const BARO_CALM = '#59685e', BARO_MID = '#7a6a4e', BARO_HEAVY = '#96552c';
   function lerpColor(a, b, t){
     const pa=[parseInt(a.slice(1,3),16),parseInt(a.slice(3,5),16),parseInt(a.slice(5,7),16)];
     const pb=[parseInt(b.slice(1,3),16),parseInt(b.slice(3,5),16),parseInt(b.slice(5,7),16)];
@@ -603,13 +607,29 @@
     brctx.clearRect(0,0,w,h);
     brctx.fillStyle = 'rgba(233,228,218,0.08)';
     roundRect(brctx,0,0,w,h,w/2); brctx.fill();
+
     const frac = fillFraction();
     const fillH = Math.max(5, frac*h);
-    const color = lerpColor(BARO_CALM, BARO_HEAVY, frac);
+
+    // one fixed gradient spans the WHOLE gauge, bottom to top. At
+    // low fill we only ever reveal its calm bottom portion; amber
+    // only appears once the fill has actually climbed near the top.
+    const grad = brctx.createLinearGradient(0, h, 0, 0);
+    grad.addColorStop(0.00, BARO_CALM);
+    grad.addColorStop(0.60, BARO_CALM);
+    grad.addColorStop(0.85, BARO_MID);
+    grad.addColorStop(1.00, BARO_HEAVY);
+
+    // glow colour eases in only once fill is genuinely near the top
+    const glowT = Math.max(0, (frac-0.6)/0.4);
+    const glowColor = lerpColor(BARO_CALM, BARO_HEAVY, glowT);
+
     brctx.save();
-    brctx.shadowColor = color; brctx.shadowBlur = 5 + frac*10;
-    brctx.fillStyle = color;
-    roundRect(brctx, 0, h-fillH, w, fillH, w/2); brctx.fill();
+    roundRect(brctx, 0, h-fillH, w, fillH, w/2);
+    brctx.clip();
+    brctx.shadowColor = glowColor; brctx.shadowBlur = 3 + glowT*8;
+    brctx.fillStyle = grad;
+    brctx.fillRect(0, h-fillH, w, fillH);
     brctx.restore();
   }
 
@@ -650,9 +670,9 @@
       const dt = t-lastT; lastT=t;
       acc += dt;
       if(acc>=dropInterval){ acc=0; tick(); }
-      else { render(); } // keep captions/clear-flash animating between drop ticks
-    } else if(captions.length || clearFx.length){
-      render(); // let anything already fading finish smoothly even if paused/over
+      else { render(); } // keep the clear-flash animating between drop ticks
+    } else if(clearFx.length){
+      render(); // let a flash already fading finish smoothly even if paused/over
     } else {
       lastT = 0;
     }
@@ -673,7 +693,7 @@
     resetGame();
     state='playing';
     showOverlay(null);
-    showCaption(active);
+    updateCurrent(active);
     render();
   }
   function pauseGame(){
@@ -691,6 +711,10 @@
     if(score>best){ best=score; try{localStorage.setItem('ed_tetris_best', String(best));}catch(e){} }
     document.getElementById('finalScore').textContent = score.toLocaleString();
     document.getElementById('bestScore').textContent = best.toLocaleString();
+    // the two figures that actually matter: processed vs. still stuck
+    document.getElementById('endReleased').textContent = linesCleared;
+    const stillHeld = board.slice(HIDDEN_ROWS).reduce((n,row)=>n+row.filter(Boolean).length, 0);
+    document.getElementById('endHeld').textContent = stillHeld;
     showOverlay(overOv);
   }
 
