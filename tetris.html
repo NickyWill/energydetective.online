@@ -299,7 +299,7 @@
   // ============================================================
   // GAME STATE
   // ============================================================
-  let board, active, nextT, score, level, linesCleared, dropInterval, acc, lastT;
+  let board, active, nextT, score, level, linesCleared, emotionsReleased, dropInterval, acc, lastT;
   let state = 'idle'; // idle | playing | paused | over
   let best = 0;
   try { best = +(localStorage.getItem('ed_tetris_best')||0) || 0; } catch(e){}
@@ -323,7 +323,7 @@
     refillBag();
     active = spawnPiece(nextType());
     nextT = nextType();
-    score = 0; level = 1; linesCleared = 0;
+    score = 0; level = 1; linesCleared = 0; emotionsReleased = 0;
     dropInterval = 1000;
     acc = 0; lastT = 0;
     clearFx = [];
@@ -421,6 +421,7 @@
     const table = {1:100,2:300,3:500,4:800};
     score += (table[n]||800) * level;
     linesCleared += n;
+    emotionsReleased += n * COLS; // a full row is 10 orbs — 10 emotions, not 1
     const newLevel = Math.floor(linesCleared/10)+1;
     if(newLevel!==level){
       level = newLevel;
@@ -432,7 +433,7 @@
   function updateHUD(){
     document.getElementById('score').textContent = score.toLocaleString();
     document.getElementById('level').textContent = level;
-    document.getElementById('lines').textContent = linesCleared;
+    document.getElementById('lines').textContent = emotionsReleased;
   }
 
   function hardDrop(){
@@ -742,7 +743,7 @@
     document.getElementById('finalScore').textContent = score.toLocaleString();
     document.getElementById('bestScore').textContent = best.toLocaleString();
     // the two figures that actually matter: processed vs. still stuck
-    document.getElementById('endReleased').textContent = linesCleared;
+    document.getElementById('endReleased').textContent = emotionsReleased;
     const stillHeld = board.slice(HIDDEN_ROWS).reduce((n,row)=>n+row.filter(Boolean).length, 0);
     document.getElementById('endHeld').textContent = stillHeld;
     showOverlay(overOv);
