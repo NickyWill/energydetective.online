@@ -478,35 +478,36 @@
 
   function drawOrb(ctx, cx, cy, radius, hex, intensity, coreAlpha){
     ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
 
-    // the glow, as its own soft layer — pure gradient, no ctx.shadowBlur.
-    // shadowBlur renders inconsistently across browsers/devices (this is
-    // exactly why the orbs could look fine in one place and fuzzy in
-    // another) — a gradient looks identical everywhere. It now starts
-    // right where the core's solid zone ends, instead of overlapping
-    // into it, so the two layers don't blur into one soft mass.
-    const haloR = radius * 1.5;
-    const halo = ctx.createRadialGradient(cx, cy, radius*0.78, cx, cy, haloR);
-    halo.addColorStop(0, hexAlpha(hex, coreAlpha*0.42));
+    // Found the actual bug behind "white centre": createRadialGradient's
+    // inner circle (r0>0) is filled SOLID with stop-0's colour, not left
+    // empty — so the old halo was painting a solid disc under the core,
+    // and with 'lighter' additive blending the two stacked into a wash.
+    // Fixed by separating concerns completely: the glow is a true
+    // gradient starting at r0=0 (fades cleanly, nothing solid), and the
+    // orb itself is two plain, opaque, ungraded solid-fill circles — no
+    // gradient, no blending — so the result is exact and predictable:
+    // colour in the body, a real white ring right at the edge.
+
+    // 1) ambient glow — additive, soft, starts at the true centre
+    ctx.globalCompositeOperation = 'lighter';
+    const haloR = radius * 1.6;
+    const halo = ctx.createRadialGradient(cx, cy, 0, cx, cy, haloR);
+    halo.addColorStop(0, hexAlpha(hex, coreAlpha*0.3));
     halo.addColorStop(1, hexAlpha(hex, 0));
     ctx.fillStyle = halo;
     ctx.beginPath(); ctx.arc(cx, cy, haloR, 0, Math.PI*2); ctx.fill();
 
-    // the orb itself, drawn on top: the emotion's true colour fills
-    // the body, and a bright white rim sits right at the edge — a
-    // white boundary, not a white centre — which is what makes the
-    // circular form pop against the dark ground. The rim's own outer
-    // side fades out, so it hands off softly into the glow beyond it.
-    const core = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
-    core.addColorStop(0,    hexAlpha(hex, 0.92));
-    core.addColorStop(0.66, hexAlpha(hex, 0.92));
-    core.addColorStop(0.87, 'rgba(255,255,255,0.95)');
-    core.addColorStop(1,    'rgba(255,255,255,0)');
-    ctx.fillStyle = core;
-    ctx.beginPath();
-    ctx.arc(cx, cy, radius, 0, Math.PI*2);
-    ctx.fill();
+    // 2) the orb: a thin solid white ring, then the emotion colour on
+    // top of it, filling the body — flat colour, sharp geometric edge,
+    // no gradients involved at all
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.fillStyle = 'rgba(255,255,255,0.92)';
+    ctx.beginPath(); ctx.arc(cx, cy, radius*1.05, 0, Math.PI*2); ctx.fill();
+
+    ctx.fillStyle = hexAlpha(hex, 0.98);
+    ctx.beginPath(); ctx.arc(cx, cy, radius*0.9, 0, Math.PI*2); ctx.fill();
+
     ctx.restore();
   }
   function hexAlpha(hex, a){
@@ -616,25 +617,26 @@
   }
 
   // ---------- nervous system barometer: calm and muted low, deep amber/rust high ----------
-  // muted sage-charcoal at rest, warming only near the very top
-  // three fixed points on the load curve — coolest at rest, a
-  // clearly warmer (but still muted) midpoint by half full, deep
-  // amber/rust only once the board is genuinely near the top
-  // cool green → vivid amber → genuine red. More saturated and more
-  // clearly different at each stage than a muted-brown ramp would be.
-  const BARO_CALM = '#3d6a5a', BARO_MID = '#c17a2e', BARO_HEAVY = '#b8362a';
+  // A genuine hue journey, not shades of one colour: cool blue → sage
+  // → amber-yellow → orange → red. A 2-colour (or even 3-colour) ramp
+  // through warm tones reads as "all orange" in the middle no matter
+  // how the midpoint is placed — real hue variety is what actually
+  // looks distinct at 25/50/75%, not just a different mix ratio.
+  const BARO_STOPS = ['#355e78', '#4a7a5c', '#c9a13a', '#c96a2e', '#b8362a'];
   function lerpColor(a, b, t){
     const pa=[parseInt(a.slice(1,3),16),parseInt(a.slice(3,5),16),parseInt(a.slice(5,7),16)];
     const pb=[parseInt(b.slice(1,3),16),parseInt(b.slice(3,5),16),parseInt(b.slice(5,7),16)];
     const m=(i)=>Math.round(pa[i]+(pb[i]-pa[i])*t);
     return `rgb(${m(0)},${m(1)},${m(2)})`;
   }
-  // continuous, recalculated every frame from the current fill —
-  // not a threshold: 0→CALM, 0.5→MID exactly, 1→HEAVY, smooth
-  // between each pair, so 25/50/75% are each visibly distinct.
+  // continuous, recalculated every frame straight from current fill —
+  // walks the 5 stops above, so 0/25/50/75/100% land on blue, sage,
+  // amber, orange and red respectively, not five shades of one hue.
   function baroColor(frac){
-    return frac<=0.5 ? lerpColor(BARO_CALM, BARO_MID, frac/0.5)
-                      : lerpColor(BARO_MID, BARO_HEAVY, (frac-0.5)/0.5);
+    const n = BARO_STOPS.length - 1;
+    const pos = Math.min(0.999999, Math.max(0, frac)) * n;
+    const i = Math.floor(pos);
+    return lerpColor(BARO_STOPS[i], BARO_STOPS[i+1], pos - i);
   }
   function roundRect(ctx,x,y,w,h,r){
     r = Math.min(r, w/2, h/2);
