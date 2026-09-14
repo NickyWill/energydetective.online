@@ -70,8 +70,8 @@
   /* ---------- landing-page closer, below the game ---------- */
   .closer{max-width:440px;text-align:center;margin-top:clamp(28px,5vh,52px);padding-top:clamp(26px,4vh,40px);
     border-top:1px solid var(--hair);display:flex;flex-direction:column;gap:15px;align-items:center}
-  .closer-lede{font-family:var(--sans);font-weight:300;font-size:14px;line-height:1.75;color:var(--dim);margin:0}
-  .closer-stat{font-family:var(--sans);font-weight:300;font-size:14px;line-height:1.6;color:var(--dim);margin:0}
+  .closer-lede{font-family:var(--sans);font-weight:400;font-size:14px;line-height:1.75;color:var(--dim);margin:0}
+  .closer-stat{font-family:var(--sans);font-weight:400;font-size:14px;line-height:1.6;color:var(--dim);margin:0}
   .closer-stat b{font-family:var(--disp);font-style:italic;font-weight:400;color:var(--gold);font-size:1.2em}
   .closer-ask{font-family:var(--disp);font-style:italic;font-weight:400;font-size:clamp(19px,2.8vw,24px);color:var(--ink);margin:0;line-height:1.3}
   .closer-cta{display:inline-block;margin:2px 0 clamp(28px,6vh,56px);font-family:var(--sans);font-weight:500;font-size:12.5px;
@@ -189,6 +189,7 @@
   @media(min-width:601px){
     .stage{max-width:1180px}
     .layout{
+      width:fit-content;max-width:calc(100% - 8px);margin:0 auto;
       gap:clamp(28px,4.2vw,80px);
       background:var(--panel-bg);
       border:1px solid var(--hair);
