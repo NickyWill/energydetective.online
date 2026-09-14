@@ -863,6 +863,11 @@
     }
     boardCv.style.width = (COLS*CELL)+'px';
     boardCv.style.height = (VISIBLE_ROWS*CELL)+'px';
+    // pin board-stage to the board's own pixel width explicitly — otherwise
+    // it shrink-wraps to its WIDEST child, and the keyboard-hint line living
+    // inside it (long, unwrapped) can end up wider than the board itself,
+    // leaving a blank strip of board-wrap past the canvas's actual edge
+    document.querySelector('.board-stage').style.width = (COLS*CELL)+'px';
     render();
   }
 
