@@ -378,15 +378,20 @@
   // calm. These are heavier, more saturated, more dissonant —
   // stuck energy, not cleared energy. Edit name/organ/hex here.
   // ============================================================
+  // word pools drawn from the same organ lists already established on the
+  // home page's body map (index.html ROWS) — each piece keeps its fixed
+  // colour/organ/shape, but the displayed word is picked fresh from its
+  // pool each time it's shown, instead of one word repeating every game
   const EMOTIONS = {
-    sadness:    { name:'Sadness',    organ:'the lungs',   hex:'#3d5f8f' },
-    grief:      { name:'Grief',      organ:'the lungs',   hex:'#4a3f70' },
-    resentment: { name:'Resentment', organ:'the liver',   hex:'#a3492e' },
-    guilt:      { name:'Guilt',      organ:'the liver',   hex:'#8a6a2c' },
-    fear:       { name:'Fear',       organ:'the kidneys', hex:'#204b4b' },
-    shame:      { name:'Shame',      organ:'the pelvis',  hex:'#5c3452' },
-    anxiety:    { name:'Anxiety',    organ:'the stomach', hex:'#6d6a2a' },
+    sadness:    { names:['Sadness','Sorrow','Rejection'],                organ:'the lungs',   hex:'#3d5f8f' },
+    grief:      { names:['Grief','Discouragement','Self-Abuse'],         organ:'the lungs',   hex:'#4a3f70' },
+    resentment: { names:['Resentment','Bitterness','Taken for Granted'], organ:'the liver',   hex:'#a3492e' },
+    guilt:      { names:['Guilt','Frustration'],                        organ:'the liver',   hex:'#8a6a2c' },
+    fear:       { names:['Fear','Dread','Unsupported'],                 organ:'the kidneys', hex:'#204b4b' },
+    shame:      { names:['Shame','Overwhelm'],                          organ:'the pelvis',  hex:'#5c3452' },
+    anxiety:    { names:['Anxiety','Worry','Despair','Helplessness','Hopelessness','Low Self-Esteem','Lack of Control'], organ:'the stomach', hex:'#6d6a2a' },
   };
+  function pickName(e){ return e.names[Math.floor(Math.random()*e.names.length)]; }
 
   // ============================================================
   // PIECES — each defined as cells inside an NxN box, rotated
@@ -473,7 +478,7 @@
   }
   function updateCurrent(p){
     const e = EMOTIONS[p.emo];
-    curNameEl.textContent = e.name;
+    curNameEl.textContent = pickName(e);
     // several emotion hues are deliberately deep/dark (that's the
     // point — stuck, heavy). Deep-on-dark reads fine on the board,
     // but is unreadable as small text, so the panel gets a brightened
@@ -587,7 +592,7 @@
       const e = EMOTIONS[pt.emo];
       const el = document.createElement('div');
       el.className = 'clear-bubble';
-      el.textContent = e.name;
+      el.textContent = pickName(e);
       el.style.width = size+'px';
       el.style.height = size+'px';
       el.style.left = pt.x+'px';
@@ -640,9 +645,12 @@
       const e = EMOTIONS[key];
       const el = document.createElement('div');
       el.className = 'clear-bubble';
-      el.textContent = e.name;
+      el.textContent = pickName(e);
       const x = slotW*i + slotW*(0.25 + Math.random()*0.5);
-      const y = h*(0.22 + Math.random()*0.56);
+      // start low, near the bottom of the section, so they genuinely
+      // pop up from below and rise through the copy — not just fade in
+      // from a mid-band
+      const y = h*(0.62 + Math.random()*0.33);
       el.style.width = size+'px';
       el.style.height = size+'px';
       el.style.left = x+'px';
