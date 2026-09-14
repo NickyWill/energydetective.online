@@ -91,28 +91,25 @@
   .rule{width:26px;height:1px;background:var(--hair);margin:2px 0}
   .panel.left .rule{margin-left:auto}
 
-  .next-wrap{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+  .next-wrap{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
   .next-wrap .lbl{font-size:9.5px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
   #next{display:block;width:min(90px,17vw);height:min(90px,17vw);max-width:100%}
 
   /* ---------- current piece identity — panel only, never on the board ---------- */
-  .current-wrap{display:flex;flex-direction:column;gap:4px;align-items:flex-end;max-width:104px;text-align:right}
+  .current-wrap{display:flex;flex-direction:column;gap:4px;align-items:flex-start;max-width:104px;text-align:left}
   .current-wrap .lbl{font-size:9.5px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin-bottom:2px}
   .cur-name{font-family:var(--disp);font-style:italic;font-weight:400;font-size:clamp(17px,2.2vw,20px);line-height:1.15}
   .cur-organ{font-family:var(--sans);font-weight:300;font-size:10.5px;line-height:1.4;color:var(--dim)}
 
-  /* ---------- nervous system barometer: now stands beside the board
-     itself (in its own side margin) rather than stacked in the stat
-     panel — one less row competing with the board and the copy above
-     and below it for vertical space. ---------- */
-  .board-row{display:flex;align-items:center;justify-content:center;gap:clamp(10px,2.4vw,18px)}
-  .baro-rail{display:flex;flex-direction:column;align-items:center;gap:9px}
-  .baro-rail .lbl{font-size:9.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);text-align:center;max-width:64px;line-height:1.4}
-  #baro{display:block;border-radius:7px;width:10px;height:clamp(120px,26vh,230px)}
+  /* ---------- nervous system barometer: lives in panel.right, on the
+     game's right side, under Current/Next — that panel's own generous
+     space, not a strip squeezed against the board. ---------- */
+  .baro-wrap{display:flex;flex-direction:column;gap:9px;align-items:flex-start;margin-top:2px}
+  .baro-wrap .lbl{font-size:9.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);text-align:left;max-width:70px;line-height:1.4}
+  #baro{display:block;border-radius:7px}
 
   /* ---------- board ---------- */
   .board-stage{position:relative}
-  .board-frame{position:relative}
   .board-wrap{position:relative;border-radius:3px;overflow:hidden;box-shadow:0 30px 70px -20px rgba(0,0,0,.6)}
   .board-wrap::after{
     content:"";position:absolute;inset:0;pointer-events:none;border-radius:3px;
@@ -204,7 +201,7 @@
     .stat .lbl{font-size:10.5px}
     .cur-name{font-size:clamp(19px,2.3vw,23px)}
     .cur-organ{font-size:11.5px}
-    .baro-rail .lbl,.next-wrap .lbl,.current-wrap .lbl{font-size:10.5px}
+    .baro-wrap .lbl,.next-wrap .lbl,.current-wrap .lbl{font-size:10.5px}
   }
 
   /* ============================================================
@@ -222,9 +219,6 @@
 
     .layout{flex-direction:column;align-items:center;gap:16px;width:100%}
     .board-stage{order:1;width:100%;display:flex;flex-direction:column;align-items:center}
-    .board-row{gap:10px}
-    .baro-rail .lbl{font-size:8.5px;max-width:44px}
-    #baro{height:clamp(90px,20vh,160px)}
     .panel.left{order:2}
     .panel.right{order:3}
 
@@ -239,10 +233,12 @@
       border:1px solid var(--hair);border-radius:12px;
     }
     .rule{display:none} /* vertical dividers don't read in a grid */
-    .panel .stat,.panel .current-wrap,.panel .next-wrap{
+    .panel .stat,.panel .current-wrap,.panel .next-wrap,.panel .baro-wrap{
       display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0;max-width:none;
     }
-    .panel.left .stat:nth-child(5){grid-column:1/-1} /* Emotions Released — the long label gets the full row to itself */
+    .panel.right .baro-wrap{grid-column:1/-1} /* barometer sits under Current/Next, full width */
+    .baro-wrap .lbl{text-align:center;max-width:none}
+    #baro{width:10px;height:64px}
     .stat .lbl{margin-bottom:2px}
     .stat .val{font-size:19px}
     .current-wrap,.next-wrap{text-align:center}
@@ -260,8 +256,8 @@
 
 <div class="stage">
   <header>
-    <p class="eyebrow">Energy Detective</p>
-    <h1>Capacity</h1>
+    <p class="eyebrow">Test Your Emotional</p>
+    <h1><i>Capacity</i></h1>
     <p class="hook-line">Stuck on money, health, relationships or business? This is what it looks like when it never gets cleared.</p>
   </header>
 
@@ -271,51 +267,40 @@
       <div class="rule"></div>
       <div class="stat"><span class="lbl">Level</span><span class="val" id="level">1</span></div>
       <div class="rule"></div>
-      <div class="stat"><span class="lbl">Emotions Released</span><span class="val" id="lines">0</span></div>
+      <div class="stat"><span class="lbl">Emotions<br>Released</span><span class="val" id="lines">0</span></div>
     </div>
 
     <div class="board-stage">
-    <div class="board-row">
-      <div class="baro-rail">
-        <span class="lbl">Nervous<br>System</span>
-        <canvas id="baro" width="14" height="120"></canvas>
+    <div class="board-wrap">
+      <canvas id="board"></canvas>
+      <div class="overlay" id="startOverlay">
+        <p class="ov-eyebrow">Ready</p>
+        <h2>How many emotions can you release?</h2>
+        <button class="ov-btn" id="startBtn">Begin</button>
+        <p class="ov-hint">Arrow keys to move · Up to rotate · Space to drop</p>
       </div>
-      <div class="board-frame">
-      <div class="board-wrap">
-        <canvas id="board"></canvas>
-        <div class="overlay" id="startOverlay">
-          <p class="ov-eyebrow">Ready</p>
-          <h2>How many emotions can you release?</h2>
-          <button class="ov-btn" id="startBtn">Begin</button>
-          <p class="ov-hint">Arrow keys to move · Up to rotate · Space to drop</p>
-        </div>
-        <div class="overlay" id="pauseOverlay">
-          <p class="ov-eyebrow">Paused</p>
-          <h2>Take a breath</h2>
-          <button class="ov-btn" id="resumeBtn">Resume</button>
-        </div>
-        <div class="overlay" id="overOverlay">
-          <p class="ov-eyebrow">The board filled</p>
-          <h2>Game Over</h2>
-          <div class="end-stats">
-            <div class="end-stat"><span class="lbl">Emotions Released</span><span class="val released" id="endReleased">0</span></div>
-            <div class="end-stat"><span class="lbl">Emotions Still Held</span><span class="val held" id="endHeld">0</span></div>
-          </div>
-          <p class="score-line minor">Score <b id="finalScore">0</b> · Best <b id="bestScore">0</b></p>
-          <!-- placeholder — closing line to be written by hand -->
-          <p class="closing-msg" id="closingMsg"></p>
-          <button class="ov-btn" id="retryBtn">Play Again</button>
-        </div>
+      <div class="overlay" id="pauseOverlay">
+        <p class="ov-eyebrow">Paused</p>
+        <h2>Take a breath</h2>
+        <button class="ov-btn" id="resumeBtn">Resume</button>
       </div>
-      <!-- sits outside board-wrap's overflow:hidden so a bubble can visibly
-           drift up past the top edge and fade there, instead of being
-           hard-clipped the instant it crosses the boundary. board-frame
-           (not board-stage) is the positioned ancestor now, so inset:0
-           still lines up exactly with board-wrap alone, not the wider
-           row that includes the barometer. -->
-      <div class="clear-bubbles" id="clearBubbles"></div>
+      <div class="overlay" id="overOverlay">
+        <h2>Game Over</h2>
+        <p class="ov-eyebrow">You reached over capacity</p>
+        <div class="end-stats">
+          <div class="end-stat"><span class="lbl">Emotions Released</span><span class="val released" id="endReleased">0</span></div>
+          <div class="end-stat"><span class="lbl">Emotions Still Held</span><span class="val held" id="endHeld">0</span></div>
+        </div>
+        <p class="score-line minor">Score <b id="finalScore">0</b> · Best <b id="bestScore">0</b></p>
+        <!-- placeholder — closing line to be written by hand -->
+        <p class="closing-msg" id="closingMsg"></p>
+        <button class="ov-btn" id="retryBtn">Play Again</button>
       </div>
     </div>
+    <!-- sits outside board-wrap's overflow:hidden so a bubble can visibly
+         drift up past the top edge and fade there, instead of being
+         hard-clipped the instant it crosses the boundary -->
+    <div class="clear-bubbles" id="clearBubbles"></div>
 
     <!-- controls live with the board (not after the whole .layout row) so
          that on mobile, reordering .layout's children keeps board+controls
@@ -331,6 +316,9 @@
         <button class="tbtn drop" id="btnHard" aria-label="Hard drop">Drop</button>
       </div>
     </div>
+    <!-- lives under the board/controls, inside the game's own card, not
+         out in the landing-page copy below it -->
+    <p class="kb-hint">← → move · ↑ rotate · ↓ soft drop · space hard drop · P pause</p>
     </div>
 
     <div class="panel right">
@@ -343,10 +331,12 @@
         <span class="lbl">Next</span>
         <canvas id="next" width="100" height="100"></canvas>
       </div>
+      <div class="baro-wrap">
+        <span class="lbl">Nervous<br>System</span>
+        <canvas id="baro" width="14" height="120"></canvas>
+      </div>
     </div>
   </div>
-
-  <p class="kb-hint">← → move · ↑ rotate · ↓ soft drop · space hard drop · P pause</p>
 
   <section class="closer">
     <p class="closer-lede">Every one of those emotions still held on your board? Those emotions that never got cleared don't just disappear. They stack, exactly like this, whether you're playing a game or living your life.</p>
@@ -858,16 +848,10 @@
       // always fit the viewport together without scrolling
       const reserved = headerH + controlsH + stageGap*2 + padV + 14;
       const availH = Math.max(220, window.innerHeight - reserved);
-      // the barometer now sits beside the board (not stacked below it), so
-      // its measured width + the row gap has to come out of the board's
-      // width budget too, or the row overflows the screen — plus a small
-      // fixed margin on the board's other side so it still reads as
-      // contained rather than full-bleed
-      const baroRailEl = document.querySelector('.baro-rail');
-      const boardRowEl = document.querySelector('.board-row');
-      const baroW = baroRailEl ? baroRailEl.getBoundingClientRect().width : 0;
-      const rowGap = boardRowEl ? (parseFloat(getComputedStyle(boardRowEl).columnGap) || 0) : 0;
-      const availW = stageEl.getBoundingClientRect().width - baroW - rowGap - 14;
+      // -28 beyond the page's own side padding, so the board reads as a
+      // deliberately contained element with visible margin either side,
+      // not full-bleed to the screen edge
+      const availW = stageEl.getBoundingClientRect().width - 28;
       CELL = Math.floor(Math.min(availH/VISIBLE_ROWS, availW/COLS));
       CELL = Math.max(13, CELL);
     } else {
