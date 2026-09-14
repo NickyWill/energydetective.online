@@ -81,10 +81,25 @@
   #baro{display:block;border-radius:7px}
 
   /* ---------- board ---------- */
+  .board-stage{position:relative}
   .board-wrap{position:relative;border-radius:3px;overflow:hidden;box-shadow:0 30px 70px -20px rgba(0,0,0,.6)}
   .board-wrap::after{
     content:"";position:absolute;inset:0;pointer-events:none;border-radius:3px;
     box-shadow:inset 0 0 0 1px var(--hair), inset 0 40px 70px -30px rgba(0,0,0,.55), inset 0 -40px 70px -30px rgba(0,0,0,.55);
+  }
+
+  /* ---------- line-clear bubbles — same idea as the home page body map:
+     a soft glowing circle per emotion, name centred inside, drifting up
+     and fading as it leaves. Lives outside board-wrap's overflow:hidden
+     so it can rise past the top edge before it disappears. ---------- */
+  .clear-bubbles{position:absolute;inset:0;pointer-events:none;overflow:visible;z-index:5}
+  .clear-bubble{
+    position:absolute;left:0;top:0;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    padding:6%;box-sizing:border-box;
+    font-family:var(--disp);font-style:italic;font-weight:400;color:#f4f0e8;
+    line-height:1.05;text-shadow:0 1px 3px rgba(0,0,0,.55),0 0 18px rgba(0,0,0,.4);
+    opacity:0;
   }
   #board{display:block;background:transparent}
 
@@ -175,6 +190,7 @@
       </div>
     </div>
 
+    <div class="board-stage">
     <div class="board-wrap">
       <canvas id="board"></canvas>
       <div class="overlay" id="startOverlay">
@@ -200,6 +216,11 @@
         <p class="closing-msg" id="closingMsg"></p>
         <button class="ov-btn" id="retryBtn">Play Again</button>
       </div>
+    </div>
+    <!-- sits outside board-wrap's overflow:hidden so a bubble can visibly
+         drift up past the top edge and fade there, instead of being
+         hard-clipped the instant it crosses the boundary -->
+    <div class="clear-bubbles" id="clearBubbles"></div>
     </div>
 
     <div class="panel right">
@@ -271,9 +292,6 @@
     L: { n:3, cells:[[0,2],[1,0],[1,1],[1,2]], emo:'grief' },
   };
 
-  // soft glowing green for a cleared line — not flat, not neon
-  const RELEASED_HEX = '#6fae6f';
-
   function rotateCells(cells, n){
     // clockwise: (r,c) -> (c, n-1-r)
     return cells.map(([r,c]) => [c, n-1-r]);
@@ -304,10 +322,9 @@
   let best = 0;
   try { best = +(localStorage.getItem('ed_tetris_best')||0) || 0; } catch(e){}
 
-  // the soft green flash + "Released" word on a line clear (this
-  // one does live on the board — only the emotion name/organ text
-  // is confined to the Current panel)
-  let clearFx = [];
+  // while this is set, the drop timer is held and no new piece is
+  // active — the line-clear bubbles are having their moment first
+  let pendingSpawnAt = 0;
 
   function emptyBoard(){
     return Array.from({length:ROWS}, () => Array(COLS).fill(null));
@@ -326,7 +343,8 @@
     score = 0; level = 1; linesCleared = 0; emotionsReleased = 0;
     dropInterval = 1000;
     acc = 0; lastT = 0;
-    clearFx = [];
+    pendingSpawnAt = 0;
+    clearBubblesEl.innerHTML = '';
     updateHUD();
   }
 
@@ -336,6 +354,7 @@
   // ============================================================
   const curNameEl = document.getElementById('curName');
   const curOrganEl = document.getElementById('curOrgan');
+  const clearBubblesEl = document.getElementById('clearBubbles');
   function hexLighten(hex, amt){
     const r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16);
     const m=(v)=>Math.round(v+(255-v)*amt);
@@ -363,7 +382,7 @@
   }
 
   function tryMove(dx, dy){
-    if(state!=='playing') return false;
+    if(state!=='playing' || !active) return false;
     const nx = active.x+dx, ny = active.y+dy;
     if(!collides(active.cells, active.n, nx, ny)){
       active.x = nx; active.y = ny;
@@ -373,7 +392,7 @@
   }
 
   function tryRotate(){
-    if(state!=='playing') return;
+    if(state!=='playing' || !active) return;
     if(active.type==='O') return;
     const rotated = rotateCells(active.cells, active.n);
     const kicks = [0,-1,1,-2,2];
@@ -391,12 +410,25 @@
       const br = active.y+r, bc = active.x+c;
       if(br>=0) board[br][bc] = active.emo;
     }
-    const cleared = clearLines();
-    if(cleared>0) applyScore(cleared);
+    active = null; // nothing active while a clear (if any) has its moment
+    const result = clearLines();
+    if(result.count>0){
+      applyScore(result.count);
+      spawnClearBubbles(result.emotions);
+      // half a second to a second, a touch longer when there's more
+      // than one name to read, capped at the top of that range
+      pendingSpawnAt = performance.now() + Math.min(1000, 600 + Math.max(0, result.emotions.length-1)*150);
+    } else {
+      doSpawn();
+    }
+  }
+
+  function doSpawn(){
     active = spawnPiece(nextT);
     nextT = nextType();
     updateCurrent(active);
     if(collides(active.cells, active.n, active.x, active.y)){
+      active = null;
       gameOver();
     }
   }
@@ -404,17 +436,65 @@
   function clearLines(){
     const fullRows = [];
     for(let r=0;r<ROWS;r++){ if(board[r].every(cell=>cell)) fullRows.push(r); }
+    const emotions = [];
     if(fullRows.length){
-      // record the flash/word for each cleared row before the board shifts
-      const ys = fullRows.filter(r=>r>=HIDDEN_ROWS).map(r=>(r-HIDDEN_ROWS)*CELL);
-      if(ys.length){
-        clearFx.push({ ys, cx:(COLS*CELL)/2, start:performance.now() });
-        if(clearFx.length>3) clearFx.shift();
-      }
+      // for each cleared row, find every distinct emotion in it and
+      // where it sits (average column), before the board shifts
+      fullRows.forEach(r=>{
+        if(r<HIDDEN_ROWS) return;
+        const y = (r-HIDDEN_ROWS)*CELL + CELL/2;
+        const byEmo = {};
+        for(let c=0;c<COLS;c++){
+          const emo = board[r][c];
+          (byEmo[emo] = byEmo[emo] || []).push(c);
+        }
+        Object.keys(byEmo).forEach(emo=>{
+          const cols = byEmo[emo];
+          const avgC = cols.reduce((a,b)=>a+b,0)/cols.length;
+          emotions.push({ emo, x:(avgC+0.5)*CELL, y });
+        });
+      });
       board = board.filter((_,r)=>!fullRows.includes(r));
       while(board.length<ROWS) board.unshift(Array(COLS).fill(null));
     }
-    return fullRows.length;
+    return { count: fullRows.length, emotions };
+  }
+
+  // ============================================================
+  // LINE-CLEAR BUBBLES — same idea as the home page body map: one
+  // soft glowing, coloured circle per distinct emotion in the
+  // cleared line, its name centred inside, drifting up and fading
+  // as it passes above the top of the board.
+  // ============================================================
+  function spawnClearBubbles(emotions){
+    const boardH = VISIBLE_ROWS*CELL;
+    const size = Math.max(58, Math.min(96, CELL*2.3));
+    emotions.forEach((pt, i)=>{
+      const e = EMOTIONS[pt.emo];
+      const el = document.createElement('div');
+      el.className = 'clear-bubble';
+      el.textContent = e.name;
+      el.style.width = size+'px';
+      el.style.height = size+'px';
+      el.style.left = pt.x+'px';
+      el.style.top = pt.y+'px';
+      el.style.fontSize = Math.max(12, size*0.16)+'px';
+      el.style.background = `radial-gradient(circle at 38% 34%, ${hexAlpha(e.hex,0.45)}, ${hexAlpha(e.hex,0.22)} 55%, ${hexAlpha(e.hex,0)} 76%)`;
+      el.style.boxShadow = `inset 0 0 0 1px ${hexAlpha('#ffffff',0.16)}, 0 0 ${size*0.5}px ${hexAlpha(e.hex,0.55)}`;
+      clearBubblesEl.appendChild(el);
+
+      // rises from its row up past the top of the board, with margin
+      // to clear its own size before it's fully faded
+      const riseBy = pt.y + size;
+      const delay = i*90; // staggers multiple bubbles in the same clear very slightly
+      const anim = el.animate([
+        { opacity:0, transform:'translate(-50%,-50%) scale(.7)', offset:0 },
+        { opacity:1, transform:'translate(-50%,-50%) scale(1)', offset:0.14 },
+        { opacity:1, transform:`translate(-50%, calc(-50% - ${riseBy*0.35}px)) scale(1)`, offset:0.55 },
+        { opacity:0, transform:`translate(-50%, calc(-50% - ${riseBy}px)) scale(1.04)`, offset:1 },
+      ], { duration:1650, delay, easing:'cubic-bezier(.25,.6,.3,1)', fill:'forwards' });
+      anim.onfinish = () => el.remove();
+    });
   }
 
   function applyScore(n){
@@ -437,7 +517,7 @@
   }
 
   function hardDrop(){
-    if(state!=='playing') return;
+    if(state!=='playing' || !active) return;
     let dist=0;
     while(!collides(active.cells, active.n, active.x, active.y+1)){ active.y++; dist++; }
     score += dist*2;
@@ -581,40 +661,8 @@
     bctx.fillStyle = vg;
     bctx.fillRect(0,0,W,H);
 
-    renderClearFx(W, radius);
     renderNext();
     renderBaro();
-  }
-
-  // ---------- small, italic-serif text, clamped inside the board (used only
-  // by the release flash — emotion names live in the Current panel instead) ----------
-  function fillCenteredText(ctx, text, cx, y, font, color, alpha, boardW){
-    ctx.save();
-    ctx.font = font; ctx.textAlign = 'center'; ctx.globalAlpha = alpha; ctx.fillStyle = color;
-    const w = ctx.measureText(text).width;
-    const x = Math.min(boardW - w/2 - 4, Math.max(w/2 + 4, cx));
-    ctx.fillText(text, x, y);
-    ctx.restore();
-  }
-
-  // ---------- soft green flash + fading "Released" word on a line clear ----------
-  const FX_DUR = 900;
-  function renderClearFx(W, radius){
-    const now = performance.now();
-    clearFx = clearFx.filter(fx=>{
-      const t = (now - fx.start) / FX_DUR;
-      if(t >= 1) return false;
-      const glowA = t<0.15 ? t/0.15 : (1-t)/0.85;
-      for(const y of fx.ys){
-        for(let c=0;c<COLS;c++){
-          drawOrb(bctx, c*CELL+CELL/2, y+CELL/2, radius*1.15, RELEASED_HEX, 0.6, 0.55*glowA);
-        }
-      }
-      const textA = t<0.12 ? t/0.12 : (t>0.7 ? (1-t)/0.3 : 1);
-      const midY = fx.ys.reduce((a,b)=>a+b,0)/fx.ys.length + CELL/2 + 5;
-      fillCenteredText(bctx, 'Released', fx.cx, midY, "italic 400 16px 'Instrument Serif', Georgia, serif", RELEASED_HEX, textA*0.95, W);
-      return true;
-    });
   }
 
   // ---------- nervous system barometer: calm and muted low, deep amber/rust high ----------
@@ -697,13 +745,16 @@
   // ============================================================
   function loop(t){
     if(state==='playing'){
-      if(!lastT) lastT=t;
-      const dt = t-lastT; lastT=t;
-      acc += dt;
-      if(acc>=dropInterval){ acc=0; tick(); }
-      else { render(); } // keep the clear-flash animating between drop ticks
-    } else if(clearFx.length){
-      render(); // let a flash already fading finish smoothly even if paused/over
+      if(pendingSpawnAt){
+        // holding for the line-clear bubbles to have their readable
+        // moment before the next piece appears — nothing to tick
+        if(t>=pendingSpawnAt){ pendingSpawnAt=0; lastT=t; doSpawn(); render(); }
+      } else if(active){
+        if(!lastT) lastT=t;
+        const dt = t-lastT; lastT=t;
+        acc += dt;
+        if(acc>=dropInterval){ acc=0; tick(); }
+      }
     } else {
       lastT = 0;
     }
