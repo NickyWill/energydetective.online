@@ -92,7 +92,7 @@
 
   .next-wrap{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
   .next-wrap .lbl{font-size:9.5px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
-  #next{display:block;width:min(90px,17vw);height:min(90px,17vw);max-width:100%}
+  #next{display:block;width:min(90px,17vw);height:min(90px,17vw);max-width:100%;margin:6px 0}
 
   /* ---------- current piece identity — panel only, never on the board ---------- */
   .current-wrap{display:flex;flex-direction:column;gap:4px;align-items:flex-start;max-width:104px;text-align:left}
@@ -169,7 +169,6 @@
     transition:background .15s,border-color .15s;-webkit-tap-highlight-color:transparent;
   }
   .tbtn:active{background:color-mix(in oklch,var(--gold) 22%,transparent);border-color:color-mix(in oklch,var(--gold) 50%,transparent)}
-  .tbtn.rotate{width:64px;height:64px;font-size:22px}
   .tbtn.drop{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase}
   .tbtn svg{width:18px;height:18px}
   .pad.left{align-self:center}
@@ -207,10 +206,6 @@
       box-shadow:0 50px 110px -40px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.03);
     }
     .panel{gap:clamp(16px,3.2vh,32px)}
-    /* the board sits a touch higher than the panels either side of it —
-       a deliberate offset, not everything pinned to one strict top line,
-       and it trims a little height off the card at the same time */
-    .board-stage{margin-top:-10px}
     .stat .val{font-size:clamp(24px,2.2vw,32px)}
     .stat .lbl{font-size:10.5px}
     .cur-name{font-size:clamp(19px,2.3vw,23px)}
@@ -251,7 +246,6 @@
     .controls{margin-top:8px}
     .pad{gap:5px}
     .tbtn{width:38px;height:38px;font-size:15px}
-    .tbtn.rotate{width:44px;height:44px;font-size:17px}
     .tbtn.drop{font-size:8px}
 
     .closer{margin-top:20px;padding-top:20px}
@@ -824,12 +818,10 @@
     nctx.clearRect(0,0,size,size);
     const minR = Math.min(...shape.cells.map(c=>c[0])), maxR = Math.max(...shape.cells.map(c=>c[0]));
     const minC = Math.min(...shape.cells.map(c=>c[1])), maxC = Math.max(...shape.cells.map(c=>c[1]));
-    const h = (maxR-minR+1);
-    // flush left regardless of shape width, only centred vertically —
-    // so the next-piece preview doesn't shift side to side as pieces change
-    const offX = -minC, offY = (4-h)/2 - minR;
+    const w = (maxC-minC+1), h = (maxR-minR+1);
+    const offX = (4-w)/2 - minC, offY = (4-h)/2 - minR;
     for(const [r,c] of shape.cells){
-      drawOrb(nctx, (c+offX)*cell+cell/2, (r+offY)*cell+cell/2, cell*0.4, EMOTIONS[shape.emo].hex, 0, 0.6);
+      drawOrb(nctx, (c+offX)*cell+cell/2, (r+offY)*cell+cell/2, cell*0.34, EMOTIONS[shape.emo].hex, 0, 0.6);
     }
   }
 
