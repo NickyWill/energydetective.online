@@ -172,18 +172,44 @@
   @media(hover:hover) and (pointer:fine){ .controls{display:none} }
   @media(hover:none),(pointer:coarse){ .kb-hint{display:none} }
 
-  @media(max-width:640px){
-    .layout{gap:8px}
-    .panel{min-width:56px}
-    .stat .val{font-size:19px}
-  }
-  @media(max-width:520px){
-    h1{font-size:22px}
+  /* ============================================================
+     MOBILE (≤600px) — a genuinely different layout, not a shrunk
+     desktop one. Priority order top to bottom: compact header,
+     board, controls (always together, never separated by the
+     stat panels), then the stats as compact rows, then the
+     landing-page copy below all of it.
+  ============================================================ */
+  @media(max-width:600px){
+    .stage{gap:10px}
+    body{padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+    .hook-line{display:none} /* the two-sentence hook — cut on mobile, board comes first */
+    .subhead{margin-top:4px}
+    header{padding:0 4px}
+
+    .layout{flex-direction:column;align-items:center;gap:10px;width:100%}
+    .board-stage{order:1;width:100%;display:flex;flex-direction:column;align-items:center}
+    .panel.left{order:2}
+    .panel.right{order:3}
+
+    /* stat panels: horizontal compact rows instead of vertical stacks,
+       sitting below the board+controls — never between them */
+    .panel{flex-direction:row;flex-wrap:wrap;justify-content:center;align-items:center;
+      gap:16px;min-width:0;width:100%;padding-top:0;text-align:center}
+    .panel.left,.panel.right{align-items:center}
+    .rule{display:none} /* vertical dividers don't read in a horizontal row */
+    .stat .lbl{margin-bottom:3px}
     .stat .val{font-size:17px}
-    .stat .lbl{font-size:8.5px;letter-spacing:.16em}
-    .layout{gap:6px}
-    .panel{min-width:48px}
-    .next-wrap .lbl{font-size:8.5px}
+    .baro-wrap,.current-wrap,.next-wrap{align-items:center;text-align:center}
+    .baro-wrap .lbl{text-align:center;max-width:none}
+    .current-wrap{max-width:120px}
+    #baro{width:10px;height:46px}
+    #next{width:44px;height:44px}
+
+    .controls{margin-top:10px}
+    .tbtn{width:50px;height:50px;font-size:18px}
+    .tbtn.rotate{width:58px;height:58px;font-size:20px}
+
+    .closer{margin-top:20px;padding-top:20px}
   }
 </style>
 </head>
@@ -242,6 +268,21 @@
          drift up past the top edge and fade there, instead of being
          hard-clipped the instant it crosses the boundary -->
     <div class="clear-bubbles" id="clearBubbles"></div>
+
+    <!-- controls live with the board (not after the whole .layout row) so
+         that on mobile, reordering .layout's children keeps board+controls
+         together as one unit while the stat panels move elsewhere -->
+    <div class="controls">
+      <div class="pad left">
+        <button class="tbtn" id="btnLeft" aria-label="Move left">‹</button>
+        <button class="tbtn" id="btnDown" aria-label="Soft drop">˅</button>
+        <button class="tbtn" id="btnRight" aria-label="Move right">›</button>
+      </div>
+      <div class="pad right">
+        <button class="tbtn rotate" id="btnRotate" aria-label="Rotate">↻</button>
+        <button class="tbtn drop" id="btnHard" aria-label="Hard drop">Drop</button>
+      </div>
+    </div>
     </div>
 
     <div class="panel right">
@@ -257,17 +298,6 @@
     </div>
   </div>
 
-  <div class="controls">
-    <div class="pad left">
-      <button class="tbtn" id="btnLeft" aria-label="Move left">‹</button>
-      <button class="tbtn" id="btnDown" aria-label="Soft drop">˅</button>
-      <button class="tbtn" id="btnRight" aria-label="Move right">›</button>
-    </div>
-    <div class="pad right">
-      <button class="tbtn rotate" id="btnRotate" aria-label="Rotate">↻</button>
-      <button class="tbtn drop" id="btnHard" aria-label="Hard drop">Drop</button>
-    </div>
-  </div>
   <p class="kb-hint">← → move · ↑ rotate · ↓ soft drop · space hard drop · P pause</p>
 
   <section class="closer">
@@ -762,11 +792,33 @@
   // SIZING
   // ============================================================
   function resize(){
-    const wrap = document.querySelector('.board-wrap');
-    const availH = window.innerHeight * 0.62;
-    const availW = Math.min(window.innerWidth*0.66, 420);
-    CELL = Math.floor(Math.min(availH/VISIBLE_ROWS, availW/COLS));
-    CELL = Math.max(16, CELL);
+    const mobile = window.innerWidth <= 600;
+    if(mobile){
+      // measure what's actually on screen rather than guess — header and
+      // controls heights vary a little with font metrics, so this stays
+      // correct instead of relying on a fixed budget
+      const stageEl = document.querySelector('.stage');
+      const header = document.querySelector('header');
+      const controlsEl = document.querySelector('.controls');
+      const stageGap = parseFloat(getComputedStyle(stageEl).rowGap) || 10;
+      const bodyStyle = getComputedStyle(document.body);
+      const padV = (parseFloat(bodyStyle.paddingTop)||0) + (parseFloat(bodyStyle.paddingBottom)||0);
+      const headerH = header.getBoundingClientRect().height;
+      const controlsH = controlsEl.getBoundingClientRect().height;
+      // reserve header + controls + the two gaps around the board block +
+      // body's own padding + a small safety margin, so board+controls
+      // always fit the viewport together without scrolling
+      const reserved = headerH + controlsH + stageGap*2 + padV + 14;
+      const availH = Math.max(220, window.innerHeight - reserved);
+      const availW = stageEl.getBoundingClientRect().width;
+      CELL = Math.floor(Math.min(availH/VISIBLE_ROWS, availW/COLS));
+      CELL = Math.max(13, CELL);
+    } else {
+      const availH = window.innerHeight * 0.62;
+      const availW = Math.min(window.innerWidth*0.66, 420);
+      CELL = Math.floor(Math.min(availH/VISIBLE_ROWS, availW/COLS));
+      CELL = Math.max(16, CELL);
+    }
     boardCv.style.width = (COLS*CELL)+'px';
     boardCv.style.height = (VISIBLE_ROWS*CELL)+'px';
     render();
@@ -887,6 +939,9 @@
   resize();
   render();
   showOverlay(startOv);
+  // header/controls height can shift slightly once the real webfonts
+  // swap in — re-measure once that's settled so mobile sizing stays exact
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(resize).catch(()=>{});
 })();
 </script>
 </body>
