@@ -29,14 +29,20 @@
     --sans:'Poppins',system-ui,sans-serif;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-  html,body{margin:0;padding:0;height:100%;background:var(--bg);color:var(--ink);overflow-x:hidden;max-width:100vw}
+  /* No fixed height + overflow:auto on html/body — that pairing makes body an
+     ambiguous nested scroll container (browsers disagree on whether body's
+     overflow propagates to the viewport when html also has an explicit
+     overflow axis set), which is exactly what was blocking scroll on both
+     touch and desktop trackpad. Body just grows to its natural content
+     height instead, and the document scrolls the normal way everywhere. */
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);max-width:100vw}
   body{
     font-family:var(--sans);font-weight:300;-webkit-font-smoothing:antialiased;
     display:flex;flex-direction:column;align-items:center;
-    min-height:100dvh;min-height:100vh;overflow-y:auto;overflow-x:hidden;
+    min-height:100dvh;min-height:100vh;overflow-x:hidden;
     /* pan-y (not none) — never lets the controls become unreachable if a
        device's real viewport is shorter than expected (address bar, etc.) */
-    touch-action:pan-y;overscroll-behavior:contain;user-select:none;-webkit-user-select:none;
+    touch-action:pan-y;user-select:none;-webkit-user-select:none;
     padding:clamp(14px,3vh,26px) 16px calc(clamp(14px,3vh,26px) + env(safe-area-inset-bottom));
     position:relative;
   }
@@ -60,7 +66,6 @@
   h1{font-family:var(--disp);font-weight:300;font-size:clamp(36px,7vw,54px);line-height:1;margin:0;letter-spacing:.01em;color:var(--gold)}
   h1 i{font-style:italic;color:var(--gold)}
   .hook-line{font-family:var(--sans);font-weight:300;font-size:clamp(14.5px,2vw,16px);line-height:1.65;color:var(--ink);opacity:.92;margin:14px auto 0;max-width:46ch}
-  .subhead{font-family:var(--sans);font-weight:300;font-size:13px;color:var(--dim);margin:8px 0 0;letter-spacing:.01em}
 
   /* ---------- landing-page closer, below the game ---------- */
   .closer{max-width:440px;text-align:center;margin-top:clamp(28px,5vh,52px);padding-top:clamp(26px,4vh,40px);
@@ -69,7 +74,7 @@
   .closer-stat{font-family:var(--sans);font-weight:300;font-size:14px;line-height:1.6;color:var(--dim);margin:0}
   .closer-stat b{font-family:var(--disp);font-style:italic;font-weight:400;color:var(--gold);font-size:1.2em}
   .closer-ask{font-family:var(--disp);font-style:italic;font-weight:400;font-size:clamp(19px,2.8vw,24px);color:var(--ink);margin:0;line-height:1.3}
-  .closer-cta{display:inline-block;margin-top:2px;font-family:var(--sans);font-weight:500;font-size:12.5px;
+  .closer-cta{display:inline-block;margin:2px 0 clamp(28px,6vh,56px);font-family:var(--sans);font-weight:500;font-size:12.5px;
     letter-spacing:.12em;text-transform:uppercase;color:var(--gold);
     border-bottom:1px solid color-mix(in oklch,var(--gold) 55%,transparent);padding-bottom:3px;transition:border-color .2s}
   .closer-cta:hover,.closer-cta:focus-visible{border-color:var(--gold)}
@@ -96,13 +101,18 @@
   .cur-name{font-family:var(--disp);font-style:italic;font-weight:400;font-size:clamp(17px,2.2vw,20px);line-height:1.15}
   .cur-organ{font-family:var(--sans);font-weight:300;font-size:10.5px;line-height:1.4;color:var(--dim)}
 
-  /* ---------- nervous system barometer: same quiet treatment as the stats ---------- */
-  .baro-wrap{display:flex;flex-direction:column;gap:9px;align-items:flex-end;margin-top:2px}
-  .baro-wrap .lbl{font-size:9.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);text-align:right;max-width:70px;line-height:1.4}
-  #baro{display:block;border-radius:7px}
+  /* ---------- nervous system barometer: now stands beside the board
+     itself (in its own side margin) rather than stacked in the stat
+     panel — one less row competing with the board and the copy above
+     and below it for vertical space. ---------- */
+  .board-row{display:flex;align-items:center;justify-content:center;gap:clamp(10px,2.4vw,18px)}
+  .baro-rail{display:flex;flex-direction:column;align-items:center;gap:9px}
+  .baro-rail .lbl{font-size:9.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);text-align:center;max-width:64px;line-height:1.4}
+  #baro{display:block;border-radius:7px;width:10px;height:clamp(120px,26vh,230px)}
 
   /* ---------- board ---------- */
   .board-stage{position:relative}
+  .board-frame{position:relative}
   .board-wrap{position:relative;border-radius:3px;overflow:hidden;box-shadow:0 30px 70px -20px rgba(0,0,0,.6)}
   .board-wrap::after{
     content:"";position:absolute;inset:0;pointer-events:none;border-radius:3px;
@@ -194,7 +204,7 @@
     .stat .lbl{font-size:10.5px}
     .cur-name{font-size:clamp(19px,2.3vw,23px)}
     .cur-organ{font-size:11.5px}
-    .baro-wrap .lbl,.next-wrap .lbl,.current-wrap .lbl{font-size:10.5px}
+    .baro-rail .lbl,.next-wrap .lbl,.current-wrap .lbl{font-size:10.5px}
   }
 
   /* ============================================================
@@ -206,31 +216,39 @@
   ============================================================ */
   @media(max-width:600px){
     .stage{gap:10px}
-    body{padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+    body{padding-top:12px;padding-bottom:calc(28px + env(safe-area-inset-bottom))}
     .hook-line{display:none} /* the two-sentence hook — cut on mobile, board comes first */
-    .subhead{margin-top:4px}
     header{padding:0 4px}
 
-    .layout{flex-direction:column;align-items:center;gap:10px;width:100%}
+    .layout{flex-direction:column;align-items:center;gap:16px;width:100%}
     .board-stage{order:1;width:100%;display:flex;flex-direction:column;align-items:center}
+    .board-row{gap:10px}
+    .baro-rail .lbl{font-size:8.5px;max-width:44px}
+    #baro{height:clamp(90px,20vh,160px)}
     .panel.left{order:2}
     .panel.right{order:3}
 
-    /* stat panels: horizontal compact rows instead of vertical stacks,
-       sitting below the board+controls — never between them */
-    .panel{flex-direction:row;flex-wrap:wrap;justify-content:center;align-items:center;
-      gap:16px;min-width:0;width:100%;padding-top:0;text-align:center}
-    .panel.left,.panel.right{align-items:center}
-    .rule{display:none} /* vertical dividers don't read in a horizontal row */
-    .stat .lbl{margin-bottom:3px}
-    .stat .val{font-size:17px}
-    .baro-wrap,.current-wrap,.next-wrap{align-items:center;text-align:center}
-    .baro-wrap .lbl{text-align:center;max-width:none}
-    .current-wrap{max-width:120px}
-    #baro{width:10px;height:46px}
-    #next{width:44px;height:44px}
+    /* stat panels: a real grid (2 columns), each stat with its own
+       label and spacing — not a cramped wrapped row — sitting below
+       the board+controls as a quiet card, never between them */
+    .panel{
+      display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:16px 12px;width:100%;max-width:300px;
+      padding:16px 10px;margin:0 auto;text-align:center;
+      background:color-mix(in oklch,var(--panel-bg) 90%,transparent);
+      border:1px solid var(--hair);border-radius:12px;
+    }
+    .rule{display:none} /* vertical dividers don't read in a grid */
+    .panel .stat,.panel .current-wrap,.panel .next-wrap{
+      display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0;max-width:none;
+    }
+    .panel.left .stat:nth-child(5){grid-column:1/-1} /* Emotions Released — the long label gets the full row to itself */
+    .stat .lbl{margin-bottom:2px}
+    .stat .val{font-size:19px}
+    .current-wrap,.next-wrap{text-align:center}
+    #next{width:52px;height:52px}
 
-    .controls{margin-top:10px}
+    .controls{margin-top:2px}
     .tbtn{width:50px;height:50px;font-size:18px}
     .tbtn.rotate{width:58px;height:58px;font-size:20px}
 
@@ -245,7 +263,6 @@
     <p class="eyebrow">Energy Detective</p>
     <h1>Capacity</h1>
     <p class="hook-line">Stuck on money, health, relationships or business? This is what it looks like when it never gets cleared.</p>
-    <p class="subhead">Are your emotions stacking up?</p>
   </header>
 
   <div class="layout">
@@ -255,44 +272,50 @@
       <div class="stat"><span class="lbl">Level</span><span class="val" id="level">1</span></div>
       <div class="rule"></div>
       <div class="stat"><span class="lbl">Emotions Released</span><span class="val" id="lines">0</span></div>
-      <div class="rule"></div>
-      <div class="baro-wrap">
-        <span class="lbl">Nervous<br>System</span>
-        <canvas id="baro" width="14" height="120"></canvas>
-      </div>
     </div>
 
     <div class="board-stage">
-    <div class="board-wrap">
-      <canvas id="board"></canvas>
-      <div class="overlay" id="startOverlay">
-        <p class="ov-eyebrow">Ready</p>
-        <h2>How many emotions can you release?</h2>
-        <button class="ov-btn" id="startBtn">Begin</button>
-        <p class="ov-hint">Arrow keys to move · Up to rotate · Space to drop</p>
+    <div class="board-row">
+      <div class="baro-rail">
+        <span class="lbl">Nervous<br>System</span>
+        <canvas id="baro" width="14" height="120"></canvas>
       </div>
-      <div class="overlay" id="pauseOverlay">
-        <p class="ov-eyebrow">Paused</p>
-        <h2>Take a breath</h2>
-        <button class="ov-btn" id="resumeBtn">Resume</button>
-      </div>
-      <div class="overlay" id="overOverlay">
-        <p class="ov-eyebrow">The board filled</p>
-        <h2>Game Over</h2>
-        <div class="end-stats">
-          <div class="end-stat"><span class="lbl">Emotions Released</span><span class="val released" id="endReleased">0</span></div>
-          <div class="end-stat"><span class="lbl">Emotions Still Held</span><span class="val held" id="endHeld">0</span></div>
+      <div class="board-frame">
+      <div class="board-wrap">
+        <canvas id="board"></canvas>
+        <div class="overlay" id="startOverlay">
+          <p class="ov-eyebrow">Ready</p>
+          <h2>How many emotions can you release?</h2>
+          <button class="ov-btn" id="startBtn">Begin</button>
+          <p class="ov-hint">Arrow keys to move · Up to rotate · Space to drop</p>
         </div>
-        <p class="score-line minor">Score <b id="finalScore">0</b> · Best <b id="bestScore">0</b></p>
-        <!-- placeholder — closing line to be written by hand -->
-        <p class="closing-msg" id="closingMsg"></p>
-        <button class="ov-btn" id="retryBtn">Play Again</button>
+        <div class="overlay" id="pauseOverlay">
+          <p class="ov-eyebrow">Paused</p>
+          <h2>Take a breath</h2>
+          <button class="ov-btn" id="resumeBtn">Resume</button>
+        </div>
+        <div class="overlay" id="overOverlay">
+          <p class="ov-eyebrow">The board filled</p>
+          <h2>Game Over</h2>
+          <div class="end-stats">
+            <div class="end-stat"><span class="lbl">Emotions Released</span><span class="val released" id="endReleased">0</span></div>
+            <div class="end-stat"><span class="lbl">Emotions Still Held</span><span class="val held" id="endHeld">0</span></div>
+          </div>
+          <p class="score-line minor">Score <b id="finalScore">0</b> · Best <b id="bestScore">0</b></p>
+          <!-- placeholder — closing line to be written by hand -->
+          <p class="closing-msg" id="closingMsg"></p>
+          <button class="ov-btn" id="retryBtn">Play Again</button>
+        </div>
+      </div>
+      <!-- sits outside board-wrap's overflow:hidden so a bubble can visibly
+           drift up past the top edge and fade there, instead of being
+           hard-clipped the instant it crosses the boundary. board-frame
+           (not board-stage) is the positioned ancestor now, so inset:0
+           still lines up exactly with board-wrap alone, not the wider
+           row that includes the barometer. -->
+      <div class="clear-bubbles" id="clearBubbles"></div>
       </div>
     </div>
-    <!-- sits outside board-wrap's overflow:hidden so a bubble can visibly
-         drift up past the top edge and fade there, instead of being
-         hard-clipped the instant it crosses the boundary -->
-    <div class="clear-bubbles" id="clearBubbles"></div>
 
     <!-- controls live with the board (not after the whole .layout row) so
          that on mobile, reordering .layout's children keeps board+controls
@@ -835,7 +858,16 @@
       // always fit the viewport together without scrolling
       const reserved = headerH + controlsH + stageGap*2 + padV + 14;
       const availH = Math.max(220, window.innerHeight - reserved);
-      const availW = stageEl.getBoundingClientRect().width;
+      // the barometer now sits beside the board (not stacked below it), so
+      // its measured width + the row gap has to come out of the board's
+      // width budget too, or the row overflows the screen — plus a small
+      // fixed margin on the board's other side so it still reads as
+      // contained rather than full-bleed
+      const baroRailEl = document.querySelector('.baro-rail');
+      const boardRowEl = document.querySelector('.board-row');
+      const baroW = baroRailEl ? baroRailEl.getBoundingClientRect().width : 0;
+      const rowGap = boardRowEl ? (parseFloat(getComputedStyle(boardRowEl).columnGap) || 0) : 0;
+      const availW = stageEl.getBoundingClientRect().width - baroW - rowGap - 14;
       CELL = Math.floor(Math.min(availH/VISIBLE_ROWS, availW/COLS));
       CELL = Math.max(13, CELL);
     } else {
