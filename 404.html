@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Not Found — Energy Detective</title>
+<meta name="robots" content="noindex">
+<!-- instant redirect for no-JS / slow-JS cases; the script below fires first for everyone else -->
+<meta http-equiv="refresh" content="1;url=/work-with-me">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --charcoal:oklch(0.253 0.005 67.6); --cream:oklch(0.962 0.009 84.6); --gold:oklch(0.702 0.074 78.9);
+    --disp:'Instrument Serif',serif; --sans:'Poppins',sans-serif;
+  }
+  html,body{height:100%}
+  body{
+    margin:0;background:var(--charcoal);color:var(--cream);font-family:var(--sans);font-weight:300;
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    padding:24px;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:36ch}
+  .eyebrow{font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin:0 0 20px}
+  h1{font-family:var(--disp);font-weight:300;font-style:italic;font-size:clamp(26px,4vw,34px);line-height:1.3;margin:0 0 16px}
+  p{font-size:15px;line-height:1.7;color:color-mix(in oklch,var(--cream) 82%,transparent);margin:0 0 28px}
+  a.btn{
+    display:inline-block;padding:14px 32px;background:var(--gold);color:var(--charcoal);
+    font-family:var(--sans);font-weight:500;font-size:13px;letter-spacing:.06em;text-transform:uppercase;
+    border-radius:3px;text-decoration:none;transition:filter .2s;
+  }
+  a.btn:hover{filter:brightness(1.06)}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <p class="eyebrow">Page not found</p>
+    <h1>That page doesn't exist, but you're in the right place.</h1>
+    <p>Taking you to Work With Me now. If nothing happens, use the link below.</p>
+    <a class="btn" href="/work-with-me">Work With Me →</a>
+  </div>
+  <script>
+    // instant, and replace() so the missing URL never sits in browser history
+    location.replace('/work-with-me');
+  </script>
+</body>
+</html>
