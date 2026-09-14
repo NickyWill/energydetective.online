@@ -43,7 +43,7 @@
     /* pan-y (not none) — never lets the controls become unreachable if a
        device's real viewport is shorter than expected (address bar, etc.) */
     touch-action:pan-y;user-select:none;-webkit-user-select:none;
-    padding:clamp(28px,5vh,48px) 16px calc(clamp(14px,3vh,26px) + env(safe-area-inset-bottom));
+    padding:clamp(18px,3.4vh,32px) 16px calc(clamp(14px,3vh,26px) + env(safe-area-inset-bottom));
     position:relative;
   }
   /* ambient ground: deep forest fog, faint radial life at center */
@@ -61,7 +61,7 @@
 
   .stage{position:relative;z-index:1;width:100%;max-width:920px;display:flex;flex-direction:column;align-items:center;gap:clamp(10px,2vh,18px)}
 
-  header{text-align:center;margin-bottom:clamp(14px,3vh,28px)}
+  header{text-align:center;margin-bottom:clamp(8px,1.8vh,18px)}
   h1{font-family:var(--disp);font-weight:300;font-size:clamp(28px,4.2vw,44px);line-height:1.2;margin:0;letter-spacing:.01em;color:var(--ink)}
   h1 i{font-style:italic;color:var(--gold)}
   .hook-line{font-family:var(--sans);font-weight:400;font-size:clamp(14.5px,2vw,16px);line-height:1.65;color:var(--ink);opacity:.92;margin:clamp(10px,2.5vh,26px) auto 0;max-width:46ch;text-align:center}
@@ -199,14 +199,18 @@
     .stage{max-width:1180px}
     .layout{
       width:fit-content;max-width:calc(100% - 8px);margin:0 auto;
-      gap:clamp(28px,4.2vw,80px);
+      gap:clamp(24px,3.6vw,64px);
       background:var(--panel-bg);
       border:1px solid var(--hair);
       border-radius:16px;
-      padding:clamp(32px,4vw,56px) clamp(36px,4.6vw,64px);
+      padding:clamp(20px,2.6vw,34px) clamp(30px,3.8vw,52px);
       box-shadow:0 50px 110px -40px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.03);
     }
-    .panel{gap:clamp(22px,4.4vh,46px)}
+    .panel{gap:clamp(16px,3.2vh,32px)}
+    /* the board sits a touch higher than the panels either side of it —
+       a deliberate offset, not everything pinned to one strict top line,
+       and it trims a little height off the card at the same time */
+    .board-stage{margin-top:-10px}
     .stat .val{font-size:clamp(24px,2.2vw,32px)}
     .stat .lbl{font-size:10.5px}
     .cur-name{font-size:clamp(19px,2.3vw,23px)}
@@ -885,11 +889,11 @@
       const headerH = header.getBoundingClientRect().height;
       const controlsH = controlsEl.getBoundingClientRect().height;
       const kbHintH = kbHintEl.getBoundingClientRect().height;
-      const reserved = headerH + controlsH + kbHintH + layoutPadV + stageGap + padV + 24;
-      const availH = Math.max(280, window.innerHeight - reserved);
+      const reserved = headerH + controlsH + kbHintH + layoutPadV + stageGap + padV + 20;
+      const availH = Math.max(240, window.innerHeight - reserved);
       const availW = Math.min(window.innerWidth*0.66, 420);
       CELL = Math.floor(Math.min(availH/VISIBLE_ROWS, availW/COLS));
-      CELL = Math.max(16, CELL);
+      CELL = Math.max(13, CELL);
     }
     boardCv.style.width = (COLS*CELL)+'px';
     boardCv.style.height = (VISIBLE_ROWS*CELL)+'px';
