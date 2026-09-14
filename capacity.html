@@ -623,32 +623,37 @@
     const bubblesEl = document.getElementById('closerBubbles');
     if(!host || !bubblesEl) return;
     const w = host.clientWidth, h = host.clientHeight;
-    const size = Math.max(52, Math.min(84, w*0.22));
-    // four distinct emotions, not the whole set — an echo, not a flood
+    // all seven emotions, spread across even left-to-right zones (each
+    // jittered within its own zone) — pure randomness with only a few
+    // bubbles tends to clump centrally, this guarantees genuine coverage
+    // from the left edge to the right, not just up the middle
     const keys = Object.keys(EMOTIONS);
     const pool = keys.slice();
+    const count = pool.length;
     const picks = [];
-    for(let i=0;i<4 && pool.length;i++){
+    for(let i=0;i<count && pool.length;i++){
       picks.push(pool.splice(Math.floor(Math.random()*pool.length),1)[0]);
     }
+    const slotW = w / count;
+    const size = Math.max(36, Math.min(58, slotW*0.9));
     picks.forEach((key,i)=>{
       const e = EMOTIONS[key];
       const el = document.createElement('div');
       el.className = 'clear-bubble';
       el.textContent = e.name;
-      const x = w*(0.14 + Math.random()*0.72);
-      const y = h*(0.3 + Math.random()*0.45);
+      const x = slotW*i + slotW*(0.25 + Math.random()*0.5);
+      const y = h*(0.22 + Math.random()*0.56);
       el.style.width = size+'px';
       el.style.height = size+'px';
       el.style.left = x+'px';
       el.style.top = y+'px';
-      el.style.fontSize = Math.max(12, size*0.16)+'px';
+      el.style.fontSize = Math.max(11, size*0.16)+'px';
       el.style.background = `radial-gradient(circle at 38% 34%, ${hexAlpha(e.hex,0.45)}, ${hexAlpha(e.hex,0.22)} 55%, ${hexAlpha(e.hex,0)} 76%)`;
       el.style.boxShadow = `inset 0 0 0 1px ${hexAlpha('#ffffff',0.16)}, 0 0 ${size*0.5}px ${hexAlpha(e.hex,0.55)}`;
       bubblesEl.appendChild(el);
 
       const riseBy = y + size;
-      const delay = i*180; // a touch slower than in-game — this moment is read, not raced past
+      const delay = i*140; // a touch slower than in-game — this moment is read, not raced past
       const anim = el.animate([
         { opacity:0, transform:'translate(-50%,-50%) scale(.7)', offset:0 },
         { opacity:1, transform:'translate(-50%,-50%) scale(1)', offset:0.1 },
