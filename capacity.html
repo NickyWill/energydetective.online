@@ -43,7 +43,7 @@
     /* pan-y (not none) — never lets the controls become unreachable if a
        device's real viewport is shorter than expected (address bar, etc.) */
     touch-action:pan-y;user-select:none;-webkit-user-select:none;
-    padding:clamp(14px,3vh,26px) 16px calc(clamp(14px,3vh,26px) + env(safe-area-inset-bottom));
+    padding:clamp(28px,5vh,48px) 16px calc(clamp(14px,3vh,26px) + env(safe-area-inset-bottom));
     position:relative;
   }
   /* ambient ground: deep forest fog, faint radial life at center */
@@ -61,19 +61,19 @@
 
   .stage{position:relative;z-index:1;width:100%;max-width:920px;display:flex;flex-direction:column;align-items:center;gap:clamp(10px,2vh,18px)}
 
-  header{text-align:center}
+  header{text-align:center;margin-bottom:clamp(14px,3vh,28px)}
   .eyebrow{font-size:11px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:color-mix(in oklch,var(--sage) 80%,var(--ink) 20%);margin:0 0 6px;opacity:.75}
   h1{font-family:var(--disp);font-weight:300;font-size:clamp(36px,7vw,54px);line-height:1;margin:0;letter-spacing:.01em;color:var(--gold)}
   h1 i{font-style:italic;color:var(--gold)}
-  .hook-line{font-family:var(--sans);font-weight:300;font-size:clamp(14.5px,2vw,16px);line-height:1.65;color:var(--ink);opacity:.92;margin:14px auto 0;max-width:46ch}
+  .hook-line{font-family:var(--sans);font-weight:400;font-size:clamp(14.5px,2vw,16px);line-height:1.65;color:var(--ink);opacity:.92;margin:0 auto;max-width:46ch;text-align:center}
 
   /* ---------- landing-page closer, below the game ---------- */
   .closer{max-width:440px;text-align:center;margin-top:clamp(28px,5vh,52px);padding-top:clamp(26px,4vh,40px);
     border-top:1px solid var(--hair);display:flex;flex-direction:column;gap:15px;align-items:center}
-  .closer-lede{font-family:var(--sans);font-weight:400;font-size:14px;line-height:1.75;color:var(--dim);margin:0}
-  .closer-stat{font-family:var(--sans);font-weight:400;font-size:14px;line-height:1.6;color:var(--dim);margin:0}
+  .closer-lede{font-family:var(--sans);font-weight:400;font-size:clamp(14.5px,2vw,16px);line-height:1.75;color:var(--dim);margin:0}
+  .closer-stat{font-family:var(--sans);font-weight:400;font-size:clamp(14.5px,2vw,16px);line-height:1.6;color:var(--dim);margin:0}
   .closer-stat b{font-family:var(--disp);font-style:italic;font-weight:400;color:var(--gold);font-size:1.2em}
-  .closer-ask{font-family:var(--disp);font-style:italic;font-weight:400;font-size:clamp(19px,2.8vw,24px);color:var(--ink);margin:0;line-height:1.3}
+  .closer-ask{font-family:var(--disp);font-style:italic;font-weight:400;font-size:clamp(26px,4vw,34px);color:var(--ink);margin:0;line-height:1.25}
   .closer-cta{display:inline-block;margin:2px 0 clamp(28px,6vh,56px);font-family:var(--sans);font-weight:500;font-size:12.5px;
     letter-spacing:.12em;text-transform:uppercase;color:var(--gold);
     border-bottom:1px solid color-mix(in oklch,var(--gold) 55%,transparent);padding-bottom:3px;transition:border-color .2s}
@@ -179,7 +179,16 @@
   /* controls and the keyboard hint both show on every device now — mouse
      and keyboard players get a choice, touch players just see the buttons
      (the keyboard hint would be noise for them, so that stays touch-hidden) */
-  .kb-hint{font-size:11px;color:var(--dim);letter-spacing:.03em;text-align:center;margin-top:2px}
+  /* board-stage is pinned to the board's own pixel width (see resize()) so
+     the board never stretches to fit this line — but that means kb-hint
+     itself has to be let OUT of that width to stay on one line: centred on
+     the board's midpoint via the relative+transform trick, sized to its own
+     content, so it can spill into the page's open margin either side */
+  .kb-hint{
+    font-size:11px;color:var(--dim);letter-spacing:.03em;margin-top:2px;
+    position:relative;left:50%;transform:translateX(-50%);
+    width:max-content;max-width:90vw;white-space:nowrap;
+  }
   @media(hover:none),(pointer:coarse){ .kb-hint{display:none} }
 
   /* ============================================================
@@ -216,8 +225,7 @@
   ============================================================ */
   @media(max-width:600px){
     .stage{gap:10px}
-    body{padding-top:12px;padding-bottom:calc(28px + env(safe-area-inset-bottom))}
-    .hook-line{display:none} /* the two-sentence hook — cut on mobile, board comes first */
+    body{padding-top:22px;padding-bottom:calc(28px + env(safe-area-inset-bottom))}
     header{padding:0 4px}
 
     .layout{flex-direction:column;align-items:center;gap:16px;width:100%}
@@ -261,7 +269,6 @@
   <header>
     <p class="eyebrow">Test Your Emotional</p>
     <h1><i>Capacity</i></h1>
-    <p class="hook-line">Stuck on money, health, relationships or business? This is what it looks like when it never gets cleared.</p>
   </header>
 
   <div class="layout">
@@ -277,7 +284,6 @@
     <div class="board-wrap">
       <canvas id="board"></canvas>
       <div class="overlay" id="startOverlay">
-        <p class="ov-eyebrow">Ready</p>
         <h2>How many emotions can you release?</h2>
         <button class="ov-btn" id="startBtn">Begin</button>
         <p class="ov-hint">Arrow keys to move · Up to rotate · Space to drop</p>
@@ -340,6 +346,8 @@
       </div>
     </div>
   </div>
+
+  <p class="hook-line">Stuck on money, health, relationships or business? This is what it looks like when it never gets cleared.</p>
 
   <section class="closer">
     <p class="closer-lede">Every one of those emotions still held on your board? Those emotions that never got cleared don't just disappear. They stack, exactly like this, whether you're playing a game or living your life.</p>
