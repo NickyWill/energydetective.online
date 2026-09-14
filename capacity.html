@@ -176,8 +176,10 @@
   .tbtn svg{width:18px;height:18px}
   .pad.left{align-self:center}
 
+  /* controls and the keyboard hint both show on every device now — mouse
+     and keyboard players get a choice, touch players just see the buttons
+     (the keyboard hint would be noise for them, so that stays touch-hidden) */
   .kb-hint{font-size:11px;color:var(--dim);letter-spacing:.03em;text-align:center;margin-top:2px}
-  @media(hover:hover) and (pointer:fine){ .controls{display:none} }
   @media(hover:none),(pointer:coarse){ .kb-hint{display:none} }
 
   /* ============================================================
