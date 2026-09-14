@@ -67,7 +67,7 @@
   .hook-line{font-family:var(--sans);font-weight:400;font-size:clamp(14.5px,2vw,16px);line-height:1.65;color:var(--ink);opacity:.92;margin:clamp(10px,2.5vh,26px) auto 0;max-width:46ch;text-align:center}
 
   /* ---------- landing-page closer, below the game ---------- */
-  .closer{max-width:440px;text-align:center;margin-top:clamp(28px,5vh,52px);padding-top:clamp(26px,4vh,40px);
+  .closer{position:relative;max-width:440px;text-align:center;margin-top:clamp(28px,5vh,52px);padding-top:clamp(26px,4vh,40px);
     border-top:1px solid var(--hair);display:flex;flex-direction:column;gap:15px;align-items:center}
   .closer-lede{font-family:var(--sans);font-weight:400;font-size:clamp(14.5px,2vw,16px);line-height:1.75;color:var(--dim);margin:0}
   .closer-stat{font-family:var(--sans);font-weight:400;font-size:clamp(14.5px,2vw,16px);line-height:1.6;color:var(--dim);margin:0}
@@ -350,9 +350,13 @@
   <p class="hook-line">Stuck on money, health, relationships or business? This is what it looks like when it never gets cleared.</p>
 
   <section class="closer">
+    <!-- reuses the exact line-clear bubble effect (see spawnClearBubbles),
+         triggered once by scroll instead of by clearing a line — an echo
+         of the game, not a new effect -->
+    <div class="clear-bubbles" id="closerBubbles"></div>
     <p class="closer-lede">Just like every emotion still on this game board, your emotions don't just disappear. They get trapped in your nervous system. They stack.</p>
     <p class="closer-stat">I've cleared over <b>56,000</b> emotions from clients in 2026 alone.</p>
-    <p class="closer-ask">You released some. Are you ready to release more?</p>
+    <p class="closer-ask">You released some in a game. Your real ones are still waiting.</p>
     <a class="closer-cta" href="/work-with-me">Find out more →</a>
   </section>
 </div>
@@ -604,6 +608,53 @@
         { opacity:1, transform:`translate(-50%, calc(-50% - ${riseBy*0.12}px)) scale(1)`, offset:0.62 },
         { opacity:0, transform:`translate(-50%, calc(-50% - ${riseBy}px)) scale(1.04)`, offset:1 },
       ], { duration:2800, delay, easing:'cubic-bezier(.25,.6,.3,1)', fill:'forwards' });
+      anim.onfinish = () => el.remove();
+    });
+  }
+
+  // ============================================================
+  // CLOSER-SECTION BUBBLES — the exact same effect as a line clear,
+  // just triggered once by scrolling the closer copy into view instead
+  // of by clearing a line: an echo of the game, reinforcing "these
+  // emotions are real, not just on the board."
+  // ============================================================
+  function spawnCloserBubbles(){
+    const host = document.querySelector('.closer');
+    const bubblesEl = document.getElementById('closerBubbles');
+    if(!host || !bubblesEl) return;
+    const w = host.clientWidth, h = host.clientHeight;
+    const size = Math.max(52, Math.min(84, w*0.22));
+    // four distinct emotions, not the whole set — an echo, not a flood
+    const keys = Object.keys(EMOTIONS);
+    const pool = keys.slice();
+    const picks = [];
+    for(let i=0;i<4 && pool.length;i++){
+      picks.push(pool.splice(Math.floor(Math.random()*pool.length),1)[0]);
+    }
+    picks.forEach((key,i)=>{
+      const e = EMOTIONS[key];
+      const el = document.createElement('div');
+      el.className = 'clear-bubble';
+      el.textContent = e.name;
+      const x = w*(0.14 + Math.random()*0.72);
+      const y = h*(0.3 + Math.random()*0.45);
+      el.style.width = size+'px';
+      el.style.height = size+'px';
+      el.style.left = x+'px';
+      el.style.top = y+'px';
+      el.style.fontSize = Math.max(12, size*0.16)+'px';
+      el.style.background = `radial-gradient(circle at 38% 34%, ${hexAlpha(e.hex,0.45)}, ${hexAlpha(e.hex,0.22)} 55%, ${hexAlpha(e.hex,0)} 76%)`;
+      el.style.boxShadow = `inset 0 0 0 1px ${hexAlpha('#ffffff',0.16)}, 0 0 ${size*0.5}px ${hexAlpha(e.hex,0.55)}`;
+      bubblesEl.appendChild(el);
+
+      const riseBy = y + size;
+      const delay = i*180; // a touch slower than in-game — this moment is read, not raced past
+      const anim = el.animate([
+        { opacity:0, transform:'translate(-50%,-50%) scale(.7)', offset:0 },
+        { opacity:1, transform:'translate(-50%,-50%) scale(1)', offset:0.1 },
+        { opacity:1, transform:`translate(-50%, calc(-50% - ${riseBy*0.12}px)) scale(1)`, offset:0.62 },
+        { opacity:0, transform:`translate(-50%, calc(-50% - ${riseBy}px)) scale(1.04)`, offset:1 },
+      ], { duration:3200, delay, easing:'cubic-bezier(.25,.6,.3,1)', fill:'forwards' });
       anim.onfinish = () => el.remove();
     });
   }
@@ -1072,6 +1123,22 @@
   // header/controls height can shift slightly once the real webfonts
   // swap in — re-measure once that's settled so mobile sizing stays exact
   if(document.fonts && document.fonts.ready) document.fonts.ready.then(resize).catch(()=>{});
+
+  // fire the closer-section bubbles once, the first time it scrolls into
+  // view — never again after that, so it reads as a considered moment
+  // rather than replaying every time someone scrolls past it
+  const closerSection = document.querySelector('.closer');
+  if(closerSection && 'IntersectionObserver' in window){
+    const closerObserver = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          spawnCloserBubbles();
+          closerObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.35 });
+    closerObserver.observe(closerSection);
+  }
 })();
 </script>
 </body>
