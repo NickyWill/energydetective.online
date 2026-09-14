@@ -183,7 +183,7 @@
      the board's midpoint via the relative+transform trick, sized to its own
      content, so it can spill into the page's open margin either side */
   .kb-hint{
-    font-size:11px;color:var(--dim);letter-spacing:.03em;margin-top:16px;
+    font-size:11px;color:var(--dim);letter-spacing:.03em;margin-top:6px;
     position:relative;left:50%;transform:translateX(-50%);
     width:max-content;max-width:90vw;white-space:nowrap;
   }
@@ -867,7 +867,26 @@
       CELL = Math.floor(Math.min(availH/VISIBLE_ROWS, availW/COLS));
       CELL = Math.max(13, CELL);
     } else {
-      const availH = window.innerHeight * 0.62;
+      // measure the actual card, same philosophy as the mobile branch —
+      // otherwise the board is sized independent of the header/controls/
+      // kb-hint around it, and on a shorter window the bottom of the card
+      // (the keyboard hint) ends up below the fold, unreachable without
+      // scrolling, which defeats the point of it living under the game
+      const stageEl = document.querySelector('.stage');
+      const header = document.querySelector('header');
+      const controlsEl = document.querySelector('.controls');
+      const kbHintEl = document.querySelector('.kb-hint');
+      const layoutEl = document.querySelector('.layout');
+      const stageGap = parseFloat(getComputedStyle(stageEl).rowGap) || 18;
+      const bodyStyle = getComputedStyle(document.body);
+      const padV = (parseFloat(bodyStyle.paddingTop)||0) + (parseFloat(bodyStyle.paddingBottom)||0);
+      const layoutStyle = getComputedStyle(layoutEl);
+      const layoutPadV = (parseFloat(layoutStyle.paddingTop)||0) + (parseFloat(layoutStyle.paddingBottom)||0);
+      const headerH = header.getBoundingClientRect().height;
+      const controlsH = controlsEl.getBoundingClientRect().height;
+      const kbHintH = kbHintEl.getBoundingClientRect().height;
+      const reserved = headerH + controlsH + kbHintH + layoutPadV + stageGap + padV + 24;
+      const availH = Math.max(280, window.innerHeight - reserved);
       const availW = Math.min(window.innerWidth*0.66, 420);
       CELL = Math.floor(Math.min(availH/VISIBLE_ROWS, availW/COLS));
       CELL = Math.max(16, CELL);
