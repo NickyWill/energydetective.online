@@ -137,10 +137,23 @@
   .overlay.show{opacity:1;pointer-events:auto}
   .overlay .ov-eyebrow{font-size:10px;font-weight:500;letter-spacing:.26em;text-transform:uppercase;color:var(--sage);opacity:.85}
   .overlay h2{font-family:var(--disp);font-weight:300;font-style:italic;font-size:clamp(24px,3.6vw,32px);margin:0;color:var(--ink)}
-  /* start-screen icon: four emotion-coloured orbs touching at a shared
-     centre, same drawOrb style as the game itself — testing whether it
-     earns its keep against the vertical space we fought to reclaim */
-  .intro-icon{display:block;width:40px;height:40px;margin:0 auto}
+  /* start-screen icon: four plain white bubbles, same soft radial-fade
+     glow as the line-clear bubbles (see spawnClearBubbles), touching at
+     a shared centre — testing whether it earns its keep against the
+     vertical space we fought to reclaim */
+  .intro-icon{position:relative;width:60px;height:60px;margin:0 auto 6px}
+  .intro-bubble{
+    position:absolute;width:34px;height:34px;border-radius:50%;top:50%;left:50%;
+    /* inside stays a soft fade; the ring (not an outer blur) is what gives
+       the edge a crisp, readable silhouette instead of a haze with no
+       boundary — a logo mark should hold its shape at a glance */
+    background:radial-gradient(circle at 38% 34%, rgba(244,240,232,.55), rgba(244,240,232,.26) 60%, rgba(244,240,232,.1) 100%);
+    box-shadow:inset 0 0 0 1.5px rgba(244,240,232,.85);
+  }
+  .intro-bubble.n{transform:translate(-50%, calc(-50% - 17px))}
+  .intro-bubble.s{transform:translate(-50%, calc(-50% + 17px))}
+  .intro-bubble.w{transform:translate(calc(-50% - 17px), -50%)}
+  .intro-bubble.e{transform:translate(calc(-50% + 17px), -50%)}
   .overlay .score-line{font-size:13px;color:var(--dim);letter-spacing:.04em}
   .overlay .score-line b{font-family:var(--disp);font-style:italic;color:var(--gold);font-size:18px;font-weight:400}
   .overlay .score-line.minor{opacity:.75;font-size:11.5px}
@@ -276,7 +289,12 @@
     <div class="board-wrap">
       <canvas id="board"></canvas>
       <div class="overlay" id="startOverlay">
-        <canvas id="introIcon" class="intro-icon" width="120" height="120"></canvas>
+        <div class="intro-icon">
+          <span class="intro-bubble n"></span>
+          <span class="intro-bubble s"></span>
+          <span class="intro-bubble w"></span>
+          <span class="intro-bubble e"></span>
+        </div>
         <h2>How many emotions can you release?</h2>
         <button class="ov-btn" id="startBtn">Begin</button>
         <p class="ov-hint">Arrow keys to move · Up to rotate · Space to drop</p>
@@ -816,17 +834,6 @@
     brctx.restore();
   }
 
-  function renderIntroIcon(){
-    const cv = document.getElementById('introIcon');
-    if(!cv) return;
-    const ictx = cv.getContext('2d');
-    const size = 120, r = 30, cx = size/2, cy = size/2;
-    ictx.clearRect(0,0,size,size);
-    const colors = [EMOTIONS.sadness.hex, EMOTIONS.resentment.hex, EMOTIONS.fear.hex, EMOTIONS.shame.hex];
-    const pts = [[cx,cy-r],[cx+r,cy],[cx,cy+r],[cx-r,cy]];
-    pts.forEach((p,i)=> drawOrb(ictx, p[0], p[1], r, colors[i], 0, 0.6));
-  }
-
   function renderNext(){
     const shape = SHAPES[nextT];
     const size = 90, cell = size/4;
@@ -1027,7 +1034,6 @@
   window.addEventListener('resize', resize);
   resize();
   render();
-  renderIntroIcon();
   showOverlay(startOv);
   // header/controls height can shift slightly once the real webfonts
   // swap in — re-measure once that's settled so mobile sizing stays exact
