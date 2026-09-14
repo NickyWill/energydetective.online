@@ -20,6 +20,7 @@
     --bg-deep:#121a17;
     --gold:#b89a6a;
     --sage:#a7b9a0;
+    --panel-bg:#212c27;
     --sand:#d8cbb7;
     --ink:#e9e4da;
     --dim:rgba(233,228,218,.74);
@@ -171,6 +172,30 @@
   .kb-hint{font-size:11px;color:var(--dim);letter-spacing:.03em;text-align:center;margin-top:2px}
   @media(hover:hover) and (pointer:fine){ .controls{display:none} }
   @media(hover:none),(pointer:coarse){ .kb-hint{display:none} }
+
+  /* ============================================================
+     DESKTOP — the three groups (stats / board / current+next) as
+     one contained unit, not three pieces floating on bare page
+     background. The board's own pixel size is untouched — this
+     only changes the frame it sits inside and the room around it.
+  ============================================================ */
+  @media(min-width:601px){
+    .stage{max-width:1180px}
+    .layout{
+      gap:clamp(28px,4.2vw,80px);
+      background:var(--panel-bg);
+      border:1px solid var(--hair);
+      border-radius:16px;
+      padding:clamp(32px,4vw,56px) clamp(36px,4.6vw,64px);
+      box-shadow:0 50px 110px -40px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.03);
+    }
+    .panel{gap:clamp(22px,4.4vh,46px)}
+    .stat .val{font-size:clamp(24px,2.2vw,32px)}
+    .stat .lbl{font-size:10.5px}
+    .cur-name{font-size:clamp(19px,2.3vw,23px)}
+    .cur-organ{font-size:11.5px}
+    .baro-wrap .lbl,.next-wrap .lbl,.current-wrap .lbl{font-size:10.5px}
+  }
 
   /* ============================================================
      MOBILE (≤600px) — a genuinely different layout, not a shrunk
