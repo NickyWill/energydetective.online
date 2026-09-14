@@ -65,7 +65,7 @@
   .eyebrow{font-size:11px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:color-mix(in oklch,var(--sage) 80%,var(--ink) 20%);margin:0 0 6px;opacity:.75}
   h1{font-family:var(--disp);font-weight:300;font-size:clamp(36px,7vw,54px);line-height:1;margin:0;letter-spacing:.01em;color:var(--gold)}
   h1 i{font-style:italic;color:var(--gold)}
-  .hook-line{font-family:var(--sans);font-weight:400;font-size:clamp(14.5px,2vw,16px);line-height:1.65;color:var(--ink);opacity:.92;margin:0 auto;max-width:46ch;text-align:center}
+  .hook-line{font-family:var(--sans);font-weight:400;font-size:clamp(14.5px,2vw,16px);line-height:1.65;color:var(--ink);opacity:.92;margin:clamp(10px,2.5vh,26px) auto 0;max-width:46ch;text-align:center}
 
   /* ---------- landing-page closer, below the game ---------- */
   .closer{max-width:440px;text-align:center;margin-top:clamp(28px,5vh,52px);padding-top:clamp(26px,4vh,40px);
@@ -161,8 +161,7 @@
 
   /* ---------- mobile touch controls ---------- */
   .controls{display:flex;justify-content:space-between;align-items:center;width:100%;max-width:420px;margin-top:2px}
-  .pad{display:flex;gap:10px}
-  .pad.right{flex-direction:column;align-items:center;gap:8px}
+  .pad{display:flex;align-items:center;gap:10px}
   .tbtn{
     display:flex;align-items:center;justify-content:center;
     width:56px;height:56px;border-radius:50%;border:1px solid var(--hair);
@@ -217,47 +216,40 @@
   }
 
   /* ============================================================
-     MOBILE (≤600px) — a genuinely different layout, not a shrunk
-     desktop one. Priority order top to bottom: compact header,
-     board, controls (always together, never separated by the
-     stat panels), then the stats as compact rows, then the
-     landing-page copy below all of it.
+     MOBILE (≤600px) — same three-column shape as desktop (stats |
+     board | current/next), just compact enough to fit a phone: the
+     stats live on the side of the game they belong to, not stacked
+     underneath it.
   ============================================================ */
   @media(max-width:600px){
-    .stage{gap:10px}
+    .stage{gap:14px}
     body{padding-top:22px;padding-bottom:calc(28px + env(safe-area-inset-bottom))}
     header{padding:0 4px}
 
-    .layout{flex-direction:column;align-items:center;gap:16px;width:100%}
-    .board-stage{order:1;width:100%;display:flex;flex-direction:column;align-items:center}
-    .panel.left{order:2}
-    .panel.right{order:3}
-
-    /* stat panels: a real grid (2 columns), each stat with its own
-       label and spacing — not a cramped wrapped row — sitting below
-       the board+controls as a quiet card, never between them */
-    .panel{
-      display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:16px 12px;width:100%;max-width:300px;
-      padding:16px 10px;margin:0 auto;text-align:center;
-      background:color-mix(in oklch,var(--panel-bg) 90%,transparent);
-      border:1px solid var(--hair);border-radius:12px;
+    .layout{
+      align-items:center;gap:8px;width:100%;
+      background:var(--panel-bg);border:1px solid var(--hair);border-radius:14px;
+      padding:14px 8px;
     }
-    .rule{display:none} /* vertical dividers don't read in a grid */
-    .panel .stat,.panel .current-wrap,.panel .next-wrap,.panel .baro-wrap{
-      display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0;max-width:none;
-    }
-    .panel.right .baro-wrap{grid-column:1/-1} /* barometer sits under Current/Next, full width */
-    .baro-wrap .lbl{text-align:center;max-width:none}
-    #baro{width:10px;height:64px}
-    .stat .lbl{margin-bottom:2px}
-    .stat .val{font-size:19px}
-    .current-wrap,.next-wrap{text-align:center}
-    #next{width:52px;height:52px}
+    .panel{min-width:0;flex-shrink:0;gap:12px;padding-top:0}
+    .rule{width:16px}
+    .stat .lbl{font-size:7.5px;letter-spacing:.14em;margin-bottom:3px}
+    .stat .val{font-size:15px}
 
-    .controls{margin-top:2px}
-    .tbtn{width:50px;height:50px;font-size:18px}
-    .tbtn.rotate{width:58px;height:58px;font-size:20px}
+    .board-stage{flex-shrink:0}
+
+    .current-wrap{max-width:64px}
+    .cur-name{font-size:13px}
+    .cur-organ{font-size:8px;line-height:1.3}
+    .baro-wrap .lbl,.next-wrap .lbl,.current-wrap .lbl{font-size:7.5px}
+    #next{width:32px;height:32px}
+    #baro{width:7px;height:56px}
+
+    .controls{margin-top:8px}
+    .pad{gap:5px}
+    .tbtn{width:38px;height:38px;font-size:15px}
+    .tbtn.rotate{width:44px;height:44px;font-size:17px}
+    .tbtn.drop{font-size:8px}
 
     .closer{margin-top:20px;padding-top:20px}
   }
@@ -830,8 +822,10 @@
     nctx.clearRect(0,0,size,size);
     const minR = Math.min(...shape.cells.map(c=>c[0])), maxR = Math.max(...shape.cells.map(c=>c[0]));
     const minC = Math.min(...shape.cells.map(c=>c[1])), maxC = Math.max(...shape.cells.map(c=>c[1]));
-    const w = (maxC-minC+1), h = (maxR-minR+1);
-    const offX = (4-w)/2 - minC, offY = (4-h)/2 - minR;
+    const h = (maxR-minR+1);
+    // flush left regardless of shape width, only centred vertically —
+    // so the next-piece preview doesn't shift side to side as pieces change
+    const offX = -minC, offY = (4-h)/2 - minR;
     for(const [r,c] of shape.cells){
       drawOrb(nctx, (c+offX)*cell+cell/2, (r+offY)*cell+cell/2, cell*0.4, EMOTIONS[shape.emo].hex, 0, 0.6);
     }
@@ -849,6 +843,9 @@
       const stageEl = document.querySelector('.stage');
       const header = document.querySelector('header');
       const controlsEl = document.querySelector('.controls');
+      const layoutEl = document.querySelector('.layout');
+      const panelLeftEl = document.querySelector('.panel.left');
+      const panelRightEl = document.querySelector('.panel.right');
       const stageGap = parseFloat(getComputedStyle(stageEl).rowGap) || 10;
       const bodyStyle = getComputedStyle(document.body);
       const padV = (parseFloat(bodyStyle.paddingTop)||0) + (parseFloat(bodyStyle.paddingBottom)||0);
@@ -859,10 +856,16 @@
       // always fit the viewport together without scrolling
       const reserved = headerH + controlsH + stageGap*2 + padV + 14;
       const availH = Math.max(220, window.innerHeight - reserved);
-      // -28 beyond the page's own side padding, so the board reads as a
-      // deliberately contained element with visible margin either side,
-      // not full-bleed to the screen edge
-      const availW = stageEl.getBoundingClientRect().width - 28;
+      // the stat panels sit beside the board (not below it) on mobile too,
+      // so their measured widths + the layout's own gaps/padding have to
+      // come out of the board's width budget — otherwise the board would
+      // overflow past them instead of sitting between them
+      const layoutStyle = getComputedStyle(layoutEl);
+      const layoutPadH = (parseFloat(layoutStyle.paddingLeft)||0) + (parseFloat(layoutStyle.paddingRight)||0);
+      const layoutGap = parseFloat(layoutStyle.columnGap) || 0;
+      const panelLeftW = panelLeftEl.getBoundingClientRect().width;
+      const panelRightW = panelRightEl.getBoundingClientRect().width;
+      const availW = stageEl.getBoundingClientRect().width - panelLeftW - panelRightW - layoutGap*2 - layoutPadH - 8;
       CELL = Math.floor(Math.min(availH/VISIBLE_ROWS, availW/COLS));
       CELL = Math.max(13, CELL);
     } else {
