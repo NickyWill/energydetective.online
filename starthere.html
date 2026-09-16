@@ -35,39 +35,40 @@
   .bio{font-size:14.5px;font-weight:400;line-height:1.7;color:color-mix(in srgb,var(--cream) 84%,transparent);margin:0}
   .bio span{display:block}
 
-  .rowlist{border-top:1px solid var(--hair);margin:44px 0 34px}
+  .rowlist{border-top:1px solid var(--hair);margin:48px 0 40px}
 
-  /* numbered row — lifted from the homepage's .hwrow treatment: oldstyle gold numeral + serif title + line */
-  .r{display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;width:100%;
-     padding:30px 0;border-bottom:1px solid var(--hair);border-top:none;border-left:none;border-right:none;background:none;
+  /* numbered row — lifted from the homepage's .hwrow treatment: oldstyle gold numeral + serif title + line.
+     Generous padding + min-height so the whole row is a comfortable thumb target, not just the text. */
+  .r{display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center;width:100%;min-height:44px;
+     padding:34px 4px;border-bottom:1px solid var(--hair);border-top:none;border-left:none;border-right:none;background:none;
      text-decoration:none;color:inherit;font:inherit;text-align:left;cursor:pointer;
      -webkit-tap-highlight-color:transparent;transition:background .2s}
   .r:active,.r:hover{background:color-mix(in srgb,var(--gold) 6%,transparent)}
   .r .num{font-family:var(--disp);font-weight:300;font-size:38px;line-height:1;color:var(--gold);font-variant-numeric:oldstyle-nums}
   .r .txt{min-width:0}
-  .r .rt{display:block;font-family:var(--disp);font-weight:400;font-size:21px;color:var(--charcoal);margin:0 0 5px}
-  .r .rd{display:block;font-size:13px;color:var(--ink);opacity:.72;margin:0}
-  .r .cue{flex:0 0 auto;color:var(--gold);font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
-  .r .arrow{flex:0 0 auto;color:var(--gold);font-size:19px;font-family:var(--disp);transition:transform .2s}
+  .r .rt{display:block;font-family:var(--disp);font-weight:400;font-size:22px;color:var(--charcoal);margin:0 0 6px}
+  .r .rd{display:block;font-size:13.5px;line-height:1.5;color:var(--ink);opacity:.72;margin:0}
+  .r .cue{flex:0 0 auto;color:var(--gold);font-size:12.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+  .r .arrow{flex:0 0 auto;color:var(--gold);font-size:20px;font-family:var(--disp);transition:transform .2s}
   .r:hover .arrow{transform:translateX(3px)}
 
-  /* CTA block — pops out of the numbered rhythm, styled exactly like the main site's .btn */
-  .cta-row{padding:30px 0;text-align:center}
-  .cta-kicker{display:block;font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--forest);margin:0 0 16px}
+  /* CTA block — pops out of the numbered rhythm, styled exactly like the main site's .btn,
+     sized generously so it's an easy thumb target rather than a tightly-fitted label */
+  .cta-row{padding:36px 4px;text-align:center}
   .cta{
-    display:block;width:100%;padding:19px 20px;background:var(--gold);color:var(--charcoal);text-align:center;
-    font-family:var(--sans);font-weight:500;font-size:14.5px;letter-spacing:.07em;text-transform:uppercase;
+    display:block;width:100%;padding:24px 20px;background:var(--gold);color:var(--charcoal);text-align:center;
+    font-family:var(--sans);font-weight:500;font-size:15.5px;letter-spacing:.07em;text-transform:uppercase;
     border-radius:3px;text-decoration:none;transition:filter .2s,transform .18s cubic-bezier(.22,1,.36,1);
     -webkit-tap-highlight-color:transparent;
   }
   .cta:hover{filter:brightness(1.06)}
   .cta:active{transform:scale(.98);filter:brightness(.97)}
 
-  .icons{display:flex;justify-content:center;margin-bottom:36px}
-  .icon-link{width:40px;height:40px;border-radius:50%;border:1px solid var(--hair);display:flex;align-items:center;justify-content:center;transition:background .2s,transform .18s cubic-bezier(.22,1,.36,1)}
+  .icons{display:flex;justify-content:center;margin-bottom:40px}
+  .icon-link{width:48px;height:48px;border-radius:50%;border:1px solid var(--hair);display:flex;align-items:center;justify-content:center;transition:background .2s,transform .18s cubic-bezier(.22,1,.36,1)}
   .icon-link:active{transform:scale(.93)}
   .icon-link:hover{background:color-mix(in srgb,var(--gold) 8%,transparent)}
-  .icon-link svg{width:18px;height:18px;fill:var(--charcoal)}
+  .icon-link svg{width:20px;height:20px;fill:var(--charcoal)}
 
   footer{padding:0 0 40px;text-align:center}
   .foot-copy{font-size:11px;letter-spacing:.02em;color:color-mix(in srgb,var(--ink) 60%,transparent);margin:0}
@@ -105,24 +106,23 @@
 
       <a class="r" href="/capacity">
         <span class="num">01</span>
-        <span class="txt"><span class="rt">Test Your Emotional Capacity</span><span class="rd">A free 2-minute check-in on where you're really at</span></span>
+        <span class="txt"><span class="rt">Test Your Emotional Capacity</span></span>
         <span class="arrow">→</span>
       </a>
 
       <a class="r" href="/testimonials">
         <span class="num">02</span>
-        <span class="txt"><span class="rt">Client Results &amp; Reviews</span><span class="rd">Real feedback from real sessions</span></span>
+        <span class="txt"><span class="rt">Client Results &amp; Reviews</span></span>
         <span class="arrow">→</span>
       </a>
 
       <div class="cta-row">
-        <span class="cta-kicker">Ready when you are</span>
         <a class="cta" href="/work-with-me">Let's Blast Your Baggage</a>
       </div>
 
       <button class="r" id="ytOpen" type="button">
         <span class="num">03</span>
-        <span class="txt"><span class="rt">Emotional eating (nothing to do with food)</span><span class="rd">Nicky's interview with Emma V</span></span>
+        <span class="txt"><span class="rt">Emotional eating (nothing to do with food)</span></span>
         <span class="cue">Watch</span>
       </button>
 
