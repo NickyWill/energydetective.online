@@ -35,26 +35,25 @@
   .bio{font-size:14.5px;font-weight:400;line-height:1.7;color:color-mix(in srgb,var(--cream) 84%,transparent);margin:0}
   .bio span{display:block}
 
-  .rowlist{border-top:1px solid var(--hair);margin:48px 0 40px}
+  .rowlist{border-top:1px solid var(--hair);margin:42px 0 34px}
 
-  /* numbered row — lifted from the homepage's .hwrow treatment: oldstyle gold numeral + serif title + line.
-     Generous padding + min-height so the whole row is a comfortable thumb target, not just the text. */
+  /* numbered row — lifted from the homepage's .hwrow treatment: oldstyle gold numeral + serif title.
+     Padding kept above the 44px thumb-target minimum even with a single line of text. */
   .r{display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center;width:100%;min-height:44px;
-     padding:34px 4px;border-bottom:1px solid var(--hair);border-top:none;border-left:none;border-right:none;background:none;
+     padding:24px 4px;border-bottom:1px solid var(--hair);border-top:none;border-left:none;border-right:none;background:none;
      text-decoration:none;color:inherit;font:inherit;text-align:left;cursor:pointer;
      -webkit-tap-highlight-color:transparent;transition:background .2s}
   .r:active,.r:hover{background:color-mix(in srgb,var(--gold) 6%,transparent)}
   .r .num{font-family:var(--disp);font-weight:300;font-size:38px;line-height:1;color:var(--gold);font-variant-numeric:oldstyle-nums}
   .r .txt{min-width:0}
-  .r .rt{display:block;font-family:var(--disp);font-weight:400;font-size:22px;color:var(--charcoal);margin:0 0 6px}
-  .r .rd{display:block;font-size:13.5px;line-height:1.5;color:var(--ink);opacity:.72;margin:0}
+  .r .rt{display:block;font-family:var(--disp);font-weight:400;font-size:22px;color:var(--charcoal)}
   .r .cue{flex:0 0 auto;color:var(--gold);font-size:12.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
   .r .arrow{flex:0 0 auto;color:var(--gold);font-size:20px;font-family:var(--disp);transition:transform .2s}
   .r:hover .arrow{transform:translateX(3px)}
 
-  /* CTA block — pops out of the numbered rhythm, styled exactly like the main site's .btn,
-     sized generously so it's an easy thumb target rather than a tightly-fitted label */
-  .cta-row{padding:36px 4px;text-align:center}
+  /* CTA block — numbered like the rows above it, but the button itself pops in solid gold.
+     Sized generously so it's an easy thumb target rather than a tightly-fitted label */
+  .cta-row{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:20px;padding:24px 4px}
   .cta{
     display:block;width:100%;padding:24px 20px;background:var(--gold);color:var(--charcoal);text-align:center;
     font-family:var(--sans);font-weight:500;font-size:15.5px;letter-spacing:.07em;text-transform:uppercase;
@@ -117,11 +116,12 @@
       </a>
 
       <div class="cta-row">
+        <span class="num">03</span>
         <a class="cta" href="/work-with-me">Let's Blast Your Baggage</a>
       </div>
 
       <button class="r" id="ytOpen" type="button">
-        <span class="num">03</span>
+        <span class="num">04</span>
         <span class="txt"><span class="rt">Emotional eating (nothing to do with food)</span></span>
         <span class="cue">Watch</span>
       </button>
