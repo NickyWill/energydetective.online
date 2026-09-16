@@ -8,173 +8,144 @@
 <meta property="og:url" content="https://energydetective.online/starthere">
 <meta property="og:image" content="https://energydetective.online/assets/nicky-avatar.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#f5f2ec">
+<meta name="theme-color" content="#242220">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --cream:#f5f2ec; --charcoal:#242220; --gold:#b89a6a; --sage:#a7b9a0; --sand:#d8cbb7; --forest:#4a5a4f;
-    --ink:#424242; --disp:'Instrument Serif',Georgia,serif; --sans:'Poppins',system-ui,sans-serif;
+    --ink:#424242; --hair:rgba(66,66,66,.14);
+    --disp:'Instrument Serif',Georgia,serif; --sans:'Poppins',system-ui,sans-serif;
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
-  body{
-    margin:0; min-height:100dvh; background:var(--cream); color:var(--ink);
-    font-family:var(--sans); font-weight:300; line-height:1.6;
-    display:flex; justify-content:center;
-    position:relative; overflow-x:hidden;
-  }
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.6}
 
-  /* ---- subtle drifting botanical texture (dried lunaria / honesty motif) ---- */
-  .bloom{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-  .bloom svg{position:absolute;opacity:.5}
-  .bloom .b1{top:-6%;left:-12%;width:62vw;max-width:420px;animation:driftA 46s ease-in-out infinite}
-  .bloom .b2{bottom:-8%;right:-14%;width:70vw;max-width:480px;animation:driftB 54s ease-in-out infinite}
-  @keyframes driftA{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(10px,14px) rotate(1.5deg)}}
-  @keyframes driftB{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(-12px,-10px) rotate(-1.5deg)}}
-  @media (prefers-reduced-motion:reduce){.bloom .b1,.bloom .b2{animation:none}}
+  .col{max-width:440px;margin:0 auto;padding:0 24px}
 
-  .wrap{position:relative;z-index:1;width:100%;max-width:440px;padding:56px 22px 40px;display:flex;flex-direction:column;align-items:center;text-align:center}
+  /* ---- hero: full-bleed charcoal band, mirrors the site's dark hero convention ---- */
+  .hero{background:var(--charcoal);padding:52px 0 40px;text-align:center}
+  .avatar-ring{width:100px;height:100px;border-radius:50%;padding:4px;background:var(--gold);margin:0 auto 20px}
+  .avatar-ring img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
 
-  .avatar-ring{width:104px;height:104px;border-radius:50%;padding:4px;background:var(--gold);box-shadow:0 6px 22px rgba(184,154,106,.35);margin-bottom:18px}
-  .avatar-ring img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;border:3px solid var(--cream)}
-
-  .eyebrow{font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--forest);margin:0 0 6px}
-  h1{font-family:var(--disp);font-weight:400;font-size:32px;margin:0 0 14px;color:var(--charcoal)}
+  .eyebrow{font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin:0 0 10px}
+  h1{font-family:var(--disp);font-weight:400;font-size:34px;margin:0 0 18px;color:var(--cream)}
   h1 em{font-style:italic;color:var(--gold)}
 
-  .bio{font-size:15px;font-weight:400;line-height:1.65;max-width:340px;margin:0 0 30px;color:var(--ink)}
+  .bio{font-size:14.5px;font-weight:400;line-height:1.7;color:color-mix(in srgb,var(--cream) 84%,transparent);margin:0}
+  .bio span{display:block}
 
-  .links{display:flex;flex-direction:column;gap:12px;width:100%}
+  .rowlist{border-top:1px solid var(--hair);margin:40px 0 34px}
 
-  .btn{
-    display:flex;align-items:center;justify-content:center;gap:8px;
-    width:100%;padding:17px 20px;border-radius:4px;text-decoration:none;
-    font-family:var(--sans);font-size:15px;font-weight:500;letter-spacing:.01em;
-    border:1px solid transparent; -webkit-tap-highlight-color:transparent;
-    transition:transform .18s cubic-bezier(.22,1,.36,1),box-shadow .18s cubic-bezier(.22,1,.36,1),background .18s;
+  /* plain hairline row — Capacity, Testimonials, Video */
+  .r{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;
+     padding:24px 0;border-bottom:1px solid var(--hair);border-top:none;border-left:none;border-right:none;background:none;
+     text-decoration:none;color:inherit;font:inherit;text-align:left;cursor:pointer;
+     -webkit-tap-highlight-color:transparent;transition:background .2s}
+  .r:active,.r:hover{background:color-mix(in srgb,var(--gold) 8%,transparent)}
+  .r .rt{font-family:var(--disp);font-weight:400;font-size:21px;color:var(--charcoal)}
+  .r .cue{flex:0 0 auto;color:var(--gold);font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;transition:transform .2s}
+  .r .arrow{flex:0 0 auto;color:var(--gold);font-size:19px;font-family:var(--disp)}
+  .r:hover .arrow{transform:translateX(3px);display:inline-block}
+
+  /* CTA block — pops out of the hairline rhythm, styled exactly like the main site's .btn */
+  .cta-row{padding:14px 0}
+  .cta{
+    display:block;width:100%;padding:19px 20px;background:var(--gold);color:var(--charcoal);text-align:center;
+    font-family:var(--sans);font-weight:500;font-size:14.5px;letter-spacing:.07em;text-transform:uppercase;
+    border-radius:3px;text-decoration:none;transition:filter .2s,transform .18s cubic-bezier(.22,1,.36,1);
+    -webkit-tap-highlight-color:transparent;
   }
-  .btn:active{transform:scale(.97)}
+  .cta:hover{filter:brightness(1.06)}
+  .cta:active{transform:scale(.98);filter:brightness(.97)}
 
-  .btn-primary{background:var(--gold);color:var(--charcoal);font-size:16px;padding:20px 20px;box-shadow:0 6px 20px rgba(184,154,106,.32)}
-  .btn-primary:active{box-shadow:0 3px 10px rgba(184,154,106,.28)}
+  .icons{display:flex;justify-content:center;margin-bottom:36px}
+  .icon-link{width:40px;height:40px;border-radius:50%;border:1px solid var(--hair);display:flex;align-items:center;justify-content:center;transition:background .2s,transform .18s cubic-bezier(.22,1,.36,1)}
+  .icon-link:active{transform:scale(.93)}
+  .icon-link:hover{background:color-mix(in srgb,var(--gold) 8%,transparent)}
+  .icon-link svg{width:18px;height:18px;fill:var(--charcoal)}
 
-  .btn-secondary{background:var(--sand);color:var(--charcoal)}
-  .btn-secondary.alt{background:var(--sage);color:var(--charcoal)}
-  .btn-secondary:active{box-shadow:0 3px 12px rgba(66,66,66,.12)}
-
-  .btn small{display:block;font-weight:300;font-size:12px;opacity:.75;margin-top:2px}
-
-  /* ---- YouTube facade card ---- */
-  .video-card{
-    width:100%;border-radius:6px;overflow:hidden;background:var(--charcoal);
-    position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent;
-    box-shadow:0 4px 16px rgba(36,34,32,.16);
-  }
-  .video-card .frame{position:relative;width:100%;aspect-ratio:16/9;background:var(--charcoal)}
-  .video-card img{width:100%;height:100%;object-fit:cover;display:block;opacity:.82}
-  .video-card .play{
-    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-    transition:transform .18s cubic-bezier(.22,1,.36,1);
-  }
-  .video-card:active .play{transform:scale(.94)}
-  .play-circle{width:56px;height:56px;border-radius:50%;background:rgba(245,242,236,.92);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.25)}
-  .play-circle svg{width:20px;height:20px;margin-left:3px}
-  .video-label{background:var(--cream);color:var(--charcoal);padding:12px 16px;text-align:left;font-size:13px;font-weight:500}
-  .video-label span{display:block;font-weight:300;font-size:12px;color:var(--forest);margin-top:2px}
-  .video-card iframe{width:100%;height:100%;border:0;display:block}
-
-  .icons{display:flex;gap:18px;margin:32px 0 8px}
-  .icon-link{width:42px;height:42px;border-radius:50%;background:var(--charcoal);display:flex;align-items:center;justify-content:center;transition:transform .18s cubic-bezier(.22,1,.36,1)}
-  .icon-link:active{transform:scale(.92)}
-  .icon-link svg{width:19px;height:19px;fill:var(--cream)}
-
-  footer{margin-top:auto;padding-top:22px}
-  .foot-copy{font-size:11px;letter-spacing:.02em;color:color-mix(in srgb,var(--ink) 65%,transparent);margin:0}
+  footer{padding:0 0 40px;text-align:center}
+  .foot-copy{font-size:11px;letter-spacing:.02em;color:color-mix(in srgb,var(--ink) 60%,transparent);margin:0}
   .foot-copy a{color:inherit}
+
+  /* ---- video pop-out modal ---- */
+  .modal-scrim{position:fixed;inset:0;z-index:100;background:rgba(36,34,32,.92);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s ease}
+  .modal-scrim.open{opacity:1;pointer-events:auto}
+  .modal-box{width:100%;max-width:560px;position:relative}
+  .modal-close{position:absolute;top:-40px;right:0;width:32px;height:32px;border:1px solid rgba(245,242,236,.4);border-radius:50%;background:none;color:var(--cream);font-size:16px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+  .modal-close:hover{background:rgba(245,242,236,.1)}
+  .modal-frame{width:100%;aspect-ratio:16/9;background:var(--charcoal);border-radius:4px;overflow:hidden}
+  .modal-frame iframe{width:100%;height:100%;border:0;display:block}
 </style>
 </head>
 <body>
 
-<div class="bloom" aria-hidden="true">
-  <svg class="b1" viewBox="0 0 300 340" xmlns="http://www.w3.org/2000/svg">
-    <g fill="none" stroke="#4a5a4f" stroke-width="1.2">
-      <path d="M150 320 C140 250 160 200 130 150 C110 115 150 80 140 30"/>
-      <ellipse cx="128" cy="118" rx="26" ry="30" fill="#d8cbb7" fill-opacity=".35" stroke="#a7b9a0"/>
-      <ellipse cx="150" cy="170" rx="30" ry="34" fill="#d8cbb7" fill-opacity=".3" stroke="#a7b9a0"/>
-      <ellipse cx="118" cy="220" rx="24" ry="28" fill="#d8cbb7" fill-opacity=".35" stroke="#a7b9a0"/>
-      <ellipse cx="146" cy="60" rx="20" ry="24" fill="#d8cbb7" fill-opacity=".3" stroke="#a7b9a0"/>
-    </g>
-  </svg>
-  <svg class="b2" viewBox="0 0 300 340" xmlns="http://www.w3.org/2000/svg">
-    <g fill="none" stroke="#4a5a4f" stroke-width="1.2">
-      <path d="M160 20 C175 90 150 140 175 190 C195 225 165 260 175 320"/>
-      <ellipse cx="178" cy="96" rx="24" ry="28" fill="#d8cbb7" fill-opacity=".32" stroke="#a7b9a0"/>
-      <ellipse cx="158" cy="150" rx="28" ry="32" fill="#d8cbb7" fill-opacity=".28" stroke="#a7b9a0"/>
-      <ellipse cx="190" cy="205" rx="22" ry="26" fill="#d8cbb7" fill-opacity=".32" stroke="#a7b9a0"/>
-      <ellipse cx="168" cy="260" rx="26" ry="30" fill="#d8cbb7" fill-opacity=".3" stroke="#a7b9a0"/>
-    </g>
-  </svg>
+<div class="hero">
+  <div class="col">
+    <div class="avatar-ring">
+      <img src="assets/nicky-avatar.jpg" alt="Nicky Williams, founder of Energy Detective" width="100" height="100">
+    </div>
+    <p class="eyebrow">Energy Detective</p>
+    <h1>Nicky <em>Williams</em></h1>
+    <p class="bio">
+      <span>💥 Emotional Baggage Blaster</span>
+      <span>💫 56k+ emotions cleared.</span>
+      <span>🚀 700+ sessions in 2026 &amp; rising</span>
+    </p>
+  </div>
 </div>
 
-<div class="wrap">
+<div class="col">
+    <nav class="rowlist" aria-label="Energy Detective links">
 
-  <div class="avatar-ring">
-    <img src="assets/nicky-avatar.jpg" alt="Nicky Williams, founder of Energy Detective" width="104" height="104">
-  </div>
+      <a class="r" href="/capacity">
+        <span class="rt">Test Your Emotional Capacity</span>
+        <span class="arrow">→</span>
+      </a>
 
-  <p class="eyebrow">Energy Detective</p>
-  <h1>Nicky <em>Williams</em></h1>
-  <p class="bio">💥 Emotional Baggage Blaster 💫 — Cleared 56k+ emotions across 700+ sessions in 2026 (and rising)</p>
+      <a class="r" href="/testimonials">
+        <span class="rt">Client Results &amp; Reviews</span>
+        <span class="arrow">→</span>
+      </a>
 
-  <nav class="links" aria-label="Energy Detective links">
-
-    <a class="btn btn-primary" href="/work-with-me">
-      Let's Blast Your Baggage
-    </a>
-
-    <a class="btn btn-secondary" href="/capacity">
-      Capacity — the free game
-    </a>
-
-    <a class="btn btn-secondary alt" href="/testimonials">
-      Testimonials
-    </a>
-
-    <div class="video-card" id="ytCard" role="button" tabindex="0" aria-label="Play interview with Emma V">
-      <div class="frame" id="ytFrame">
-        <img src="https://img.youtube.com/vi/HPTnU_fCsLY/hqdefault.jpg" alt="" loading="lazy" width="480" height="270">
-        <div class="play"><span class="play-circle">
-          <svg viewBox="0 0 24 24"><polygon points="5,3 21,12 5,21" fill="#242220"/></svg>
-        </span></div>
+      <div class="cta-row">
+        <a class="cta" href="/work-with-me">Let's Blast Your Baggage</a>
       </div>
-      <div class="video-label">Watch the interview
-        <span>Nicky sits down with Emma V</span>
-      </div>
+
+      <button class="r" id="ytOpen" type="button">
+        <span class="rt">Emotional eating (nothing to do with food)</span>
+        <span class="cue">Watch now</span>
+      </button>
+
+    </nav>
+
+    <div class="icons">
+      <a class="icon-link" href="https://www.instagram.com/energydetective.online/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.58.01 4.85.07 1.17.05 1.97.24 2.43.4a4.9 4.9 0 0 1 1.77 1.15 4.9 4.9 0 0 1 1.15 1.77c.16.46.35 1.26.4 2.43.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.24 1.97-.4 2.43a4.9 4.9 0 0 1-1.15 1.77 4.9 4.9 0 0 1-1.77 1.15c-.46.16-1.26.35-2.43.4-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.97-.24-2.43-.4a4.9 4.9 0 0 1-1.77-1.15 4.9 4.9 0 0 1-1.15-1.77c-.16-.46-.35-1.26-.4-2.43C2.21 15.58 2.2 15.2 2.2 12s.01-3.58.07-4.85c.05-1.17.24-1.97.4-2.43a4.9 4.9 0 0 1 1.15-1.77A4.9 4.9 0 0 1 5.59 1.8c.46-.16 1.26-.35 2.43-.4C9.29 1.34 9.67 1.33 12 1.33m0 2.16c-3.15 0-3.5.01-4.74.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.75-.35.35-.57.69-.75 1.15-.14.35-.3.88-.34 1.85-.06 1.24-.07 1.59-.07 4.74s.01 3.5.07 4.74c.04.97.2 1.5.34 1.85.18.46.4.8.75 1.15.35.35.69.57 1.15.75.35.14.88.3 1.85.34 1.24.06 1.59.07 4.74.07s3.5-.01 4.74-.07c.97-.04 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.75.35-.35.57-.69.75-1.15.14-.35.3-.88.34-1.85.06-1.24.07-1.59.07-4.74s-.01-3.5-.07-4.74c-.04-.97-.2-1.5-.34-1.85a3.09 3.09 0 0 0-.75-1.15 3.09 3.09 0 0 0-1.15-.75c-.35-.14-.88-.3-1.85-.34-1.24-.06-1.59-.07-4.74-.07M12 6.87a5.13 5.13 0 1 1 0 10.26 5.13 5.13 0 0 1 0-10.26m0 2.16a2.97 2.97 0 1 0 0 5.94 2.97 2.97 0 0 0 0-5.94m6.54-2.4a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0"/></svg>
+      </a>
     </div>
 
-  </nav>
+    <footer>
+      <p class="foot-copy">&copy; 2026 Nicky Williams &middot; <a href="/">Energy Detective</a>. All rights reserved.</p>
+    </footer>
+</div>
 
-  <div class="icons">
-    <a class="icon-link" href="https://www.instagram.com/energydetective.online/" target="_blank" rel="noopener" aria-label="Instagram">
-      <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.58.01 4.85.07 1.17.05 1.97.24 2.43.4a4.9 4.9 0 0 1 1.77 1.15 4.9 4.9 0 0 1 1.15 1.77c.16.46.35 1.26.4 2.43.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.24 1.97-.4 2.43a4.9 4.9 0 0 1-1.15 1.77 4.9 4.9 0 0 1-1.77 1.15c-.46.16-1.26.35-2.43.4-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.97-.24-2.43-.4a4.9 4.9 0 0 1-1.77-1.15 4.9 4.9 0 0 1-1.15-1.77c-.16-.46-.35-1.26-.4-2.43C2.21 15.58 2.2 15.2 2.2 12s.01-3.58.07-4.85c.05-1.17.24-1.97.4-2.43a4.9 4.9 0 0 1 1.15-1.77A4.9 4.9 0 0 1 5.59 1.8c.46-.16 1.26-.35 2.43-.4C9.29 1.34 9.67 1.33 12 1.33m0 2.16c-3.15 0-3.5.01-4.74.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.75-.35.35-.57.69-.75 1.15-.14.35-.3.88-.34 1.85-.06 1.24-.07 1.59-.07 4.74s.01 3.5.07 4.74c.04.97.2 1.5.34 1.85.18.46.4.8.75 1.15.35.35.69.57 1.15.75.35.14.88.3 1.85.34 1.24.06 1.59.07 4.74.07s3.5-.01 4.74-.07c.97-.04 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.75.35-.35.57-.69.75-1.15.14-.35.3-.88.34-1.85.06-1.24.07-1.59.07-4.74s-.01-3.5-.07-4.74c-.04-.97-.2-1.5-.34-1.85a3.09 3.09 0 0 0-.75-1.15 3.09 3.09 0 0 0-1.15-.75c-.35-.14-.88-.3-1.85-.34-1.24-.06-1.59-.07-4.74-.07M12 6.87a5.13 5.13 0 1 1 0 10.26 5.13 5.13 0 0 1 0-10.26m0 2.16a2.97 2.97 0 1 0 0 5.94 2.97 2.97 0 0 0 0-5.94m6.54-2.4a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0"/></svg>
-    </a>
+<div class="modal-scrim" id="ytScrim">
+  <div class="modal-box">
+    <button class="modal-close" id="ytClose" aria-label="Close video" type="button">✕</button>
+    <div class="modal-frame" id="ytFrame"></div>
   </div>
-
-  <footer>
-    <p class="foot-copy">&copy; 2026 Nicky Williams &middot; <a href="/">Energy Detective</a>. All rights reserved.</p>
-  </footer>
-
 </div>
 
 <script>
 (function(){
-  var card = document.getElementById('ytCard');
+  var openBtn = document.getElementById('ytOpen');
+  var closeBtn = document.getElementById('ytClose');
+  var scrim = document.getElementById('ytScrim');
   var frame = document.getElementById('ytFrame');
-  var loaded = false;
-  function loadVideo(){
-    if (loaded) return;
-    loaded = true;
+
+  function openModal(){
     var iframe = document.createElement('iframe');
     iframe.src = 'https://www.youtube-nocookie.com/embed/HPTnU_fCsLY?autoplay=1&rel=0';
     iframe.title = 'Nicky Williams interview with Emma V';
@@ -182,13 +153,18 @@
     iframe.allowFullscreen = true;
     frame.innerHTML = '';
     frame.appendChild(iframe);
-    card.removeAttribute('role');
-    card.removeAttribute('tabindex');
+    scrim.classList.add('open');
+    document.body.style.overflow = 'hidden';
   }
-  card.addEventListener('click', loadVideo);
-  card.addEventListener('keydown', function(e){
-    if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); loadVideo(); }
-  });
+  function closeModal(){
+    scrim.classList.remove('open');
+    document.body.style.overflow = '';
+    frame.innerHTML = '';
+  }
+  openBtn.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+  scrim.addEventListener('click', function(e){ if (e.target === scrim) closeModal(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeModal(); });
 })();
 </script>
 
