@@ -24,40 +24,42 @@
   .col{max-width:440px;margin:0 auto;padding:0 24px}
 
   /* ---- hero: full-bleed charcoal band, mirrors the site's dark hero convention ---- */
-  .hero{background:var(--charcoal);padding:52px 0 40px;text-align:center}
-  .avatar-ring{width:100px;height:100px;border-radius:50%;padding:4px;background:var(--gold);margin:0 auto 20px}
+  .hero{background:var(--charcoal);padding:38px 0 30px;text-align:center}
+  .avatar-ring{width:84px;height:84px;border-radius:50%;padding:4px;background:var(--gold);margin:0 auto 16px}
   .avatar-ring img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
 
-  .eyebrow{font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin:0 0 10px}
-  h1{font-family:var(--disp);font-weight:400;font-size:34px;margin:0 0 18px;color:var(--cream)}
+  .eyebrow{font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin:0 0 8px}
+  h1{font-family:var(--disp);font-weight:400;font-size:29px;margin:0 0 14px;color:var(--cream)}
   h1 em{font-style:italic;color:var(--gold)}
 
-  .bio{font-size:14.5px;font-weight:400;line-height:1.7;color:color-mix(in srgb,var(--cream) 84%,transparent);margin:0}
+  .bio{font-size:14px;font-weight:400;line-height:1.6;color:color-mix(in srgb,var(--cream) 84%,transparent);margin:0}
   .bio span{display:block}
 
-  .rowlist{border-top:1px solid var(--hair);margin:42px 0 34px}
+  .rowlist{border-top:1px solid var(--hair);margin:30px 0 24px}
 
   /* numbered row — lifted from the homepage's .hwrow treatment: oldstyle gold numeral + serif title.
-     Padding kept above the 44px thumb-target minimum even with a single line of text. */
-  .r{display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center;width:100%;min-height:44px;
-     padding:24px 4px;border-bottom:1px solid var(--hair);border-top:none;border-left:none;border-right:none;background:none;
+     Padding kept at/above the 44px thumb-target minimum even with a single line of text. */
+  .r{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;width:100%;min-height:44px;
+     padding:17px 4px;border-bottom:1px solid var(--hair);border-top:none;border-left:none;border-right:none;background:none;
      text-decoration:none;color:inherit;font:inherit;text-align:left;cursor:pointer;
      -webkit-tap-highlight-color:transparent;transition:background .2s}
   .r:active,.r:hover{background:color-mix(in srgb,var(--gold) 6%,transparent)}
-  .num{font-family:var(--disp);font-weight:300;font-size:38px;line-height:1;color:var(--gold);font-variant-numeric:oldstyle-nums}
+  .num{font-family:var(--disp);font-weight:300;font-size:32px;line-height:1;color:var(--gold);font-variant-numeric:oldstyle-nums}
   .r .txt{min-width:0}
-  .r .rt{display:block;font-family:var(--disp);font-weight:400;font-size:22px;color:var(--charcoal)}
-  .r .cue{flex:0 0 auto;color:var(--gold);font-size:12.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
-  .r .arrow{flex:0 0 auto;color:var(--gold);font-size:20px;font-family:var(--disp);transition:transform .2s}
+  .r .rt{display:block;font-family:var(--disp);font-weight:400;font-size:19px;color:var(--charcoal)}
+  .r .arrow{flex:0 0 auto;color:var(--gold);font-size:18px;font-family:var(--disp);transition:transform .2s}
   .r:hover .arrow{transform:translateX(3px)}
+  .r .arrow.yt-icon{display:flex}
+  .r .arrow.yt-icon svg{width:26px;height:26px;fill:var(--gold)}
+  .r:hover .arrow.yt-icon{transform:none}
 
-  .icons{display:flex;justify-content:center;margin-bottom:40px}
-  .icon-link{width:48px;height:48px;border-radius:50%;border:1px solid var(--hair);display:flex;align-items:center;justify-content:center;transition:background .2s,transform .18s cubic-bezier(.22,1,.36,1)}
+  .icons{display:flex;justify-content:center;margin-bottom:28px}
+  .icon-link{width:44px;height:44px;border-radius:50%;border:1px solid var(--hair);display:flex;align-items:center;justify-content:center;transition:background .2s,transform .18s cubic-bezier(.22,1,.36,1)}
   .icon-link:active{transform:scale(.93)}
   .icon-link:hover{background:color-mix(in srgb,var(--gold) 8%,transparent)}
-  .icon-link svg{width:20px;height:20px;fill:var(--charcoal)}
+  .icon-link svg{width:19px;height:19px;fill:var(--charcoal)}
 
-  footer{padding:0 0 40px;text-align:center}
+  footer{padding:0 0 28px;text-align:center}
   .foot-copy{font-size:11px;letter-spacing:.02em;color:color-mix(in srgb,var(--ink) 60%,transparent);margin:0}
   .foot-copy a{color:inherit}
 
@@ -111,8 +113,8 @@
 
       <button class="r" id="ytOpen" type="button">
         <span class="num">04</span>
-        <span class="txt"><span class="rt">Emotional eating (nothing to do with food)</span></span>
-        <span class="cue">Watch</span>
+        <span class="txt"><span class="rt">Emotional eating <em>(nothing to do with food)</em></span></span>
+        <span class="arrow yt-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z"/></svg></span>
       </button>
 
     </nav>
