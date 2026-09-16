@@ -1112,12 +1112,33 @@
   // ============================================================
   function bindHold(el, fn, repeat){
     let iv=null;
-    const start=(ev)=>{ ev.preventDefault(); fn(); if(repeat){ iv=setInterval(fn, 130); } };
-    const end=()=>{ if(iv){clearInterval(iv); iv=null;} };
-    el.addEventListener('touchstart', start, {passive:false});
+    // touchscreens fire a synthetic mousedown/mouseup shortly after a real
+    // touch, for sites that only listen for mouse events — since this
+    // binds both, one tap could otherwise fire fn() twice (once per
+    // event type), which on the drop button meant a single press moving
+    // the piece down AND nudging whatever spawned next. This flag makes
+    // the synthetic mouse event a no-op whenever a real touch just handled it
+    let touched=false, touchedTimer=null;
+    const run=(ev)=>{ ev.preventDefault(); fn(); if(repeat){ iv=setInterval(fn, 130); } };
+    const onTouchStart=(ev)=>{
+      touched=true;
+      clearTimeout(touchedTimer);
+      run(ev);
+    };
+    const onMouseDown=(ev)=>{ if(touched) return; run(ev); };
+    const end=(ev)=>{
+      if(iv){clearInterval(iv); iv=null;}
+      if(ev && ev.type==='touchend'){
+        // keep ignoring mouse events for a beat — the synthetic mousedown
+        // typically follows within ~300ms of the real touch ending
+        clearTimeout(touchedTimer);
+        touchedTimer=setTimeout(()=>{touched=false;}, 500);
+      }
+    };
+    el.addEventListener('touchstart', onTouchStart, {passive:false});
     el.addEventListener('touchend', end);
     el.addEventListener('touchcancel', end);
-    el.addEventListener('mousedown', start);
+    el.addEventListener('mousedown', onMouseDown);
     window.addEventListener('mouseup', end);
   }
   bindHold(document.getElementById('btnLeft'), ()=>{tryMove(-1,0);render();}, true);
