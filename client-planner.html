@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Client Planner — The Energy Detective</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:#f5f2ec;color:#3d3830;min-height:100vh;font-size:15px;line-height:1.5}
+input,select,button{font-family:inherit;font-size:inherit;color:#3d3830}
+#lock{position:fixed;inset:0;background:#f5f2ec;display:flex;align-items:center;justify-content:center;z-index:999;padding:1rem}
+.lock-card{background:#fff;border:1px solid #e8e3db;border-radius:16px;padding:2.5rem 2rem;width:100%;max-width:320px;text-align:center;box-shadow:0 2px 20px rgba(0,0,0,.06)}
+.lock-brand{font-size:11px;font-weight:700;color:#d8cbb7;letter-spacing:.12em;text-transform:uppercase;margin-bottom:2rem}
+.lock-card h1{font-size:18px;font-weight:600;margin-bottom:6px;color:#3d3830}
+.lock-card p{font-size:13px;color:#b0a898;margin-bottom:1.5rem}
+.lock-card input{width:100%;padding:11px 14px;border:1px solid #e8e3db;border-radius:8px;text-align:center;letter-spacing:.15em;font-size:16px;margin-bottom:12px;background:#faf8f5}
+.lock-card input:focus{outline:none;border-color:#a7b9a0;background:#fff}
+.lock-card button{width:100%;padding:11px;background:#a7b9a0;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:background .15s}
+.lock-card button:hover{background:#8faa87}
+.lock-err{font-size:12px;color:#c0695a;margin-top:8px;min-height:16px}
+#app{display:none;max-width:680px;margin:0 auto;padding:1.5rem 1rem 4rem}
+.hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid #e8e3db}
+.hdr-left h1{font-size:16px;font-weight:600;color:#3d3830;margin:0}
+.hdr-left p{font-size:12px;color:#b0a898;margin-top:2px}
+.hdr-right{display:flex;gap:8px;align-items:center;flex-shrink:0}
+.btn{cursor:pointer;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:500;border:1px solid #e8e3db;background:#fff;color:#3d3830;white-space:nowrap;transition:background .12s,border-color .12s}
+.btn:hover{background:#f5f2ec;border-color:#d8cbb7}
+.btn-primary{background:#a7b9a0;color:#fff;border-color:#a7b9a0;font-weight:600}
+.btn-primary:hover{background:#8faa87;border-color:#8faa87}
+.btn-ghost{border-color:transparent;background:transparent;color:#b0a898}
+.btn-ghost:hover{background:#f5f2ec;color:#3d3830;border-color:transparent}
+.btn-sm{padding:7px 12px;font-size:12px}
+.form-panel{background:#fff;border:1px solid #e8e3db;border-radius:12px;padding:1.25rem;margin-bottom:1.5rem}
+.panel-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#c8bfb4;margin-bottom:14px}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:10px}
+.form-grid label{font-size:12px;color:#8a8078;display:block;margin-bottom:4px}
+.form-grid input,.form-grid select{width:100%;padding:9px 10px;border:1px solid #e8e3db;border-radius:8px;background:#faf8f5;font-size:14px}
+.form-grid input:focus,.form-grid select:focus{outline:none;border-color:#a7b9a0;background:#fff}
+.form-hint{font-size:11px;color:#b0a898;line-height:1.65;padding:8px 10px;background:#faf8f5;border-radius:6px;border:1px solid #ede9e3;margin-bottom:12px}
+.form-actions{display:flex;gap:8px}
+.form-msg{font-size:12px;margin-top:8px;min-height:16px;color:#b0a898}
+.today-wrap{background:#fff;border:1.5px solid #c5d4c0;border-radius:12px;padding:1.1rem 1.25rem;margin-bottom:1.5rem}
+.today-wrap .task-row{border-color:#e2ede0;background:#f8fbf7}
+.today-wrap .task-row:hover{background:#f0f7ee}
+.section{margin-bottom:1.75rem}
+.section-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#c8bfb4;margin-bottom:10px}
+.month-block{margin-bottom:2rem}
+.month-title{font-size:17px;font-weight:600;color:#3d3830;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #e8e3db;display:flex;justify-content:space-between;align-items:baseline}
+.month-count{font-size:12px;font-weight:400;color:#c8bfb4}
+.day-group{margin-bottom:10px}
+.day-lbl{font-size:12px;font-weight:600;color:#9a9088;margin-bottom:5px;padding:0 2px}
+.task-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;border:1px solid #ede9e3;background:#fff;margin-bottom:5px;cursor:pointer;user-select:none;transition:opacity .2s,background .12s}
+.task-row:last-child{margin-bottom:0}
+.task-row:hover{background:#faf8f5}
+.task-row.done{opacity:.28}
+.task-row.done .task-text{text-decoration:line-through;color:#b0a898}
+.task-cb{width:18px;height:18px;border-radius:4px;border:1.5px solid #d8cbb7;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:#fff;transition:background .15s,border-color .15s}
+.task-row.done .task-cb{background:#a7b9a0;border-color:#a7b9a0}
+.task-cb svg{display:none}
+.task-row.done .task-cb svg{display:block}
+.task-text{font-size:13px;color:#3d3830;flex:1;min-width:0}
+.task-client{font-weight:600}
+.bdg{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;letter-spacing:.03em;text-transform:uppercase}
+.b-s{background:#deeadb;color:#4a7a5a}
+.b-c{background:#ede9e3;color:#8a7060}
+.b-sc{background:#e8e3f0;color:#6a5a90}
+.legend{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:1.25rem}
+.empty-msg{text-align:center;padding:3rem 1rem;color:#c8bfb4;font-size:13px}
+.notice{background:#faf8f5;border:1px solid #e8e3db;border-radius:10px;padding:1.1rem 1.25rem;font-size:13px;color:#9a9088;line-height:1.7;margin-bottom:1.5rem}
+.notice strong{font-weight:600;color:#7a7068;display:block;margin-bottom:4px}
+@media print{
+  #lock,.hdr-right,.form-panel,.legend{display:none!important}
+  .print-hdr{display:block!important}
+  body{background:#fff}
+  #app{display:block!important;max-width:100%;padding:0}
+  .task-row{break-inside:avoid;border-color:#ddd!important;background:white!important}
+  .task-cb{border:1.5px solid #aaa!important;background:white!important}
+  .task-cb svg{display:none!important}
+  .task-row.done{opacity:1}
+  .task-row.done .task-text{text-decoration:none;color:#3d3830}
+  .today-wrap{border-color:#ccc!important;background:white!important}
+}
+@media(max-width:500px){
+  .hdr-left h1{font-size:15px}
+  .btn-label{display:none}
+}
+</style>
+</head>
+<body>
+
+<div id="lock">
+  <div class="lock-card">
+    <div class="lock-brand">The Energy Detective</div>
+    <h1>Client Planner</h1>
+    <p>Enter your password to continue</p>
+    <input type="password" id="pw" placeholder="••••••••">
+    <button onclick="unlock()">Unlock</button>
+    <div class="lock-err" id="pw-err"></div>
+  </div>
+</div>
+
+<div id="app">
+  <div class="print-hdr" style="display:none;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid #ccc">
+    <p style="font-size:16px;font-weight:600;margin:0 0 3px">Client Planner — The Energy Detective</p>
+    <p style="font-size:12px;color:#888;margin:0" id="print-date"></p>
+  </div>
+  <div class="hdr">
+    <div class="hdr-left">
+      <h1>Client planner</h1>
+      <p id="hdr-date"></p>
+    </div>
+    <div class="hdr-right">
+      <button class="btn btn-sm" id="refresh-btn" onclick="loadData()">↻ <span class="btn-label">Refresh</span></button>
+      <button class="btn btn-sm" onclick="window.print()">⎙ <span class="btn-label">Print</span></button>
+      <button class="btn btn-primary btn-sm" onclick="toggleForm()">+ Add client</button>
+    </div>
+  </div>
+
+  <div id="form-panel" class="form-panel" style="display:none">
+    <div class="panel-label">Add client</div>
+    <div class="form-grid">
+      <div>
+        <label for="f-name">Client name</label>
+        <input type="text" id="f-name" placeholder="First name" autocomplete="off">
+      </div>
+      <div>
+        <label for="f-prog">Programme</label>
+        <select id="f-prog" onchange="updateHint()">
+          <option value="block">Block session</option>
+          <option value="rewire">Rewire (4 sessions)</option>
+          <option value="rewire2">Rewire x2 (8 sessions)</option>
+          <option value="rewire3">Rewire x3 (12 sessions)</option>
+          <option value="rnl">Rewire Next Level</option>
+          <option value="dbr">Deep Body Release</option>
+          <option value="dbr2">DBR Round 2</option>
+        </select>
+      </div>
+      <div>
+        <label for="f-date" id="f-date-lbl">Session date</label>
+        <input type="date" id="f-date">
+      </div>
+    </div>
+    <div class="form-hint" id="f-hint">2 tasks: session, then check-in 3 days after.</div>
+    <div class="form-actions">
+      <button class="btn btn-primary" onclick="submitClient()">Add ↗</button>
+      <button class="btn btn-ghost" onclick="toggleForm()">Cancel</button>
+    </div>
+    <div class="form-msg" id="form-msg"></div>
+  </div>
+
+  <div id="main"></div>
+</div>
+
+<script>
+var PASSWORD      = 'energydetective';
+var SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vShcxbLH6D38bk2SxNmWrvlOtr1OlO6yZA_t7D_oeOrRa9UWkjY3ZVzOHd-EPx9PFmW7oHuA5W8_Jr5/pub?gid=1763522298&single=true&output=csv';
+var WEBHOOK_URL   = 'https://hook.eu1.make.com/kazgzvmmv0a2rydtgtc6epnmlyhuvs2o';
+
+var done = {};
+var DONE_KEY = 'ted-done-v1';
+var T = new Date(); T.setHours(0,0,0,0);
+
+var DBR2_SESSIONS = [0,7,21,28,42,49,63,70];
+var DBR2_RESCAN   = 77;
+
+var HINTS = {
+  block: '2 tasks: session, then check-in 3 days after.',
+  rewire:'8 tasks: session + check-in (3 days after) for each of 4 weekly sessions.',
+  rewire2:'16 tasks: session + check-in (3 days after) for each of 8 weekly sessions.',
+  rewire3:'24 tasks: session + check-in (3 days after) for each of 12 weekly sessions.',
+  rnl:   '6 tasks: session + check-in (3 days after) for each of 3 monthly sessions.',
+  dbr:   '14 tasks: opening scan + session/check-in for each of 6 bi-weekly sessions + final scan.',
+  dbr2:  '17 tasks: 8 energy clearing sessions each with a check-in 3 days after, plus rescan at week 12.'
+};
+var DATE_LABELS = {
+  block:'Session date', rewire:'First session date',
+  rewire2:'First session date', rewire3:'First session date',
+  rnl:'First session date', dbr:'Opening scan date (week 1)',
+  dbr2:'First session date (week 1)'
+};
+
+function pad(n){return('0'+n).slice(-2)}
+function iso(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
+function parseD(s){var p=s.split('-');var d=new Date(+p[0],+p[1]-1,+p[2]);d.setHours(0,0,0,0);return d}
+function addD(d,n){var x=new Date(d);x.setDate(x.getDate()+n);return x}
+function fmtShort(d){return d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})}
+function fmtMonth(d){return d.toLocaleDateString('en-GB',{month:'long',year:'numeric'})}
+function fmtFull(d){return d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function tkey(t){return(t.date||'')+'|'+(t.clientId||'')+'|'+(t.taskLabel||'')}
+
+function mkSession(id,name,prog,dateStr,lbl,noCheckin){
+  var s=parseD(dateStr);
+  var tasks=[
+    {clientId:id,clientName:name,programme:prog,taskLabel:lbl,taskType:'session',date:dateStr}
+  ];
+  if(!noCheckin){
+    tasks.push({clientId:id,clientName:name,programme:prog,taskLabel:'Check-in',taskType:'checkin',date:iso(addD(s,3))});
+  }
+  return tasks;
+}
+
+function buildTasks(name,prog,start){
+  var id=Date.now()+'';
+  var s=parseD(start);
+  var t=[];
+
+  if(prog==='block'){
+    t=t.concat(mkSession(id,name,prog,start,'Session'));
+  }else if(prog==='rewire'){
+    for(var i=0;i<4;i++) t=t.concat(mkSession(id,name,prog,iso(addD(s,i*7)),'Session '+(i+1)+' of 4'));
+  }else if(prog==='rewire2'){
+    for(var i=0;i<8;i++) t=t.concat(mkSession(id,name,prog,iso(addD(s,i*7)),'Session '+(i+1)+' of 8'));
+  }else if(prog==='rewire3'){
+    for(var i=0;i<12;i++) t=t.concat(mkSession(id,name,prog,iso(addD(s,i*7)),'Session '+(i+1)+' of 12'));
+  }else if(prog==='rnl'){
+    for(var i=0;i<3;i++) t=t.concat(mkSession(id,name,prog,iso(addD(s,i*30)),'Session '+(i+1)+' of 3'));
+  }else if(prog==='dbr'){
+    t.push({clientId:id,clientName:name,programme:prog,taskLabel:'Opening scan',taskType:'scan',date:start});
+    for(var i=0;i<6;i++) t=t.concat(mkSession(id,name,prog,iso(addD(s,7+(i*14))),'Session '+(i+1)+' of 6'));
+    t.push({clientId:id,clientName:name,programme:prog,taskLabel:'Final scan',taskType:'scan',date:iso(addD(s,77))});
+  }else if(prog==='dbr2'){
+    for(var i=0;i<DBR2_SESSIONS.length;i++){
+      t=t.concat(mkSession(id,name,prog,iso(addD(s,DBR2_SESSIONS[i])),'Energy clearing '+(i+1)+' of 8'));
+    }
+    t.push({clientId:id,clientName:name,programme:prog,taskLabel:'Rescan',taskType:'scan',date:iso(addD(s,DBR2_RESCAN))});
+  }
+  return t;
+}
+
+function parseCSV(text){
+  var lines=text.trim().split(/\r?\n/);
+  if(lines.length<2)return[];
+  var headers=csvSplit(lines[0]).map(function(h){return h.trim().replace(/"/g,'')});
+  return lines.slice(1).map(function(line){
+    var cols=csvSplit(line);
+    var row={};
+    headers.forEach(function(h,i){row[h]=cols[i]?cols[i].trim().replace(/^"|"$/g,''):''});
+    return row;
+  }).filter(function(r){return r.date&&r.taskLabel&&r.taskType});
+}
+function csvSplit(line){
+  var cols=[],cur='',q=false;
+  for(var i=0;i<line.length;i++){
+    if(line[i]==='"'){q=!q;}
+    else if(line[i]===','&&!q){cols.push(cur);cur='';}
+    else{cur+=line[i];}
+  }
+  cols.push(cur);
+  return cols;
+}
+
+function mkRow(t){
+  var k=encodeURIComponent(tkey(t));
+  var dn=!!done[tkey(t)];
+  var bc=t.taskType==='session'?'b-s':t.taskType==='scan'?'b-sc':'b-c';
+  var bl=t.taskType==='session'?'Session':t.taskType==='scan'?'Scan':'Check-in';
+  return'<div class="task-row'+(dn?' done':'')+'" data-k="'+k+'">'
+    +'<div class="task-cb">'
+    +'<svg width="11" height="8" viewBox="0 0 11 8" fill="none">'
+    +'<path d="M1 4L4 7L10 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>'
+    +'</svg></div>'
+    +'<span class="bdg '+bc+'">'+bl+'</span>'
+    +'<span class="task-text"><span class="task-client">'+esc(t.clientName)+'</span> — '+esc(t.taskLabel)+'</span>'
+    +'</div>';
+}
+
+function dayGroups(tasks){
+  var grp={},ord=[];
+  tasks.forEach(function(t){if(!grp[t.date]){grp[t.date]=[];ord.push(t.date);}grp[t.date].push(t);});
+  return ord.map(function(ds){
+    var d=parseD(ds);
+    var diff=Math.round((d-T)/86400000);
+    var lbl=diff===1?'Tomorrow — '+fmtShort(d):fmtShort(d);
+    return'<div class="day-group"><div class="day-lbl">'+lbl+'</div>'+grp[ds].map(mkRow).join('')+'</div>';
+  }).join('');
+}
+
+function render(tasks){
+  var todayStr=iso(T);
+  var weekEndStr=iso(addD(T,7));
+  var tomorrowStr=iso(addD(T,1));
+  var aheadStr=iso(addD(T,120));
+  tasks.sort(function(a,b){return a.date<b.date?-1:a.date>b.date?1:0});
+  var todayTasks=tasks.filter(function(t){return t.date===todayStr});
+  var weekTasks=tasks.filter(function(t){return t.date>=tomorrowStr&&t.date<=weekEndStr});
+  var monthTasks=tasks.filter(function(t){return t.date>weekEndStr&&t.date<=aheadStr});
+  var html='';
+  html+='<div class="legend">'
+    +'<span class="bdg b-s">Session</span>'
+    +'<span class="bdg b-c">Check-in</span>'
+    +'<span class="bdg b-sc">Scan</span>'
+    +'</div>';
+  html+='<div class="today-wrap"><div class="section-label">Today — '+fmtFull(T)+'</div>';
+  html+=todayTasks.length
+    ?todayTasks.map(mkRow).join('')
+    :'<p style="font-size:13px;color:#c8bfb4;padding:4px 0">Nothing scheduled for today</p>';
+  html+='</div>';
+  if(weekTasks.length){
+    html+='<div class="section"><div class="section-label">This week</div>'+dayGroups(weekTasks)+'</div>';
+  }
+  if(monthTasks.length){
+    var months={},mOrd=[];
+    monthTasks.forEach(function(t){
+      var d=parseD(t.date);
+      var mk=d.getFullYear()+'-'+pad(d.getMonth()+1);
+      if(!months[mk]){months[mk]=[];mOrd.push(mk);}
+      months[mk].push(t);
+    });
+    mOrd.forEach(function(mk){
+      var p=mk.split('-');
+      var mDate=new Date(+p[0],+p[1]-1,1);
+      var mt=months[mk];
+      html+='<div class="month-block"><div class="month-title"><span>'+fmtMonth(mDate)+'</span>'
+        +'<span class="month-count">'+mt.length+' task'+(mt.length===1?'':'s')+'</span></div>'
+        +dayGroups(mt)+'</div>';
+    });
+  }
+  if(!tasks.length){
+    html+='<div class="empty-msg">No clients yet — add one above to get started.</div>';
+  }
+  document.getElementById('main').innerHTML=html;
+}
+
+async function loadData(){
+  var btn=document.getElementById('refresh-btn');
+  btn.textContent='↻ Loading...';btn.disabled=true;
+  try{
+    var resp=await fetch(SHEET_CSV_URL+'&nocache='+Date.now(),{cache:'no-store'});
+    if(!resp.ok)throw new Error('HTTP '+resp.status);
+    render(parseCSV(await resp.text()));
+  }catch(e){
+    document.getElementById('main').innerHTML=
+      '<div class="notice"><strong>Could not load data.</strong> Check the sheet is published to web as CSV and the URL is correct.</div>';
+  }
+  btn.textContent='↻ Refresh';btn.disabled=false;
+}
+
+function toggleForm(){
+  var f=document.getElementById('form-panel');
+  f.style.display=f.style.display==='none'?'block':'none';
+  if(f.style.display==='block')document.getElementById('f-name').focus();
+}
+function updateHint(){
+  var p=document.getElementById('f-prog').value;
+  document.getElementById('f-hint').textContent=HINTS[p];
+  document.getElementById('f-date-lbl').textContent=DATE_LABELS[p];
+}
+async function submitClient(){
+  var name=document.getElementById('f-name').value.trim();
+  var prog=document.getElementById('f-prog').value;
+  var date=document.getElementById('f-date').value;
+  var msg=document.getElementById('form-msg');
+  if(!name||!date){msg.textContent='Please fill in all fields.';msg.style.color='#c0695a';return;}
+  var tasks=buildTasks(name,prog,date);
+  msg.textContent='Sending to Make...';msg.style.color='#b0a898';
+  try{
+    await fetch(WEBHOOK_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({tasks:tasks})});
+    msg.textContent='Added — refresh in about 30 seconds to see the tasks.';
+    msg.style.color='#4a7a5a';
+    document.getElementById('f-name').value='';
+    document.getElementById('f-date').value='';
+  }catch(e){
+    msg.textContent='Error sending. Check your webhook URL.';msg.style.color='#c0695a';
+  }
+}
+
+function loadDone(){try{var s=localStorage.getItem(DONE_KEY);if(s)done=JSON.parse(s);}catch(e){}}
+function saveDone(){try{localStorage.setItem(DONE_KEY,JSON.stringify(done));}catch(e){}}
+
+document.addEventListener('click',function(e){
+  var row=e.target.closest('.task-row');
+  if(row&&row.dataset.k){
+    var k=decodeURIComponent(row.dataset.k);
+    if(done[k])delete done[k];else done[k]=1;
+    saveDone();
+    row.classList.toggle('done',!!done[k]);
+  }
+});
+
+function unlock(){
+  if(document.getElementById('pw').value===PASSWORD){
+    document.getElementById('lock').style.display='none';
+    document.getElementById('app').style.display='block';
+    init();
+  }else{
+    document.getElementById('pw-err').textContent='Incorrect password.';
+    document.getElementById('pw').value='';
+  }
+}
+document.getElementById('pw').addEventListener('keydown',function(e){if(e.key==='Enter')unlock();});
+window.addEventListener('beforeprint',function(){document.getElementById('print-date').textContent='Printed: '+fmtFull(T);});
+
+function init(){
+  loadDone();
+  document.getElementById('hdr-date').textContent=fmtFull(T);
+  loadData();
+}
+</script>
+</body>
+</html>
