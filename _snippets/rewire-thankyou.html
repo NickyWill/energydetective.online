@@ -36,3 +36,16 @@
   </p>
 
 </div>
+
+<!-- Meta Pixel — Purchase event (assumes the Meta Pixel base code is already loaded on this ThriveCart page, e.g. via ThriveCart's own Pixel settings) -->
+<script>
+  if (typeof fbq !== 'undefined') {
+    fbq('track', 'Purchase', {
+      value: 555,
+      currency: 'USD',
+      content_name: 'Rewire',
+      content_ids: ['23'],
+      content_type: 'product'
+    });
+  }
+</script>
