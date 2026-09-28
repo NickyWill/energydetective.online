@@ -89,7 +89,6 @@ window.QUIZ = {
   emailBox: {
     title: 'Where shall I send your result?',
     text: 'Pop your email in and I’ll send you the link, so you can come back to it anytime.',
-    name: 'First name',
     email: 'Email',
     optIn: 'Would you also like my emails? Tips, tools and the odd offer. You can unsubscribe anytime.',
     yes: 'Yes please',
@@ -203,5 +202,5 @@ window.QUIZ = {
     { title: 'Built from:',
       text: 'Nicky’s research into dread and 700+ clearing sessions.' }
   ],
-  privacy: 'This quiz is for information only and isn’t a diagnostic tool. Your answers stay on your own device: they aren’t saved, sent anywhere or linked to you, and nobody can see them. If you choose to give your email, only your name and email are kept, as explained in our <a href="/privacy-policy">Privacy Policy</a>. This page uses a Meta Pixel cookie to count visits, as explained in our <a href="/cookie-notice">Cookie Notice</a>, but it never sees your answers. If you’re struggling, please speak to your GP or a qualified professional.'
+  privacy: 'This quiz is for information only and isn’t a diagnostic tool. Your answers stay on your own device: they aren’t saved, sent anywhere or linked to you, and nobody can see them. If you give your email, only your email is kept, as explained in our <a href="/privacy-policy">Privacy Policy</a>. This page uses a Meta Pixel cookie to count visits, as explained in our <a href="/cookie-notice">Cookie Notice</a>, but it never sees your answers. If you’re struggling, please speak to your GP or a qualified professional.'
 };

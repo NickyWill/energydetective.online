@@ -255,7 +255,7 @@
   }
 
   // ---------- optional email box (never shown to ManyChat visitors) ----------
-  // Sends ONLY her first name, email and email choice. Never her answers or result.
+  // Sends ONLY her email and email choice. Never her name, answers or result.
   function renderEmailBox(){
     prog.hidden = true;
     var E = W.emailBox;
@@ -273,7 +273,6 @@
       w.appendChild(f);
       return f;
     }
-    var name = field('text', E.name, 'given-name');
     var email = field('email', E.email, 'email');
     email.inputMode = 'email';
 
@@ -301,8 +300,7 @@
       if (n.focus && n.tagName === 'INPUT') n.focus();
     }
     send = w.appendChild(el('div', 'row')).appendChild(button('btn', E.send + ' \u2192', function(){
-      var nm = name.value.trim(), em = email.value.trim();
-      if (!nm) return flag(name);
+      var em = email.value.trim();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) return flag(email);
       if (W.emailWebhook){
         fetch(W.emailWebhook, {
@@ -310,7 +308,6 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             emotion: W.emotion,
-            first_name: nm,
             email: em,
             marketing: choice ? 'yes' : 'no',
             source: 'website',
