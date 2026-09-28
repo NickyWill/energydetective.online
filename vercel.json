@@ -1,4 +1,14 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/dread-quiz", "destination": "/dreadquiz", "permanent": false },
+    { "source": "/dread_quiz", "destination": "/dreadquiz", "permanent": false },
+    { "source": "/dread-report", "destination": "/dreadquiz", "permanent": false },
+    { "source": "/dreadreport", "destination": "/dreadquiz", "permanent": false },
+    { "source": "/DreadQuiz", "destination": "/dreadquiz", "permanent": false },
+    { "source": "/Dreadquiz", "destination": "/dreadquiz", "permanent": false },
+    { "source": "/DREADQUIZ", "destination": "/dreadquiz", "permanent": false },
+    { "source": "/Dread-Quiz", "destination": "/dreadquiz", "permanent": false }
+  ]
 }
