@@ -276,16 +276,15 @@
       if (choice === null) return flag(pick);
       if (W.emailWebhook){
         fetch(W.emailWebhook, {
-          method: 'POST', mode: 'no-cors', keepalive: true,
+          method: 'POST', keepalive: true,     // Make's webhook allows JSON from any site
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
+            emotion: W.emotion,
             first_name: nm,
             email: em,
-            marketing_opt_in: choice ? 'yes' : 'no',
-            consent_at: choice ? new Date().toISOString() : '',
-            consent_wording: choice ? E.optIn : '',
-            quiz: W.intro.eyebrow,
-            quiz_link: W.quizUrl
+            marketing: choice ? 'yes' : 'no',
+            source: 'website',
+            quiz_url: W.quizUrl
           })
         }).catch(function(){});
       }

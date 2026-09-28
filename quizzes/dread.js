@@ -13,9 +13,12 @@ window.QUIZ = {
   privacyUrl: '/privacy-policy',
   // The public quiz link: what she's emailed and what friends are sent (never with ?from=mc)
   quizUrl: 'https://energydetective.online/dreadquiz',
-  // Make.com webhook that passes her name and email on to Flodesk. Paste it in before going live.
-  // Until then the email box is skipped and everyone goes straight to their result.
-  emailWebhook: '',
+  // Make.com webhook for the optional email box. Make adds "yes" women to the Flodesk
+  // segment "Quiz: Dread" and sends "no" women one email with the quiz link.
+  // Leave it empty to hide the email box.
+  emailWebhook: 'https://hook.eu1.make.com/qdwzm5gcv3fisu14hblzekv5a716lihl',
+  // This emotion's name, sent to Make with her details
+  emotion: 'Dread',
 
   intro: {
     eyebrow: 'The Dread Quiz',
