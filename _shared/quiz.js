@@ -1,7 +1,8 @@
 /* quiz.js: runs any emotion quiz. The words come from window.QUIZ (quizzes/<emotion>.js);
    nothing here needs changing for a new emotion.
-   Privacy: her answers live only in this page's memory. They are never saved to the
-   browser, sent anywhere or passed to tracking, and they vanish when she closes the page. */
+   Privacy: her answers live only in this page's memory and are never saved or tracked.
+   Only if she fills in the Emotion Club box are her email and her two role names sent to Make.
+   Her result link holds only the six role totals (never her email, ages or where). */
 (function(){
   var W = window.QUIZ;
   var app = document.getElementById('app');
@@ -10,8 +11,6 @@
   var N = W.statements.length;
   var TOTAL = N + 3;                 // statements + age now + age then + where
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // ManyChat links end in ?from=mc: ManyChat already has her email, so skip the email box
-  var fromManyChat = new URLSearchParams(location.search).get('from') === 'mc';
   var a;                             // her answers, in memory only
 
   function reset(){ a = { scores: [], ageNow: null, ageThen: null, where: null }; }
@@ -89,16 +88,29 @@
   function updateProgress(){ progFill.style.width = (answered() / TOTAL * 100) + '%'; }
 
   // ---------- scoring ----------
-  function score(){
+  // the six role totals (4 to 20), in table order
+  function totalsFromAnswers(){
+    return W.archetypes.map(function(t){
+      return t.statements.reduce(function(s, n){ return s + a.scores[n - 1]; }, 0) + (6 - a.scores[t.flip - 1]);
+    });
+  }
+  function score(totals){
     var rows = W.archetypes.map(function(t, order){
-      var total = t.statements.reduce(function(s, n){ return s + a.scores[n - 1]; }, 0) + (6 - a.scores[t.flip - 1]);
-      return { t: t, order: order, total: total, pct: Math.round((total - 4) / 16 * 100) };
+      return { t: t, order: order, total: totals[order], pct: Math.round((totals[order] - 4) / 16 * 100) };
     });
     // highest first; equal totals keep table order
     rows.sort(function(x, y){ return y.total - x.total || x.order - y.order; });
-    return { rows: rows, main: rows[0], second: rows[1], mix: rows[0].total === rows[1].total };
+    return { rows: rows, main: rows[0], second: rows[1], mix: rows[0].total === rows[1].total, totals: totals };
   }
-  window.QuizScore = function(scores){ var keep = a; a = { scores: scores }; var r = score(); a = keep; return r; };
+  window.QuizScore = function(scores){ var keep = a; a = { scores: scores }; var r = score(totalsFromAnswers()); a = keep; return r; };
+
+  // ---------- her result link: ?r= and the six totals, e.g. ?r=17-9-12-8-11-6 ----------
+  function resultUrl(totals){ return W.quizUrl + '?r=' + totals.join('-'); }
+  function totalsFromLink(v){
+    if (!v || !/^\d{1,2}(-\d{1,2}){5}$/.test(v)) return null;
+    var t = v.split('-').map(Number);
+    return t.length === W.archetypes.length && t.every(function(n){ return n >= 4 && n <= 20; }) ? t : null;
+  }
 
   // ---------- the quiz: one scrolling page ----------
   function item(num, text){
@@ -243,8 +255,7 @@
           return;
         }
       }
-      // no email box for ManyChat visitors, or until the email connection is set up
-      if (fromManyChat || !W.emailWebhook) renderReading(); else renderEmailBox();
+      renderReading();
     }));
     page.appendChild(qs);
 
@@ -254,84 +265,13 @@
     updateProgress();
   }
 
-  // ---------- optional email box (never shown to ManyChat visitors) ----------
-  // Sends ONLY her email and email choice. Never her name, answers or result.
-  function renderEmailBox(){
-    prog.hidden = true;
-    var E = W.emailBox;
-    var s = el('section', 'mailbox screen');
-    var w = el('div', 'wrap');
-    s.appendChild(w);
-    w.appendChild(el('h2', 'rh', E.title));
-    w.appendChild(el('p', 'mtext', E.text));
-
-    function field(type, label, auto){
-      var f = el('input', 'field');
-      f.type = type; f.placeholder = label; f.autocomplete = auto; f.required = true;
-      f.setAttribute('aria-label', label);
-      f.addEventListener('input', function(){ f.classList.remove('flag'); });
-      w.appendChild(f);
-      return f;
-    }
-    var email = field('email', E.email, 'email');
-    email.inputMode = 'email';
-
-    w.appendChild(el('p', 'optin', E.optIn));
-    // two clear choices, each with a circle that fills gold with a tick; neither chosen to start with
-    var choice = null, send;
-    var pick = el('div', 'pick');
-    pick.setAttribute('role', 'radiogroup');
-    pick.setAttribute('aria-label', E.optIn);
-    [[true, E.yes], [false, E.no]].forEach(function(c){
-      var b = button('choice', '<span class="tick" aria-hidden="true"></span><span>' + c[1] + '</span>', function(){
-        pick.querySelectorAll('.choice').forEach(function(x){ x.setAttribute('aria-checked', 'false'); });
-        b.setAttribute('aria-checked', 'true');
-        choice = c[0];
-        send.disabled = false;                   // the button works once she's picked one
-      });
-      b.setAttribute('role', 'radio');
-      b.setAttribute('aria-checked', 'false');
-      pick.appendChild(b);
-    });
-    w.appendChild(pick);
-
-    function flag(n){
-      n.classList.remove('flag'); void n.offsetWidth; n.classList.add('flag');
-      if (n.focus && n.tagName === 'INPUT') n.focus();
-    }
-    send = w.appendChild(el('div', 'row')).appendChild(button('btn', E.send + ' \u2192', function(){
-      var em = email.value.trim();
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) return flag(email);
-      if (W.emailWebhook){
-        fetch(W.emailWebhook, {
-          method: 'POST', keepalive: true,     // Make's webhook allows JSON from any site
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            emotion: W.emotion,
-            email: em,
-            marketing: choice ? 'yes' : 'no',
-            source: 'website',
-            quiz_url: W.quizUrl
-          })
-        }).catch(function(){});
-      }
-      renderReading();
-    }));
-    send.disabled = true;
-    var pp = w.appendChild(el('p', 'plink'));
-    var link = pp.appendChild(el('a', null, E.privacy));
-    link.href = W.privacyUrl; link.target = '_blank'; link.rel = 'noopener';
-
-    show(s);
-  }
-
   function renderReading(){
     prog.hidden = true;
     var s = el('section', 'reading screen');
     s.appendChild(el('p', null, W.reading));
     s.appendChild(el('div', 'qline')).appendChild(el('span'));
     show(s);
-    setTimeout(renderResults, 2000);
+    setTimeout(function(){ renderResults(score(totalsFromAnswers()), false); }, 2000);
   }
 
   // ---------- results ----------
@@ -346,11 +286,14 @@
   }
   function yearsText(n){ return n < 1 ? 'less than a year' : n + (n === 1 ? ' year' : ' years'); }
 
-  function renderResults(){
-    var r = score(), R = W.result;
+  // fromLink: opened from her result link, which has no ages or where
+  function renderResults(r, fromLink){
+    prog.hidden = true;
+    var R = W.result;
     var main = r.main.t, second = r.second.t;
-    var where = W.where.options[a.where].phrase;
-    var vals = { ageThen: a.ageThen, years: yearsText(a.ageNow - a.ageThen), lesson: main.lesson, where: where };
+    var where = fromLink ? null : W.where.options[a.where].phrase;
+    var vals = fromLink ? { lesson: main.lesson }
+      : { ageThen: a.ageThen, years: yearsText(a.ageNow - a.ageThen), lesson: main.lesson, where: where };
     var page = el('article', 'screen');
     tone = 0;
 
@@ -386,10 +329,10 @@
     // 4. What to know (dark)
     var s3 = band(R.knowEyebrow);
     var ul = add(s3.w, 'ul', 'points');
-    ul.appendChild(el('li', null, fill(where ? R.firstPoint : R.firstPointNoWhere, vals)));
+    ul.appendChild(el('li', null, fill(fromLink ? R.firstPointLink : where ? R.firstPoint : R.firstPointNoWhere, vals)));
     main.points.forEach(function(p){ ul.appendChild(el('li', null, p)); });
     add(s3.w, 'p', 'also', second.streak);
-    add(s3.w, 'p', 'closing', fill(R.ending, vals));
+    add(s3.w, 'p', 'closing', fill(fromLink ? R.endingLink : R.ending, vals));
     page.appendChild(s3);
 
     // 5. Make change now (cream)
@@ -410,8 +353,8 @@
     book.href = W.bookUrl;
     page.appendChild(s5);
 
-    // 7. Take it again + the privacy note (cream)
-    page.appendChild(aboutSection(true));
+    // 7. Emotion Club box, share, take it again + the privacy note (cream)
+    page.appendChild(aboutSection(true, fromLink ? null : r));
     show(page);
   }
 
@@ -452,12 +395,74 @@
     if (lastFocus) lastFocus.focus({ preventScroll: true });
   }
 
+  function copyText(all, status){
+    function done(){ status.textContent = W.result.copied; setTimeout(function(){ status.textContent = ''; }, 3000); }
+    function fallback(){
+      var t = el('textarea'); t.value = all; t.setAttribute('readonly', '');
+      t.style.position = 'fixed'; t.style.opacity = '0';
+      document.body.appendChild(t); t.select();
+      try { document.execCommand('copy'); done(); } catch (e) {}
+      t.remove();
+    }
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(all).then(done, fallback);
+    else fallback();
+  }
+
+  // ---------- Emotion Club box: the only thing that sends anything to Make ----------
+  // Sends her email, the two role names and her result link. Never her answers, ages or where.
+  function clubBox(r){
+    var C = W.club, R = W.result;
+    var box = el('form', 'club');
+    box.noValidate = true;
+    box.setAttribute('data-reveal', '');
+    box.appendChild(el('h3', null, C.title));
+    box.appendChild(el('p', 'ctext', C.text));
+    var email = box.appendChild(el('input', 'cfield'));
+    email.type = 'email'; email.inputMode = 'email'; email.autocomplete = 'email';
+    email.placeholder = C.email; email.setAttribute('aria-label', C.email);
+    email.addEventListener('input', function(){ email.classList.remove('flag'); });
+    var go = box.appendChild(el('div', 'row')).appendChild(el('button', 'btn', C.button));
+    go.type = 'submit';
+    var pp = box.appendChild(el('p', 'plink'));
+    var link = pp.appendChild(el('a', null, C.privacy));
+    link.href = W.privacyUrl; link.target = '_blank'; link.rel = 'noopener';
+
+    box.addEventListener('submit', function(e){
+      e.preventDefault();
+      var em = email.value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){
+        email.classList.remove('flag'); void email.offsetWidth; email.classList.add('flag');
+        return email.focus();
+      }
+      var mainName = r.mix ? fill(R.mixRole, { a: r.main.t.name, b: r.second.t.name }) : r.main.t.name;
+      fetch(W.emailWebhook, {
+        method: 'POST', keepalive: true,     // Make's webhook allows JSON from any site
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          emotion: W.emotion,
+          email: em,
+          marketing: 'yes',
+          source: 'website',
+          quiz_url: W.quizUrl,
+          main_role: mainName,
+          second_role: r.mix ? '' : r.second.t.name,
+          result_url: resultUrl(r.totals)
+        })
+      }).catch(function(){});
+      var done = el('p', 'cdone', C.done);
+      done.setAttribute('role', 'status');
+      box.replaceWith(done);
+    });
+    return box;
+  }
+
   // ---------- bottom of the page ----------
   // quiz page: the about blocks + privacy note; results page: take it again + privacy note
-  function aboutSection(results){
+  function aboutSection(results, r){
     var s = el('section', 'band-cream about-quiz');
     var w = el('div', 'wrap');
     s.appendChild(w);
+    if (results && r && W.emailWebhook) w.appendChild(clubBox(r));
     if (results){
       // share the quiz (never her result): phone share sheet, or copy the link on a computer
       var R = W.result;
@@ -469,19 +474,20 @@
           navigator.share({ text: text, url: url }).catch(function(){});
           return;
         }
-        var all = text + ' ' + url;
-        function done(){ copied.textContent = R.copied; setTimeout(function(){ copied.textContent = ''; }, 3000); }
-        if (navigator.clipboard && window.isSecureContext){
-          navigator.clipboard.writeText(all).then(done, fallback);
-        } else fallback();
-        function fallback(){
-          var t = el('textarea'); t.value = all; t.setAttribute('readonly', '');
-          t.style.position = 'fixed'; t.style.opacity = '0';
-          document.body.appendChild(t); t.select();
-          try { document.execCommand('copy'); done(); } catch (e) {}
-          t.remove();
-        }
+        copyText(text + ' ' + url, copied);
       }));
+      // WhatsApp · Facebook · Email · Copy link, on every device (the quiz page, never her result)
+      var msg = R.shareMessage, url = W.quizUrl, V = R.shareVia;
+      var row = w.appendChild(el('p', 'shares'));
+      function via(label, href){
+        var l = row.appendChild(el('a', null, label));
+        l.href = href;
+        if (href.indexOf('http') === 0){ l.target = '_blank'; l.rel = 'noopener'; }
+      }
+      via(V.whatsapp, 'https://wa.me/?text=' + encodeURIComponent(msg + ' ' + url));
+      via(V.facebook, 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url));
+      via(V.email, 'mailto:?subject=' + encodeURIComponent(R.shareSubject) + '&body=' + encodeURIComponent(msg + '\n\n' + url));
+      row.appendChild(button('linkish', V.copy, function(){ copyText(msg + ' ' + url, copied); }));
       w.appendChild(copied);
       w.appendChild(el('div', 'row')).appendChild(button('back', R.again, function(){ reset(); renderQuiz(); }));
     } else {
@@ -495,6 +501,9 @@
     return s;
   }
 
+  // A result link (?r=) opens her result straight away. dreadquiz.html reads it into
+  // window.QUIZ_R and tidies the address bar before the Meta Pixel starts.
   reset();
-  renderQuiz();
+  var fromLink = totalsFromLink(window.QUIZ_R || new URLSearchParams(location.search).get('r'));
+  if (fromLink) renderResults(score(fromLink), true); else renderQuiz();
 })();

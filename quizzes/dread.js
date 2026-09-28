@@ -12,11 +12,10 @@ window.QUIZ = {
   resetVideoId: 'gQCd-0_zaxM',       // plays in a pop-up on the results page
   bookUrl: '/work-with-me#block-release',
   privacyUrl: '/privacy-policy',
-  // The public quiz link: what she's emailed and what friends are sent (never with ?from=mc)
+  // The public quiz link: what friends are sent, and the start of her result link
   quizUrl: 'https://energydetective.online/dreadquiz',
-  // Make.com webhook for the optional email box. Make adds "yes" women to the Flodesk
-  // segment "Quiz: Dread" and sends "no" women one email with the quiz link.
-  // Leave it empty to hide the email box.
+  // Make.com webhook for the Emotion Club box on the results page. Only used when she
+  // fills in the box. Leave it empty to hide the box.
   emailWebhook: 'https://hook.eu1.make.com/qdwzm5gcv3fisu14hblzekv5a716lihl',
   // This emotion's name, sent to Make with her details
   emotion: 'Dread',
@@ -85,15 +84,13 @@ window.QUIZ = {
     ]
   },
 
-  // Optional email box, shown before the result unless the link ends in ?from=mc (ManyChat)
-  emailBox: {
-    title: 'Where shall I send your result?',
-    text: 'Pop your email in and I’ll send you the link, so you can come back to it anytime.',
+  // Emotion Club box on the results page, after Next steps (not shown on a result link)
+  club: {
+    title: 'Want your result emailed to you?',
+    text: 'Join my free Emotion Club: weekly emails about emotions and how to release them, plus the odd offer. Unsubscribe any time.',
     email: 'Email',
-    optIn: 'Would you also like my emails? Tips, tools and the odd offer. You can unsubscribe anytime.',
-    yes: 'Yes please',
-    no: 'No thanks',
-    send: 'Send it and show my result',
+    button: 'Yes please, email my result',
+    done: 'Done. Your result is on its way to your inbox.',
     privacy: 'Privacy policy'
   },
 
@@ -178,6 +175,11 @@ window.QUIZ = {
     knowEyebrow: '1. What to know',
     firstPoint: 'You were about {ageThen}, {where}, when you learned that {lesson}. You’ve been playing this role for {years}.',
     firstPointNoWhere: 'You learned a long time ago that {lesson}. You’ve been playing this role for {years}.',
+    // A result link holds only her six scores (no ages), so these two lines drop the ages and years
+    firstPointLink: 'You learned a long time ago that {lesson}.',
+    endingLink: 'It’s not a you problem. You’ve been carrying this for a long time, and it’s been impacting you ever since. You have permission to let it go and feel free from dread.',
+    // How a tie is written in the details sent to Make
+    mixRole: 'a mix of {a} and {b}',
     ending: 'It’s not a you problem. You’ve been carrying this since you were {ageThen}, and it’s been impacting you ever since. You have permission to let it go and feel free from dread.',
 
     changeEyebrow: '2. Make change now',
@@ -191,6 +193,9 @@ window.QUIZ = {
     share: 'Send this quiz to a friend',
     shareMessage: 'I’ve just done this and it was scarily accurate. Which role are you?',
     copied: 'Link copied',
+    // The row under the share button
+    shareVia: { whatsapp: 'WhatsApp', facebook: 'Facebook', email: 'Email', copy: 'Copy link' },
+    shareSubject: 'The Dread Quiz',
 
     again: 'Take the quiz again'
   },

@@ -19,6 +19,18 @@
 <link rel="preload" as="image" href="assets/still.jpg?v=3">
 <link rel="stylesheet" href="_shared/premium2.css">
 <link rel="stylesheet" href="_shared/quiz.css">
+<!-- Her result link (?r=six totals): read it, then take it out of the address bar BEFORE the
+     Meta Pixel runs, so her scores never reach Meta. Other endings (ad tracking) are left alone. -->
+<script>
+(function(){
+  var p = new URLSearchParams(location.search), r = p.get('r');
+  if (r === null) return;
+  window.QUIZ_R = r;
+  p.delete('r');
+  var q = p.toString();
+  if (history.replaceState) history.replaceState(null, '', location.pathname + (q ? '?' + q : '') + location.hash);
+})();
+</script>
 <!-- Meta Pixel Code: PageView only. Automatic button-click tracking is switched off
      so the answers she taps never reach Meta (the privacy note depends on this). -->
 <script>
