@@ -32,7 +32,9 @@ a{color:inherit;text-decoration:none}
 
 /* ---- intro: the homepage hero's dusk sea, darkened for legibility ---- */
 .dusk{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--charcoal);text-align:center}
-.dusk>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.dusk{background:var(--charcoal) url(../assets/still.jpg?v=3) center/cover}
+.dusk>video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s linear}
+.dusk>video.on{opacity:1}
 .dusk::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,color-mix(in oklch,var(--charcoal) 62%,transparent) 0%,color-mix(in oklch,var(--charcoal) 54%,transparent) 45%,color-mix(in oklch,var(--charcoal) 72%,transparent) 100%)}
 .dusk .vin{position:relative;z-index:2;padding:clamp(70px,10vh,110px) clamp(20px,4vw,56px);max-width:880px;width:100%}
 .dusk .eyebrow{letter-spacing:.32em;margin-bottom:28px;text-shadow:0 2px 20px rgba(0,0,0,.5)}

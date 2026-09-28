@@ -6,6 +6,7 @@
   var W = window.QUIZ;
   var app = document.getElementById('app');
   var HERO = 'assets/still.jpg?v=3';
+  var VIDEO = 'assets/hero.mp4?v=3';
   var N = W.statements.length;
   var TOTAL = N + 3;                 // statements + age now + age then + where
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -48,6 +49,27 @@
     n.setAttribute('data-reveal', '');
     parent.appendChild(n);
     return n;
+  }
+
+  // Same seamless loop as the homepage hero: a second copy fades in just before the first ends
+  function crossfadeLoop(a, b){
+    var FADE = 1.0, active = a, idle = b, swapping = false;
+    function onTime(){
+      if (swapping || !active.duration) return;
+      if (active.duration - active.currentTime <= FADE){
+        swapping = true;
+        idle.currentTime = 0;
+        idle.play().catch(function(){});
+        idle.classList.add('on');
+        active.classList.remove('on');
+        var prev = active;
+        active = idle; idle = prev;
+        prev.removeEventListener('timeupdate', onTime);
+        active.addEventListener('timeupdate', onTime);
+        setTimeout(function(){ idle.pause(); idle.currentTime = 0; swapping = false; }, FADE * 1000 + 80);
+      }
+    }
+    active.addEventListener('timeupdate', onTime);
   }
 
   // ---------- fixed progress line: fills as she answers ----------
@@ -93,10 +115,18 @@
     var page = el('div', 'screen');
 
     // intro
+    // the homepage hero video, looped with the homepage's crossfade (the still sits behind it)
     var hero = el('section', 'dusk');
-    var img = el('img');
-    img.src = HERO; img.alt = ''; img.setAttribute('aria-hidden', 'true');
-    hero.appendChild(img);
+    var vids = [0, 1].map(function(k){
+      var v = document.createElement('video');
+      v.muted = true; v.playsInline = true; v.preload = 'auto';
+      v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('aria-hidden', 'true');
+      v.src = VIDEO;
+      if (k === 0){ v.poster = HERO; v.className = 'on'; if (!reduce) v.autoplay = true; }
+      hero.appendChild(v);
+      return v;
+    });
+    if (!reduce) crossfadeLoop(vids[0], vids[1]);
     var v = el('div', 'vin');
     v.appendChild(el('p', 'eyebrow', W.intro.eyebrow));
     v.appendChild(el('h1', 'dtitle', W.intro.headline));
