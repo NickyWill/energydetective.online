@@ -9,6 +9,7 @@
 window.QUIZ = {
   // The 3 Minute Reset video
   resetVideoUrl: 'https://youtu.be/gQCd-0_zaxM',
+  resetVideoId: 'gQCd-0_zaxM',       // plays in a pop-up on the results page
   bookUrl: '/work-with-me#block-release',
   privacyUrl: '/privacy-policy',
   // The public quiz link: what she's emailed and what friends are sent (never with ?from=mc)
@@ -86,7 +87,7 @@ window.QUIZ = {
 
   // Optional email box, shown before the result unless the link ends in ?from=mc (ManyChat)
   emailBox: {
-    title: 'Want a copy of your result?',
+    title: 'Where shall I send your result?',
     text: 'Pop your email in and I’ll send you the link, so you can come back to it anytime.',
     name: 'First name',
     email: 'Email',
@@ -94,7 +95,6 @@ window.QUIZ = {
     yes: 'Yes please',
     no: 'No thanks',
     send: 'Send it and show my result',
-    skip: 'No thanks, show me my result',
     privacy: 'Privacy policy'
   },
 

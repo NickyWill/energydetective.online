@@ -96,7 +96,25 @@ a{color:inherit;text-decoration:none}
 .field:focus{outline:0;border-bottom-color:var(--gold)}
 .optin{font-size:14px;line-height:1.7;color:color-mix(in oklch,var(--cream) 72%,transparent);max-width:38ch;margin:30px auto 6px}
 .pick{display:flex;justify-content:center;gap:10px;max-width:380px;margin:0 auto 34px;border-radius:4px}
-.pick .opt{border-bottom:0;padding:10px 14px;width:auto;font-size:21px}
+.pick{gap:12px}
+.choice{display:flex;align-items:center;gap:12px;padding:12px 18px;background:none;border:1px solid var(--hair-d);border-radius:4px;cursor:pointer;
+        font-family:var(--disp);font-size:21px;line-height:1.2;color:color-mix(in oklch,var(--cream) 86%,transparent);-webkit-tap-highlight-color:transparent;transition:border-color .3s var(--ease),color .3s}
+.choice:hover{border-color:color-mix(in oklch,var(--cream) 40%,transparent)}
+.choice .tick{position:relative;flex:0 0 auto;width:22px;height:22px;border-radius:50%;border:1.5px solid color-mix(in oklch,var(--cream) 55%,transparent);transition:background .3s var(--ease),border-color .3s}
+.choice[aria-checked="true"]{border-color:var(--gold);color:var(--cream)}
+.choice[aria-checked="true"] .tick{background:var(--gold);border-color:var(--gold)}
+.choice[aria-checked="true"] .tick::after{content:"";position:absolute;left:7px;top:3.5px;width:5px;height:10px;border:solid var(--charcoal);border-width:0 2px 2px 0;transform:rotate(45deg)}
+.choice:focus-visible{outline:1px solid var(--gold);outline-offset:4px}
+
+/* ---- the Reset video pop-up ---- */
+.vmodal{position:fixed;inset:0;z-index:9993;display:flex;align-items:center;justify-content:center;padding:20px;background:color-mix(in oklch,var(--charcoal) 94%,transparent);opacity:0;pointer-events:none;transition:opacity .3s ease}
+.vmodal.open{opacity:1;pointer-events:auto}
+.vbox{position:relative;width:100%;max-width:880px}
+.vclose{position:absolute;top:-52px;right:0;width:40px;height:40px;border-radius:50%;border:1px solid color-mix(in oklch,var(--cream) 45%,transparent);background:none;color:var(--cream);font-size:17px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.vclose:hover{background:color-mix(in oklch,var(--cream) 12%,transparent)}
+.vclose:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
+.vframe{width:100%;aspect-ratio:16/9;background:#000;border-radius:3px;overflow:hidden}
+.vframe iframe{width:100%;height:100%;border:0;display:block}
 .mailbox .flag{box-shadow:0 0 0 1px color-mix(in oklch,var(--gold) 60%,transparent);background:color-mix(in oklch,var(--gold) 8%,transparent);border-radius:4px;animation:flag 1.6s var(--ease)}
 .mailbox .back{margin-top:18px}
 .plink{margin:18px 0 0;font-size:12px}

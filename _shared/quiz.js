@@ -267,7 +267,7 @@
 
     function field(type, label, auto){
       var f = el('input', 'field');
-      f.type = type; f.placeholder = label; f.autocomplete = auto;
+      f.type = type; f.placeholder = label; f.autocomplete = auto; f.required = true;
       f.setAttribute('aria-label', label);
       f.addEventListener('input', function(){ f.classList.remove('flag'); });
       w.appendChild(f);
@@ -278,19 +278,20 @@
     email.inputMode = 'email';
 
     w.appendChild(el('p', 'optin', E.optIn));
-    var choice = null;
+    // two clear choices, each with a circle that fills gold with a tick; neither chosen to start with
+    var choice = null, send;
     var pick = el('div', 'pick');
     pick.setAttribute('role', 'radiogroup');
     pick.setAttribute('aria-label', E.optIn);
     [[true, E.yes], [false, E.no]].forEach(function(c){
-      var b = button('opt', c[1], function(){
-        pick.querySelectorAll('.opt').forEach(function(x){ x.setAttribute('aria-checked', 'false'); });
+      var b = button('choice', '<span class="tick" aria-hidden="true"></span><span>' + c[1] + '</span>', function(){
+        pick.querySelectorAll('.choice').forEach(function(x){ x.setAttribute('aria-checked', 'false'); });
         b.setAttribute('aria-checked', 'true');
         choice = c[0];
-        pick.classList.remove('flag');
+        send.disabled = false;                   // the button works once she's picked one
       });
       b.setAttribute('role', 'radio');
-      b.setAttribute('aria-checked', 'false');     // neither ticked to start with
+      b.setAttribute('aria-checked', 'false');
       pick.appendChild(b);
     });
     w.appendChild(pick);
@@ -299,11 +300,10 @@
       n.classList.remove('flag'); void n.offsetWidth; n.classList.add('flag');
       if (n.focus && n.tagName === 'INPUT') n.focus();
     }
-    w.appendChild(el('div', 'row')).appendChild(button('btn', E.send + ' →', function(){
+    send = w.appendChild(el('div', 'row')).appendChild(button('btn', E.send + ' \u2192', function(){
       var nm = name.value.trim(), em = email.value.trim();
       if (!nm) return flag(name);
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) return flag(email);
-      if (choice === null) return flag(pick);
       if (W.emailWebhook){
         fetch(W.emailWebhook, {
           method: 'POST', keepalive: true,     // Make's webhook allows JSON from any site
@@ -320,7 +320,7 @@
       }
       renderReading();
     }));
-    w.appendChild(el('div', 'row')).appendChild(button('back', E.skip, renderReading));
+    send.disabled = true;
     var pp = w.appendChild(el('p', 'plink'));
     var link = pp.appendChild(el('a', null, E.privacy));
     link.href = W.privacyUrl; link.target = '_blank'; link.rel = 'noopener';
@@ -400,8 +400,10 @@
     add(s4.w, 'h2', 'rh', R.resetTitle);
     add(s4.w, 'p', null, R.resetText);
     var watch = add(s4.w, 'a', 'btn', R.resetButton + ' →');
-    if (W.resetVideoUrl){ watch.href = W.resetVideoUrl; watch.target = '_blank'; watch.rel = 'noopener'; }
-    else watch.setAttribute('aria-disabled', 'true');
+    if (W.resetVideoId){
+      watch.href = W.resetVideoUrl;          // fallback if the pop-up can't run
+      watch.addEventListener('click', function(e){ e.preventDefault(); openVideo(watch); });
+    } else watch.setAttribute('aria-disabled', 'true');
     page.appendChild(s4);
 
     // 6. Next steps (dark)
@@ -414,6 +416,43 @@
     // 7. Take it again + the privacy note (cream)
     page.appendChild(aboutSection(true));
     show(page);
+  }
+
+  // ---------- the Reset video, in a pop-up on the same page ----------
+  // Dark overlay, video in the centre, × or a tap outside closes it and she's back where she was.
+  var modal, frameBox, lastFocus;
+  function openVideo(from){
+    lastFocus = from;
+    if (!modal){
+      modal = el('div', 'vmodal');
+      modal.setAttribute('role', 'dialog');
+      modal.setAttribute('aria-modal', 'true');
+      modal.setAttribute('aria-label', W.result.resetTitle);
+      var box = modal.appendChild(el('div', 'vbox'));
+      box.appendChild(button('vclose', '✕', closeVideo)).setAttribute('aria-label', 'Close video');
+      frameBox = box.appendChild(el('div', 'vframe'));
+      modal.addEventListener('click', function(e){ if (e.target === modal) closeVideo(); });
+      document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && modal.classList.contains('open')) closeVideo(); });
+      document.body.appendChild(modal);
+    }
+    var f = document.createElement('iframe');
+    // privacy-friendly player; rel=0 keeps end-of-video suggestions to Nicky's own channel
+    f.src = 'https://www.youtube-nocookie.com/embed/' + W.resetVideoId + '?autoplay=1&rel=0&playsinline=1&modestbranding=1';
+    f.title = W.result.resetTitle;
+    f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    f.referrerPolicy = 'strict-origin-when-cross-origin';
+    f.allowFullscreen = true;
+    frameBox.innerHTML = '';
+    frameBox.appendChild(f);
+    modal.classList.add('open');
+    document.documentElement.style.overflow = 'hidden';
+    modal.querySelector('.vclose').focus({ preventScroll: true });
+  }
+  function closeVideo(){
+    modal.classList.remove('open');
+    document.documentElement.style.overflow = '';
+    frameBox.innerHTML = '';                 // stops the video
+    if (lastFocus) lastFocus.focus({ preventScroll: true });
   }
 
   // ---------- bottom of the page ----------
