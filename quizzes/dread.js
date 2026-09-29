@@ -14,8 +14,8 @@ window.QUIZ = {
   privacyUrl: '/privacy-policy',
   // The public quiz link: what friends are sent, and the start of her result link
   quizUrl: 'https://energydetective.online/dreadquiz',
-  // Make.com webhook for the Emotion Club box on the results page. Only used when she
-  // fills in the box. Leave it empty to hide the box.
+  // Make.com webhook for the email box on the results page. Only used when she
+  // submits the box. Leave it empty to hide the box.
   emailWebhook: 'https://hook.eu1.make.com/qdwzm5gcv3fisu14hblzekv5a716lihl',
   // This emotion's name, sent to Make with her details
   emotion: 'Dread',
@@ -84,12 +84,15 @@ window.QUIZ = {
     ]
   },
 
-  // Emotion Club box on the results page, after Next steps (not shown on a result link)
-  club: {
-    title: 'Want your result emailed to you?',
-    text: 'Join my free Emotion Club: weekly emails about emotions and how to release them, plus the odd offer. Unsubscribe any time.',
-    email: 'Email',
-    button: 'Yes please, email my result',
+  // Email box on the results page: straight after the chart, and again after Next steps
+  // if she hasn't used it. Not shown on a result link.
+  emailBox: {
+    title: 'Your personalised result is ready',
+    text: 'Want a copy sent to your inbox? I’ll send you your result and your 3 Minute Reset, so you can come back to them whenever dread kicks in.',
+    email: 'Your best email address',
+    button: 'Send me my result',
+    // Never ticked for her. Ticked sends marketing "yes", unticked sends "no".
+    optIn: 'Yes, I’d also like Nicky’s emails about emotions and how to release them, plus the odd offer. I can unsubscribe any time.',
     done: 'Done. Your result is on its way to your inbox.',
     privacy: 'Privacy policy'
   },

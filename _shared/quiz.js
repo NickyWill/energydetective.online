@@ -1,7 +1,7 @@
 /* quiz.js: runs any emotion quiz. The words come from window.QUIZ (quizzes/<emotion>.js);
    nothing here needs changing for a new emotion.
    Privacy: her answers live only in this page's memory and are never saved or tracked.
-   Only if she fills in the Emotion Club box are her email and her two role names sent to Make.
+   Only if she submits the email box are her email, her choice and her two role names sent to Make.
    Her result link holds only the six role totals (never her email, ages or where). */
 (function(){
   var W = window.QUIZ;
@@ -318,6 +318,10 @@
       li.appendChild(track);
       bars.appendChild(li);
     });
+    // b. the email box straight after the reveal
+    var showBox = !fromLink && W.emailWebhook;
+    boxes = [];
+    if (showBox) s1.w.appendChild(emailBox(r));
     page.appendChild(s1);
 
     // 3. Summary (cream)
@@ -351,10 +355,12 @@
     add(s5.w, 'p', 'serif', main.nextSteps);
     var book = add(s5.w, 'a', 'btn', R.bookButton + ' →');
     book.href = W.bookUrl;
+    // g. the email box once more, if she hasn't used it
+    if (showBox) s5.w.appendChild(emailBox(r));
     page.appendChild(s5);
 
-    // 7. Emotion Club box, share, take it again + the privacy note (cream)
-    page.appendChild(aboutSection(true, fromLink ? null : r));
+    // h. Divider, share, take it again + the privacy note (cream)
+    page.appendChild(aboutSection(true));
     show(page);
   }
 
@@ -408,23 +414,30 @@
     else fallback();
   }
 
-  // ---------- Emotion Club box: the only thing that sends anything to Make ----------
-  // Sends her email, the two role names and her result link. Never her answers, ages or where.
-  function clubBox(r){
-    var C = W.club, R = W.result;
-    var box = el('form', 'club');
+  // ---------- email box: the only thing that sends anything to Make ----------
+  // Shown twice on the results page (after the chart, and after Next steps). Sends her email,
+  // her marketing choice, the two role names and her result link. Never her answers, ages or where.
+  var boxes = [];
+  function emailBox(r){
+    var E = W.emailBox, R = W.result;
+    var box = el('form', 'ebox');
     box.noValidate = true;
     box.setAttribute('data-reveal', '');
-    box.appendChild(el('h3', null, C.title));
-    box.appendChild(el('p', 'ctext', C.text));
+    box.appendChild(el('h3', null, E.title));
+    box.appendChild(el('p', 'etext', E.text));
     var email = box.appendChild(el('input', 'cfield'));
     email.type = 'email'; email.inputMode = 'email'; email.autocomplete = 'email';
-    email.placeholder = C.email; email.setAttribute('aria-label', C.email);
+    email.placeholder = E.email; email.setAttribute('aria-label', E.email);
     email.addEventListener('input', function(){ email.classList.remove('flag'); });
-    var go = box.appendChild(el('div', 'row')).appendChild(el('button', 'btn', C.button));
+    var go = box.appendChild(el('div', 'row')).appendChild(el('button', 'btn', E.button));
     go.type = 'submit';
+    // the optional tick box: never ticked for her
+    var opt = box.appendChild(el('label', 'optbox'));
+    var tick = opt.appendChild(el('input'));
+    tick.type = 'checkbox'; tick.checked = false;
+    opt.appendChild(el('span', null, E.optIn));
     var pp = box.appendChild(el('p', 'plink'));
-    var link = pp.appendChild(el('a', null, C.privacy));
+    var link = pp.appendChild(el('a', null, E.privacy));
     link.href = W.privacyUrl; link.target = '_blank'; link.rel = 'noopener';
 
     box.addEventListener('submit', function(e){
@@ -441,7 +454,7 @@
         body: JSON.stringify({
           emotion: W.emotion,
           email: em,
-          marketing: 'yes',
+          marketing: tick.checked ? 'yes' : 'no',
           source: 'website',
           quiz_url: W.quizUrl,
           main_role: mainName,
@@ -449,21 +462,26 @@
           result_url: resultUrl(r.totals)
         })
       }).catch(function(){});
-      var done = el('p', 'cdone', C.done);
-      done.setAttribute('role', 'status');
-      box.replaceWith(done);
+      // both boxes become the thank-you line
+      boxes.forEach(function(b){
+        var done = el('p', 'edone', E.done);
+        if (b === box) done.setAttribute('role', 'status');
+        b.replaceWith(done);
+      });
+      boxes = [];
     });
+    boxes.push(box);
     return box;
   }
 
   // ---------- bottom of the page ----------
   // quiz page: the about blocks + privacy note; results page: take it again + privacy note
-  function aboutSection(results, r){
+  function aboutSection(results){
     var s = el('section', 'band-cream about-quiz');
     var w = el('div', 'wrap');
     s.appendChild(w);
-    if (results && r && W.emailWebhook) w.appendChild(clubBox(r));
     if (results){
+      w.appendChild(el('div', 'divider'));
       // share the quiz (never her result): phone share sheet, or copy the link on a computer
       var R = W.result;
       var copied = el('p', 'copied');
