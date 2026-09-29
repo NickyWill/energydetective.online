@@ -284,7 +284,6 @@
     s.w = w;
     return s;
   }
-  function yearsText(n){ return n < 1 ? 'less than a year' : n + (n === 1 ? ' year' : ' years'); }
 
   // fromLink: opened from her result link, which has no ages or where
   function renderResults(r, fromLink){
@@ -293,8 +292,10 @@
     var main = r.main.t, second = r.second.t;
     var where = fromLink ? null : W.where.options[a.where].phrase;
     // a result link has no ages, so "for [years] years" becomes "for years"
-    var vals = fromLink ? { years: 'years' }
-      : { ageThen: a.ageThen, years: yearsText(a.ageNow - a.ageThen), where: where };
+    var gap = fromLink ? null : a.ageNow - a.ageThen;
+    var vals = fromLink ? { years: 'years', howLong: R.howLongLong }
+      : { ageThen: a.ageThen, years: gap < 1 ? R.yearsZero : gap === 1 ? R.yearsOne : fill(R.yearsMany, { n: gap }),
+          howLong: gap <= 4 ? R.howLongShort : R.howLongLong, where: where };
     var page = el('article', 'screen');
     tone = 0;
 
@@ -337,9 +338,8 @@
     var open = where ? fill(R.knowOpen, vals) : R.knowOpenNoWhere;   // no where: "I don't remember" or a result link
     add(s3.w, 'p', 'know', open + fill(main.know[0], vals));
     add(s3.w, 'p', 'know', main.know[1]);
-    // paragraph 3 only when there's a clear second role (in a tie at the top, the other of the two)
-    var clearSecond = r.mix || r.rows[1].total > r.rows[2].total;
-    if (clearSecond) add(s3.w, 'p', 'know', second.alsoLine);
+    // paragraph 3: always the same second role the headline names (in a tie at the top, the other of the two)
+    add(s3.w, 'p', 'know', second.alsoLine);
     add(s3.w, 'p', 'closing', fill(fromLink ? R.endingLink : R.ending, vals));
     page.appendChild(s3);
 

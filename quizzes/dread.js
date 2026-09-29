@@ -75,8 +75,8 @@ window.QUIZ = {
     q: 'Where were you when you first remember feeling this way?',
     // shown: what she taps. phrase: how it reads in her result (null = "I don't remember")
     options: [
-      { shown: 'At home', phrase: 'when you were living at home' },
-      { shown: 'At school', phrase: 'when you were at school' },
+      { shown: 'At home', phrase: 'at home' },
+      { shown: 'At school', phrase: 'at school' },
       { shown: 'With friends', phrase: 'with your friends' },
       { shown: 'With a partner', phrase: 'in a relationship' },
       { shown: 'At work', phrase: 'at work' },
@@ -105,7 +105,7 @@ window.QUIZ = {
       summary: 'Everyone finds you easy to be around. You keep the peace, smooth things over and make sure nobody’s upset. What they don’t see is the dread that comes before every no.',
       // What to know, paragraphs 1 and 2 (paragraph 1 follows the opening in result.knowOpen)
       know: [
-        'being good kept things calm, and that someone else’s upset was yours to fix. So you became the easy one. You kept the peace, said yes when you meant no, and smoothed things over before anyone could get cross. That’s the dread you feel before every no, and it’s been coming up on repeat for {years}. That’s a long time for your nervous system to be working from a place of fear, dread and survival.',
+        'being good kept things calm, and that someone else’s upset was yours to fix. So you became the easy one. You kept the peace, said yes when you meant no, and smoothed things over before anyone could get cross. That’s the dread you feel before every no, and it’s been coming up on repeat for {years}. That’s {howLong} for your nervous system to be working from a place of fear, dread and survival.',
         'Your nervous system isn’t working from the truth. It just hasn’t been updated. Someone else’s feelings were never yours to manage. Saying no doesn’t make you unkind. It makes you honest.'
       ],
       // Paragraph 3 when this is her second archetype
@@ -116,7 +116,7 @@ window.QUIZ = {
       summary: 'You’re the one everyone rings. You sort it, you hold it together and you say you’re fine. What nobody sees is the fear and dread of what would happen if you didn’t hold it all together.',
       // What to know, paragraphs 1 and 2 (paragraph 1 follows the opening in result.knowOpen)
       know: [
-        'someone needed you to be strong. So you held it together. You sorted it, you coped, and you said you were fine, because if you didn’t hold it, who would? That’s where the dread comes from: the fear of what happens if you ever stop. It’s been coming up on repeat for {years}. That’s a long time for your nervous system to be working from a place of fear, dread and survival.',
+        'someone needed you to be strong. So you held it together. You sorted it, you coped, and you said you were fine, because if you didn’t hold it, who would? That’s where the dread comes from: the fear of what happens if you ever stop. It’s been coming up on repeat for {years}. That’s {howLong} for your nervous system to be working from a place of fear, dread and survival.',
         'Your nervous system isn’t working from the truth. It just hasn’t been updated. Needing help was never a weakness. You were never meant to carry it all on your own.'
       ],
       // Paragraph 3 when this is her second archetype
@@ -127,7 +127,7 @@ window.QUIZ = {
       summary: 'You move fast, you get it done and you get it right. Then you check it again. The dread isn’t about the work. It’s about being caught out.',
       // What to know, paragraphs 1 and 2 (paragraph 1 follows the opening in result.knowOpen)
       know: [
-        'mistakes got remembered and held against you, while what you did well went unnoticed. So you had to get everything right, as if your life depended on it. If it was perfect, nobody could pick you apart. That feeling has been coming up on repeat for {years}. That’s a long time for your nervous system to be working from a place of fear, dread and survival.',
+        'mistakes got remembered and held against you, while what you did well went unnoticed. So you had to get everything right, as if your life depended on it. If it was perfect, nobody could pick you apart. That feeling has been coming up on repeat for {years}. That’s {howLong} for your nervous system to be working from a place of fear, dread and survival.',
         'Your nervous system isn’t working from the truth. It just hasn’t been updated. Getting something wrong was never proof that you weren’t good enough. It’s proof that you’re human. Mistakes are natural.'
       ],
       // Paragraph 3 when this is her second archetype
@@ -138,7 +138,7 @@ window.QUIZ = {
       summary: 'You know how everyone is: who’s struggling, who hasn’t replied, who needs you. When the phone rings late, your heart is racing before you answer. Your dread is about the people you love.',
       // What to know, paragraphs 1 and 2 (paragraph 1 follows the opening in result.knowOpen)
       know: [
-        'someone had to keep an eye on everyone. So you started watching: who’s struggling, who hasn’t replied, who needs you. When the phone rings late, your heart is racing before you answer. That’s been coming up on repeat for {years}. That’s a long time for your nervous system to be working from a place of fear, dread and survival.',
+        'someone had to keep an eye on everyone. So you started watching: who’s struggling, who hasn’t replied, who needs you. When the phone rings late, your heart is racing before you answer. That’s been coming up on repeat for {years}. That’s {howLong} for your nervous system to be working from a place of fear, dread and survival.',
         'Your nervous system isn’t working from the truth. It just hasn’t been updated. Keeping watch never kept anyone safe. It just kept you on alert. You’re allowed to be looked after too.'
       ],
       // Paragraph 3 when this is her second archetype
@@ -149,7 +149,7 @@ window.QUIZ = {
       summary: 'When something goes wrong, you assume it’s you. Before anyone has said a word, you’re bracing for the blame. “Can we talk?” is enough to make your stomach drop.',
       // What to know, paragraphs 1 and 2 (paragraph 1 follows the opening in result.knowOpen)
       know: [
-        'when things went wrong, it landed on you. So you started bracing for the blame before anyone had said a word. “Can we talk?” is enough to make your stomach drop. That’s been coming up on repeat for {years}. That’s a long time for your nervous system to be working from a place of fear, dread and survival.',
+        'when things went wrong, it landed on you. So you started bracing for the blame before anyone had said a word. “Can we talk?” is enough to make your stomach drop. That’s been coming up on repeat for {years}. That’s {howLong} for your nervous system to be working from a place of fear, dread and survival.',
         'Your nervous system isn’t working from the truth. It just hasn’t been updated. You were never the problem. You were just the one it was easiest to blame.'
       ],
       // Paragraph 3 when this is her second archetype
@@ -160,7 +160,7 @@ window.QUIZ = {
       summary: 'You’re easy to overlook, and part of you prefers it that way. You keep what you want to yourself and fade into the background. Your dread is about being seen.',
       // What to know, paragraphs 1 and 2 (paragraph 1 follows the opening in result.knowOpen)
       know: [
-        'being quiet and small kept things calm. So you made yourself easy to overlook. You kept what you wanted to yourself and faded into the background, because if nobody noticed you, nobody could hurt you. That’s where your dread of being seen comes from, and it’s been coming up on repeat for {years}. That’s a long time for your nervous system to be working from a place of fear, dread and survival.',
+        'being quiet and small kept things calm. So you made yourself easy to overlook. You kept what you wanted to yourself and faded into the background, because if nobody noticed you, nobody could hurt you. That’s where your dread of being seen comes from, and it’s been coming up on repeat for {years}. That’s {howLong} for your nervous system to be working from a place of fear, dread and survival.',
         'Your nervous system isn’t working from the truth. It just hasn’t been updated. Being seen was never the danger. You’ve been hiding in plain sight, and you don’t have to any more.'
       ],
       // Paragraph 3 when this is her second archetype
@@ -182,6 +182,13 @@ window.QUIZ = {
     ending: 'You’ve been carrying this for far too long, since you were {ageThen}, and it’s been impacting your life and your nervous system ever since. But you can start to change that today.',
     // A result link holds only her six scores (no ages), so it uses this version
     endingLink: 'You’ve been carrying this for far too long, and it’s been impacting your life and your nervous system ever since. But you can start to change that today.',
+    // Filled into paragraph 1: "for {years}" and "That’s {howLong} for your nervous system".
+    // 0 years: "the past year"; 1 year: "a year"; 0 to 4 years: "long enough"; 5 or more: "a long time".
+    yearsZero: 'the past year',
+    yearsOne: 'a year',
+    yearsMany: '{n} years',
+    howLongShort: 'long enough',
+    howLongLong: 'a long time',
     // How a tie is written in the details sent to Make
     mixRole: 'a mix of {a} and {b}',
 
