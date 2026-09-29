@@ -210,5 +210,5 @@ window.QUIZ = {
     { title: 'Built from:',
       text: 'Nicky’s research into dread and 700+ clearing sessions.' }
   ],
-  privacy: 'This quiz is for information only and isn’t a diagnostic tool. Your answers stay on your own device. If you join the Emotion Club, only your email and your result (your two main roles and your result link) are sent, to email you your result and my weekly emails, as explained in our <a href="/privacy-policy">Privacy Policy</a>. This page uses a Meta Pixel cookie to count visits, as explained in our <a href="/cookie-notice">Cookie Notice</a>, but it never sees your answers. If you’re struggling, please speak to your GP or a qualified professional.'
+  privacy: 'This quiz is for information only and isn’t a diagnostic tool. Your answers stay on your own device. If you ask for your result by email, only your email and your result (your two main roles and your result link) are sent, to email you your result and your 3 Minute Reset, and my emails only if you tick the box, as explained in our <a href="/privacy-policy">Privacy Policy</a>. This page uses a Meta Pixel cookie to count visits, as explained in our <a href="/cookie-notice">Cookie Notice</a>, but it never sees your answers. If you’re struggling, please speak to your GP or a qualified professional.'
 };
