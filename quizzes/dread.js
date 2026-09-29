@@ -75,10 +75,10 @@ window.QUIZ = {
     q: 'Where were you when you first remember feeling this way?',
     // shown: what she taps. phrase: how it reads in her result (null = "I don't remember")
     options: [
-      { shown: 'At home', phrase: 'at home' },
-      { shown: 'At school', phrase: 'at school' },
+      { shown: 'At home', phrase: 'when you were living at home' },
+      { shown: 'At school', phrase: 'when you were at school' },
       { shown: 'With friends', phrase: 'with your friends' },
-      { shown: 'With a partner', phrase: 'with a partner' },
+      { shown: 'With a partner', phrase: 'in a relationship' },
       { shown: 'At work', phrase: 'at work' },
       { shown: 'I don’t remember', phrase: null }
     ]
@@ -102,70 +102,70 @@ window.QUIZ = {
   // Table order matters: it breaks ties. "flip" is scored in reverse (1↔5, 2↔4).
   archetypes: [
     { name: 'The Good Girl', statements: [1, 13, 19], flip: 7,
-      lesson: 'being good kept things calm',
       summary: 'Everyone finds you easy to be around. You keep the peace, smooth things over and make sure nobody’s upset. What they don’t see is the dread that comes before every no.',
-      points: [
-        'It’s not the conversation you dread. It’s what happens after it.',
-        'This role kept you safe. When keeping everyone happy meant a quieter house, it made perfect sense.',
-        'It isn’t who you are. It’s a part you learned, and parts can be put down.'
+      // What to know, paragraphs 1 and 2 (paragraph 1 follows the opening in result.knowOpen)
+      know: [
+        'being good kept things calm, and that someone else’s upset was yours to fix. So you became the easy one. You kept the peace, said yes when you meant no, and smoothed things over before anyone could get cross. That’s the dread you feel before every no, and it’s been coming up on repeat for {years}. That’s a long time for your nervous system to be working from a place of fear, dread and survival.',
+        'Your nervous system isn’t working from the truth. It just hasn’t been updated. Someone else’s feelings were never yours to manage. Saying no doesn’t make you unkind. It makes you honest.'
       ],
-      nextSteps: 'In a Block Release session, I find where the Good Girl started and the emotions lodged in your nervous system, and release them, so saying no stops costing you a night’s sleep.',
-      streak: 'With a strong streak of The Good Girl, you also carry the dread of letting people down.' },
+      // Paragraph 3 when this is her second archetype
+      alsoLine: 'You’ve also got a strong part of you that is The Good Girl. You keep everyone happy, yet nobody sees how much you swallow to do it.',
+      nextSteps: 'In a Block Release session, I find where the Good Girl started and the emotions lodged in your nervous system, and release them, so saying no stops costing you a night’s sleep.' },
 
     { name: 'The Strong One', statements: [2, 8, 20], flip: 14,
-      lesson: 'someone needed you to be strong',
-      summary: 'You’re the one everyone rings. You sort it, you hold it together and you say you’re fine. What nobody sees is the fear and dread of what would happen if you didn\u2019t hold it all together.',
-      points: [
-        'Your dread is about what happens if you stop, because if you don’t hold it, who will?',
-        'This role kept you safe. When there was no one else to hold it, you held it.',
-        'It isn’t who you are. You were never meant to carry it all on your own.'
+      summary: 'You’re the one everyone rings. You sort it, you hold it together and you say you’re fine. What nobody sees is the fear and dread of what would happen if you didn’t hold it all together.',
+      // What to know, paragraphs 1 and 2 (paragraph 1 follows the opening in result.knowOpen)
+      know: [
+        'someone needed you to be strong. So you held it together. You sorted it, you coped, and you said you were fine, because if you didn’t hold it, who would? That’s where the dread comes from: the fear of what happens if you ever stop. It’s been coming up on repeat for {years}. That’s a long time for your nervous system to be working from a place of fear, dread and survival.',
+        'Your nervous system isn’t working from the truth. It just hasn’t been updated. Needing help was never a weakness. You were never meant to carry it all on your own.'
       ],
-      nextSteps: 'In a Block Release session, I find where being the strong one started and the emotions lodged in your nervous system, and release them, so asking for help stops feeling like a free fall.',
-      streak: 'With a strong streak of The Strong One, you also hold more than anyone knows.' },
+      // Paragraph 3 when this is her second archetype
+      alsoLine: 'You’ve also got a strong part of you that is The Strong One. You hold so much together, yet nobody sees what it’s truly costing you, or how much you sacrifice to do it.',
+      nextSteps: 'In a Block Release session, I find where being the strong one started and the emotions lodged in your nervous system, and release them, so asking for help stops feeling like a free fall.' },
 
     { name: 'The Perfectionist', statements: [3, 9, 15], flip: 21,
-      lesson: 'a mistake got noticed faster than anything you did well',
       summary: 'You move fast, you get it done and you get it right. Then you check it again. The dread isn’t about the work. It’s about being caught out.',
-      points: [
-        'Your dread is about being checked, marked and found wanting.',
-        'This role kept you safe. If it was perfect, nobody could pick it apart.',
-        'It isn’t who you are. A mistake was never a measure of you.'
+      // What to know, paragraphs 1 and 2 (paragraph 1 follows the opening in result.knowOpen)
+      know: [
+        'mistakes got remembered and held against you, while what you did well went unnoticed. So you had to get everything right, as if your life depended on it. If it was perfect, nobody could pick you apart. That feeling has been coming up on repeat for {years}. That’s a long time for your nervous system to be working from a place of fear, dread and survival.',
+        'Your nervous system isn’t working from the truth. It just hasn’t been updated. Getting something wrong was never proof that you weren’t good enough. It’s proof that you’re human. Mistakes are natural.'
       ],
-      nextSteps: 'In a Block Release session, I find where getting it right became a matter of safety and the emotions lodged in your nervous system, and release them, so a small mistake stops feeling like a disaster.',
-      streak: 'With a strong streak of The Perfectionist, you also check everything twice.' },
+      // Paragraph 3 when this is her second archetype
+      alsoLine: 'You’ve also got a strong part of you that is The Perfectionist. You check everything twice, yet nobody sees how hard you work to never get it wrong.',
+      nextSteps: 'In a Block Release session, I find where getting it right became a matter of safety and the emotions lodged in your nervous system, and release them, so a small mistake stops feeling like a disaster.' },
 
     { name: 'The Caregiver', statements: [4, 10, 16], flip: 22,
-      lesson: 'someone had to keep an eye on everyone',
       summary: 'You know how everyone is: who’s struggling, who hasn’t replied, who needs you. When the phone rings late, your heart is racing before you answer. Your dread is about the people you love.',
-      points: [
-        'Your dread is about something happening to someone you love, and you not seeing it coming.',
-        'This role kept you safe. Watching everyone meant nothing could take you by surprise.',
-        'It isn’t who you are. You’re allowed to be looked after too.'
+      // What to know, paragraphs 1 and 2 (paragraph 1 follows the opening in result.knowOpen)
+      know: [
+        'someone had to keep an eye on everyone. So you started watching: who’s struggling, who hasn’t replied, who needs you. When the phone rings late, your heart is racing before you answer. That’s been coming up on repeat for {years}. That’s a long time for your nervous system to be working from a place of fear, dread and survival.',
+        'Your nervous system isn’t working from the truth. It just hasn’t been updated. Keeping watch never kept anyone safe. It just kept you on alert. You’re allowed to be looked after too.'
       ],
-      nextSteps: 'In a Block Release session, I find where the watching started and the emotions lodged in your nervous system, and release them, so you can love people without bracing for the phone.',
-      streak: 'With a strong streak of The Caregiver, you also keep a quiet eye on everyone you love.' },
+      // Paragraph 3 when this is her second archetype
+      alsoLine: 'You’ve also got a strong part of you that is The Caregiver. You keep a quiet eye on everyone you love, yet nobody sees how tiring all that watching is.',
+      nextSteps: 'In a Block Release session, I find where the watching started and the emotions lodged in your nervous system, and release them, so you can love people without bracing for the phone.' },
 
     { name: 'The Black Sheep', statements: [5, 11, 17], flip: 23,
-      lesson: 'when things went wrong, it landed on you',
       summary: 'When something goes wrong, you assume it’s you. Before anyone has said a word, you’re bracing for the blame. “Can we talk?” is enough to make your stomach drop.',
-      points: [
-        'Your dread is about being in trouble, and being the problem.',
-        'This role kept you safe. Bracing for blame meant it never caught you off guard.',
-        'It isn’t who you are. You were never the problem. You were the one it was easiest to blame.'
+      // What to know, paragraphs 1 and 2 (paragraph 1 follows the opening in result.knowOpen)
+      know: [
+        'when things went wrong, it landed on you. So you started bracing for the blame before anyone had said a word. “Can we talk?” is enough to make your stomach drop. That’s been coming up on repeat for {years}. That’s a long time for your nervous system to be working from a place of fear, dread and survival.',
+        'Your nervous system isn’t working from the truth. It just hasn’t been updated. You were never the problem. You were just the one it was easiest to blame.'
       ],
-      nextSteps: 'In a Block Release session, I find where the blame first landed and the emotions lodged in your nervous system, and release them, so “Can we talk?” is only a conversation.',
-      streak: 'With a strong streak of The Black Sheep, you also brace for blame before anything has happened.' },
+      // Paragraph 3 when this is her second archetype
+      alsoLine: 'You’ve also got a strong part of you that is The Black Sheep. You brace for blame before anything has happened, yet nobody sees how often you’re waiting to be in trouble.',
+      nextSteps: 'In a Block Release session, I find where the blame first landed and the emotions lodged in your nervous system, and release them, so “Can we talk?” is only a conversation.' },
 
     { name: 'The Invisible One', statements: [6, 12, 18], flip: 24,
-      lesson: 'being quiet and small kept things calm',
       summary: 'You’re easy to overlook, and part of you prefers it that way. You keep what you want to yourself and fade into the background. Your dread is about being seen.',
-      points: [
-        'Your dread is about attention: being noticed, being asked what you want, being looked at.',
-        'This role kept you safe. If nobody noticed you, nobody could hurt you.',
-        'It isn’t who you are. You’ve been hiding in plain sight, and you don’t have to any more.'
+      // What to know, paragraphs 1 and 2 (paragraph 1 follows the opening in result.knowOpen)
+      know: [
+        'being quiet and small kept things calm. So you made yourself easy to overlook. You kept what you wanted to yourself and faded into the background, because if nobody noticed you, nobody could hurt you. That’s where your dread of being seen comes from, and it’s been coming up on repeat for {years}. That’s a long time for your nervous system to be working from a place of fear, dread and survival.',
+        'Your nervous system isn’t working from the truth. It just hasn’t been updated. Being seen was never the danger. You’ve been hiding in plain sight, and you don’t have to any more.'
       ],
-      nextSteps: 'In a Block Release session, I find where you learned to disappear and the emotions lodged in your nervous system, and release them, so you can take up the space that’s yours.',
-      streak: 'With a strong streak of The Invisible One, you also make yourself smaller than you are.' }
+      // Paragraph 3 when this is her second archetype
+      alsoLine: 'You’ve also got a strong part of you that is The Invisible One. You make yourself smaller than you are, yet nobody sees how much you’re holding back.',
+      nextSteps: 'In a Block Release session, I find where you learned to disappear and the emotions lodged in your nervous system, and release them, so you can take up the space that’s yours.' }
   ],
 
   result: {
@@ -176,14 +176,14 @@ window.QUIZ = {
     stage: 'At this stage of life, most women play several roles. Here’s the one you lean on most.',
 
     knowEyebrow: '1. What to know',
-    firstPoint: 'You were about {ageThen}, {where}, when you learned that {lesson}. You’ve been playing this role for {years}.',
-    firstPointNoWhere: 'You learned a long time ago that {lesson}. You’ve been playing this role for {years}.',
-    // A result link holds only her six scores (no ages), so these two lines drop the ages and years
-    firstPointLink: 'You learned a long time ago that {lesson}.',
-    endingLink: 'It’s not a you problem. You’ve been carrying this for a long time, and it’s been impacting you ever since. You have permission to let it go and feel free from dread.',
+    // How paragraph 1 opens. The "no where" version is used for "I don’t remember" and on a result link.
+    knowOpen: 'Your dread started {where}, when you learned that ',
+    knowOpenNoWhere: 'Somewhere along the way, you learned that ',
+    ending: 'You’ve been carrying this for far too long, since you were {ageThen}, and it’s been impacting your life and your nervous system ever since. But you can start to change that today.',
+    // A result link holds only her six scores (no ages), so it uses this version
+    endingLink: 'You’ve been carrying this for far too long, and it’s been impacting your life and your nervous system ever since. But you can start to change that today.',
     // How a tie is written in the details sent to Make
     mixRole: 'a mix of {a} and {b}',
-    ending: 'It’s not a you problem. You’ve been carrying this since you were {ageThen}, and it’s been impacting you ever since. You have permission to let it go and feel free from dread.',
 
     changeEyebrow: '2. Make change now',
     resetTitle: 'Your 3 Minute Reset.',

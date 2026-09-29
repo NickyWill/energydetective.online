@@ -292,8 +292,9 @@
     var R = W.result;
     var main = r.main.t, second = r.second.t;
     var where = fromLink ? null : W.where.options[a.where].phrase;
-    var vals = fromLink ? { lesson: main.lesson }
-      : { ageThen: a.ageThen, years: yearsText(a.ageNow - a.ageThen), lesson: main.lesson, where: where };
+    // a result link has no ages, so "for [years] years" becomes "for years"
+    var vals = fromLink ? { years: 'years' }
+      : { ageThen: a.ageThen, years: yearsText(a.ageNow - a.ageThen), where: where };
     var page = el('article', 'screen');
     tone = 0;
 
@@ -332,10 +333,13 @@
 
     // 4. What to know (dark)
     var s3 = band(R.knowEyebrow);
-    var ul = add(s3.w, 'ul', 'points');
-    ul.appendChild(el('li', null, fill(fromLink ? R.firstPointLink : where ? R.firstPoint : R.firstPointNoWhere, vals)));
-    main.points.forEach(function(p){ ul.appendChild(el('li', null, p)); });
-    add(s3.w, 'p', 'also', second.streak);
+    // four plain paragraphs: her main role (two), her second role, then the ending
+    var open = where ? fill(R.knowOpen, vals) : R.knowOpenNoWhere;   // no where: "I don't remember" or a result link
+    add(s3.w, 'p', 'know', open + fill(main.know[0], vals));
+    add(s3.w, 'p', 'know', main.know[1]);
+    // paragraph 3 only when there's a clear second role (in a tie at the top, the other of the two)
+    var clearSecond = r.mix || r.rows[1].total > r.rows[2].total;
+    if (clearSecond) add(s3.w, 'p', 'know', second.alsoLine);
     add(s3.w, 'p', 'closing', fill(fromLink ? R.endingLink : R.ending, vals));
     page.appendChild(s3);
 
