@@ -9,6 +9,12 @@
     { "source": "/DreadQuiz", "destination": "/dreadquiz", "permanent": false },
     { "source": "/Dreadquiz", "destination": "/dreadquiz", "permanent": false },
     { "source": "/DREADQUIZ", "destination": "/dreadquiz", "permanent": false },
-    { "source": "/Dread-Quiz", "destination": "/dreadquiz", "permanent": false }
+    { "source": "/Dread-Quiz", "destination": "/dreadquiz", "permanent": false },
+    { "source": "/guilt-quiz", "destination": "/guiltquiz", "permanent": false },
+    { "source": "/guilt_quiz", "destination": "/guiltquiz", "permanent": false },
+    { "source": "/GuiltQuiz", "destination": "/guiltquiz", "permanent": false },
+    { "source": "/Guiltquiz", "destination": "/guiltquiz", "permanent": false },
+    { "source": "/GUILTQUIZ", "destination": "/guiltquiz", "permanent": false },
+    { "source": "/Guilt-Quiz", "destination": "/guiltquiz", "permanent": false }
   ]
 }
