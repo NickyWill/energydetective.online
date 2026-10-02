@@ -6,8 +6,9 @@
 (function(){
   var W = window.QUIZ;
   var app = document.getElementById('app');
-  var HERO = 'assets/still.jpg?v=3';
-  var VIDEO = 'assets/hero.mp4?v=3';
+  // the top-of-page video and the still behind it; a quiz's words file can choose its own
+  var HERO = W.heroStill || 'assets/still.jpg?v=3';
+  var VIDEO = W.heroVideo || 'assets/hero.mp4?v=3';
   var N = W.statements.length;
   var TOTAL = N + 3;                 // statements + age now + age then + where
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -129,6 +130,7 @@
     // intro
     // the homepage hero video, looped with the homepage's crossfade (the still sits behind it)
     var hero = el('section', 'dusk');
+    if (W.heroStill) hero.style.backgroundImage = 'url(' + HERO + ')';
     var vids = [0, 1].map(function(k){
       var v = document.createElement('video');
       v.muted = true; v.playsInline = true; v.preload = 'auto';

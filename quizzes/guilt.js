@@ -10,6 +10,9 @@ window.QUIZ = {
   // The 3 Minute Reset video
   resetVideoUrl: 'https://youtu.be/gQCd-0_zaxM',
   resetVideoId: 'gQCd-0_zaxM',       // plays in a pop-up on the results page
+  // The video at the top of the page (the About page video) and the still shown behind it
+  heroVideo: 'assets/about/hero.mp4?v=1',
+  heroStill: 'assets/about/hero-still.jpg?v=1',
   bookUrl: '/work-with-me#block-release',
   privacyUrl: '/privacy-policy',
   // The public quiz link: what friends are sent, and the start of her result link
