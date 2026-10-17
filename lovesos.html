@@ -32,9 +32,15 @@
      ============================================================ -->
 
 <script>
-  /* CHECKOUT LINK: the one place to change it
-     Replace #buy with your ThriveCart checkout link, keeping the quotes.
-     Every "Get Love SOS for $7" button on the page uses it. */
+  /* CHECKOUT: the one place to change it
+     Every "Get Love SOS for $7" button opens this ThriveCart product as a pop-up.
+     These settings come from the ThriveCart embed code for Love SOS (product 50). */
+  window.LOVE_SOS_THRIVECART = {
+    account: "nickywilliams",
+    product: "50",
+    modalOpts: {"style_modal_width":"40","style_content_border_radius":"0.5","attr_modal_background":"on","style_modal_background_color":"#000000","style_modal_background_opacity":"40","attr_modal_blur":"off","attr_content_shadow":"off"}
+  };
+  /* Only used if the ThriveCart settings above are removed: a plain link for every button. */
   window.LOVE_SOS_CHECKOUT = "#buy";
 </script>
 
@@ -94,8 +100,17 @@
     -webkit-tap-highlight-color: transparent; transition: background 0.2s, transform 0.15s;
   }
   .buy:active { transform: scale(0.99); }
+  .buy-wrap { display: block; width: 100%; }
+  .buy-wrap .builder-v2-block { display: block; width: 100%; }
+  button.buy, .tc-v2-embeddable-trigger-el.buy {
+    border: 0 !important; cursor: pointer; box-shadow: none !important;
+    background: var(--pink) !important; color: var(--black) !important; border-radius: var(--radius) !important;
+    font: 500 19px/1.2 var(--sans) !important; text-transform: none !important; letter-spacing: 0 !important;
+  }
+  .tc-v2-embeddable-trigger-el.buy span { color: var(--black) !important; font: inherit !important; }
+  .bar .tc-v2-embeddable-trigger-el.buy { font-size: 17px !important; }
   .buy:focus-visible { outline: 3px solid var(--black); outline-offset: 3px; }
-  @media (hover: hover) { .buy:hover { background: var(--blush); } }
+  @media (hover: hover) { .buy:hover, .tc-v2-embeddable-trigger-el.buy:hover { background: var(--blush) !important; } }
 
   /* Pictures */
   .shot { margin: 32px 0 0; background: var(--white); border-radius: var(--radius); overflow: hidden; }
@@ -148,6 +163,15 @@
   .faq .ans { padding: 0 20px 20px; }
 
   .final { padding-bottom: 40px; }
+
+  /* Centred: the top section, the photo and heading in Created by, every price line, and the final section.
+     Paragraphs, lists and the FAQ stay left aligned. */
+  .top .wrap { text-align: center; }
+  .top .heart, .final .heart { margin-left: auto; margin-right: auto; }
+  .price { text-align: center; }
+  .about .about-photo { margin-left: auto; margin-right: auto; }
+  .about h2 { text-align: center; }
+  .final .lede, .final footer { text-align: center; }
   .final .heart { margin-top: 8px; }
 
   footer { margin-top: 48px; padding: 28px 0 40px; border-top: 1.5px solid var(--blush); font-size: 13px; }
@@ -176,6 +200,7 @@
     .heart { width: 64px; }
     .lede { font-size: 20px; }
     .buy { width: auto; min-width: 360px; padding: 16px 40px; font-size: 20px; }
+    .tc-v2-embeddable-trigger-el.buy { width: 100%; font-size: 20px !important; }
     .card { padding: 28px 30px; }
     .videos { grid-template-columns: 1fr 1fr 1fr; }
     .videos .card { padding: 22px 20px; }
@@ -365,7 +390,7 @@
   </section>
 
   <!-- ABOUT NICKY -->
-  <section class="sec">
+  <section class="sec about">
     <div class="wrap">
       <figure class="about-photo">
         <picture>
@@ -461,10 +486,42 @@
 (function () {
   "use strict";
 
-  /* Every "Get Love SOS for $7" button goes to the checkout, in the same tab */
-  var url = (window.LOVE_SOS_CHECKOUT || "#buy").trim();
-  if (/^\s*(javascript|data|vbscript):/i.test(url)) url = "#buy";
-  Array.prototype.forEach.call(document.querySelectorAll("a.buy"), function (a) { a.setAttribute("href", url); a.removeAttribute("target"); });
+  /* Every "Get Love SOS for $7" button opens the ThriveCart checkout as a pop-up,
+     using the same embed as the Work With Me page */
+  var TC = window.LOVE_SOS_THRIVECART;
+  if (TC && TC.account && TC.product) {
+    Array.prototype.forEach.call(document.querySelectorAll("a.buy"), function (a) {
+      var w = document.createElement("div");
+      w.className = "builder-v2-widget tc-v2-widget-embeddable_button tc-v2-embeddable-trigger buy-wrap";
+      w.setAttribute("data-widget-layout", "embeddable_button");
+      w.setAttribute("data-thrivecart-account", TC.account);
+      w.setAttribute("data-thrivecart-tpl", "v2");
+      w.setAttribute("data-thrivecart-product", TC.product);
+      w.setAttribute("data-thrivecart-modal", "on");
+      w.setAttribute("data-thrivecart-modal-opts", JSON.stringify(TC.modalOpts || {}));
+      var blk = document.createElement("div");
+      blk.className = "builder-v2-block builder-v2-block-embeddable_button";
+      blk.setAttribute("data-size", "auto"); blk.setAttribute("data-style", "rounded");
+      blk.setAttribute("data-align", "center"); blk.setAttribute("data-block", "embeddable_button");
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "tc-v2-embeddable-trigger-el button " + a.className;
+      if (a.hasAttribute("tabindex")) btn.setAttribute("tabindex", a.getAttribute("tabindex"));
+      var label = document.createElement("span");
+      label.className = "builder-v2-block builder-v2-block-plaintext";
+      label.setAttribute("data-block", "plaintext");
+      label.textContent = a.textContent;
+      btn.appendChild(label); blk.appendChild(btn); w.appendChild(blk);
+      a.parentNode.replaceChild(w, a);
+    });
+    var tcs = document.createElement("script");
+    tcs.async = true; tcs.src = "https://tinder.thrivecart.com/embed/v2/thrivecart.js";
+    document.body.appendChild(tcs);
+  } else {
+    var url = (window.LOVE_SOS_CHECKOUT || "#buy").trim();
+    if (/^\s*(javascript|data|vbscript):/i.test(url)) url = "#buy";
+    Array.prototype.forEach.call(document.querySelectorAll("a.buy"), function (a) { a.setAttribute("href", url); a.removeAttribute("target"); });
+  }
 
   /* Slim bar on phones: shows once she has scrolled past the first button,
      and hides while any of the main buttons is on screen */
@@ -477,7 +534,7 @@
     var show = passed && onScreen.size === 0;
     bar.classList.toggle("show", show);
     bar.setAttribute("aria-hidden", show ? "false" : "true");
-    bar.querySelector("a").tabIndex = show ? 0 : -1;
+    bar.querySelector(".buy").tabIndex = show ? 0 : -1;
   }
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (entries) {
