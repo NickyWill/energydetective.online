@@ -32,10 +32,10 @@
      ============================================================ -->
 
 <script>
-  /* CHECKOUT LINK
-     Paste the ThriveCart checkout link between the quotes.
+  /* CHECKOUT LINK: the one place to change it
+     Replace #buy with your ThriveCart checkout link, keeping the quotes.
      Every "Get Love SOS for $7" button on the page uses it. */
-  window.LOVE_SOS_CHECKOUT = "";
+  window.LOVE_SOS_CHECKOUT = "#buy";
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -81,7 +81,7 @@
 
   /* Top */
   .top { padding-top: 44px; }
-  .top .label { margin-top: 18px; }
+  .brand { font-family: var(--serif); font-weight: 800; font-size: 26px; line-height: 1.1; margin-bottom: 12px; }
   .lede { margin-top: 14px; font-size: 18px; line-height: 1.55; }
   .price { margin-top: 18px; font-size: 14px; font-weight: 500; letter-spacing: 0.02em; }
 
@@ -101,7 +101,7 @@
   .shot { margin: 32px 0 0; background: var(--white); border-radius: var(--radius); overflow: hidden; }
   .shot img, .shot video { width: 100%; }
   .shot.phone { max-width: 340px; margin-left: auto; margin-right: auto; padding: 0; border: 1.5px solid var(--black); }
-  .shot.video { max-width: 460px; margin-left: auto; margin-right: auto; }
+  .shot.video { max-width: 400px; margin-left: auto; margin-right: auto; }
 
   /* Lines and lists */
   .lines p + p { margin-top: 6px; }
@@ -118,13 +118,18 @@
   .card.white { background: var(--white); }
   .card h3 { margin-bottom: 6px; }
   .note { margin-top: 20px; }
-  .videos { display: grid; gap: 12px; margin-top: 14px; }
+  .videos { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 14px; }
+  .videos .thumb { width: 100%; height: auto; border-radius: 10px; margin-bottom: 14px; }
   .videos .card { margin-top: 0; }
   .plus { margin-top: 40px; }
   .after-shot { margin-top: 28px; font-weight: 500; }
 
+  .chart-panel { margin: 24px 0 0; background: var(--blush); border-radius: var(--radius); padding: 16px; }
+  .chart-panel img { width: 100%; max-width: 560px; margin: 0 auto; }
+
   /* Created by */
-  .about-photo { width: 180px; margin: 0 0 22px; border-radius: var(--radius); overflow: hidden; }
+  .about-photo { width: 200px; max-width: 60%; margin: 0 0 22px; border-radius: var(--radius); overflow: hidden; background: var(--white); }
+  .about-photo img { width: 100%; height: auto; }
 
   /* FAQ */
   .faq details { background: var(--white); border-radius: var(--radius); margin-top: 10px; }
@@ -165,6 +170,7 @@
     .sec { padding-top: 88px; }
     .top { padding-top: 72px; }
     h1 { font-size: 60px; }
+    .brand { font-size: 32px; margin-bottom: 16px; }
     h2 { font-size: 40px; margin-bottom: 24px; }
     h3 { font-size: 23px; }
     .heart { width: 64px; }
@@ -186,8 +192,8 @@
   <section class="top">
     <div class="wrap">
       <svg class="heart" viewBox="0 0 100 92" aria-hidden="true" focusable="false"><path d="M50.5 88.5C35 76 9 58.5 6.2 35.8 4 17.6 15.6 5.4 29.4 5.6c9.6.2 16.8 6.4 20.6 14.6C54.2 11.4 61.8 4.6 72.2 4.4 85.8 4.2 96.4 15.8 94.6 33.4 92.4 56.2 67 75.6 50.5 88.5Z" fill="#000000"/><g fill="#FFFFFF"><ellipse cx="24" cy="24" rx="2.6" ry="2.2"/><ellipse cx="38" cy="33" rx="2.1" ry="2.5"/><ellipse cx="17" cy="41" rx="2.2" ry="2"/><ellipse cx="31" cy="50" rx="2.6" ry="2.3"/><ellipse cx="72" cy="20" rx="2.3" ry="2.6"/><ellipse cx="58" cy="30" rx="2.5" ry="2.2"/><ellipse cx="82" cy="35" rx="2.1" ry="2"/><ellipse cx="66" cy="45" rx="2.6" ry="2.4"/><ellipse cx="48" cy="52" rx="2" ry="2.3"/><ellipse cx="44" cy="68" rx="2.4" ry="2.1"/><ellipse cx="58" cy="63" rx="1.8" ry="1.9"/><ellipse cx="76" cy="54" rx="1.6" ry="1.7"/></g></svg>
+      <p class="brand">Love SOS</p>
       <h1>Calm down in minutes, before you say something you'll <em>regret</em></h1>
-      <p class="label">Love SOS</p>
       <p class="lede">An interactive tapping kit on your phone, with 10 scripts for real relationship moments, 3 videos and the Relationship Wheel of Life</p>
       <p class="price">$7 • Instant Access • Yours to Keep • Relief in Minutes</p>
       <a class="buy main-buy" href="#buy">Get Love SOS for $7</a>
@@ -264,14 +270,20 @@
       <h3 class="plus">Plus: 3 short support videos from me</h3>
       <div class="videos">
         <div class="card white">
+          <!-- THUMBNAIL for "How to Use" goes here:
+               <img class="thumb" src="assets/lovesos/thumb-FILE.jpg" width="640" height="360" loading="lazy" alt=""> -->
           <h3>How to Use</h3>
           <p>A clear introduction to tapping: where the points are, why it works, and how to get started.</p>
         </div>
         <div class="card sage">
+          <!-- THUMBNAIL for "Walkthrough" goes here:
+               <img class="thumb" src="assets/lovesos/thumb-FILE.jpg" width="640" height="360" loading="lazy" alt=""> -->
           <h3>Walkthrough</h3>
           <p>Watch me use one of the scripts in real time, so you can see exactly how to work through the three rounds.</p>
         </div>
         <div class="card blush">
+          <!-- THUMBNAIL for "Emergency Tapping" goes here:
+               <img class="thumb" src="assets/lovesos/thumb-FILE.jpg" width="640" height="360" loading="lazy" alt=""> -->
           <h3>Emergency Tapping</h3>
           <p>A guided tapping session for moments when you're too flooded to think and just need to calm your body NOW. Use it any time emotions feel overwhelming.</p>
         </div>
@@ -280,7 +292,7 @@
       <h3 class="plus">It walks you through it</h3>
       <p>Pick how you feel, rate it from 0 to 10, and follow the tapping one round at a time. At the end you'll see your number come down, so you know it's working.</p>
       <figure class="shot video">
-        <video class="demo" muted loop playsinline preload="none" width="720" height="720" poster="assets/lovesos/lovesos-demo-poster.jpg" aria-label="A short demo of Love SOS on a tablet: rating a feeling, tapping through the rounds and seeing the number come down">
+        <video class="demo" muted loop playsinline preload="none" width="608" height="716" poster="assets/lovesos/lovesos-demo-poster.jpg" aria-label="A short demo of Love SOS on a tablet: rating a feeling, tapping through the rounds and seeing the number come down">
           <source data-src="assets/lovesos/lovesos-demo.mp4" type="video/mp4">
           <source data-src="assets/lovesos/lovesos-demo.webm" type="video/webm">
         </video>
@@ -294,6 +306,12 @@
 
       <h3 class="plus">Plus: a tapping points chart</h3>
       <p>A simple picture showing every point, so you never have to guess.</p>
+      <figure class="chart-panel">
+        <picture>
+          <source srcset="assets/lovesos/lovesos-chart.webp" type="image/webp">
+          <img src="assets/lovesos/lovesos-chart.png" width="1134" height="584" loading="lazy" decoding="async" alt="Tapping points chart: Top of Head, Eyebrow, Side of eye, Under Eye, Under Nose, Chin, Collarbone, Underarm and Karate Chop">
+        </picture>
+      </figure>
 
       <h3 class="plus">Plus: the Relationship Wheel of Life</h3>
       <p>Score 8 parts of your relationship in about 2 minutes. You'll see where things feel good, where they feel hardest, and which script to start with. Come back in a month and see what's shifted.</p>
@@ -440,14 +458,9 @@
   "use strict";
 
   /* Every "Get Love SOS for $7" button goes to the checkout, in the same tab */
-  var url = (window.LOVE_SOS_CHECKOUT || "").trim();
-  var buttons = document.querySelectorAll("a.buy");
-  if (url && /^https?:\/\//i.test(url)) {
-    Array.prototype.forEach.call(buttons, function (a) { a.href = url; a.removeAttribute("target"); });
-  } else {
-    // no checkout link yet: stay put rather than jump to the top of the page
-    Array.prototype.forEach.call(buttons, function (a) { a.addEventListener("click", function (e) { e.preventDefault(); }); });
-  }
+  var url = (window.LOVE_SOS_CHECKOUT || "#buy").trim();
+  if (/^\s*(javascript|data|vbscript):/i.test(url)) url = "#buy";
+  Array.prototype.forEach.call(document.querySelectorAll("a.buy"), function (a) { a.setAttribute("href", url); a.removeAttribute("target"); });
 
   /* Slim bar on phones: shows once she has scrolled past the first button,
      and hides while any of the main buttons is on screen */
