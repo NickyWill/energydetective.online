@@ -119,13 +119,13 @@
   .card h3 { margin-bottom: 6px; }
   .note { margin-top: 20px; }
   .videos { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 14px; }
-  .videos .thumb { width: 100%; height: auto; border-radius: 10px; margin-bottom: 14px; }
+  .videos .thumb { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 10px; margin-bottom: 14px; background: var(--softwhite); }
   .videos .card { margin-top: 0; }
   .plus { margin-top: 40px; }
   .after-shot { margin-top: 28px; font-weight: 500; }
 
   .chart-panel { margin: 24px 0 0; background: none; padding: 0; }
-  .chart-panel img { width: 100%; max-width: 480px; margin: 0 auto; }
+  .chart-panel img { width: 100%; max-width: 400px; margin: 0 auto; }
 
   /* Created by */
   .about-photo { width: 200px; max-width: 60%; margin: 0 0 22px; border-radius: var(--radius); overflow: hidden; background: var(--white); }
@@ -270,20 +270,20 @@
       <h3 class="plus">Plus: 3 short support videos from me</h3>
       <div class="videos">
         <div class="card white">
-          <!-- THUMBNAIL for "How to Use" goes here:
-               <img class="thumb" src="assets/lovesos/thumb-FILE.jpg" width="640" height="360" loading="lazy" alt=""> -->
+          <!-- cover picture only (the video itself is for buyers): https://youtu.be/XO4Mq4ni2ik -->
+          <img class="thumb" src="https://i.ytimg.com/vi/XO4Mq4ni2ik/maxresdefault.jpg" data-fallback="https://i.ytimg.com/vi/XO4Mq4ni2ik/hqdefault.jpg" width="1280" height="720" loading="lazy" decoding="async" alt="">
           <h3>How to Use</h3>
           <p>A clear introduction to tapping: where the points are, why it works, and how to get started.</p>
         </div>
         <div class="card sage">
-          <!-- THUMBNAIL for "Walkthrough" goes here:
-               <img class="thumb" src="assets/lovesos/thumb-FILE.jpg" width="640" height="360" loading="lazy" alt=""> -->
+          <!-- cover picture only (the video itself is for buyers): https://youtu.be/c1fmUMZcxAM -->
+          <img class="thumb" src="https://i.ytimg.com/vi/c1fmUMZcxAM/maxresdefault.jpg" data-fallback="https://i.ytimg.com/vi/c1fmUMZcxAM/hqdefault.jpg" width="1280" height="720" loading="lazy" decoding="async" alt="">
           <h3>Walkthrough</h3>
           <p>Watch me use one of the scripts in real time, so you can see exactly how to work through the three rounds.</p>
         </div>
         <div class="card blush">
-          <!-- THUMBNAIL for "Emergency Tapping" goes here:
-               <img class="thumb" src="assets/lovesos/thumb-FILE.jpg" width="640" height="360" loading="lazy" alt=""> -->
+          <!-- cover picture only (the video itself is for buyers): https://youtu.be/DUv8q1WC-Jc -->
+          <img class="thumb" src="https://i.ytimg.com/vi/DUv8q1WC-Jc/maxresdefault.jpg" data-fallback="https://i.ytimg.com/vi/DUv8q1WC-Jc/hqdefault.jpg" width="1280" height="720" loading="lazy" decoding="async" alt="">
           <h3>Emergency Tapping</h3>
           <p>A guided tapping session for moments when you're too flooded to think and just need to calm your body NOW. Use it any time emotions feel overwhelming.</p>
         </div>
@@ -309,7 +309,7 @@
       <figure class="chart-panel">
         <picture>
           <source srcset="assets/lovesos/lovesos-chart.webp" type="image/webp">
-          <img src="assets/lovesos/lovesos-chart.png" width="899" height="697" loading="lazy" decoding="async" alt="Tapping points chart: Top of Head, Eyebrow, Side of eye, Under Eye, Under Nose, Chin, Collarbone, Underarm and Karate Chop">
+          <img src="assets/lovesos/lovesos-chart.png" width="398" height="249" loading="lazy" decoding="async" alt="Tapping points chart: Top of Head, Eyebrow, Side of eye, Under Eye, Under Nose, Chin, Collarbone, Underarm and Karate Chop">
         </picture>
       </figure>
 
@@ -494,6 +494,16 @@
   }
   window.addEventListener("scroll", update, { passive: true });
   update();
+
+  /* Video cover pictures: use the standard size if YouTube has no full-size cover */
+  Array.prototype.forEach.call(document.querySelectorAll("img.thumb[data-fallback]"), function (img) {
+    function check() {
+      if (img.naturalWidth && img.naturalWidth <= 120 && img.dataset.fallback) { var f = img.dataset.fallback; img.removeAttribute("data-fallback"); img.src = f; }
+    }
+    img.addEventListener("load", check);
+    img.addEventListener("error", function () { if (img.dataset.fallback) { var f = img.dataset.fallback; img.removeAttribute("data-fallback"); img.src = f; } });
+    if (img.complete) check();
+  });
 
   /* The demo video only loads and plays when it is on screen */
   var vid = document.querySelector("video.demo");
