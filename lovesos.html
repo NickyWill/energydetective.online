@@ -101,6 +101,9 @@
   }
   .buy:active { transform: scale(0.99); }
   .buy-wrap { display: block; width: 100%; }
+  .buy-wrap .buy { margin-top: 0; }
+  .buy-wrap, a.buy { margin-top: 28px !important; }
+  .bar .buy-wrap, .bar a.buy { margin-top: 0 !important; }
   .buy-wrap .builder-v2-block { display: block; width: 100%; }
   button.buy, .tc-v2-embeddable-trigger-el.buy {
     border: 0 !important; cursor: pointer; box-shadow: none !important;
@@ -137,10 +140,19 @@
   .videos .thumb { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 10px; margin-bottom: 14px; background: var(--softwhite); }
   .videos .card { margin-top: 0; }
   .plus { margin-top: 40px; }
-  .after-shot { margin-top: 28px; font-weight: 500; }
+  .after-shot { margin-top: 28px; font-weight: 500; margin-bottom: 0; }
 
   .chart-panel { margin: 24px 0 0; background: none; padding: 0; }
   .chart-panel img { width: 100%; max-width: 400px; margin: 0 auto; }
+
+  /* What clients say */
+  .quote-card { margin: 14px 0 0; background: var(--white); border-radius: var(--radius); padding: 22px 20px; }
+  .quote-card blockquote { margin: 0; }
+  .quote-card figcaption { margin-top: 10px; font-weight: 500; font-size: 15px; }
+  .says h2 + .quote-card { margin-top: 0; }
+
+  /* It walks you through it */
+  .walk h3 { font-size: 26px; margin-bottom: 12px; }
 
   /* Created by */
   .about-photo { width: 200px; max-width: 60%; margin: 0 0 22px; border-radius: var(--radius); overflow: hidden; background: var(--white); }
@@ -220,7 +232,7 @@
       <p class="brand">Love SOS</p>
       <h1>Calm down in minutes, before you say something you'll <em>regret</em></h1>
       <p class="lede">An interactive tapping kit on your phone, with 10 scripts for real relationship moments, 3 videos and the Relationship Wheel of Life</p>
-      <p class="price">$7 • Instant Access • Yours to Keep • Relief in Minutes</p>
+      <p class="price">$7 • Instant Access • Relief in Minutes</p>
       <a class="buy main-buy" href="#buy">Get Love SOS for $7</a>
       <figure class="shot">
         <picture>
@@ -237,10 +249,8 @@
       <h2>Most relationship blow-ups don't happen because you don't care.</h2>
       <p>They happen because something gets triggered, feelings rush in, and suddenly you're not responding the way you meant to.</p>
       <p>Emotions spike. Old buttons get pressed. And you find yourself reacting in ways that don't quite match who you want to be.</p>
-      <div class="lines" style="margin-top:16px">
-        <p>One minute you're fine.</p>
-        <p>The next you're triggered, hurt, resentful, overthinking, or biting your tongue to keep the peace.</p>
-      </div>
+      <p>One minute you're fine.</p>
+      <p>The next you're triggered, hurt, resentful, overthinking, or biting your tongue to keep the peace.</p>
       <p>And part of you is watching it happen, thinking: <span class="quote">"Why am I reacting like this?"</span></p>
     </div>
   </section>
@@ -257,10 +267,22 @@
       </div>
       <p style="margin-top:20px">Just support for you, in the moment before you lose control.</p>
       <p>The kind of moment where you've just read a message, had a conversation, or felt that familiar knot in your chest, and you know you need a minute before responding.</p>
-      <p>Especially the moment where you know you need to hit pause, but don't quite know how, and can feel things starting to unravel.</p>
-      <p>Because you can't think straight while you're flooded with emotion.</p>
       <p>This isn't about being dramatic or "too much". It's about having support when your emotions are louder than your intentions.</p>
       <a class="buy main-buy" href="#buy">Get Love SOS for $7</a>
+    </div>
+  </section>
+
+  <!-- IT WALKS YOU THROUGH IT -->
+  <section class="sec walk">
+    <div class="wrap">
+      <h3>It walks you through it</h3>
+      <p>Pick how you feel, rate it from 0 to 10, and follow the tapping one round at a time. At the end you'll see your number come down, so you know it's working.</p>
+      <figure class="shot video">
+        <video class="demo" muted loop playsinline preload="none" width="608" height="716" poster="assets/lovesos/lovesos-demo-poster.jpg" aria-label="A short demo of Love SOS on a tablet: rating a feeling, tapping through the rounds and seeing the number come down">
+          <source data-src="assets/lovesos/lovesos-demo.mp4" type="video/mp4">
+          <source data-src="assets/lovesos/lovesos-demo.webm" type="video/webm">
+        </video>
+      </figure>
     </div>
   </section>
 
@@ -314,18 +336,10 @@
         </div>
       </div>
 
-      <h3 class="plus">It walks you through it</h3>
-      <p>Pick how you feel, rate it from 0 to 10, and follow the tapping one round at a time. At the end you'll see your number come down, so you know it's working.</p>
-      <figure class="shot video">
-        <video class="demo" muted loop playsinline preload="none" width="608" height="716" poster="assets/lovesos/lovesos-demo-poster.jpg" aria-label="A short demo of Love SOS on a tablet: rating a feeling, tapping through the rounds and seeing the number come down">
-          <source data-src="assets/lovesos/lovesos-demo.mp4" type="video/mp4">
-          <source data-src="assets/lovesos/lovesos-demo.webm" type="video/webm">
-        </video>
-      </figure>
       <figure class="shot">
         <picture>
           <source srcset="assets/lovesos/lovesos-rounds-720.webp 720w, assets/lovesos/lovesos-rounds-1080.webp 1080w" sizes="(min-width: 720px) 576px, calc(100vw - 40px)" type="image/webp">
-          <img src="assets/lovesos/lovesos-rounds-720.jpg" width="720" height="720" loading="lazy" decoding="async" alt="Three tapping round screens from Love SOS, each with the tapping points picture and the words to say">
+          <img src="assets/lovesos/lovesos-rounds-720.jpg" width="720" height="486" loading="lazy" decoding="async" alt="Three tapping round screens from Love SOS, each with the tapping points picture and the words to say">
         </picture>
       </figure>
 
@@ -403,6 +417,25 @@
     </div>
   </section>
 
+  <!-- WHAT CLIENTS SAY -->
+  <section class="sec says">
+    <div class="wrap">
+      <h2>What clients say about working with Nicky</h2>
+      <figure class="quote-card">
+        <blockquote><p>"I feel happier, calmer, there's been positive changes at home."</p></blockquote>
+        <figcaption>– Trish</figcaption>
+      </figure>
+      <figure class="quote-card">
+        <blockquote><p>"So many tears, but also so much hope. I felt completely safe and supported."</p></blockquote>
+        <figcaption>– Client</figcaption>
+      </figure>
+      <figure class="quote-card">
+        <blockquote><p>"The most complete and immediate release… that I've ever experienced. And I've tried a lot over the last 30 years."</p></blockquote>
+        <figcaption>– Anna</figcaption>
+      </figure>
+    </div>
+  </section>
+
   <!-- STILL ON THE FENCE -->
   <section class="sec">
     <div class="wrap">
@@ -456,10 +489,6 @@
       <details>
         <summary>What if I can't tap because I'm in public or around other people?</summary>
         <div class="ans"><p>You can tap quietly on the side of your hand, or just on your fingertips, and say the words in your head. Or step away for a minute, even to the bathroom, and use the Emergency Emotional Reset.</p></div>
-      </details>
-      <details>
-        <summary>Will this make my relationship perfect?</summary>
-        <div class="ans"><p>No, and that's not the point. What it will do is help you settle, steady yourself, and respond from a clearer place. That tends to change more than people expect.</p></div>
       </details>
     </div>
   </section>
