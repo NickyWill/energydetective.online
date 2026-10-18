@@ -57,7 +57,11 @@
     --softwhite: #FFF7F7;
     --white: #FFFFFF;
     --radius: 14px;
-    --gap: 72px;
+    --band: 72px;        /* space above and below each section */
+    --head: 32px;        /* section heading to its content */
+    --cardgap: 16px;     /* between cards */
+    --pad: 22px;         /* inside cards */
+    --btn: 32px;         /* space above every button */
     --serif: "Playfair Display", Georgia, "Times New Roman", serif;
     --sans: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
   }
@@ -66,41 +70,51 @@
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
   body {
     margin: 0; background: var(--softwhite); color: var(--black);
-    font-family: var(--sans); font-weight: 400; font-size: 17px; line-height: 1.65;
+    font-family: var(--sans); font-weight: 400; font-size: 17px; line-height: 1.7;
     -webkit-font-smoothing: antialiased;
   }
   img, video { display: block; max-width: 100%; height: auto; }
   p { margin: 0; }
   p + p { margin-top: 16px; }
 
-  /* Same comfortable side margins and the same space between every section */
-  .wrap { max-width: 640px; margin: 0 auto; padding-left: 20px; padding-right: 20px; }
-  .sec { padding-top: var(--gap); }
-  .center { text-align: center; }
+  /* Full-width bands, content in a centred column */
+  .band { padding: var(--band) 0; }
+  .b-w { background: var(--white); }
+  .b-sw { background: var(--softwhite); }
+  .b-blush { background: var(--blush); }
+  .wrap { max-width: 760px; margin: 0 auto; padding-left: 20px; padding-right: 20px; }      /* 720px of text */
+  .wrap.wide { max-width: 1080px; }                                                          /* 1040px for the hero and grids */
+  .narrow { max-width: 720px; margin-left: auto; margin-right: auto; }
 
   h1, h2, h3 { font-family: var(--serif); font-weight: 800; color: var(--black); margin: 0; letter-spacing: -0.01em; }
-  h2 { font-size: 30px; line-height: 1.12; margin-bottom: 24px; }
-  h3 { font-size: 20px; line-height: 1.25; }
+  h1 { font-size: 38px; line-height: 1.08; }
+  h1 em { font-style: italic; color: var(--pink); }
+  h2 { font-size: 30px; line-height: 1.15; margin-bottom: var(--head); text-align: center; }
+  h3 { font-size: 20px; line-height: 1.3; }
 
   .heart { display: block; width: 56px; height: auto; margin: 0 auto 22px; }
 
-  /* Top */
-  .top { padding-top: 44px; text-align: center; }
-  .callout { font-size: 12px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 14px; }
-  h1 { font-size: 40px; line-height: 1.06; }
-  .name { font-family: var(--serif); font-weight: 800; font-size: 29px; line-height: 1.1; margin-bottom: 8px !important; }
-  h1 em { font-style: italic; color: var(--pink); }
-  .summary { margin-top: 18px; font-size: 17px; line-height: 1.6; }
-  .under-btn { margin-top: 14px; font-size: 13px; font-weight: 500; line-height: 1.5; text-wrap: balance; }
-  .shot { margin: 32px 0 0; background: var(--white); border-radius: var(--radius); overflow: hidden; }
+  /* Cards: white on soft white bands, soft white on white bands */
+  .pain, .shift, .quote-card, .item, .whatis, .why-box, .faq details { border-radius: var(--radius); padding: var(--pad); background: var(--white); }
+  .b-w .pain, .b-w .shift, .b-w .quote-card, .b-w .item, .b-w .whatis, .b-w .faq details { background: var(--softwhite); }
+  .why-box { background: var(--softwhite); }
 
-  /* Buttons: at least 28px of space above every one */
-  .buy, .buy-wrap { margin-top: 28px !important; }
+  /* Top */
+  .top { text-align: center; }
+  .callout { font-size: 12px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 14px; text-wrap: balance; }
+  .name { font-family: var(--serif); font-weight: 800; font-size: 28px; line-height: 1.1; margin-bottom: 8px !important; }
+  .summary { margin-top: 20px; }
+  .under-btn { margin-top: 14px !important; font-size: 13px; font-weight: 500; line-height: 1.5; text-wrap: balance; }
+  .shot { margin: 36px auto 0; background: var(--white); border-radius: var(--radius); overflow: hidden; max-width: 640px; }
+  .hero-pic img { width: 100%; }
+
+  /* Buttons: centred, at least 32px of space above every one */
+  .buy, .buy-wrap { margin-top: var(--btn) !important; }
   .buy-wrap .buy { margin-top: 0 !important; }
   .bar .buy, .bar .buy-wrap { margin-top: 0 !important; }
   .buy {
     display: flex; align-items: center; justify-content: center; text-align: center;
-    width: 100%; min-height: 64px; padding: 14px 24px;
+    width: 100%; min-height: 64px; padding: 14px 28px; margin-left: auto; margin-right: auto;
     background: var(--pink); color: var(--black); border-radius: var(--radius);
     font: 500 19px/1.2 var(--sans); text-decoration: none;
     -webkit-tap-highlight-color: transparent; transition: background 0.2s, transform 0.15s;
@@ -118,50 +132,53 @@
   .bar .tc-v2-embeddable-trigger-el.buy { font-size: 17px !important; }
   @media (hover: hover) { .buy:hover, .tc-v2-embeddable-trigger-el.buy:hover { background: var(--blush) !important; } }
 
-  /* Pain points */
-  .pain { margin: 0; padding: 18px 20px; background: var(--white); border-radius: var(--radius); border-left: 4px solid var(--pink); }
-  .pain + .pain { margin-top: 12px; }
-  .pain-close { margin-top: 28px !important; font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 21px; line-height: 1.45; text-align: center; }
+  /* Grids (one column on phone) */
+  .grid2, .grid3 { display: grid; grid-template-columns: 1fr; gap: var(--cardgap); }
+  .pain { margin: 0; border-left: 4px solid var(--pink); }
 
-  /* What actually shifts */
-  .shift { border-radius: var(--radius); padding: 20px; background: var(--white); }
-  .shift + .shift { margin-top: 12px; }
-  .shift:nth-of-type(3n+2) { background: var(--blush); }
-  .shift:nth-of-type(3n+3) { background: var(--sage); }
+  /* Pull quote */
+  .pull .pain-close { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 24px; line-height: 1.45; text-align: center; margin: 0 auto; max-width: 720px; text-wrap: balance; }
+
+  /* What actually shifts: white, blush, sage, repeating */
+  .shifts .shift:nth-child(3n+2) { background: var(--blush); }
+  .shifts .shift:nth-child(3n+3) { background: var(--sage); }
   .shift h3 { margin-bottom: 6px; }
 
   /* Introducing */
   .intro-p { text-align: center; }
-  .whatis { margin-top: 28px; background: var(--white); border-radius: var(--radius); padding: 22px 20px; text-align: left; }
+  .whatis { margin-top: var(--head); text-align: left; }
   .whatis h3 { margin-bottom: 8px; }
-  .tablet { max-width: 400px; margin: 28px auto 0; background: var(--white); border-radius: var(--radius); overflow: hidden; }
+  .tablet { max-width: 380px; margin: 36px auto 0; background: var(--white); border-radius: var(--radius); overflow: hidden; }
   .tablet video { width: 100%; }
 
   /* Why I made this */
-  .nicky { width: 200px; max-width: 60%; margin: 28px auto 0; border-radius: var(--radius); overflow: hidden; }
+  .why-box { text-align: left; }
+  .nicky { width: 200px; max-width: 60%; margin: 36px auto 0; border-radius: var(--radius); overflow: hidden; }
   .nicky img { width: 100%; }
-  .proof h2 { margin-top: var(--gap); }
-  .quote-card { margin: 0; background: var(--white); border-radius: var(--radius); padding: 20px; }
-  .quote-card + .quote-card { margin-top: 12px; }
+  .proof { margin-top: calc(var(--band) + 8px); }
+  .quote-card { margin: 0; }
   .quote-card blockquote { margin: 0; }
-  .quote-card figcaption { margin-top: 10px; font-weight: 500; font-size: 15px; }
+  .quote-card figcaption { margin-top: 12px; font-weight: 500; font-size: 15px; }
 
-  /* Everything inside: numbered cards, each picture straight after its card */
-  .item { background: var(--white); border-radius: var(--radius); padding: 20px; }
-  .item-head { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  /* Everything inside: each card with its picture beside it on a laptop */
+  .feature + .feature { margin-top: 40px; }
+  .feature.solo { max-width: 720px; margin-left: auto; margin-right: auto; }
+  .item-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
   .num { flex: none; display: inline-flex; align-items: center; justify-content: center; min-width: 40px; height: 32px; padding: 0 8px; border-radius: 9px; background: var(--pink); color: var(--black); font: 500 14px/1 var(--sans); letter-spacing: 0.04em; }
-  .item + .item, .pic + .item { margin-top: 20px; }
-  .pic { margin: 16px 0 0; }
+  .pic { margin: 16px auto 0; width: 100%; max-width: 480px; }
+  .pic img { width: 100%; margin: 0 auto; }
   .pic.boxed { background: var(--white); border-radius: var(--radius); overflow: hidden; }
-  .pic img { width: 100%; }
-  .pic.chart img { max-width: 400px; margin: 0 auto; }
-  .pic.phone { max-width: 320px; margin-left: auto; margin-right: auto; border: 1.5px solid var(--black); }
-  .thumbs { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .pic.chart { max-width: 420px; }
+  .thumbs { display: grid; grid-template-columns: 1fr; gap: 12px; }
   .thumbs img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 10px; background: var(--white); }
+  /* the wheel screenshot in a tablet frame, like the tablet mockup */
+  .tablet-frame { max-width: 320px; padding: 14px 12px 26px; background: var(--white); border: 1.5px solid var(--blush); border-radius: 30px; box-shadow: 0 18px 40px rgba(0, 0, 0, 0.10); position: relative; }
+  .tablet-frame::after { content: ""; position: absolute; left: 50%; bottom: 8px; width: 12px; height: 12px; margin-left: -6px; border: 1.5px solid var(--blush); border-radius: 50%; }
+  .tablet-frame img { border-radius: 12px; }
 
   /* Price card */
-  .price-card { background: var(--white); border: 2px solid var(--pink); border-radius: var(--radius); padding: 30px 22px; text-align: center; }
-  .price-card h2 { margin-bottom: 16px; }
+  .price-card { max-width: 480px; margin: 0 auto; background: var(--white); border: 2px solid var(--pink); border-radius: var(--radius); padding: 30px var(--pad); text-align: left; box-shadow: 0 14px 34px rgba(0, 0, 0, 0.08); }
+  .price-card h2 { text-align: left; margin-bottom: 16px; }
   .big-price { font-family: var(--serif); font-weight: 800; font-size: 80px; line-height: 1; }
   .once { margin-top: 6px !important; font-size: 13px; font-weight: 500; letter-spacing: 0.04em; }
   .ticks { list-style: none; margin: 24px 0 0; padding: 0; text-align: left; }
@@ -171,11 +188,11 @@
   .guarantee { margin-top: 14px !important; font-size: 13px; line-height: 1.5; }
 
   /* FAQ */
-  .faq details { background: var(--white); border-radius: var(--radius); }
-  .faq details + details { margin-top: 10px; }
+  .faq details { padding: 0; }
+  .faq details + details { margin-top: 12px; }
   .faq summary {
     list-style: none; cursor: pointer; position: relative;
-    padding: 18px 52px 18px 20px; font-weight: 500; font-size: 17px; line-height: 1.4;
+    padding: var(--pad) 52px var(--pad) var(--pad); font-weight: 500; font-size: 17px; line-height: 1.4;
     -webkit-tap-highlight-color: transparent; border-radius: var(--radius);
   }
   .faq summary::-webkit-details-marker { display: none; }
@@ -185,23 +202,13 @@
   }
   .faq details[open] summary::after { transform: rotate(-135deg); margin-top: -2px; }
   .faq summary:focus-visible { outline: 3px solid var(--black); outline-offset: 2px; }
-  .faq .ans { padding: 0 20px 20px; }
+  .faq .ans { padding: 0 var(--pad) var(--pad); }
 
   /* Final close */
   .final { text-align: center; padding-bottom: 40px; }
-  .final-q { font-family: var(--serif); font-weight: 800; font-size: 28px; line-height: 1.2; }
-
-  footer { margin-top: 48px; padding: 28px 0 40px; border-top: 1.5px solid var(--blush); font-size: 13px; text-align: center; }
+  .final-q { font-family: var(--serif); font-weight: 800; font-size: 28px; line-height: 1.2; text-wrap: balance; }
+  footer { margin-top: 56px; padding: 28px 0 40px; border-top: 1.5px solid var(--blush); font-size: 13px; text-align: center; }
   footer a { color: var(--black); }
-
-  /* Everything left aligned, on phone and computer. Only the price card stays centred inside its box. */
-  .top, .center, .pain-close, .intro-p, .final, footer { text-align: left !important; }
-  .heart { margin-left: 0 !important; margin-right: 0 !important; }
-  .nicky { margin-left: 0 !important; margin-right: 0 !important; }
-  .pic.chart img { margin-left: 0 !important; }
-  .pic.phone, .tablet { margin-left: 0 !important; margin-right: auto !important; }
-  .under-btn { text-wrap: pretty; }
-  .callout { text-wrap: balance; }
 
   /* Slim bar at the bottom of the screen on phones */
   .bar {
@@ -213,27 +220,46 @@
   .bar.show { transform: none; visibility: visible; }
   .bar .buy { min-height: 50px; font-size: 17px; padding: 10px 20px; }
   @media (prefers-reduced-motion: reduce) { .bar { transition: none; } }
+  @media (min-width: 720px) { .bar { display: none; } }
 
-  @media (min-width: 720px) {
-    :root { --gap: 104px; }
+  /* Laptop */
+  @media (min-width: 900px) {
+    :root { --band: 120px; --pad: 28px; }
     body { font-size: 18px; }
-    .wrap { padding-left: 32px; padding-right: 32px; }
-    .top { padding-top: 72px; }
-    h1 { font-size: 58px; }
-    .name { font-size: 40px; }
-    h2 { font-size: 40px; margin-bottom: 28px; }
+    .wrap { padding-left: 20px; padding-right: 20px; }
+    h1 { font-size: 56px; }
+    h2 { font-size: 40px; }
     h3 { font-size: 22px; }
     .heart { width: 64px; }
-    .summary { font-size: 19px; }
+    .name { font-size: 36px; }
+    .summary { font-size: 18px; }
     .under-btn { font-size: 14px; }
-    .tc-v2-embeddable-trigger-el.buy, .buy { font-size: 20px !important; }
-    .pain, .shift, .quote-card, .item, .whatis { padding: 24px 28px; }
-    .pain-close { font-size: 24px; }
-    .thumbs { grid-template-columns: 1fr 1fr 1fr; }
+    .buy, .tc-v2-embeddable-trigger-el.buy { width: auto !important; min-width: 360px; font-size: 20px !important; display: inline-flex; }
+    .buy-wrap { text-align: center; }
+    .buy-wrap .builder-v2-block { text-align: center; }
+
+    /* hero: text on the left, mockup on the right */
+    .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+    .hero .hero-text { text-align: left; }
+    .hero .heart { margin-left: 0; }
+    .hero .buy-wrap, .hero .buy-wrap .builder-v2-block { text-align: left; }
+    .hero .shot { margin: 0; }
+
+    .grid2 { grid-template-columns: 1fr 1fr; }
+    .grid3 { grid-template-columns: 1fr 1fr 1fr; }
+    .pull .pain-close { font-size: 30px; }
+    .hero .under-btn { text-wrap: wrap; font-size: 13px; white-space: nowrap; }
+    .feature .thumbs { grid-template-columns: 1fr 1fr; }
+    .feature .thumbs img:first-child { grid-column: 1 / -1; }
+
+    .feature:not(.solo) { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+    .feature.flip > .item { order: 2; }
+    .feature .pic { margin-top: 0; }
+    .feature + .feature { margin-top: 56px; }
+
     .price-card { padding: 40px 48px; }
     .big-price { font-size: 96px; }
     .final-q { font-size: 36px; }
-    .bar { display: none; }
   }
 </style>
 
@@ -243,17 +269,19 @@
 <main>
 
   <!-- 1 to 4: TOP -->
-  <section class="top">
-    <div class="wrap">
+  <section class="band b-w top">
+    <div class="wrap wide hero">
+      <div class="hero-text">
       <svg class="heart" viewBox="0 0 100 92" aria-hidden="true" focusable="false"><path d="M50.5 88.5C35 76 9 58.5 6.2 35.8 4 17.6 15.6 5.4 29.4 5.6c9.6.2 16.8 6.4 20.6 14.6C54.2 11.4 61.8 4.6 72.2 4.4 85.8 4.2 96.4 15.8 94.6 33.4 92.4 56.2 67 75.6 50.5 88.5Z" fill="#000000"/><g fill="#FFFFFF"><ellipse cx="24" cy="24" rx="2.6" ry="2.2"/><ellipse cx="38" cy="33" rx="2.1" ry="2.5"/><ellipse cx="17" cy="41" rx="2.2" ry="2"/><ellipse cx="31" cy="50" rx="2.6" ry="2.3"/><ellipse cx="72" cy="20" rx="2.3" ry="2.6"/><ellipse cx="58" cy="30" rx="2.5" ry="2.2"/><ellipse cx="82" cy="35" rx="2.1" ry="2"/><ellipse cx="66" cy="45" rx="2.6" ry="2.4"/><ellipse cx="48" cy="52" rx="2" ry="2.3"/><ellipse cx="44" cy="68" rx="2.4" ry="2.1"/><ellipse cx="58" cy="63" rx="1.8" ry="1.9"/><ellipse cx="76" cy="54" rx="1.6" ry="1.7"/></g></svg>
       <p class="callout">For women who keep the peace, until they can't</p>
       <p class="name">Love SOS</p>
       <h1>Calm down in minutes, before you say something you'll <em>regret</em></h1>
       <p class="summary">Simple tapping on your phone that takes the heat out of the moment, so you can say what you mean instead of what you'll regret. Think of it like a breathing exercise, with something for your hands to do. Pick how you feel and it walks you through every step, even if you've never tapped before.</p>
-      <p class="summary" style="margin-top:14px">10 scripts, an Emergency Emotional Reset, 3 videos and your personalised Relationship Wheel of Life.</p>
+      <p class="summary">10 scripts, an Emergency Emotional Reset, 3 videos and your personalised Relationship Wheel of Life.</p>
       <a class="buy main-buy" href="#buy">Get Love SOS for $7</a>
       <p class="under-btn">Instant access • Opens on your phone • 7-day money-back guarantee</p>
-      <figure class="shot">
+      </div>
+      <figure class="shot hero-pic">
         <picture>
           <source srcset="assets/lovesos/lovesos-kit.webp" type="image/webp">
           <img src="assets/lovesos/lovesos-kit.jpg" width="610" height="352" alt="The Love SOS kit on screen: tapping rounds, the feelings cards, the three videos and the Relationship Wheel of Life" fetchpriority="high">
@@ -263,23 +291,32 @@
   </section>
 
   <!-- 5: PAIN POINTS -->
-  <section class="sec">
-    <div class="wrap">
-      <h2 class="center">If any of this sounds like you</h2>
+  <section class="band b-sw">
+    <div class="wrap wide">
+      <h2>If any of this sounds like you</h2>
+      <div class="grid2">
       <blockquote class="pain"><p>"He asked what was wrong. I said 'nothing'. Then I lay awake replaying it until 3am."</p></blockquote>
       <blockquote class="pain"><p>"I snapped about who washed the dishes. It wasn't the dishes. It was years of being the one who notices everything."</p></blockquote>
       <blockquote class="pain"><p>"I bite my tongue to keep the peace. Then it all comes out at once, over something tiny."</p></blockquote>
       <blockquote class="pain"><p>"I sat right next to him on the sofa and felt completely alone."</p></blockquote>
       <blockquote class="pain"><p>"I said 'it's fine, I'll do it' for the hundredth time, and something in me went quiet."</p></blockquote>
       <blockquote class="pain"><p>"I heard myself shouting and thought: who is this woman? I don't recognise myself."</p></blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- PULL QUOTE -->
+  <section class="band b-blush pull">
+    <div class="wrap">
       <p class="pain-close">It's never really about who washed the dishes. It's years of held-in feelings arriving all at once, faster than you can catch them. Love SOS gives you a way to catch them.</p>
     </div>
   </section>
 
   <!-- 6: WHAT ACTUALLY SHIFTS -->
-  <section class="sec">
-    <div class="wrap">
-      <h2 class="center">What actually shifts</h2>
+  <section class="band b-w">
+    <div class="wrap wide">
+      <h2>What actually shifts</h2>
+      <div class="grid2 shifts">
       <div class="shift"><h3>You calm down before you say it</h3><p>That hot, tight feeling in your chest settles, and you get to choose your words.</p></div>
       <div class="shift"><h3>You say what you actually mean</h3><p>"I feel invisible" instead of a row about the dishes.</p></div>
       <div class="shift"><h3>No more lying awake replaying it</h3><p>You deal with it in the moment, so it doesn't follow you to bed.</p></div>
@@ -287,14 +324,15 @@
       <div class="shift"><h3>You feel more like yourself again</h3><p>Less snapping, less shutting down. More of the woman you know you are.</p></div>
       <div class="shift"><h3>You can see it working</h3><p>Rate how strong the feeling is before and after. Seeing it come down tells you your body is settling.</p></div>
       <div class="shift"><h3>You know where to start</h3><p>Your personalised Relationship Wheel of Life shows which part of your relationship needs care first, and which script to use.</p></div>
+      </div>
       <a class="buy main-buy" href="#buy">Get Love SOS for $7</a>
     </div>
   </section>
 
   <!-- 7: INTRODUCING -->
-  <section class="sec">
+  <section class="band b-sw">
     <div class="wrap">
-      <h2 class="center">Introducing Love SOS</h2>
+      <h2>Introducing Love SOS</h2>
       <p class="intro-p">Your calm-down kit for the moments in your relationship that get to you. Open it in the kitchen, the bathroom, the car, or in the five minutes before you reply. It walks you through every step, so you don't have to think when you can't think straight.</p>
       <div class="whatis">
         <h3>What is tapping?</h3>
@@ -310,38 +348,47 @@
   </section>
 
   <!-- 8: WHY I MADE THIS, PROOF -->
-  <section class="sec">
-    <div class="wrap">
+  <section class="band b-w">
+    <div class="wrap wide">
+      <div class="narrow">
       <h2>Why I made this</h2>
+      <div class="why-box">
       <p>Hi, I'm Nicky. I'm an energy practitioner and a certified EFT Practitioner with EFT International, and I've helped clients clear over 56,000 emotions.</p>
       <p>In my sessions, the same thing comes up again and again. A client tells me about the argument, and it's never really about the argument. It's an old feeling that got there first, before she had a chance to choose her words.</p>
       <p>I can clear what sits underneath in a session. But I wanted women to have something for the moment itself. Something in their pocket for when the feeling hits and they're about to say the thing they can't take back.</p>
       <p>That's why I made Love SOS: the tapping I'd walk you through myself, ready on your phone whenever you need it.</p>
+      </div>
       <figure class="nicky">
         <picture>
           <source srcset="assets/lovesos/nicky.webp" type="image/webp">
           <img src="assets/lovesos/nicky.jpg" width="480" height="480" loading="lazy" decoding="async" alt="Nicky Williams, smiling">
         </picture>
       </figure>
+      </div>
       <div class="proof">
         <h2>What clients say about working with me</h2>
+        <div class="grid3">
         <figure class="quote-card"><blockquote><p>"I feel happier, calmer, there's been positive changes at home."</p></blockquote><figcaption>– Trish</figcaption></figure>
         <figure class="quote-card"><blockquote><p>"So many tears, but also so much hope. I felt completely safe and supported."</p></blockquote><figcaption>– Client</figcaption></figure>
         <figure class="quote-card"><blockquote><p>"The most complete and immediate release… that I've ever experienced. And I've tried a lot over the last 30 years."</p></blockquote><figcaption>– Anna</figcaption></figure>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- 9: EVERYTHING INSIDE -->
-  <section class="sec">
-    <div class="wrap">
-      <h2 class="center">Everything inside Love SOS</h2>
+  <section class="band b-sw">
+    <div class="wrap wide">
+      <h2>Everything inside Love SOS</h2>
 
+      <div class="feature solo">
       <div class="item">
         <div class="item-head"><span class="num">01</span><h3>The Emergency Emotional Reset</h3></div>
         <p>One tap from the home screen. For when it's all too much and you just need to calm your nervous system enough to think clearly. Comes with its own guided tapping video.</p>
       </div>
+      </div>
 
+      <div class="feature">
       <div class="item">
         <div class="item-head"><span class="num">02</span><h3>10 tapping scripts</h3></div>
         <p>For feeling triggered, rejected, resentful, scared of the fallout, struggling to find your voice, stuck in blame, when everything feels heavy, wanting to express love, feeling guarded after hurt, and feeling like you've lost yourself.</p>
@@ -352,7 +399,9 @@
           <img src="assets/lovesos/lovesos-rounds-720.jpg" width="720" height="486" loading="lazy" decoding="async" alt="Three tapping round screens from Love SOS, each with the tapping points picture and the words to say">
         </picture>
       </figure>
+      </div>
 
+      <div class="feature flip">
       <div class="item">
         <div class="item-head"><span class="num">03</span><h3>3 short videos from me</h3></div>
         <p>How to Use, Walkthrough and Emergency Tapping. You'll know exactly what to do, even if you've never tapped before.</p>
@@ -364,7 +413,9 @@
         <img class="thumb" src="https://i.ytimg.com/vi/c1fmUMZcxAM/maxresdefault.jpg" data-fallback="https://i.ytimg.com/vi/c1fmUMZcxAM/hqdefault.jpg" width="1280" height="720" loading="lazy" decoding="async" alt="Walkthrough video cover">
         <img class="thumb" src="https://i.ytimg.com/vi/DUv8q1WC-Jc/maxresdefault.jpg" data-fallback="https://i.ytimg.com/vi/DUv8q1WC-Jc/hqdefault.jpg" width="1280" height="720" loading="lazy" decoding="async" alt="Emergency Tapping video cover">
       </div>
+      </div>
 
+      <div class="feature">
       <div class="item">
         <div class="item-head"><span class="num">04</span><h3>The tapping points chart</h3></div>
         <p>Every point in one simple picture, so you never have to guess.</p>
@@ -375,22 +426,25 @@
           <img src="assets/lovesos/lovesos-chart.png" width="398" height="249" loading="lazy" decoding="async" alt="Tapping points chart: Top of Head, Eyebrow, Side of eye, Under Eye, Under Nose, Chin, Collarbone, Underarm and Karate Chop">
         </picture>
       </figure>
+      </div>
 
+      <div class="feature flip">
       <div class="item">
         <div class="item-head"><span class="num">05</span><h3>The Relationship Wheel of Life</h3></div>
         <p>Score 8 parts of your relationship in about 2 minutes and get your own personalised results: where it feels good, where it feels hardest, and exactly which scripts to start with. Come back in a month and see what's shifted.</p>
       </div>
-      <figure class="pic boxed phone">
+      <figure class="pic tablet-frame">
         <picture>
           <source srcset="assets/lovesos/lovesos-wheel.webp" type="image/webp">
           <img src="assets/lovesos/lovesos-wheel.jpg" width="900" height="1553" loading="lazy" decoding="async" alt="Relationship Wheel of Life results in Love SOS, with the wheel chart and an overall score">
         </picture>
       </figure>
+      </div>
     </div>
   </section>
 
   <!-- PRICE CARD -->
-  <section class="sec">
+  <section class="band b-blush">
     <div class="wrap">
       <div class="price-card">
         <h2>One small price. Yours to keep.</h2>
@@ -412,9 +466,9 @@
   </section>
 
   <!-- 10: FAQ -->
-  <section class="sec faq">
+  <section class="band b-w faq">
     <div class="wrap">
-      <h2 class="center">What people ask before they buy</h2>
+      <h2>What people ask before they buy</h2>
       <details open>
         <summary>What is tapping, and does it actually work?</summary>
         <div class="ans"><p>Tapping (EFT) is a simple technique where you tap points on your face and body while naming what you feel. It's used by practitioners around the world to calm stress and big emotions. Most people feel a difference the first time they try it.</p></div>
@@ -447,7 +501,7 @@
   </section>
 
   <!-- 11: FINAL CLOSE -->
-  <section class="sec final">
+  <section class="band b-sw final">
     <div class="wrap">
       <svg class="heart" viewBox="0 0 100 92" aria-hidden="true" focusable="false"><path d="M50.5 88.5C35 76 9 58.5 6.2 35.8 4 17.6 15.6 5.4 29.4 5.6c9.6.2 16.8 6.4 20.6 14.6C54.2 11.4 61.8 4.6 72.2 4.4 85.8 4.2 96.4 15.8 94.6 33.4 92.4 56.2 67 75.6 50.5 88.5Z" fill="#000000"/><g fill="#FFFFFF"><ellipse cx="24" cy="24" rx="2.6" ry="2.2"/><ellipse cx="38" cy="33" rx="2.1" ry="2.5"/><ellipse cx="17" cy="41" rx="2.2" ry="2"/><ellipse cx="31" cy="50" rx="2.6" ry="2.3"/><ellipse cx="72" cy="20" rx="2.3" ry="2.6"/><ellipse cx="58" cy="30" rx="2.5" ry="2.2"/><ellipse cx="82" cy="35" rx="2.1" ry="2"/><ellipse cx="66" cy="45" rx="2.6" ry="2.4"/><ellipse cx="48" cy="52" rx="2" ry="2.3"/><ellipse cx="44" cy="68" rx="2.4" ry="2.1"/><ellipse cx="58" cy="63" rx="1.8" ry="1.9"/><ellipse cx="76" cy="54" rx="1.6" ry="1.7"/></g></svg>
       <p class="final-q">If it stops one argument you'd regret, is $7 an obvious yes?</p>
