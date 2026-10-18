@@ -178,7 +178,7 @@
 
   /* Price card */
   .price-card { max-width: 480px; margin: 0 auto; background: var(--white); border: 2px solid var(--pink); border-radius: var(--radius); padding: 30px var(--pad); text-align: left; box-shadow: 0 14px 34px rgba(0, 0, 0, 0.08); }
-  .price-card h2 { text-align: left; margin-bottom: 16px; }
+  .price-card h2 { margin-bottom: 16px; }
   .big-price { font-family: var(--serif); font-weight: 800; font-size: 80px; line-height: 1; }
   .once { margin-top: 6px !important; font-size: 13px; font-weight: 500; letter-spacing: 0.04em; }
   .ticks { list-style: none; margin: 24px 0 0; padding: 0; text-align: left; }
@@ -222,6 +222,10 @@
   @media (prefers-reduced-motion: reduce) { .bar { transition: none; } }
   @media (min-width: 720px) { .bar { display: none; } }
 
+  /* Price card: heading, price and "One-time payment" centred; ticks left; button and line under it centred */
+  .price-card h2, .price-card .big-price, .price-card .once, .price-card .guarantee { text-align: center; }
+  .price-card .buy-wrap, .price-card .buy-wrap .builder-v2-block { text-align: center; }
+
   /* Laptop */
   @media (min-width: 900px) {
     :root { --band: 120px; --pad: 28px; }
@@ -232,7 +236,6 @@
     h3 { font-size: 22px; }
     .heart { width: 64px; }
     .name { font-size: 36px; }
-    .summary { font-size: 18px; }
     .under-btn { font-size: 14px; }
     .buy, .tc-v2-embeddable-trigger-el.buy { width: auto !important; min-width: 360px; font-size: 20px !important; display: inline-flex; }
     .buy-wrap { text-align: center; }
@@ -248,9 +251,16 @@
     .grid2 { grid-template-columns: 1fr 1fr; }
     .grid3 { grid-template-columns: 1fr 1fr 1fr; }
     .pull .pain-close { font-size: 30px; }
+    /* text sizes: body 18px, summary 19px, card text 17px */
+    .summary { font-size: 19px !important; }
+    .pain p, .shift p, .quote-card p, .item p, .whatis p, .faq .ans p { font-size: 17px; }
+    /* the last "What actually shifts" card spans both columns */
+    .shifts .shift:last-child { grid-column: 1 / -1; }
+    /* hero mockup fills most of the right column */
+    .hero { grid-template-columns: 5fr 6fr; gap: 48px; }
+    .hero .shot { max-width: none; width: 100%; }
     .hero .under-btn { text-wrap: wrap; font-size: 13px; white-space: nowrap; }
-    .feature .thumbs { grid-template-columns: 1fr 1fr; }
-    .feature .thumbs img:first-child { grid-column: 1 / -1; }
+    .feature .thumbs { grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
 
     .feature:not(.solo) { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
     .feature.flip > .item { order: 2; }
@@ -284,7 +294,7 @@
       <figure class="shot hero-pic">
         <picture>
           <source srcset="assets/lovesos/lovesos-kit.webp" type="image/webp">
-          <img src="assets/lovesos/lovesos-kit.jpg" width="610" height="352" alt="The Love SOS kit on screen: tapping rounds, the feelings cards, the three videos and the Relationship Wheel of Life" fetchpriority="high">
+          <img src="assets/lovesos/lovesos-kit.jpg" width="552" height="330" alt="The Love SOS kit on screen: tapping rounds, the feelings cards, the three videos and the Relationship Wheel of Life" fetchpriority="high">
         </picture>
       </figure>
     </div>
@@ -381,14 +391,20 @@
     <div class="wrap wide">
       <h2>Everything inside Love SOS</h2>
 
-      <div class="feature solo">
+      <div class="feature">
       <div class="item">
         <div class="item-head"><span class="num">01</span><h3>The Emergency Emotional Reset</h3></div>
         <p>One tap from the home screen. For when it's all too much and you just need to calm your nervous system enough to think clearly. Comes with its own guided tapping video.</p>
       </div>
+      <figure class="pic tablet-frame">
+        <picture>
+          <source srcset="assets/lovesos/lovesos-home.webp" type="image/webp">
+          <img src="assets/lovesos/lovesos-home.jpg" width="900" height="1620" loading="lazy" decoding="async" alt="The Love SOS home screen, with the SOS now button at the top">
+        </picture>
+      </figure>
       </div>
 
-      <div class="feature">
+      <div class="feature flip">
       <div class="item">
         <div class="item-head"><span class="num">02</span><h3>10 tapping scripts</h3></div>
         <p>For feeling triggered, rejected, resentful, scared of the fallout, struggling to find your voice, stuck in blame, when everything feels heavy, wanting to express love, feeling guarded after hurt, and feeling like you've lost yourself.</p>
@@ -401,7 +417,7 @@
       </figure>
       </div>
 
-      <div class="feature flip">
+      <div class="feature">
       <div class="item">
         <div class="item-head"><span class="num">03</span><h3>3 short videos from me</h3></div>
         <p>How to Use, Walkthrough and Emergency Tapping. You'll know exactly what to do, even if you've never tapped before.</p>
@@ -415,7 +431,7 @@
       </div>
       </div>
 
-      <div class="feature">
+      <div class="feature flip">
       <div class="item">
         <div class="item-head"><span class="num">04</span><h3>The tapping points chart</h3></div>
         <p>Every point in one simple picture, so you never have to guess.</p>
@@ -428,7 +444,7 @@
       </figure>
       </div>
 
-      <div class="feature flip">
+      <div class="feature">
       <div class="item">
         <div class="item-head"><span class="num">05</span><h3>The Relationship Wheel of Life</h3></div>
         <p>Score 8 parts of your relationship in about 2 minutes and get your own personalised results: where it feels good, where it feels hardest, and exactly which scripts to start with. Come back in a month and see what's shifted.</p>
