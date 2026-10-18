@@ -68,9 +68,7 @@ section{padding-block:var(--gap-section) 0}
 .hero-copy .btn{width:100%;max-width:420px}
 @media (min-width:900px){
   .hero-grid{grid-template-columns:1.1fr .9fr;gap:64px}
-  .hero-copy{align-items:flex-start;text-align:left}
-  .gets,.reassure{justify-content:flex-start}
-  .hero-copy .btn{width:auto}
+  .hero-copy .btn{max-width:380px}
 }
 
 /* Phone (the product, drawn in code) */
@@ -117,6 +115,17 @@ section{padding-block:var(--gap-section) 0}
 /* How it works */
 .tap-box{margin-top:32px;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:26px 26px 24px}
 .tap-box h3{font-size:20px;margin-bottom:8px}
+.why{margin-top:16px;display:grid;gap:14px;text-align:left}
+.why-intro{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:26px}
+.why-intro h3{font-size:20px;margin-bottom:8px}
+.why-steps{list-style:none;padding:0;margin:0;display:grid;gap:14px}
+.why-steps li{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:22px}
+.why-steps b{display:block;font-family:var(--display);font-size:18px;margin-bottom:4px}
+.why-steps b span{color:var(--pink-ink)}
+.why-steps p{color:var(--muted);font-size:16px}
+@media (min-width:700px){.why-steps{grid-template-columns:repeat(3,1fr)}}
+.mini-grid .s-card{min-height:34px;padding:12px 6px 5px;font-size:8.5px}
+.mini-sos{background:var(--pink);border-radius:8px;text-align:center;padding:7px;font-weight:600;font-size:10px}
 .steps{list-style:none;padding:0;margin:56px auto 0;display:grid;gap:56px}
 .step{display:flex;flex-direction:column;gap:22px;align-items:center;text-align:center}
 .step .num{font-family:var(--display);font-weight:800;font-size:15px;color:var(--pink-ink);letter-spacing:.06em}
@@ -141,12 +150,13 @@ section{padding-block:var(--gap-section) 0}
 .kit-img{display:block;margin:40px auto 0;mix-blend-mode:multiply;max-width:100%;height:auto}
 
 /* About */
-.about{display:grid;gap:32px;margin-top:40px;align-items:start}
+.about{display:flex;flex-direction:column;align-items:center;gap:32px;margin-top:40px}
+.about .stack{max-width:600px}
 .portrait{width:168px;height:168px;border-radius:50%;margin-inline:auto;object-fit:cover;background:var(--blush);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:56px;overflow:hidden}
 .portrait{position:relative}.portrait img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
 .about .stack{gap:18px}
 .sign{font-family:var(--display);font-style:italic;font-weight:600;font-size:22px}
-@media (min-width:900px){.about{grid-template-columns:200px 1fr;gap:48px}.portrait{width:200px;height:200px}}
+@media (min-width:900px){.portrait{width:220px;height:220px}}
 
 .voices{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:0}
 .voices li{padding:22px 0 22px 34px;border-top:1px solid var(--line);position:relative;font-size:clamp(18px, 2vw, 20px);line-height:1.6}
@@ -300,19 +310,35 @@ footer{border-top:1px solid var(--line);padding-block:28px 110px;font-size:13px;
       <h3>What is tapping?</h3>
       <p>Tapping, also called EFT, means gently tapping points on your face and body with your fingertips while you say how you feel. It tells your body you're safe, so the feeling settles and you can think clearly again. Think of it like a breathing exercise, with something for your hands to do.</p>
     </div>
+    <div class="why">
+      <div class="why-intro">
+        <h3>Why it works so fast</h3>
+        <p>When a feeling floods in, your body goes into alarm mode. Your heart races, your chest goes tight, and the words come out before you've chosen them. It's like a smoke alarm going off over a bit of burnt toast: loud, and much bigger than the moment needs. Tapping turns the alarm down.</p>
+      </div>
+      <ol class="why-steps">
+        <li><b><span>1.</span> You name it</b><p>Saying how you really feel, out loud, takes away some of its power straight away.</p></li>
+        <li><b><span>2.</span> You tap</b><p>Tapping on calming points sends your body a simple message: you're safe right now.</p></li>
+        <li><b><span>3.</span> You come back</b><p>As your body calms down, your clear thinking comes back, so you choose what you say next.</p></li>
+      </ol>
+    </div>
   </div>
   <ol class="steps wide">
     <li class="step">
       <div class="phone small" role="img" aria-label="Choosing how you feel">
         <div class="screen">
+          <div class="mini-sos">SOS now</div>
           <div class="s-label">How do you feel right now?</div>
-          <div class="s-grid">
+          <div class="s-grid mini-grid">
             <div class="s-card">I Feel Triggered</div>
             <div class="s-card b">I Feel Rejected</div>
             <div class="s-card g">Fear of Fallout</div>
             <div class="s-card">Resentment</div>
             <div class="s-card b">Find Your Voice</div>
             <div class="s-card g">Releasing the Blame Game</div>
+            <div class="s-card">Everything Feels Negative</div>
+            <div class="s-card b">Expressing Love</div>
+            <div class="s-card g">Open to Love</div>
+            <div class="s-card">Feeling Like I've Lost Myself</div>
           </div>
         </div>
       </div>
