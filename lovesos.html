@@ -74,6 +74,7 @@ section{padding-block:var(--gap-section) 0}
 }
 
 /* Phone (the product, drawn in code) */
+@media (min-width:900px){.hero .phone{width:min(390px, 100%);border-radius:50px;padding:13px}.hero .screen{border-radius:38px;padding:36px 20px 30px;gap:15px;font-size:13px}.hero .s-title{font-size:32px}.hero .s-btn{font-size:14px;padding:13px}.hero .s-label{font-size:10px}.hero .s-card{font-size:11.5px;min-height:62px}}
 .phone{width:min(300px, 100%);margin-inline:auto;background:#111;border-radius:42px;padding:11px;box-shadow:0 30px 60px -30px rgba(20,17,18,.45)}
 .phone.small{width:min(230px, 100%);border-radius:34px;padding:9px}
 .screen{background:var(--bg);border-radius:32px;overflow:hidden;padding:30px 16px 26px;display:flex;flex-direction:column;gap:12px;font-size:11px;line-height:1.4}
@@ -137,7 +138,7 @@ section{padding-block:var(--gap-section) 0}
 .item h3{font-size:20px;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
 .tag{font-family:var(--body);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;background:var(--pink);color:var(--ink);padding:3px 10px;border-radius:999px}
 .item p{color:var(--muted)}
-.kit-img{display:block;margin:40px auto 0;border-radius:16px;max-width:100%;height:auto}
+.kit-img{display:block;margin:40px auto 0;mix-blend-mode:multiply;max-width:100%;height:auto}
 
 /* About */
 .about{display:grid;gap:32px;margin-top:40px;align-items:start}
@@ -147,10 +148,11 @@ section{padding-block:var(--gap-section) 0}
 .sign{font-family:var(--display);font-style:italic;font-weight:600;font-size:22px}
 @media (min-width:900px){.about{grid-template-columns:200px 1fr;gap:48px}.portrait{width:200px;height:200px}}
 
-.voices{list-style:none;padding:0;margin:56px 0 0;display:grid;gap:16px}
-.voices li{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:24px;font-family:var(--display);font-style:italic;font-weight:600;font-size:18px;line-height:1.45}
-.voices-label{margin-top:56px}
-@media (min-width:900px){.voices{grid-template-columns:repeat(3,1fr)}}
+.voices{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:0}
+.voices li{padding:22px 0 22px 34px;border-top:1px solid var(--line);position:relative;font-size:clamp(18px, 2vw, 20px);line-height:1.6}
+.voices li:last-child{border-bottom:1px solid var(--line)}
+.voices li::before{content:"\201C";position:absolute;left:0;top:10px;font-family:var(--display);font-size:46px;line-height:1;color:var(--pink)}
+.voices-label{margin-top:64px}
 
 /* Price */
 .price{max-width:480px;margin:44px auto 0;background:var(--paper);border:1.5px solid var(--pink);border-radius:22px;padding:36px 30px 30px;text-align:center;box-shadow:0 24px 50px -32px rgba(194,64,90,.45)}
@@ -394,9 +396,9 @@ footer{border-top:1px solid var(--line);padding-block:28px 110px;font-size:13px;
     </div>
     <p class="eyebrow center voices-label">What clients say about working with Nicky</p>
     <ul class="voices">
-      <li>"I feel happier, calmer, there's been positive changes at home."</li>
-      <li>"Today I found myself feeling happy and light. I haven't felt that in months and months."</li>
-      <li>"I truly thought hope for the future and a zest for life were gone to me, but I now realise they are not."</li>
+      <li>I feel happier, calmer, there's been positive changes at home.</li>
+      <li>Today I found myself feeling happy and light. I haven't felt that in months and months.</li>
+      <li>I truly thought hope for the future and a zest for life were gone to me, but I now realise they are not.</li>
     </ul>
   </div>
 </section>
