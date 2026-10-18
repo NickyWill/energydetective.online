@@ -57,18 +57,24 @@ section{padding-block:var(--gap-section) 0}
 
 /* HERO */
 .hero{padding-block:clamp(40px, 7vw, 88px) 0}
-.hero-grid{display:grid;gap:48px;align-items:center}
-.hero-copy{display:flex;flex-direction:column;gap:22px;align-items:center;text-align:center}
+.hero-top{display:flex;flex-direction:column;gap:20px;align-items:center;text-align:center;max-width:860px;margin-inline:auto}
+.hero-grid{display:grid;gap:44px;align-items:center;margin-top:52px}
+.hero-copy{display:flex;flex-direction:column;gap:22px}
+.hero-cta{display:flex;flex-direction:column;gap:14px;align-items:center;margin-top:52px}
+.hero-cta .btn{width:100%;max-width:420px}
+.has{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.has li{display:grid;grid-template-columns:20px 1fr;gap:12px;align-items:start;font-weight:500}
+.has svg{margin-top:6px}
+.anywhere{color:var(--muted);border-left:3px solid var(--pink);padding-left:16px}
 .brand{font-family:var(--display);font-weight:800;font-size:26px;line-height:1}
-.hero h1{font-size:clamp(38px, 6vw, 60px)}
+.hero h1{font-size:clamp(38px, 6.2vw, 68px)}
 .hero h1 em{font-style:italic;font-weight:600;color:var(--pink)}
-.hero .lead{max-width:34ch}
+.hero .lead{max-width:36ch}
 .gets{list-style:none;padding:0;margin:4px 0 0;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:460px}
 .gets li{font-size:14px;font-weight:500;padding:7px 14px;border:1px solid var(--line);background:var(--paper);border-radius:999px}
 .hero-copy .btn{width:100%;max-width:420px}
 @media (min-width:900px){
-  .hero-grid{grid-template-columns:1.1fr .9fr;gap:64px}
-  .hero-copy .btn{max-width:380px}
+  .hero-grid{grid-template-columns:1fr 1fr;gap:72px}
 }
 
 /* Phone (the product, drawn in code) */
@@ -99,9 +105,8 @@ section{padding-block:var(--gap-section) 0}
 
 /* Pain */
 .quotes{list-style:none;padding:0;margin:44px 0 0;display:grid;gap:0}
-.quotes li{padding:22px 0 22px 34px;border-top:1px solid var(--line);position:relative}
+.quotes li{padding:22px 0;border-top:1px solid var(--line);position:relative;font-size:clamp(18px, 2vw, 19px)}
 .quotes li:last-child{border-bottom:1px solid var(--line)}
-.quotes li::before{content:"\201C";position:absolute;left:0;top:10px;font-family:var(--display);font-size:46px;line-height:1;color:var(--pink)}
 @media (min-width:900px){
   .quotes{grid-template-columns:1fr 1fr;column-gap:56px}
   .quotes li:nth-last-child(2){border-bottom:1px solid var(--line)}
@@ -141,10 +146,10 @@ section{padding-block:var(--gap-section) 0}
 .shifts span{color:var(--muted)}
 
 /* Inside */
-.inside{margin-top:44px;background:var(--paper);border:1px solid var(--line);border-radius:20px;overflow:hidden}
-.item{display:grid;grid-template-columns:1fr;gap:6px;padding:24px 26px;border-top:1px solid var(--line)}
-.item:first-child{border-top:0}
-.item h3{font-size:20px;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.inside{margin-top:44px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.item{display:flex;flex-direction:column;align-items:center;gap:8px;max-width:540px;padding-block:6px}
+.item+.item::before{content:"";display:block;width:18px;height:18px;margin:22px auto 26px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c2 0 3.5 1.2 5.5 3 2-1.8 3.5-3 5.5-3C21 5 23.5 8.5 21.5 12.5 19 16.65 12 21 12 21z' fill='%23FC889B'/%3E%3C/svg%3E") center/contain no-repeat}
+.item h3{font-size:22px;display:flex;flex-direction:column;align-items:center;gap:10px}
 .tag{font-family:var(--body);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;background:var(--pink);color:var(--ink);padding:3px 10px;border-radius:999px}
 .item p{color:var(--muted)}
 .kit-img{display:block;margin:40px auto 0;mix-blend-mode:multiply;max-width:100%;height:auto}
@@ -239,21 +244,22 @@ footer{border-top:1px solid var(--line);padding-block:28px 110px;font-size:13px;
 
 <!-- HERO -->
 <header class="hero wrap">
+  <div class="hero-top">
+    <svg class="heart" aria-hidden="true"><use href="#spotted"/></svg>
+    <p class="eyebrow">For women who keep the peace, until they can't</p>
+    <p class="brand">Love SOS</p>
+    <h1>Calm down in minutes, before you say something you'll <em>regret</em></h1>
+  </div>
   <div class="wide hero-grid">
     <div class="hero-copy">
-      <svg class="heart" aria-hidden="true"><use href="#spotted"/></svg>
-      <p class="eyebrow">For women who keep the peace, until they can't</p>
-      <p class="brand">Love SOS</p>
-      <h1>Calm down in minutes, before you say something you'll <em>regret</em></h1>
-      <p class="lead">Simple tapping on your phone that takes the heat out of the moment, so you can say what you mean instead of what you'll regret.</p>
-      <ul class="gets" aria-label="What you get">
-        <li>Emergency Emotional Reset</li>
-        <li>10 tapping scripts</li>
-        <li>3 short videos</li>
-        <li>Relationship Wheel of Life</li>
+      <p class="lead">Simple, interactive tapping on your phone that takes the heat out of the moment, so you can say what you mean instead of what you'll regret.</p>
+      <ul class="has" aria-label="What you get">
+        <li><svg width="16" height="16" aria-hidden="true"><use href="#mini"/></svg>The Emergency Emotional Reset, for when it's all too much</li>
+        <li><svg width="16" height="16" aria-hidden="true"><use href="#mini"/></svg>10 tapping scripts for real relationship moments</li>
+        <li><svg width="16" height="16" aria-hidden="true"><use href="#mini"/></svg>3 short videos showing you how</li>
+        <li><svg width="16" height="16" aria-hidden="true"><use href="#mini"/></svg>Your personalised Relationship Wheel of Life</li>
       </ul>
-      <a class="btn buy" href="#buy">Get Love SOS for $7</a>
-      <p class="reassure"><span>Instant access</span><span>Opens on your phone</span><span>7-day money-back guarantee</span></p>
+      <p class="anywhere">Use it anywhere: in the kitchen after the row, in the car before you go home, or in bed while he's snoring next to you.</p>
     </div>
     <div>
       <div class="phone" role="img" aria-label="The Love SOS home screen, with the SOS now button and feeling cards">
@@ -276,6 +282,10 @@ footer{border-top:1px solid var(--line);padding-block:28px 110px;font-size:13px;
       </div>
     </div>
   </div>
+  <div class="hero-cta">
+    <a class="btn buy" href="#buy">Get Love SOS for $7</a>
+    <p class="reassure"><span>Instant access</span><span>Opens on your phone</span><span>7-day money-back guarantee</span></p>
+  </div>
 </header>
 
 <!-- PAIN -->
@@ -297,7 +307,7 @@ footer{border-top:1px solid var(--line);padding-block:28px 110px;font-size:13px;
 <section class="wrap">
   <div class="col turn">
     <svg class="heart sm" aria-hidden="true"><use href="#mini"/></svg>
-    <p>It's never really about who washed the dishes. It's years of held-in feelings arriving all at once. <span>Love SOS gives you a way to catch them.</span></p>
+    <p>It's never really about who washed the dishes. It's years of pent-up emotions arriving all at once. <span>Love SOS gives you a way to catch them.</span></p>
   </div>
 </section>
 
@@ -305,7 +315,7 @@ footer{border-top:1px solid var(--line);padding-block:28px 110px;font-size:13px;
 <section class="wrap">
   <div class="col center">
     <h2 class="h2">Introducing Love SOS</h2>
-    <p class="lead" style="margin-top:20px">Your calm-down kit for the moments in your relationship that get to you. Open it in the kitchen, the bathroom, the car, or in the five minutes before you reply.</p>
+    <p class="lead" style="margin-top:20px">Your interactive calm-down kit for the moments in your relationship that get to you. It walks you through every step on your phone, so you don't have to think when you can't think straight. Use it in the kitchen after the row, in the car before you go home from work, or in bed while he's snoring next to you.</p>
     <div class="tap-box" style="text-align:left">
       <h3>What is tapping?</h3>
       <p>Tapping, also called EFT, means gently tapping points on your face and body with your fingertips while you say how you feel. It tells your body you're safe, so the feeling settles and you can think clearly again. Think of it like a breathing exercise, with something for your hands to do.</p>
