@@ -79,9 +79,9 @@ main > section:nth-of-type(3n){background:var(--bg)}
 .gets li{font-size:14px;font-weight:500;padding:7px 14px;border:1px solid var(--line);background:var(--paper);border-radius:999px}
 .hero-copy .btn{width:100%;max-width:420px}
 @media (min-width:900px){
-  .hero-grid{grid-template-columns:1fr 1fr;gap:64px;margin-top:22px;max-width:980px}
-  .hero{padding-block:28px 0}
-  .hero-top{gap:14px;max-width:760px}
+  .hero-grid{grid-template-columns:1fr 1fr;gap:80px;margin-top:56px;max-width:960px}
+  .hero{padding-block:56px 0}
+  .hero-top{gap:20px;max-width:760px}
   .hero-top h1{max-width:620px;font-size:clamp(40px, 3.4vw, 50px)}
   .hero-top .heart{width:30px;height:30px}
   .hero-top .brand{font-size:22px}
@@ -91,8 +91,8 @@ main > section:nth-of-type(3n){background:var(--bg)}
   .has{gap:8px}
   .has li{font-size:16px}
   .anywhere{font-size:15px}
-  .hero-cta{margin-top:20px;gap:10px}
-  .hero .phone{max-height:300px;overflow:hidden;-webkit-mask-image:linear-gradient(#000 70%, transparent);mask-image:linear-gradient(#000 70%, transparent);width:min(340px, 100%)}
+  .hero-cta{margin-top:56px;gap:14px}
+  .hero .phone{max-height:400px;overflow:hidden;-webkit-mask-image:linear-gradient(#000 70%, transparent);mask-image:linear-gradient(#000 70%, transparent);width:min(340px, 100%)}
 }
 
 /* Phone (the product, drawn in code) */
@@ -222,6 +222,16 @@ footer{border-top:1px solid var(--line);padding-block:28px 110px;font-size:13px;
 <!-- BUY LINK: swap #buy for the ThriveCart checkout link here once, it updates every button -->
 <script>window.LOVE_SOS_BUY = "#buy";</script>
 
+<!-- THRIVECART POP-UP: every "Get Love SOS for $7" button opens this checkout as a pop-up.
+     These settings come from your ThriveCart embed code for Love SOS (product 50). -->
+<script>
+window.LOVE_SOS_THRIVECART = {
+  account: "nickywilliams",
+  product: "50",
+  modalOpts: {"style_modal_width":"40","style_content_border_radius":"0.5","attr_modal_background":"on","style_modal_background_color":"#000000","style_modal_background_opacity":"40","attr_modal_blur":"off","attr_content_shadow":"off"}
+};
+</script>
+
 <meta name="description" content="Calm down in minutes, before you say something you'll regret.">
 <link rel="canonical" href="https://energydetective.online/lovesos">
 
@@ -276,7 +286,6 @@ footer{border-top:1px solid var(--line);padding-block:28px 110px;font-size:13px;
         <li><svg width="16" height="16" aria-hidden="true"><use href="#mini"/></svg>3 short videos showing you how</li>
         <li><svg width="16" height="16" aria-hidden="true"><use href="#mini"/></svg>Your personalised Relationship Wheel of Life</li>
       </ul>
-      <p class="anywhere">Use it anywhere: in the kitchen after the row, in the car before you go home, or in bed while he's snoring next to you.</p>
     </div>
     <div>
       <div class="phone" role="img" aria-label="The Love SOS home screen, with the SOS now button and feeling cards">
@@ -528,6 +537,35 @@ footer{border-top:1px solid var(--line);padding-block:28px 110px;font-size:13px;
     bar.classList.toggle("show", visible.size === 0);
   });
   mains.forEach(function(m){ io.observe(m); });
+})();
+</script>
+
+<script>
+/* ThriveCart pop-up: a hidden ThriveCart button does the work, and every buy button on the page clicks it */
+(function(){
+  var TC = window.LOVE_SOS_THRIVECART;
+  if (!TC || !TC.account || !TC.product) return;
+  var w = document.createElement("div");
+  w.className = "builder-v2-widget tc-v2-widget-embeddable_button tc-v2-embeddable-trigger";
+  w.setAttribute("data-widget-layout", "embeddable_button");
+  w.setAttribute("data-thrivecart-account", TC.account);
+  w.setAttribute("data-thrivecart-tpl", "v2");
+  w.setAttribute("data-thrivecart-product", TC.product);
+  w.setAttribute("data-thrivecart-modal", "on");
+  w.setAttribute("data-thrivecart-modal-opts", JSON.stringify(TC.modalOpts || {}));
+  w.setAttribute("aria-hidden", "true");
+  w.style.cssText = "position:absolute;left:-9999px;top:0;width:1px;height:1px;overflow:hidden";
+  w.innerHTML = '<div data-size="auto" data-style="rounded" data-align="center" data-block="embeddable_button" class="builder-v2-block builder-v2-block-embeddable_button"><button type="button" tabindex="-1" class="tc-v2-embeddable-trigger-el button"><span class="builder-v2-block builder-v2-block-plaintext" data-block="plaintext">Get Love SOS</span></button></div>';
+  document.body.appendChild(w);
+  var s = document.createElement("script");
+  s.async = true; s.src = "https://tinder.thrivecart.com/embed/v2/thrivecart.js";
+  document.body.appendChild(s);
+  document.addEventListener("click", function(e){
+    var a = e.target.closest && e.target.closest("a.buy");
+    if (!a) return;
+    e.preventDefault();
+    w.querySelector("button").click();
+  });
 })();
 </script>
 </body>
