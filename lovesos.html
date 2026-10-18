@@ -88,7 +88,7 @@
   .top { padding-top: 44px; text-align: center; }
   .callout { font-size: 12px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 14px; }
   h1 { font-size: 40px; line-height: 1.06; }
-  h1 .h1-brand { display: block; font-size: 0.72em; margin-bottom: 6px; }
+  .name { font-family: var(--serif); font-weight: 800; font-size: 29px; line-height: 1.1; margin-bottom: 8px !important; }
   h1 em { font-style: italic; color: var(--pink); }
   .summary { margin-top: 18px; font-size: 17px; line-height: 1.6; }
   .under-btn { margin-top: 14px; font-size: 13px; font-weight: 500; line-height: 1.5; text-wrap: balance; }
@@ -194,6 +194,15 @@
   footer { margin-top: 48px; padding: 28px 0 40px; border-top: 1.5px solid var(--blush); font-size: 13px; text-align: center; }
   footer a { color: var(--black); }
 
+  /* Everything left aligned, on phone and computer. Only the price card stays centred inside its box. */
+  .top, .center, .pain-close, .intro-p, .final, footer { text-align: left !important; }
+  .heart { margin-left: 0 !important; margin-right: 0 !important; }
+  .nicky { margin-left: 0 !important; margin-right: 0 !important; }
+  .pic.chart img { margin-left: 0 !important; }
+  .pic.phone, .tablet { margin-left: 0 !important; margin-right: auto !important; }
+  .under-btn { text-wrap: pretty; }
+  .callout { text-wrap: balance; }
+
   /* Slim bar at the bottom of the screen on phones */
   .bar {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
@@ -211,6 +220,7 @@
     .wrap { padding-left: 32px; padding-right: 32px; }
     .top { padding-top: 72px; }
     h1 { font-size: 58px; }
+    .name { font-size: 40px; }
     h2 { font-size: 40px; margin-bottom: 28px; }
     h3 { font-size: 22px; }
     .heart { width: 64px; }
@@ -236,16 +246,17 @@
   <section class="top">
     <div class="wrap">
       <svg class="heart" viewBox="0 0 100 92" aria-hidden="true" focusable="false"><path d="M50.5 88.5C35 76 9 58.5 6.2 35.8 4 17.6 15.6 5.4 29.4 5.6c9.6.2 16.8 6.4 20.6 14.6C54.2 11.4 61.8 4.6 72.2 4.4 85.8 4.2 96.4 15.8 94.6 33.4 92.4 56.2 67 75.6 50.5 88.5Z" fill="#000000"/><g fill="#FFFFFF"><ellipse cx="24" cy="24" rx="2.6" ry="2.2"/><ellipse cx="38" cy="33" rx="2.1" ry="2.5"/><ellipse cx="17" cy="41" rx="2.2" ry="2"/><ellipse cx="31" cy="50" rx="2.6" ry="2.3"/><ellipse cx="72" cy="20" rx="2.3" ry="2.6"/><ellipse cx="58" cy="30" rx="2.5" ry="2.2"/><ellipse cx="82" cy="35" rx="2.1" ry="2"/><ellipse cx="66" cy="45" rx="2.6" ry="2.4"/><ellipse cx="48" cy="52" rx="2" ry="2.3"/><ellipse cx="44" cy="68" rx="2.4" ry="2.1"/><ellipse cx="58" cy="63" rx="1.8" ry="1.9"/><ellipse cx="76" cy="54" rx="1.6" ry="1.7"/></g></svg>
-      <p class="callout">For women who love their partner, but not how they react</p>
-      <h1><span class="h1-brand">Love SOS:</span> calm down in minutes, before you say something you'll <em>regret</em></h1>
-      <p class="summary">Simple tapping that calms the rush in minutes, right on your phone. Think of it like a breathing exercise, with something for your hands to do. Pick how you feel and it walks you through every step, even if you've never tapped before.</p>
+      <p class="callout">For women who keep the peace, until they can't</p>
+      <p class="name">Love SOS</p>
+      <h1>Calm down in minutes, before you say something you'll <em>regret</em></h1>
+      <p class="summary">Simple tapping on your phone that takes the heat out of the moment, so you can say what you mean instead of what you'll regret. Think of it like a breathing exercise, with something for your hands to do. Pick how you feel and it walks you through every step, even if you've never tapped before.</p>
       <p class="summary" style="margin-top:14px">10 scripts, an Emergency Emotional Reset, 3 videos and your personalised Relationship Wheel of Life.</p>
       <a class="buy main-buy" href="#buy">Get Love SOS for $7</a>
       <p class="under-btn">Instant access • Opens on your phone • 7-day money-back guarantee</p>
       <figure class="shot">
         <picture>
           <source srcset="assets/lovesos/lovesos-kit.webp" type="image/webp">
-          <img src="assets/lovesos/lovesos-kit.jpg" width="610" height="405" alt="The Love SOS kit on screen: tapping rounds, the feelings cards, the three videos and the Relationship Wheel of Life" fetchpriority="high">
+          <img src="assets/lovesos/lovesos-kit.jpg" width="610" height="352" alt="The Love SOS kit on screen: tapping rounds, the feelings cards, the three videos and the Relationship Wheel of Life" fetchpriority="high">
         </picture>
       </figure>
     </div>
@@ -255,13 +266,13 @@
   <section class="sec">
     <div class="wrap">
       <h2 class="center">If any of this sounds like you</h2>
-      <blockquote class="pain"><p>"I've read that message ten times. It was only four words, but it felt like a whole rejection."</p></blockquote>
-      <blockquote class="pain"><p>"He asked if I was okay. I said 'fine'. Not angry fine. The kind that means I don't have the energy to explain this again."</p></blockquote>
-      <blockquote class="pain"><p>"I exploded about the mugs. But it wasn't the mugs. It was three months of feeling like I was the only one noticing things."</p></blockquote>
-      <blockquote class="pain"><p>"I started to bring something up, saw his face change, and said 'never mind'. Then I resented him for letting me drop it."</p></blockquote>
-      <blockquote class="pain"><p>"I said 'do whatever you want'. What I meant was: please choose me without me having to ask."</p></blockquote>
-      <blockquote class="pain"><p>"I said I was tired. I was tired. But I was also hurt, and scared that if I said the real thing, it would turn into another argument."</p></blockquote>
-      <p class="pain-close">It's never really about the mugs. It's the feeling underneath, arriving faster than you can catch it. Love SOS gives you a way to catch it.</p>
+      <blockquote class="pain"><p>"He asked what was wrong. I said 'nothing'. Then I lay awake replaying it until 3am."</p></blockquote>
+      <blockquote class="pain"><p>"I snapped about who washed the dishes. It wasn't the dishes. It was years of being the one who notices everything."</p></blockquote>
+      <blockquote class="pain"><p>"I bite my tongue to keep the peace. Then it all comes out at once, over something tiny."</p></blockquote>
+      <blockquote class="pain"><p>"I sat right next to him on the sofa and felt completely alone."</p></blockquote>
+      <blockquote class="pain"><p>"I said 'it's fine, I'll do it' for the hundredth time, and something in me went quiet."</p></blockquote>
+      <blockquote class="pain"><p>"I heard myself shouting and thought: who is this woman? I don't recognise myself."</p></blockquote>
+      <p class="pain-close">It's never really about who washed the dishes. It's years of held-in feelings arriving all at once, faster than you can catch them. Love SOS gives you a way to catch them.</p>
     </div>
   </section>
 
@@ -269,11 +280,11 @@
   <section class="sec">
     <div class="wrap">
       <h2 class="center">What actually shifts</h2>
-      <div class="shift"><h3>The rush settles in minutes</h3><p>That hot, tight, about-to-say-it feeling calms down, so you can choose what happens next.</p></div>
-      <div class="shift"><h3>You catch it before it comes out</h3><p>When the feeling arrives, you know exactly what to do with your hands and your words.</p></div>
-      <div class="shift"><h3>You say the real thing</h3><p>"I felt left out" instead of three months of mugs.</p></div>
-      <div class="shift"><h3>You're back in minutes, not hours</h3><p>No two-hour silence. Three short rounds of tapping and you're back in the room.</p></div>
-      <div class="shift"><h3>You stop saying "never mind"</h3><p>You bring it up calmly, and you don't drop it when their face changes.</p></div>
+      <div class="shift"><h3>You calm down before you say it</h3><p>That hot, tight feeling in your chest settles, and you get to choose your words.</p></div>
+      <div class="shift"><h3>You say what you actually mean</h3><p>"I feel invisible" instead of a row about the dishes.</p></div>
+      <div class="shift"><h3>No more lying awake replaying it</h3><p>You deal with it in the moment, so it doesn't follow you to bed.</p></div>
+      <div class="shift"><h3>You stop biting your tongue</h3><p>You can bring things up calmly, without it all coming out at once.</p></div>
+      <div class="shift"><h3>You feel more like yourself again</h3><p>Less snapping, less shutting down. More of the woman you know you are.</p></div>
       <div class="shift"><h3>You can see it working</h3><p>Rate how strong the feeling is before and after. Seeing it come down tells you your body is settling.</p></div>
       <div class="shift"><h3>You know where to start</h3><p>Your personalised Relationship Wheel of Life shows which part of your relationship needs care first, and which script to use.</p></div>
       <a class="buy main-buy" href="#buy">Get Love SOS for $7</a>
@@ -284,7 +295,7 @@
   <section class="sec">
     <div class="wrap">
       <h2 class="center">Introducing Love SOS</h2>
-      <p class="intro-p">Your calm-down kit for real relationship moments. Open it in the kitchen, the bathroom, the car, or in the five minutes before you reply. It walks you through every step, so you don't have to think when you can't think straight.</p>
+      <p class="intro-p">Your calm-down kit for the moments in your relationship that get to you. Open it in the kitchen, the bathroom, the car, or in the five minutes before you reply. It walks you through every step, so you don't have to think when you can't think straight.</p>
       <div class="whatis">
         <h3>What is tapping?</h3>
         <p>Tapping, also called EFT, means gently tapping points on your face and body with your fingertips while you say how you feel. It tells your body you're safe, so the rush settles and you can think clearly again. It takes a few minutes, and you can do it anywhere.</p>
