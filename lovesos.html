@@ -138,6 +138,9 @@ main > section:nth-of-type(3n){background:var(--bg)}
 /* How it works */
 .tap-box{margin-top:32px;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:26px 26px 24px}
 .tap-box h3{font-size:20px;margin-bottom:8px}
+.video{margin-top:36px}
+.video-frame{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:18px;overflow:hidden;background:var(--ink);box-shadow:0 24px 50px -30px rgba(20,17,18,.5)}
+.video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .why{margin-top:16px;display:grid;gap:14px;text-align:left}
 .why-intro{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:26px}
 .why-intro h3{font-size:20px;margin-bottom:8px}
@@ -220,7 +223,9 @@ footer{border-top:1px solid var(--line);padding-block:28px 110px;font-size:13px;
 </style>
 
 <!-- BUY LINK: swap #buy for the ThriveCart checkout link here once, it updates every button -->
-<script>window.LOVE_SOS_BUY = "#buy";</script>
+<script>window.LOVE_SOS_BUY = "#buy";
+/* WALKTHROUGH VIDEO: paste the YouTube link between the quotes. Leave empty to hide the video. */
+window.LOVE_SOS_VIDEO = "https://youtu.be/c1fmUMZcxAM";</script>
 
 <!-- THRIVECART POP-UP: every "Get Love SOS for $7" button opens this checkout as a pop-up.
      These settings come from your ThriveCart embed code for Love SOS (product 50). -->
@@ -342,6 +347,7 @@ window.LOVE_SOS_THRIVECART = {
   <div class="col center">
     <h2 class="h2">Introducing Love SOS</h2>
     <p class="lead" style="margin-top:20px">Your interactive calm-down kit for the moments in your relationship that get to you. It walks you through every step on your phone, so you don't have to think when you can't think straight. Use it in the kitchen after the row, in the car before you go home from work, or in bed while he's snoring next to you.</p>
+    <div class="video" id="walkthrough"><p class="eyebrow" style="margin-bottom:12px">See inside Love SOS</p><div class="video-frame"></div></div>
     <div class="tap-box" style="text-align:left">
       <h3>What is tapping?</h3>
       <p>Tapping, also called EFT, means gently tapping points on your face and body while you say how you feel. It calms your nervous system in minutes, so you can think clearly again and say what you actually mean.</p>
@@ -450,8 +456,9 @@ window.LOVE_SOS_THRIVECART = {
       <div class="portrait"><img src="assets/lovesos/nicky.jpg" alt="Nicky Williams" onerror="this.remove()">N</div>
       <div class="stack">
         <p>Hi, I'm Nicky. I'm an energy practitioner and a certified EFT Practitioner with EFT International, and I've helped clients clear over 56,000 emotions.</p>
-        <p>In my sessions, the same thing comes up again and again. A client tells me about the argument, and it's never really about the argument. It's an old feeling that got there first, before she had a chance to choose her words.</p>
-        <p>I can clear what sits underneath in a session. But I wanted women to have something for the moment itself. Something in their pocket for when the feeling hits and they're about to say the thing they can't take back.</p>
+        <p>I know these moments from the inside too. My partner shows his love by doing things. He built me an office and a gym. I need to hear it. For a long time that gap left me feeling unseen, and the feeling always arrived long before the right words did.</p>
+        <p>I still use the Emergency Emotional Reset every week. Not because something's wrong, but because that's what real relationships are like. It's how I come back to myself before I say something I don't mean.</p>
+        <p>In my sessions, I see the same thing again and again. It's never really about the argument. It's an old feeling that got there first. I can clear what sits underneath in a session, but I wanted women to have something for the moment itself.</p>
         <p>That's why I made Love SOS: the tapping I'd walk you through myself, ready on your phone whenever you need it.</p>
         <p class="sign">Nicky xoxo</p>
       </div>
@@ -493,6 +500,7 @@ window.LOVE_SOS_THRIVECART = {
     <h2 class="h2 center">What people ask before they buy</h2>
     <div class="faq">
       <details open><summary>What is tapping, and does it actually work?</summary><p>Tapping (EFT) is a simple technique where you tap points on your face and body while naming what you feel. It's used by practitioners around the world to calm stress and big emotions. Most people feel a difference the first time they try it.</p></details>
+      <details><summary>Does my partner need to do anything?</summary><p>No. Love SOS is just for you. He doesn't need to know, join in or change anything. When you feel calmer, the whole conversation changes anyway.</p></details>
       <details><summary>How do I get it?</summary><p>Straight after you buy, you'll get your link and password, on screen and by email. It opens on your phone, tablet or computer.</p></details>
       <details><summary>I've never done tapping before. Will this work for me?</summary><p>Yes. The videos show you exactly where to tap and what to do, and the kit walks you through each round. Most people find it surprisingly simple.</p></details>
       <details><summary>How long does each script take?</summary><p>A few minutes. Three short rounds, with a breath in between. About the time it takes to boil the kettle.</p></details>
@@ -508,6 +516,7 @@ window.LOVE_SOS_THRIVECART = {
   <div class="col close">
     <svg class="heart" aria-hidden="true"><use href="#spotted"/></svg>
     <h2>If it stops one argument you'd regret, is $7 an obvious yes?</h2>
+    <p class="lead" style="max-width:32ch">The next time it starts to build, you'll have somewhere to go.</p>
     <a class="btn buy full" href="#buy" style="max-width:420px">Get Love SOS for $7</a>
     <p class="reassure"><span>Instant access</span><span>7-day money-back guarantee</span></p>
   </div>
@@ -520,6 +529,15 @@ window.LOVE_SOS_THRIVECART = {
 <div class="sticky" id="sticky"><a class="btn buy full" href="#buy">Get Love SOS for $7</a></div>
 
 <script>
+(function(){
+  var v = (window.LOVE_SOS_VIDEO || "").trim();
+  var box = document.getElementById("walkthrough");
+  var m = v.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/);
+  if (box) {
+    if (m) { var f = document.createElement("iframe"); f.src = "https://www.youtube-nocookie.com/embed/" + m[1] + "?rel=0"; f.title = "See inside Love SOS"; f.allow = "encrypted-media; picture-in-picture"; f.allowFullscreen = true; box.querySelector(".video-frame").appendChild(f); }
+    else { box.remove(); }
+  }
+})();
 (function(){
   var link = window.LOVE_SOS_BUY || "#buy";
   document.querySelectorAll("a.buy").forEach(function(a){ a.setAttribute("href", link); });
