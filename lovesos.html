@@ -227,7 +227,9 @@ footer{border-top:1px solid var(--line);padding-block:28px 110px;font-size:13px;
 <!-- BUY LINK: swap #buy for the ThriveCart checkout link here once, it updates every button -->
 <script>window.LOVE_SOS_BUY = "#buy";
 /* SHOWCASE VIDEO (the silent video of the tool in use): put the video file path (e.g. assets/lovesos/lovesos-showcase.mp4) or a YouTube link between the quotes. It plays silently on a loop. Leave empty to hide it. */
-window.LOVE_SOS_VIDEO = "assets/lovesos/lovesos-demo.mp4";</script>
+window.LOVE_SOS_VIDEO = "assets/lovesos/lovesos-demo.mp4";
+/* VIDEO SPEED for a video file: 1 = normal, 2 = twice as fast, 3 = three times as fast. */
+window.LOVE_SOS_VIDEO_SPEED = 3;</script>
 
 <!-- THRIVECART POP-UP: every "Get Love SOS for $7" button opens this checkout as a pop-up.
      These settings come from your ThriveCart embed code for Love SOS (product 50). -->
@@ -537,7 +539,7 @@ window.LOVE_SOS_THRIVECART = {
   var m = v.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/);
   if (box) {
     var frame = box.querySelector(".video-frame");
-    if (/\.(mp4|webm|mov)(\?|$)/i.test(v)) { var vid = document.createElement("video"); vid.src = v; vid.autoplay = true; vid.muted = true; vid.loop = true; vid.playsInline = true; vid.setAttribute("playsinline", ""); vid.setAttribute("aria-label", "Love SOS in use on a phone"); frame.appendChild(vid); }
+    if (/\.(mp4|webm|mov)(\?|$)/i.test(v)) { var vid = document.createElement("video"); vid.src = v; vid.autoplay = true; vid.muted = true; vid.loop = true; vid.playsInline = true; vid.setAttribute("playsinline", ""); vid.setAttribute("aria-label", "Love SOS in use on a phone"); var sp = Number(window.LOVE_SOS_VIDEO_SPEED) || 1; var setSp = function(){ vid.defaultPlaybackRate = sp; vid.playbackRate = sp; }; vid.addEventListener("loadedmetadata", setSp); vid.addEventListener("play", setSp); frame.appendChild(vid); }
     else if (m) { frame.classList.add("yt"); var f = document.createElement("iframe"); f.src = "https://www.youtube-nocookie.com/embed/" + m[1] + "?autoplay=1&mute=1&loop=1&playlist=" + m[1] + "&controls=0&rel=0&playsinline=1"; f.title = "Love SOS in use"; f.allow = "autoplay; encrypted-media"; frame.appendChild(f); }
     else { box.remove(); }
   }
