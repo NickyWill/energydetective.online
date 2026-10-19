@@ -139,8 +139,10 @@ main > section:nth-of-type(3n){background:var(--bg)}
 .tap-box{margin-top:32px;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:26px 26px 24px}
 .tap-box h3{font-size:20px;margin-bottom:8px}
 .video{margin-top:36px}
-.video-frame{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:18px;overflow:hidden;background:var(--ink);box-shadow:0 24px 50px -30px rgba(20,17,18,.5)}
+.video-frame{position:relative;max-width:100%;border-radius:18px;overflow:hidden;box-shadow:0 24px 50px -30px rgba(20,17,18,.5)}
+.video-frame.yt{aspect-ratio:16/9;background:var(--ink)}
 .video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-frame video{display:block;width:100%;height:auto}
 .why{margin-top:16px;display:grid;gap:14px;text-align:left}
 .why-intro{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:26px}
 .why-intro h3{font-size:20px;margin-bottom:8px}
@@ -224,8 +226,8 @@ footer{border-top:1px solid var(--line);padding-block:28px 110px;font-size:13px;
 
 <!-- BUY LINK: swap #buy for the ThriveCart checkout link here once, it updates every button -->
 <script>window.LOVE_SOS_BUY = "#buy";
-/* WALKTHROUGH VIDEO: paste the YouTube link between the quotes. Leave empty to hide the video. */
-window.LOVE_SOS_VIDEO = "https://youtu.be/c1fmUMZcxAM";</script>
+/* SHOWCASE VIDEO (the silent video of the tool in use): put the video file path (e.g. assets/lovesos/lovesos-showcase.mp4) or a YouTube link between the quotes. It plays silently on a loop. Leave empty to hide it. */
+window.LOVE_SOS_VIDEO = "assets/lovesos/lovesos-demo.mp4";</script>
 
 <!-- THRIVECART POP-UP: every "Get Love SOS for $7" button opens this checkout as a pop-up.
      These settings come from your ThriveCart embed code for Love SOS (product 50). -->
@@ -534,7 +536,9 @@ window.LOVE_SOS_THRIVECART = {
   var box = document.getElementById("walkthrough");
   var m = v.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/);
   if (box) {
-    if (m) { var f = document.createElement("iframe"); f.src = "https://www.youtube-nocookie.com/embed/" + m[1] + "?rel=0"; f.title = "See inside Love SOS"; f.allow = "encrypted-media; picture-in-picture"; f.allowFullscreen = true; box.querySelector(".video-frame").appendChild(f); }
+    var frame = box.querySelector(".video-frame");
+    if (/\.(mp4|webm|mov)(\?|$)/i.test(v)) { var vid = document.createElement("video"); vid.src = v; vid.autoplay = true; vid.muted = true; vid.loop = true; vid.playsInline = true; vid.setAttribute("playsinline", ""); vid.setAttribute("aria-label", "Love SOS in use on a phone"); frame.appendChild(vid); }
+    else if (m) { frame.classList.add("yt"); var f = document.createElement("iframe"); f.src = "https://www.youtube-nocookie.com/embed/" + m[1] + "?autoplay=1&mute=1&loop=1&playlist=" + m[1] + "&controls=0&rel=0&playsinline=1"; f.title = "Love SOS in use"; f.allow = "autoplay; encrypted-media"; frame.appendChild(f); }
     else { box.remove(); }
   }
 })();
