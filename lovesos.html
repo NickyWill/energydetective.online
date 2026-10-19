@@ -145,6 +145,9 @@ main > section:nth-of-type(3n){background:var(--bg)}
 .video-frame video{display:block;width:100%;height:auto;max-height:70vh;object-fit:contain}
 .video-frame:not(.yt){width:min(300px, 100%);margin-inline:auto;background:#111;border-radius:42px;padding:11px;box-shadow:0 30px 60px -30px rgba(20,17,18,.45)}
 .video-frame:not(.yt) video{border-radius:32px;max-height:none}
+.video-frame{position:relative}
+.play-btn{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);display:inline-flex;align-items:center;gap:10px;background:var(--pink);color:var(--ink);border:0;border-radius:999px;padding:12px 20px;font:600 15px var(--body);box-shadow:0 10px 24px -10px rgba(20,17,18,.5);cursor:pointer;white-space:nowrap}
+.play-btn span{width:0;height:0;border-left:11px solid var(--ink);border-top:7px solid transparent;border-bottom:7px solid transparent}
 @media (max-width:899px){.video-frame:not(.yt){width:min(260px, 100%)}}
 .why{margin-top:16px;display:grid;gap:14px;text-align:left}
 .why-intro{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:26px}
@@ -178,7 +181,7 @@ main > section:nth-of-type(3n){background:var(--bg)}
 .item h3{font-size:22px;display:flex;flex-direction:column;align-items:center;gap:10px}
 .tag{font-family:var(--body);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;background:var(--pink);color:var(--ink);padding:3px 10px;border-radius:999px}
 .item p{color:var(--muted)}
-.kit-img{display:block;margin:40px auto 0;mix-blend-mode:multiply;max-width:100%;height:auto}
+.kit-img{display:block;margin:40px auto 0;max-width:100%;height:auto;border-radius:18px;box-shadow:0 20px 44px -30px rgba(20,17,18,.35)}
 
 /* About */
 .about{display:flex;flex-direction:column;align-items:center;gap:32px;margin-top:40px}
@@ -536,7 +539,18 @@ window.LOVE_SOS_THRIVECART = {
   var m = v.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/);
   if (box) {
     var frame = box.querySelector(".video-frame");
-    if (/\.(mp4|webm|mov)(\?|$)/i.test(v)) { var vid = document.createElement("video"); vid.src = v; vid.autoplay = true; vid.muted = true; vid.loop = true; vid.playsInline = true; vid.setAttribute("playsinline", ""); vid.setAttribute("aria-label", "Love SOS in use on a phone"); var sp = Number(window.LOVE_SOS_VIDEO_SPEED) || 1; var setSp = function(){ vid.defaultPlaybackRate = sp; vid.playbackRate = sp; }; vid.addEventListener("loadedmetadata", setSp); vid.addEventListener("play", setSp); frame.appendChild(vid); }
+    if (/\.(mp4|webm|mov)(\?|$)/i.test(v)) { var vid = document.createElement("video"); vid.src = v; vid.autoplay = true; vid.muted = true; vid.loop = true; vid.playsInline = true; vid.setAttribute("playsinline", ""); vid.setAttribute("aria-label", "Love SOS in use on a phone"); var sp = Number(window.LOVE_SOS_VIDEO_SPEED) || 1; var setSp = function(){ vid.defaultPlaybackRate = sp; vid.playbackRate = sp; }; vid.addEventListener("loadedmetadata", setSp); vid.addEventListener("play", setSp);
+      vid.preload = "auto"; vid.setAttribute("muted", ""); vid.setAttribute("webkit-playsinline", ""); vid.setAttribute("disablepictureinpicture", "");
+      vid.poster = v.replace(/\.(mp4|webm|mov)(\?.*)?$/i, "-poster.jpg");
+      frame.appendChild(vid);
+      var btn = document.createElement("button"); btn.type = "button"; btn.className = "play-btn"; btn.hidden = true; btn.setAttribute("aria-label", "Play the video"); btn.innerHTML = "<span></span>Watch it in action"; frame.appendChild(btn);
+      var tryPlay = function(){ vid.muted = true; var pr = vid.play(); if (pr && pr.catch) { pr.then(function(){ btn.hidden = true; }).catch(function(){ btn.hidden = false; }); } };
+      btn.addEventListener("click", function(){ btn.hidden = true; vid.muted = true; vid.play(); });
+      frame.addEventListener("click", function(e){ if (e.target !== btn && vid.paused) { btn.hidden = true; vid.play(); } });
+      vid.addEventListener("pause", function(){ if (!vid.ended) btn.hidden = false; });
+      vid.addEventListener("playing", function(){ btn.hidden = true; });
+      if ("IntersectionObserver" in window) { new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting) tryPlay(); }); }, { threshold: .3 }).observe(frame); } else { tryPlay(); }
+    }
     else if (m) { frame.classList.add("yt"); var f = document.createElement("iframe"); f.src = "https://www.youtube-nocookie.com/embed/" + m[1] + "?autoplay=1&mute=1&loop=1&playlist=" + m[1] + "&controls=0&rel=0&playsinline=1"; f.title = "Love SOS in use"; f.allow = "autoplay; encrypted-media"; frame.appendChild(f); }
     else { box.remove(); }
   }
