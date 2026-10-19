@@ -142,7 +142,9 @@ main > section:nth-of-type(3n){background:var(--bg)}
 .video-frame{position:relative;max-width:100%;border-radius:18px;overflow:hidden;box-shadow:0 24px 50px -30px rgba(20,17,18,.5)}
 .video-frame.yt{aspect-ratio:16/9;background:var(--ink)}
 .video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.video-frame video{display:block;width:100%;height:auto}
+.video-frame video{display:block;width:100%;height:auto;max-height:70vh;object-fit:contain}
+.video-frame:not(.yt){width:min(380px, 100%);margin-inline:auto;box-shadow:none;border-radius:0}
+@media (max-width:899px){.video-frame:not(.yt){width:min(320px, 100%)}}
 .why{margin-top:16px;display:grid;gap:14px;text-align:left}
 .why-intro{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:26px}
 .why-intro h3{font-size:20px;margin-bottom:8px}
