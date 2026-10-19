@@ -196,6 +196,13 @@ main > section:nth-of-type(3n){background:var(--bg)}
 .voices li{padding:22px 0;border-top:1px solid var(--line);position:relative;font-size:clamp(18px, 2vw, 20px);line-height:1.6}
 .voices li:last-child{border-bottom:1px solid var(--line)}
 .voices-label{margin-top:64px}
+.proof{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:18px;grid-template-columns:1fr}
+@media (min-width:640px){.proof{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:900px){.proof.three{grid-template-columns:repeat(3,1fr)}}
+.proof li{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:10px;box-shadow:0 18px 40px -28px rgba(20,17,18,.35);transform:rotate(-1deg)}
+.proof li:nth-child(even){transform:rotate(1deg)}
+.proof img{display:block;width:100%;height:auto;border-radius:14px}
+.proof-note{margin-top:14px;font-size:13px;color:var(--muted);text-align:center}
 
 /* Price */
 .price{max-width:480px;margin:44px auto 0;background:var(--paper);border:1.5px solid var(--pink);border-radius:22px;padding:36px 30px 30px;text-align:center;box-shadow:0 24px 50px -32px rgba(194,64,90,.45)}
@@ -234,7 +241,9 @@ footer{border-top:1px solid var(--line);padding-block:28px 110px;font-size:13px;
 /* SHOWCASE VIDEO (the silent video of the tool in use): put the video file path (e.g. assets/lovesos/lovesos-showcase.mp4) or a YouTube link between the quotes. It plays silently on a loop. Leave empty to hide it. */
 window.LOVE_SOS_VIDEO = "assets/lovesos/lovesos-showcase.mp4";
 /* VIDEO SPEED for a video file: 1 = normal, 2 = twice as fast, 3 = three times as fast. */
-window.LOVE_SOS_VIDEO_SPEED = 1;</script>
+window.LOVE_SOS_VIDEO_SPEED = 1;
+/* PROOF SCREENSHOTS: list the screenshot files from Love SOS users here, e.g. ["assets/lovesos/proof-1.jpg", "assets/lovesos/proof-2.jpg"]. When this list has files in it, they replace the client quotes. Leave empty to keep the quotes. */
+window.LOVE_SOS_PROOF = [];</script>
 
 <!-- THRIVECART POP-UP: every "Get Love SOS for $7" button opens this checkout as a pop-up.
      These settings come from your ThriveCart embed code for Love SOS (product 50). -->
@@ -484,8 +493,9 @@ src="https://www.facebook.com/tr?id=655365576722795&ev=PageView&noscript=1"
         <p class="sign">Nicky xoxo</p>
       </div>
     </div>
-    <p class="eyebrow center voices-label">What clients say about working with Nicky</p>
-    <ul class="voices">
+    <div id="proof-wrap" hidden><p class="eyebrow center voices-label">What women are saying about Love SOS</p><ul class="proof" id="proof"></ul><p class="proof-note">Real messages, shared with permission.</p></div>
+    <p class="eyebrow center voices-label" id="voices-label">What clients say about working with Nicky</p>
+    <ul class="voices" id="voices">
       <li>I feel happier, calmer, there's been positive changes at home.</li>
       <li>Today I found myself feeling happy and light. I haven't felt that in months and months.</li>
       <li>I truly thought hope for the future and a zest for life were gone to me, but I now realise they are not.</li>
@@ -539,7 +549,7 @@ src="https://www.facebook.com/tr?id=655365576722795&ev=PageView&noscript=1"
   <div class="col close">
     <svg class="heart" aria-hidden="true"><use href="#spotted"/></svg>
     <h2>If it stops one argument you'd regret, is $7 an obvious yes?</h2>
-    <p class="lead" style="max-width:32ch">The next time it starts to build, you'll have somewhere to go.</p>
+    <p class="lead" style="max-width:32ch">The next time tensions rise, Love SOS will help you calm the chaos in your heart and mind.</p>
     <a class="btn buy full" href="#buy" style="max-width:420px">Get Love SOS for $7</a>
     <p class="reassure"><span>Instant access</span><span>7-day money-back guarantee</span></p>
   </div>
@@ -552,6 +562,16 @@ src="https://www.facebook.com/tr?id=655365576722795&ev=PageView&noscript=1"
 <div class="sticky" id="sticky"><a class="btn buy full" href="#buy">Get Love SOS for $7</a></div>
 
 <script>
+(function(){
+  var list = (window.LOVE_SOS_PROOF || []).filter(Boolean);
+  if (!list.length) return;
+  var ul = document.getElementById("proof");
+  list.forEach(function(src, i){ var li = document.createElement("li"); var im = document.createElement("img"); im.src = src; im.loading = "lazy"; im.alt = "Message from a Love SOS user " + (i + 1); li.appendChild(im); ul.appendChild(li); });
+  if (list.length % 3 === 0) ul.classList.add("three");
+  document.getElementById("proof-wrap").hidden = false;
+  document.getElementById("voices-label").hidden = true;
+  document.getElementById("voices").hidden = true;
+})();
 (function(){
   var v = (window.LOVE_SOS_VIDEO || "").trim();
   var box = document.getElementById("walkthrough");
