@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trigger Tracker</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,600&family=Poppins:wght@400;500;600&display=swap">
+<style>
+/* Layout: one calm phone-width column; each step is one screen; pink only for buttons and accents. */
+:root{
+  --bg:#FFF7F7; --paper:#FFFFFF; --ink:#141112; --muted:#5B5355; --line:#F3DADF;
+  --pink:#FC889B; --pink-ink:#C2405A; --blush:#FBBECA; --sage:#A7B9A0; --deep:#E8536F;
+  --display:"Playfair Display", Georgia, serif; --body:"Poppins", "Helvetica Neue", Arial, sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.app{max-width:520px;margin:0 auto;min-height:100%;padding:28px max(20px, env(safe-area-inset-right, 0px)) 60px max(20px, env(safe-area-inset-left, 0px))}
+h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.15;margin:0;text-wrap:balance}
+h1{font-size:34px} h2{font-size:27px} h3{font-size:20px}
+p{margin:0}
+h1:focus,h2:focus{outline:none}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.stack{display:flex;flex-direction:column;gap:18px}
+.center{text-align:center}
+.heart{width:34px;height:34px;display:block}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.brand{font-family:var(--display);font-weight:800;font-size:20px}
+.daypill{font-size:13px;font-weight:600;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:5px 12px}
+.btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:56px;padding:14px 22px;background:var(--pink);color:var(--ink);font:600 17px var(--body);border:0;border-radius:14px;cursor:pointer;text-decoration:none;text-align:center}
+.btn.ghost{background:var(--paper);border:1.5px solid var(--ink)}
+.btn.soft{background:var(--paper);border:1px solid var(--line);font-weight:500}
+.btn:focus-visible,.opt:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.link{background:none;border:0;padding:0;font:500 15px var(--body);color:var(--ink);text-decoration:underline;cursor:pointer}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:22px}
+.card.pink{background:var(--blush);border-color:transparent}
+.opts{display:grid;gap:10px}
+.opts.two{grid-template-columns:1fr 1fr}
+.opt{display:block;width:100%;text-align:left;background:var(--paper);border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;font:500 16px var(--body);color:var(--ink);cursor:pointer;line-height:1.35}
+.opt.on{border-color:var(--ink);background:var(--blush)}
+.progress{display:flex;gap:6px;margin-bottom:20px}
+.progress i{flex:1;height:4px;border-radius:4px;background:var(--line)}
+.progress i.on{background:var(--pink)}
+input[type=text],input[type=password],input[type=number],textarea{width:100%;font:16px var(--body);padding:14px 16px;border:1.5px solid var(--line);border-radius:14px;background:var(--paper);color:var(--ink)}
+textarea{min-height:110px;resize:vertical}
+input:focus,textarea:focus{outline:2px solid var(--pink);border-color:var(--pink)}
+.score{font-family:var(--display);font-weight:800;font-size:56px;line-height:1;text-align:center}
+.scorelab{text-align:center;color:var(--muted);margin-top:4px}
+input[type=range]{width:100%;accent-color:var(--pink);height:32px}
+.ends{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+.row{display:flex;gap:10px}
+.row>*{flex:1}
+/* journal */
+.journal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.jday{background:var(--paper);border:1px solid var(--line);border-radius:10px;min-height:92px;padding:6px 4px;display:flex;flex-direction:column;align-items:center;gap:4px}
+.jday b{font-size:11px;color:var(--muted);font-weight:600}
+.jday.today{border-color:var(--pink)}
+.dots{display:flex;flex-wrap:wrap;gap:3px;justify-content:center}
+.dot{width:11px;height:11px;border-radius:50%;display:block}
+.s1{background:var(--sage)}.s2{background:var(--blush)}.s3{background:var(--pink)}.s4{background:var(--deep)}
+.key{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--muted);justify-content:center}
+.key span{display:inline-flex;align-items:center;gap:5px}
+.reveal{border-left:0}
+.reveal .eyebrow{color:var(--pink-ink)}
+.big{font-family:var(--display);font-weight:800;font-size:24px;line-height:1.2}
+.big em{font-style:normal;color:var(--pink-ink)}
+.stat{font-family:var(--display);font-weight:800;font-size:40px;line-height:1;color:var(--pink-ink)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom, 0px));transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;font-size:14px}
+.sect{display:flex;flex-direction:column;gap:10px}
+.sect h3{margin-bottom:2px}
+hr{border:0;border-top:1px solid var(--line);margin:6px 0}
+.list{margin:0;padding-left:20px}
+.foot{margin-top:34px;text-align:center;font-size:12px;color:var(--muted)}
+.dot.still{background:transparent!important;border:2px solid var(--pink)}
+.ask{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:14px}
+.ask h2{font-size:26px}
+/* report */
+.rep{display:flex;flex-direction:column;gap:30px}
+.cover{background:var(--ink);color:#fff;border-radius:22px;padding:28px 24px;display:flex;flex-direction:column;gap:14px}
+.cover .eyebrow{color:var(--blush)}
+.cover h1{color:#fff;font-size:32px}
+.chap{display:flex;flex-direction:column;gap:14px}
+.chap .num{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--pink-ink)}
+.chap h2{font-size:26px}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tile{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:16px 10px;text-align:center}
+.tile b{display:block;font-family:var(--display);font-weight:800;font-size:34px;line-height:1;color:var(--pink-ink)}
+.tile span{display:block;margin-top:6px;font-size:13px;line-height:1.35;color:var(--muted)}
+.headline{background:var(--blush);border-radius:20px;padding:24px}
+.headline p.big{font-size:25px}
+.clue{background:var(--ink);color:#fff;border-radius:22px;padding:26px 24px;display:flex;flex-direction:column;gap:12px}
+.clue .eyebrow{color:var(--blush)}
+.clue .big{color:#fff;font-size:26px}
+.clue .big em{color:var(--pink)}
+.clue p{color:#F3E9EA}
+.fromto{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center}
+.fromto .box{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:16px;text-align:center}
+.fromto .box.to{background:var(--blush);border-color:transparent}
+.fromto .box span{display:block;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.fromto .arrow{font-size:22px;color:var(--pink-ink)}
+details.notes summary{cursor:pointer;font-weight:600}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+a.inl{color:var(--pink-ink);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+@media print{ .stack:has(#share), .top, #saveopts, .toast{display:none !important} body{background:#fff} details.notes{display:block} }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="spotted" viewBox="0 0 24 24"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c2 0 3.5 1.2 5.5 3 2-1.8 3.5-3 5.5-3C21 5 23.5 8.5 21.5 12.5 19 16.65 12 21 12 21z" fill="#141112"/><circle cx="8" cy="10" r=".7" fill="#fff"/><circle cx="11" cy="13" r=".6" fill="#fff"/><circle cx="15" cy="10.5" r=".7" fill="#fff"/><circle cx="13.5" cy="15.5" r=".6" fill="#fff"/><circle cx="17.5" cy="12.5" r=".5" fill="#fff"/><circle cx="10" cy="7.6" r=".45" fill="#fff"/></symbol>
+</defs></svg>
+
+<div class="app" id="app" aria-live="polite"></div>
+
+<script>
+/* ===== SETTINGS ===== */
+var PASSWORD = "TRACKME";                 /* the shared password buyers type in */
+var LOVE_SOS_LINK = "https://energydetective.online/lovesos-tool";      /* where the Love SOS kit lives */
+var TEST_PASSWORD = "TRACKME-TEST";     /* typing this instead turns on the test buttons, for Nicky only */
+var PREVIEW = false;                      /* true shows a "load a sample week" button for testing */
+
+/* ===== WORDS ===== */
+var TRIGGERS = [
+ {id:"said", short:"something they said", label:"Something they said got to me", when:"something they say gets to you", script:"I Feel Triggered",
+  note:"It hurts most when what they say sounds like something you already worry is true about you. It hit you before you'd even had a chance to think about what they meant."},
+ {id:"crit", short:"feeling criticised", label:"I felt criticised", when:"you feel criticised", script:"I Feel Triggered",
+  note:"When someone picks at one thing, it can sound like 'I can't do anything right.' That's why it hit so hard, so fast."},
+ {id:"ignored", short:"feeling ignored or pushed aside", label:"I felt ignored or pushed aside", when:"you feel ignored or pushed aside", script:"I Feel Rejected",
+  note:"Being overlooked by someone you love can feel like being invisible. That ache is often older than this moment."},
+ {id:"quiet", short:"them going quiet", label:"They went quiet on me", when:"they go quiet on you", script:"I Feel Rejected",
+  note:"Silence leaves a gap, and a worried mind fills it with the worst. Not knowing can feel harder than bad news."},
+ {id:"granted", short:"feeling taken for granted", label:"I felt taken for granted", when:"you feel taken for granted", script:"Resentment",
+  note:"When what you give goes unnoticed, it quietly piles up. This is your needs asking to count too."},
+ {id:"scared", short:"fear of how they'll react", label:"I was scared of how they'd react", when:"you're scared of how they'll react", script:"Fear of Fallout",
+  note:"You were reading the room to keep everyone safe. That alertness was learnt somewhere, and it's exhausting to carry."},
+ {id:"blame", short:"whose fault it is", label:"It turned into whose fault it was", when:"it turns into whose fault it is", script:"Releasing the Blame Game",
+  note:"Blame is a shield. Working out whose fault it is can feel safer than feeling the hurt underneath."},
+ {id:"trust", short:"not trusting something", label:"I didn't trust something", when:"you don't trust something", script:"Open to Love",
+  note:"Doubt puts your nervous system on watch. It's an old protection, trying to make sure you're not hurt again."},
+ {id:"boxed", short:"feeling controlled or boxed in", label:"I felt controlled or boxed in", when:"you feel controlled or boxed in", script:"Feeling Like I've Lost Myself",
+  note:"Feeling boxed in pulls you away from yourself. Part of you is asking for room to breathe and choose."},
+ {id:"much", short:"it all getting too much", label:"It all got too much", when:"it all gets too much", script:"Emergency Emotional Reset",
+  note:"Sometimes it isn't one thing, it's everything at once. Your nervous system hit its limit, and the kindest thing is to calm it first."}
+];
+var REACTIONS = [
+ {id:"tongue", label:"I bit my tongue", you:"bite your tongue", note:"You kept the peace on the outside, but the feeling didn't go anywhere. Unsaid words have a way of coming out later, over something small."},
+ {id:"snap", label:"I snapped", you:"snap", note:"The feeling arrived faster than your words could catch it. Snapping isn't who you are. It's what happens when your nervous system is flooded."},
+ {id:"ask", label:"I kept asking if we're okay", you:"keep asking if you're okay", note:"Not knowing where you stand feels unbearable, so you looked for proof you're safe. That need is asking to feel secure."},
+ {id:"quiet", label:"I went quiet", you:"go quiet", note:"Going quiet is how you protect yourself when it's too much. The hard part is that no one can see what's happening inside."},
+ {id:"gave", label:"I gave in and did it anyway", you:"give in and do it anyway", note:"Saying yes kept things smooth, but it cost you. Somewhere along the way, your needs learnt to come last."},
+ {id:"fix", label:"I tried to fix it", you:"try to fix it", note:"Sorting it out feels safer than sitting in the discomfort. You care so much that you carry what isn't yours to carry."},
+ {id:"guard", label:"I put my guard up", you:"put your guard up", note:"Your guard went up to stop you being hurt again. It's done its job for a long time, and it's tiring to hold up."},
+ {id:"self", label:"I blamed myself", you:"blame yourself", note:"You turned it inward and decided it must be you. That voice is old, and it isn't telling you the truth."}
+];
+var WHO = ["My partner","Mum","Dad","Sister","Brother","My child","A friend","Work","Someone else"];
+var WHO_FIRST = ["My partner","Mum","Dad","Sister","Brother","Grandparent","Teacher","A friend","An ex","Someone else","I don't remember"];
+var SLEEP = ["Well","Okay","Badly","I woke up thinking about it"];
+var SLEEP_HRS = [{v:4,label:"Under 5"},{v:5,label:"5 hours"},{v:6,label:"6 hours"},{v:7,label:"7 hours"},{v:8,label:"8 or more"}];
+var WEEK_FELT = ["A rollercoaster","Wobbly","Argumentative","Lonely","Heavy","Calmer than usual"];
+var PREFER = ["Calm","Close","Heard","Light","Safe","Steady"];
+var NEEDED = ["To be heard","Some space","A hug","An apology","Reassurance","To be asked how I am","Help with the load"];
+var WORDS = ["Calm","A little stirred","Noticeable","Noticeable","Noticeable","Noticeable","Noticeable","Strong","Strong","As strong as it gets","As strong as it gets"];
+
+/* ===== STORAGE ===== */
+var KEY = "triggerTracker.v1";
+var S = load();
+try { if (/^#test$/i.test(location.hash) || /[?&]test\b/i.test(location.search)) { S.test = true; save(); } } catch(e){}
+if (S.test) PREVIEW = true;
+window.addEventListener("hashchange", function(){ if (/^#test$/i.test(location.hash)){ S.test = true; PREVIEW = true; save(); route(); } });
+function blank(){ return {unlocked:false, start:null, entries:[], checkins:[], names:[], day7:null, reminders:null}; }
+function load(){ try { var raw = localStorage.getItem(KEY); return raw ? Object.assign(blank(), JSON.parse(raw)) : blank(); } catch(e){ return blank(); } }
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} }
+
+/* ===== HELPERS ===== */
+var app = document.getElementById("app");
+function el(html){ app.innerHTML = html; window.scrollTo(0,0); var h = app.querySelector("h1,h2"); if (h){ h.setAttribute("tabindex","-1"); h.focus({preventScroll:true}); } }
+function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]; }); }
+function dayStart(t){ var d = new Date(t); d.setHours(0,0,0,0); return d.getTime(); }
+function today(){ return dayStart(Date.now()); }
+function dayNum(t){ if (!S.start) return 1; return Math.floor((dayStart(t == null ? Date.now() : t) - dayStart(S.start)) / 864e5) + 1; }
+function trig(id){ for (var i=0;i<TRIGGERS.length;i++) if (TRIGGERS[i].id===id) return TRIGGERS[i]; }
+function reac(id){ for (var i=0;i<REACTIONS.length;i++) if (REACTIONS[i].id===id) return REACTIONS[i]; }
+function band(n){ return n<=3 ? 1 : n<=6 ? 2 : n<=8 ? 3 : 4; }
+function heart(){ return '<svg class="heart" aria-hidden="true"><use href="#spotted"/></svg>'; }
+function googleCal(){
+  var d = new Date(); d.setHours(20,0,0,0); if (d < new Date()) d.setDate(d.getDate()+1);
+  function f(x){ return x.getFullYear()+String(x.getMonth()+1).padStart(2,"0")+String(x.getDate()).padStart(2,"0")+"T"+String(x.getHours()).padStart(2,"0")+String(x.getMinutes()).padStart(2,"0")+"00"; }
+  var e = new Date(d); e.setMinutes(10);
+  return "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("Trigger Tracker")+"&details="+encodeURIComponent("Did anything get to you today? Log it in under a minute: https://energydetective.online/trigger-tracker")+"&dates="+f(d)+"/"+f(e)+"&recur="+encodeURIComponent("RRULE:FREQ=DAILY;COUNT=7");
+}
+function topBar(){ var d = Math.min(dayNum(), 30); return '<div class="top"><span class="brand">Trigger Tracker</span><span class="daypill">Day '+d+(d<=7?' of 7':'')+'</span></div>'+(PREVIEW && d<7 ? '<button class="btn" data-nextday style="background:var(--ink);color:#fff;min-height:46px;margin:-8px 0 20px">Test: go to day '+(d+1)+'</button>' : ''); }
+function nextDay(){ var dd = 864e5; if (!S.start) S.start = Date.now(); S.start -= dd; S.entries.forEach(function(e){ e.time -= dd; if (e.ref) e.ref -= dd; }); S.checkins.forEach(function(c){ c.time -= dd; }); save(); toast("Now on day "+dayNum()); home(); }
+document.addEventListener("click", function(ev){ var b = ev.target.closest && ev.target.closest("[data-nextday]"); if (b) nextDay(); });
+function toast(t){ var x = document.createElement("div"); x.className="toast"; x.textContent=t; document.body.appendChild(x); setTimeout(function(){ x.remove(); }, 2200); }
+function prog(n, of){ var s='<div class="progress" aria-hidden="true">'; for (var i=1;i<=of;i++) s+='<i class="'+(i<=n?'on':'')+'"></i>'; return s+'</div>'; }
+function bind(sel, fn){ app.querySelectorAll(sel).forEach(function(b){ b.addEventListener("click", fn); }); }
+function slug(t){ return t.toLowerCase().replace(/'/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,""); }
+function scriptLink(script){ return '<a class="inl" href="'+esc(LOVE_SOS_LINK)+'#'+slug(script)+'" target="_blank" rel="noopener">'+esc(script)+' tapping script</a>'; }
+function sosLink(script){ return '<a class="btn" href="'+esc(LOVE_SOS_LINK)+'#'+slug(script)+'" target="_blank" rel="noopener">Let\'s bring it down in just a few minutes</a>'; }
+
+/* ===== STATS ===== */
+function stats(entries){
+  entries = (entries || S.entries).filter(function(e){ return e.kind !== "still"; });
+  var t = {}, r = {}, w = {}, when = {Mornings:0, Afternoons:0, Evenings:0, "Late at night":0}, wk = {Weekdays:0, Weekends:0};
+  entries.forEach(function(e){
+    t[e.trigger] = t[e.trigger] || {n:0, sum:0}; t[e.trigger].n++; t[e.trigger].sum += e.strength;
+    r[e.reaction] = (r[e.reaction]||0) + 1;
+    w[e.who] = (w[e.who]||0) + 1;
+    var d = new Date(e.time), h = d.getHours();
+    when[h<12&&h>=5 ? "Mornings" : h<17&&h>=12 ? "Afternoons" : h<22&&h>=17 ? "Evenings" : "Late at night"]++;
+    wk[(d.getDay()===0||d.getDay()===6) ? "Weekends" : "Weekdays"]++;
+  });
+  function topOf(o, f){ var best=null, bv=-1; Object.keys(o).forEach(function(k){ var v = f ? f(o[k]) : o[k]; if (v>bv){ bv=v; best=k; } }); return best; }
+  var loud = topOf(t, function(x){ return x.sum*100 + x.n; });
+  return { loud: loud, loudCount: loud ? t[loud].n : 0, reaction: topOf(r), who: topOf(w), whoCount: w[topOf(w)]||0, when: topOf(when), wk: topOf(wk), byTrigger:t };
+}
+
+/* ===== SCREENS ===== */
+function gate(){
+  el(prog(0,0)+'<div class="stack center" style="margin-top:40px">'+heart().replace('class="heart"','class="heart" style="margin:0 auto"')+
+    '<h1>Trigger Tracker</h1><p class="muted">Enter the password from your welcome email.</p>'+
+    '<label class="eyebrow" for="pw" style="text-align:left">Password</label><input id="pw" type="password" autocomplete="off" autocapitalize="characters">'+
+    '<p id="err" class="small" style="color:var(--pink-ink)" hidden>That password didn\'t match. Please check your email and try again.</p>'+
+    '<button class="btn" id="go">Enter</button><p class="small muted">Version 11</p></div>');
+  var pw = document.getElementById("pw");
+  function tryIt(){ var v = pw.value.trim().toUpperCase(); if (v === TEST_PASSWORD.toUpperCase()){ S.unlocked = true; S.test = true; PREVIEW = true; save(); route(); } else if (v === PASSWORD.toUpperCase()){ S.unlocked = true; save(); route(); } else { document.getElementById("err").hidden = false; } }
+  document.getElementById("go").addEventListener("click", tryIt);
+  pw.addEventListener("keydown", function(e){ if (e.key==="Enter") tryIt(); });
+}
+
+function welcome(){
+  el('<div class="stack" style="margin-top:12px">'+heart()+
+   '<h1>Seven days to see what your triggers are telling you</h1>'+
+   '<p>Every time something gets to you, log it here. It takes under a minute, just a few taps.</p>'+
+   '<div class="card stack" style="gap:12px">'+
+     '<p><b>Each morning:</b> a quick check-in on your sleep, and anything from the day before that\'s still troubling you.</p>'+
+     '<p><b>Day 3:</b> your first glimpse of what\'s setting you off most.</p>'+
+     '<p><b>Day 5:</b> who keeps setting you off, and what time of day it tends to happen.</p>'+
+     '<p><b>Day 7:</b> your personalised trigger report. What\'s really going on behind the trigger.</p>'+
+   '</div>'+
+   '<p class="small muted">Everything you log stays private on this phone. Nothing is sent anywhere.</p>'+
+   '<h3 style="margin-top:6px">Would you like a check-in reminder each evening?</h3><p class="small muted">Choose the calendar you use. It adds 7 reminders at 8pm, one for each day.</p>'+
+   '<div class="row"><button class="btn ghost" id="cal">iPhone or Outlook</button><a class="btn ghost" id="gcal" href="'+googleCal()+'" target="_blank" rel="noopener">Google Calendar</a></div>'+
+   '<div class="ask" style="margin-top:8px"><p><b>We\'re not waiting for the perfect time to begin. Tracking starts now.</b></p><p>We\'re starting a fresh 7 days, but I understand what you\'re feeling may not be new.</p><p>So let\'s dive into how you\'re feeling right now.</p>'+
+   '<button class="btn" id="start">Start tracking</button></div>'+
+   (PREVIEW ? '<button class="link" id="demo">Preview only: load a sample week</button>' : '')+
+   '</div>');
+  document.getElementById("cal").addEventListener("click", calendar);
+  document.getElementById("start").addEventListener("click", function(){ if (!S.start){ S.start = Date.now(); save(); } logStep(1, {kind:"new"}); });
+  document.getElementById("gcal").addEventListener("click", function(){ S.reminders = "google"; save(); });
+  if (PREVIEW) document.getElementById("demo").addEventListener("click", demo);
+}
+
+function calendar(){
+  var lines = ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Energy Detective//Trigger Tracker//EN"];
+  var base = new Date(); base.setHours(20,0,0,0); if (base < new Date()) base.setDate(base.getDate()+1);
+  function fmt(d){ return d.getFullYear()+String(d.getMonth()+1).padStart(2,"0")+String(d.getDate()).padStart(2,"0")+"T"+String(d.getHours()).padStart(2,"0")+"0000"; }
+  for (var i=0;i<7;i++){
+    var d = new Date(base); d.setDate(base.getDate()+i);
+    var e = new Date(d); e.setMinutes(10);
+    lines.push("BEGIN:VEVENT","UID:tt-"+d.getTime()+"@energydetective.online","DTSTAMP:"+fmt(new Date()),"DTSTART:"+fmt(d),"DTEND:"+fmt(e).slice(0,11)+"1000",
+      "SUMMARY:Trigger Tracker, day "+(i+1)+" of 7","DESCRIPTION:Did anything get to you today? Log it in under a minute: https://energydetective.online/trigger-tracker",
+      "BEGIN:VALARM","TRIGGER:PT0M","ACTION:DISPLAY","DESCRIPTION:Trigger Tracker","END:VALARM","END:VEVENT");
+  }
+  lines.push("END:VCALENDAR");
+  try {
+    var blob = new Blob([lines.join("\r\n")], {type:"text/calendar"});
+    var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "trigger-tracker-reminders.ics";
+    document.body.appendChild(a); a.click(); a.remove();
+    S.reminders = "calendar"; save(); toast("Open the file to add 7 reminders at 8pm");
+  } catch(e){ toast("Your browser blocked the reminder file"); }
+}
+
+function home(){
+  var d = dayNum(), st = stats(), news = S.entries.filter(isNew), n = news.length;
+  var checkedToday = S.checkins.some(function(c){ return dayStart(c.time) === today(); });
+  var h = topBar()+'<div class="stack">';
+  if (PREVIEW){
+    var CHECK = {1:"Log one or two moments, as she would today. When you're done, tap the black button at the top.",
+      2:"The morning check-in shows now. Do it, and try the 'still troubling you' question. Log anything new.",
+      3:"Her first glimpse appears: what's getting to her most. Check that it matches what you logged.",
+      4:"A normal day. Check in, log a moment, and look at your week's dots.",
+      5:"The 'who and when' insight appears. Check it matches who you chose.",
+      6:"A normal day. Check in and log a moment. Tomorrow is the report.",
+      7:"Tap 'Get my day 7 report', answer the questions and read every part."};
+    h += '<div class="card stack" style="gap:10px;border:2px dashed var(--pink)"><p class="eyebrow" style="color:var(--pink-ink)">Test mode: day '+d+' (only you see this). Version 11</p><p class="small">'+(CHECK[d]||"Past day 7. Your report is still here, and tracking carries on to day 30.")+'</p>'+
+      '<button class="link" id="demo2" style="align-self:flex-start">Fill a whole week with sample data instead</button></div>';
+  }
+  var showCheck = !checkedToday && d >= 2;
+  if (showCheck) h += '<div class="card stack" style="gap:12px"><p class="eyebrow">Morning check-in</p><p>How did you sleep, and is anything from before still troubling you?</p><button class="btn soft" id="chk">Start my morning check-in</button></div>';
+  var todayCount = news.filter(function(e){ return dayStart(e.time) === today(); }).length;
+  h += '<div class="ask"><h2>'+'What\'s getting to you today?'+'</h2><p class="muted">'+(todayCount ? 'You\'ve logged '+todayCount+' moment'+(todayCount===1?'':'s')+' today. If something else gets to you, log it here too.' : 'Log it in under a minute. It doesn\'t have to be big. A look, a tone or a text counts.')+'</p>'+
+       '<button class="btn" id="log">Yes, something new got to me</button></div>';
+  if (n === 0) h += '<p class="center muted small">Each moment you log becomes a dot in your week below.</p>';
+
+  if (d >= 3 && st.loud){
+    var lt = trig(st.loud);
+    h += '<div class="card reveal stack" style="gap:10px"><p class="eyebrow">Day 3: your first glimpse</p><p class="big">What\'s getting to you most: <em>'+esc(lt.short)+'</em></p><p class="muted">'+esc(lt.note)+'</p></div>';
+  } else if (n){
+    h += '<div class="card"><p class="eyebrow">Coming on day 3</p><p>Your first glimpse of what\'s getting to you most.</p></div>';
+  }
+  if (d >= 5 && st.who){
+    h += '<div class="card reveal stack" style="gap:10px"><p class="eyebrow">Day 5: who and what time of day</p><p class="big">It happens most with <em>'+esc(st.who.replace(/^My /,"your "))+'</em>, and mostly in the <em>'+esc(st.when.toLowerCase())+'</em>.</p><p class="muted">Just notice that. There\'s nothing to fix yet.</p></div>';
+  } else if (n && d >= 3){
+    h += '<div class="card"><p class="eyebrow">Coming on day 5</p><p>Who keeps setting you off, and what time of day it tends to happen.</p></div>';
+  }
+
+  h += '<div class="sect"><h3>Your week</h3>'+journal()+'</div>';
+  if (d >= 7 && n) h += '<button class="btn" id="rep">'+(S.day7 ? 'See my report' : 'Get my day 7 report')+'</button>';
+  else h += '<div class="card center"><p class="eyebrow">Day 7</p><p>'+(d>=7 ? 'Log a moment to unlock your report.' : 'Your full report unlocks in '+(7-d)+' day'+(7-d===1?'':'s')+'.')+'</p></div>';
+  h += '<div class="foot"><button class="link" id="reset">Start again</button><p class="small muted" style="margin-top:8px">Version 11</p></div></div>';
+  el(h);
+  if (showCheck) document.getElementById("chk").addEventListener("click", checkin);
+  document.getElementById("log").addEventListener("click", function(){ if (!S.start){ S.start = Date.now(); save(); } logStep(1, {kind:"new"}); });
+  var r = document.getElementById("rep"); if (r) r.addEventListener("click", function(){ S.day7 ? report() : day7Step(1, {}); });
+  document.getElementById("reset").addEventListener("click", confirmReset);
+  if (PREVIEW){
+    var skb = document.getElementById("skip"); if (skb) skb.addEventListener("click", nextDay);
+    document.getElementById("demo2").addEventListener("click", demo);
+  }
+}
+
+function isNew(e){ return e.kind !== "still"; }
+
+function journal(){
+  var s = '<div class="journal">', d = dayNum();
+  for (var i=1;i<=7;i++){
+    var dots = S.entries.filter(function(e){ return dayNum(e.time) === i; });
+    s += '<div class="jday'+(i===d?' today':'')+'"><b>Day '+i+'</b><div class="dots">'+dots.map(function(e){ return '<span class="dot s'+band(e.strength)+(isNew(e)?'':' still')+'" title="'+e.strength+'/10"></span>'; }).join("")+'</div></div>';
+  }
+  return s+'</div><div class="key"><span><i class="dot s1"></i>0 to 3</span><span><i class="dot s2"></i>4 to 6</span><span><i class="dot s3"></i>7 to 8</span><span><i class="dot s4"></i>9 to 10</span><span><i class="dot still"></i>Still troubling me</span></div>';
+}
+
+function recentOpen(){
+  /* moments from the last 7 days, newest first, one per original moment */
+  return S.entries.filter(function(e){ return isNew(e) && Date.now() - e.time < 7*864e5; }).sort(function(a,b){ return b.time - a.time; }).slice(0,6);
+}
+
+function pickStill(next){
+  var list = recentOpen();
+  el(topBar()+'<div class="stack"><h2>Has anything upset you that\'s still troubling you today?</h2><p class="muted">Rows and hurts don\'t always end the same day. Choose the one that\'s still troubling you.</p><div class="opts" id="ps">'+
+    list.map(function(e){ var t = trig(e.trigger); return '<button class="opt" data-v="'+e.time+'"><span class="small muted">Day '+dayNum(e.time)+', with '+esc(e.who.replace(/^My /,"your "))+'</span><br>'+esc(t.label)+'</button>'; }).join("")+
+    '</div><button class="btn ghost" id="none">Nothing, I feel clear</button></div>');
+  bind("#ps .opt", function(){ var ref = +this.dataset.v, o = S.entries.filter(function(e){ return e.time === ref; })[0];
+    var e = {kind:"still", ref:ref, trigger:o.trigger, who:o.who, reaction:o.reaction};
+    stillStrength(e, next); });
+  document.getElementById("none").addEventListener("click", next);
+}
+
+function stillStrength(e, next){
+  var v = 5;
+  el(topBar()+'<div class="stack"><h2>How strong is it today?</h2><p class="muted">'+esc(trig(e.trigger).label)+'</p><div class="card"><div class="score" id="sc">'+v+'</div><p class="scorelab" id="sl">'+WORDS[v]+'</p><input type="range" id="rg" min="0" max="10" value="'+v+'" aria-label="How strong it is today"><div class="ends"><span>Calm</span><span>As strong as it gets</span></div></div><button class="btn" id="sv">Save</button></div>');
+  var rg = document.getElementById("rg"); rg.addEventListener("input", function(){ document.getElementById("sc").textContent = rg.value; document.getElementById("sl").textContent = WORDS[rg.value]; });
+  document.getElementById("sv").addEventListener("click", function(){ e.strength = +rg.value; e.time = Date.now(); S.entries.push(e); save(); afterLog(e); });
+}
+
+function checkin(){
+  var c = {time:Date.now()};
+  el(topBar()+prog(1,2)+'<div class="stack"><h2>How many hours did you sleep last night?</h2><div class="opts two" id="o0">'+SLEEP_HRS.map(function(x){ return '<button class="opt" data-v="'+x.v+'">'+esc(x.label)+'</button>'; }).join("")+'</div></div>');
+  bind("#o0 .opt", function(){ c.hours = +this.dataset.v;
+    el(topBar()+prog(2,2)+'<div class="stack"><h2>And how did you sleep?</h2><div class="opts" id="o1">'+SLEEP.map(function(x){ return '<button class="opt" data-v="'+esc(x)+'">'+esc(x)+'</button>'; }).join("")+'</div></div>');
+    bind("#o1 .opt", function(){ c.sleep = this.dataset.v; S.checkins.push(c); save();
+      if (recentOpen().length) pickStill(function(){ toast("Thank you. Checked in."); home(); });
+      else { toast("Thank you. Checked in."); home(); }
+    });
+  });
+}
+
+function logStep(step, e){
+  var total = 4, h = topBar()+prog(step,total)+'<div class="stack">';
+  if (step===1){
+    h += '<h2>What happened?</h2><p class="muted">'+(S.entries.length ? 'Think about what just got to you. Choose the one that fits best.' : 'Think about what\'s getting to you right now, or the last thing that did. Choose the one that fits best. You\'ll get to say who it was with next.')+'</p><div class="opts">'+TRIGGERS.map(function(t){ return '<button class="opt" data-v="'+t.id+'">'+esc(t.label)+'</button>'; }).join("")+'</div>';
+    el(h+'</div>'); bind(".opt", function(){ e.trigger = this.dataset.v; logStep(2,e); });
+  } else if (step===2){
+    var all = WHO.slice(0, -1).concat(S.names).concat(["Someone else"]);
+    h += '<h2>Who was it with?</h2><div class="opts two">'+all.map(function(x){ return '<button class="opt" data-v="'+esc(x)+'">'+esc(x)+'</button>'; }).join("")+'</div>'+
+      '<label class="small muted" for="nm">Or add a name</label><div class="row"><input id="nm" type="text" maxlength="30" placeholder="For example, Sarah"><button class="btn soft" id="add" style="flex:0 0 90px">Add</button></div>';
+    el(h+'</div>');
+    bind(".opt", function(){ e.who = this.dataset.v; logStep(3,e); });
+    document.getElementById("add").addEventListener("click", function(){ var v = document.getElementById("nm").value.trim(); if (!v) return; if (S.names.indexOf(v)<0 && WHO.indexOf(v)<0){ S.names.push(v); save(); } e.who = v; logStep(3,e); });
+  } else if (step===3){
+    h += '<h2>What did you do?</h2><div class="opts">'+REACTIONS.map(function(r){ return '<button class="opt" data-v="'+r.id+'">'+esc(r.label)+'</button>'; }).join("")+'</div>';
+    el(h+'</div>'); bind(".opt", function(){ e.reaction = this.dataset.v; logStep(4,e); });
+  } else if (step===4){
+    var v = e.strength == null ? 5 : e.strength;
+    h += '<h2>How strong did it feel?</h2><div class="card"><div class="score" id="sc">'+v+'</div><p class="scorelab" id="sl">'+WORDS[v]+'</p><input type="range" id="rg" min="0" max="10" value="'+v+'" aria-label="How strong it felt, 0 to 10"><div class="ends"><span>Calm</span><span>As strong as it gets</span></div></div><button class="btn" id="nx">Save</button>';
+    el(h+'</div>');
+    var rg = document.getElementById("rg"); rg.addEventListener("input", function(){ document.getElementById("sc").textContent = rg.value; document.getElementById("sl").textContent = WORDS[rg.value]; });
+    document.getElementById("nx").addEventListener("click", function(){ e.strength = +rg.value; e.time = Date.now(); S.entries.push(e); save(); afterLog(e); });
+  }
+}
+
+function afterLog(e){
+  var t = trig(e.trigger), first = S.entries.length === 1, still = !isNew(e);
+  el(topBar()+'<div class="stack">'+heart()+'<p class="eyebrow">'+(first ? 'Your first dot. Day '+Math.min(dayNum(),30)+(dayNum()<=7?' of 7':'') : still ? 'Logged as still troubling you' : 'Logged')+'</p>'+
+    '<h2>'+esc(t.label)+'</h2><div class="card pink"><p>'+esc(still ? "When something is still troubling you days later, it's a sign it touched something deeper than the moment itself. That's useful to know." : t.note)+'</p></div>'+
+    '<h3>Want to bring this feeling down a notch?</h3><p class="muted">The Love SOS tapping script for this moment is <b>'+esc(t.script)+'</b>.</p>'+sosLink(t.script)+
+    '<button class="btn soft" id="after">I\'ve tapped. Rate it again</button>'+
+    '<button class="btn soft" id="note">Add what I needed or a note</button>'+
+    '<button class="btn ghost" id="done">Done for now</button></div>');
+  document.getElementById("after").addEventListener("click", function(){ rateAfter(e); });
+  document.getElementById("note").addEventListener("click", function(){ addNote(e); });
+  document.getElementById("done").addEventListener("click", home);
+}
+
+function rateAfter(e){
+  var v = Math.min(e.strength, 5);
+  el(topBar()+'<div class="stack"><h2>How strong does it feel now?</h2><p class="muted">You started at '+e.strength+'.</p><div class="card"><div class="score" id="sc">'+v+'</div><p class="scorelab" id="sl">'+WORDS[v]+'</p><input type="range" id="rg" min="0" max="10" value="'+v+'" aria-label="How strong it feels now"><div class="ends"><span>Calm</span><span>As strong as it gets</span></div></div><button class="btn" id="sv">Save</button></div>');
+  var rg = document.getElementById("rg"); rg.addEventListener("input", function(){ document.getElementById("sc").textContent = rg.value; document.getElementById("sl").textContent = WORDS[rg.value]; });
+  document.getElementById("sv").addEventListener("click", function(){ e.after = +rg.value; save();
+    var drop = e.strength - e.after;
+    el(topBar()+'<div class="stack center">'+heart().replace('class="heart"','class="heart" style="margin:0 auto"')+'<h2>'+(drop>0 ? 'You went from '+e.strength+' to '+e.after+'.' : 'Thank you for checking in.')+'</h2><p class="muted">'+(drop>0 ? 'That\'s your nervous system settling.' : 'Some feelings need a few rounds. You can go again whenever you\'re ready.')+'</p><button class="btn soft" id="nt">'+(e.note||e.needed ? 'Change what I needed or my note' : 'Add what I needed or a note')+'</button><button class="btn" id="h">Back to my week</button></div>');
+    document.getElementById("nt").addEventListener("click", function(){ addNote(e); });
+    document.getElementById("h").addEventListener("click", home);
+  });
+}
+
+function addNote(e){
+  el(topBar()+'<div class="stack"><h2>What did you need in that moment?</h2><div class="opts two" id="nd">'+NEEDED.map(function(x){ return '<button class="opt'+(e.needed===x?' on':'')+'" data-v="'+esc(x)+'">'+esc(x)+'</button>'; }).join("")+'</div>'+
+    '<label class="eyebrow" for="tx">A note for your diary (optional)</label><textarea id="tx" maxlength="600" placeholder="Anything you want to remember about this moment">'+esc(e.note||"")+'</textarea><button class="btn" id="sv">Save</button></div>');
+  bind("#nd .opt", function(){ app.querySelectorAll("#nd .opt").forEach(function(b){ b.classList.remove("on"); }); this.classList.add("on"); e.needed = this.dataset.v; });
+  document.getElementById("sv").addEventListener("click", function(){ e.note = document.getElementById("tx").value.trim(); save(); toast("Saved"); home(); });
+}
+
+function day7Step(step, a){
+  var st = stats(), lt = trig(st.loud), total = 7;
+  var h = topBar()+prog(step,total)+'<div class="stack">';
+  function choose(title, list, key, multi, sub){
+    h += '<h2>'+title+'</h2>'+(sub?'<p class="muted">'+sub+'</p>':'')+'<div class="opts two">'+list.map(function(x){ var on = multi ? (a[key]||[]).indexOf(x)>=0 : a[key]===x; return '<button class="opt'+(on?' on':'')+'" data-v="'+esc(x)+'">'+esc(x)+'</button>'; }).join("")+'</div>'+(multi||a[key]!=null?'<button class="btn" id="nx">Next</button>':'')+(!multi&&sub&&/Optional/.test(sub)?'<button class="link" id="sk">Skip this one</button>':'');
+    el(h+'</div>');
+    if (!multi && a[key]!=null) document.getElementById("nx").addEventListener("click", function(){ day7Step(step+1, a); });
+    if (document.getElementById("sk")) document.getElementById("sk").addEventListener("click", function(){ a[key] = null; day7Step(step+1, a); });
+    bind(".opt", function(){ var v = this.dataset.v; if (multi){ a[key] = a[key]||[]; var i = a[key].indexOf(v); if (i>=0) a[key].splice(i,1); else a[key].push(v); this.classList.toggle("on"); } else { a[key] = v; day7Step(step+1, a); } });
+    if (multi) document.getElementById("nx").addEventListener("click", function(){ day7Step(step+1, a); });
+  }
+  function num(title, key, sub, skip){
+    h += '<h2>'+title+'</h2>'+(sub?'<p class="muted">'+sub+'</p>':'')+'<input id="n" type="number" inputmode="numeric" min="0" max="110" value="'+(a[key]==null?'':a[key])+'"><button class="btn" id="nx">Next</button>'+(skip?'<button class="link" id="sk">'+skip+'</button>':'');
+    el(h+'</div>');
+    document.getElementById("nx").addEventListener("click", function(){ var v = document.getElementById("n").value; a[key] = v==="" ? null : Math.max(0, Math.min(110, +v)); day7Step(step+1, a); });
+    if (skip) document.getElementById("sk").addEventListener("click", function(){ a[key] = null; day7Step(step+1, a); });
+  }
+  if (step===1){ num("How old are you now?", "ageNow", "This helps us work out how long you've carried this feeling."); }
+  else if (step===2){ num("When did you first feel this?", "firstAge", lt ? 'Think about <b>'+esc(lt.label.toLowerCase())+'</b>. Roughly how old were you the first time you remember feeling it?' : 'Roughly how old were you?', "I don't remember"); }
+  else if (step===3){ choose("Who was there?", WHO_FIRST, "firstWho", false, "Optional. The first person that comes to mind is enough."); }
+  else if (step===4){ num("How long have you been with your partner?", "partnerYears", "In years. Put 0 if it's under a year."); }
+  else if (step===5){ choose("Was this a typical week?", ["About the same as usual","A bit better than usual","A bit worse than usual"], "typical", false); }
+  else if (step===6){ choose("What has your week felt like?", WEEK_FELT, "felt", true, "Choose as many as fit."); }
+  else if (step===7){ choose("How would you prefer it to feel?", PREFER, "prefer", true, "Choose as many as fit."); }
+  else { a.time = Date.now(); S.day7 = a; save(); report(); }
+}
+
+function report(){
+  var a = S.day7 || {}, E = S.entries, news = E.filter(isNew), st = stats(), lt = trig(st.loud), rc = reac(st.reaction);
+  if (!news.length || !lt){ home(); return; }
+  var week = E.filter(function(e){ return dayNum(e.time) <= 7; });
+  var daysHit = {}; week.forEach(function(e){ daysHit[dayNum(e.time)] = true; });
+  var nDays = Object.keys(daysHit).length;
+  var poorNights = S.checkins.filter(function(c){ return c.sleep==="Badly" || c.sleep==="I woke up thinking about it" || (c.hours!=null && c.hours<6); });
+  var hrsList = S.checkins.filter(function(c){ return c.hours!=null; });
+  var avgSleep = hrsList.length ? hrsList.reduce(function(s,c){ return s+c.hours; },0)/hrsList.length : null;
+  var hardDays = {}; news.forEach(function(e){ hardDays[dayStart(e.time)] = true; });
+  var afterHard = S.checkins.filter(function(c){ return hardDays[dayStart(c.time - 864e5)]; });
+  var badAfter = afterHard.filter(function(c){ return c.sleep==="Badly" || c.sleep==="I woke up thinking about it" || (c.hours!=null && c.hours<6); });
+  /* the moment that dragged on longest */
+  var longest = null;
+  news.forEach(function(o){ var follow = E.filter(function(e){ return e.ref === o.time; }); if (follow.length){ var days = 1 + new Set(follow.map(function(f){ return dayNum(f.time); })).size; if (!longest || days > longest.days) longest = {o:o, days:days}; } });
+  var tapped = E.filter(function(e){ return e.after!=null; });
+  var notes = E.filter(function(e){ return e.note; });
+  var carried = (a.ageNow!=null && a.firstAge!=null && a.ageNow>a.firstAge) ? a.ageNow - a.firstAge : null;
+  var whoFirst = a.firstWho && a.firstWho!=="I don't remember" && a.firstWho!=="My partner" ? a.firstWho.replace(/^My /,"your ") : null;
+  var before = (a.ageNow!=null && a.partnerYears!=null && a.firstAge!=null) ? a.ageNow - a.partnerYears - a.firstAge : null;
+  var worse = a.typical === "A bit worse than usual";
+
+  var h = topBar()+'<div class="rep" id="report">';
+
+  /* cover */
+  h += '<div class="cover">'+heart().replace('#spotted','#spotted').replace('class="heart"','class="heart" style="filter:invert(1)"')+'<p class="eyebrow">Your Trigger Tracker report</p><h1>Here\'s what your week was telling you</h1><p style="color:#F3E9EA">Take your time. Nothing here is a judgement. This is where you begin to understand what\'s really going on.</p></div>';
+
+  /* 1 */
+  h += '<div class="chap"><p class="num">1 of 4 &middot; What keeps happening</p><div class="headline"><p class="big">When '+esc(lt.when)+', you '+esc(rc.you)+'.</p></div>'+
+       '<p>'+esc(lt.note)+' '+esc(rc.note)+'</p><p class="muted">None of this is your fault. It\'s your nervous system trying to keep you safe.</p></div>';
+
+  /* 2 */
+  h += '<div class="chap"><p class="num">2 of 4 &middot; What it\'s costing you</p><h2>This week in numbers</h2>'+
+       '<div class="tiles"><div class="tile"><b>'+news.length+'</b><span>moment'+(news.length===1?'':'s')+' that got to you</span></div>'+
+       '<div class="tile"><b>'+nDays+'</b><span>day'+(nDays===1?'':'s')+' out of 7 something got to you</span></div>'+
+       '<div class="tile"><b>'+poorNights.length+'</b><span>night'+(poorNights.length===1?'':'s')+' of poor sleep</span></div></div>';
+  var lines = [];
+  if (longest) lines.push('The moment on day '+dayNum(longest.o.time)+' ('+esc(trig(longest.o.trigger).short)+') kept troubling you for <b>'+longest.days+' days</b>. That\'s how much one moment can carry.');
+  if (avgSleep!=null) lines.push('You slept about <b>'+(Math.round(avgSleep*2)/2)+' hours</b> a night'+(afterHard.length ? ', and slept badly after <b>'+badAfter.length+' of '+afterHard.length+'</b> hard days.' : '.'));
+  if (worse) lines.push('<span class="muted">You said this was a harder week than usual.</span>');
+  h += lines.map(function(l){ return '<p>'+l+'</p>'; }).join("")+'<p>The good news: you don\'t have to keep carrying this. Every time you calm it, you give yourself a little peace back.</p></div>';
+
+  /* 3: the clue */
+  if (a.firstAge!=null || whoFirst){
+    h += '<div class="chap"><p class="num">3 of 4 &middot; The clue to where it really began</p><div class="clue"><p class="eyebrow">Case notes</p>';
+    if (a.firstAge!=null) h += '<p class="big">You first felt this around age <em>'+a.firstAge+'</em>'+(whoFirst ? ', with <em>'+esc(whoFirst)+'</em>' : '')+'.</p>';
+    else h += '<p class="big">The first person who came to mind was <em>'+esc(whoFirst)+'</em>.</p>';
+    if (before!=null && before>0) h += '<p>That\'s <b>'+before+' years</b> before you met your partner. It started long before your partner.</p>';
+    if (carried) h += '<p>You\'ve been carrying this feeling for around <b>'+carried+' years</b>. No wonder it still feels so awful today.</p>';
+    h += '</div></div>';
+  } else {
+    h += '<div class="chap"><p class="num">3 of 4 &middot; The clue to where it really began</p><div class="clue"><p class="eyebrow">Case notes</p><p class="big">Feelings this quick are rarely new.</p><p>If a memory comes to you later, notice who was there. That\'s often where it began.</p></div></div>';
+  }
+
+  /* 4 */
+  h += '<div class="chap"><p class="num">4 of 4 &middot; Where you go from here</p><h2>Your week, dot by dot</h2>'+journal();
+  if ((a.felt||[]).length || (a.prefer||[]).length) h += '<div class="fromto"><div class="box"><span>This week felt</span>'+esc((a.felt||[]).join(", ").toLowerCase()||"-")+'</div><div class="arrow" aria-hidden="true">&rarr;</div><div class="box to"><span>You\'d prefer</span>'+esc((a.prefer||[]).join(", ").toLowerCase()||"-")+'</div></div>';
+  if (tapped.length){
+    var drop = tapped.reduce(function(s,e){ return s + (e.strength - e.after); },0)/tapped.length;
+    h += '<p>When you tapped, your feelings dropped by <b>'+drop.toFixed(1).replace(/\.0$/,"")+' points</b> on average. That\'s you calming your nervous system and feeling safer in the moment. Keep reaching for the '+scriptLink(lt.script)+'.</p>';
+  } else {
+    h += '<p>Next time it happens, try the '+scriptLink(lt.script)+' in Love SOS and watch the number come down.</p>'+sosLink(lt.script);
+  }
+  h += '<div class="card stack" style="gap:10px">'+(st.loudCount>=3 ? '<p>The same yucky feeling came up <b>'+st.loudCount+' times</b> this week. When a feeling keeps coming back like this, it usually means you have unprocessed emotions that need clearing, and it\'s not necessarily about what\'s going on for you right now. That\'s the deeper work I do. Keep an eye on your inbox.</p>' : '<p>Keep using Love SOS whenever something gets to you. You can carry on tracking for up to 30 days and come back to this report any time.</p>')+'<p style="font-family:var(--display);font-style:italic;font-size:20px">Nicky xoxo</p></div>';
+  if (notes.length) h += '<details class="notes card"><summary>Your diary notes ('+notes.length+')</summary><ul class="list" style="margin-top:10px">'+notes.map(function(e){ return '<li><span class="muted small">Day '+dayNum(e.time)+':</span> '+esc(e.note)+'</li>'; }).join("")+'</ul></details>';
+  h += '</div>';
+
+  h += '<div class="stack"><button class="btn" id="share">Save or send my report</button><div id="saveopts"></div><button class="btn ghost" id="back">Back to my week</button><button class="link" id="redo" style="align-self:center">Change my day 7 answers</button></div></div>';
+  el(h);
+  document.getElementById("share").addEventListener("click", function(){ shareReport({lt:lt, rc:rc, news:news.length, nDays:nDays, poor:poorNights.length, a:a, whoFirst:whoFirst, before:before}); });
+  document.getElementById("back").addEventListener("click", home);
+  document.getElementById("redo").addEventListener("click", function(){ day7Step(1, Object.assign({}, S.day7)); });
+}
+
+function shareReport(r){
+  var t = "My Trigger Tracker report\n\nWhat keeps happening: when "+r.lt.when+", I "+r.rc.you+".\n\nWhy: "+r.lt.note+"\n\nThis week: "+r.news+" moments got to me, something got to me on "+r.nDays+" of 7 days, and I had "+r.poor+" nights of poor sleep.";
+  if (r.a.firstAge!=null) t += "\n\nThe clue: I first felt this around age "+r.a.firstAge+(r.whoFirst ? ", with "+r.whoFirst : "")+"."+(r.before>0 ? " That's "+r.before+" years before I met my partner." : "");
+  t += "\n\nLove SOS tapping script to reach for next: "+r.lt.script+" ("+LOVE_SOS_LINK+"#"+slug(r.lt.script)+").";
+  function options(){
+    var box = document.getElementById("saveopts");
+    box.innerHTML = '<div class="card stack" style="gap:10px"><h3>Save or send your report</h3>'+
+      '<a class="btn" href="mailto:?subject='+encodeURIComponent("My Trigger Tracker report")+'&body='+encodeURIComponent(t)+'">Email it to myself</a>'+
+      '<button class="btn ghost" id="pdf">Save as PDF or print</button>'+
+      '<button class="btn ghost" id="cp">Copy the words</button>'+
+      '<p class="small muted">Or take a screenshot of each part.</p></div>';
+    box.scrollIntoView({behavior:"smooth", block:"center"});
+    document.getElementById("pdf").addEventListener("click", function(){ try { window.print(); } catch(e){ toast("Take a screenshot instead"); } });
+    document.getElementById("cp").addEventListener("click", function(){
+      var ok = false;
+      try { var ta = document.createElement("textarea"); ta.value = t; ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select(); ok = document.execCommand("copy"); ta.remove(); } catch(e){}
+      toast(ok ? "Copied. Paste it into Notes or an email." : "Couldn't copy here. Try email or a screenshot.");
+    });
+  }
+  if (navigator.share){ navigator.share({title:"My Trigger Tracker report", text:t}).catch(function(err){ if (!err || err.name !== "AbortError") options(); }); return; }
+  options();
+}
+
+function confirmReset(){
+  el(topBar()+'<div class="stack"><h2>Start again?</h2><p>This clears everything you\'ve logged on this phone. It can\'t be undone.</p><button class="btn" id="y">Yes, start again</button><button class="btn ghost" id="n">Keep my week</button></div>');
+  document.getElementById("y").addEventListener("click", function(){ var u = S.unlocked, tst = S.test; S = blank(); S.unlocked = u; S.test = tst; save(); welcome(); });
+  document.getElementById("n").addEventListener("click", home);
+}
+
+function demo(){
+  var d = 864e5;
+  S.start = Date.now() - 6*d;
+  function at(day, hr){ var t = new Date(S.start + day*d); t.setHours(hr,10,0,0); return t.getTime(); }
+  var sample = [[0,"granted","My partner","tongue",7,20],[0,"said","Mum","quiet",6,13],[1,"granted","My partner","tongue",8,19],[3,"quiet","My partner","ask",9,22],
+    [4,"granted","My partner","snap",8,18],[5,"crit","Work","self",5,10],[6,"granted","My partner","tongue",7,20]];
+  S.entries = sample.map(function(x,i){ var e = {kind:"new",trigger:x[1],who:x[2],reaction:x[3],strength:x[4],time:at(x[0],x[5])}; if (i===2){ e.after = 3; e.note = "Cleared the whole kitchen again and nobody noticed."; } if (i===6) e.after = 2; return e; });
+  var row = S.entries[2];
+  S.entries.push({kind:"still",ref:row.time,trigger:row.trigger,who:row.who,reaction:row.reaction,strength:7,time:at(2,9)});
+  S.entries.push({kind:"still",ref:row.time,trigger:row.trigger,who:row.who,reaction:row.reaction,strength:5,time:at(3,9)});
+  S.checkins = [1,2,3,4,5,6].map(function(i){ return {time:at(i,8), hours:[5,5,6,7,5,6][i-1], sleep: i%2 ? "I woke up thinking about it" : "Okay"}; });
+  S.day7 = null; save(); home();
+}
+
+function route(){ if (!S.unlocked) gate(); else if (!S.start) welcome(); else home(); }
+route();
+</script>

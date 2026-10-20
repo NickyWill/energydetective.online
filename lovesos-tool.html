@@ -1228,11 +1228,25 @@
     for (var i = 0; i < SCRIPTS.length; i++) if (SCRIPTS[i].id === id) return SCRIPTS[i];
     return null;
   }
+  /* links like lovesos-tool#i-feel-triggered (the script name in lowercase, apostrophes removed,
+     spaces as hyphens) open that script straight away, e.g. from the Trigger Tracker */
+  function slug(t) {
+    return String(t).toLowerCase().replace(/['’]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  }
+  function findScriptBySlug(h) {
+    if (!h || h.indexOf("/") >= 0) return null;
+    try { h = decodeURIComponent(h); } catch (e) { /* use as typed */ }
+    var k = slug(h), all = SCRIPTS.concat([RESET]);
+    for (var i = 0; i < all.length; i++) if (slug(all[i].name) === k || slug(all[i].title) === k) return all[i];
+    return null;
+  }
 
   function route() {
     if (!getFlag(KEY_UNLOCKED)) { renderPassword(); return; }
-    if (!getFlag(KEY_WELCOMED)) { renderWelcome(true); return; }
     var h = (location.hash || "").replace(/^#\/?/, "");
+    var direct = findScriptBySlug(h);
+    if (direct) return startScript(direct);
+    if (!getFlag(KEY_WELCOMED)) { renderWelcome(true); return; }
     var parts = h.split("/");
     if (h === "" ) return renderHome();
     if (h === "about") return renderWelcome(false);
