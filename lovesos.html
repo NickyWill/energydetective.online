@@ -196,15 +196,15 @@ main > section:nth-of-type(3n){background:var(--bg)}
 .voices li{padding:22px 0;border-top:1px solid var(--line);position:relative;font-size:clamp(18px, 2vw, 20px);line-height:1.6}
 .voices li:last-child{border-bottom:1px solid var(--line)}
 .voices-label{margin-top:64px}
-.callouts{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:18px}
-@media (min-width:760px){.callouts{grid-template-columns:1fr 1fr}}
-.callouts li{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:30px 28px;box-shadow:0 18px 40px -30px rgba(20,17,18,.35);display:flex;flex-direction:column;gap:14px}
+.callouts{list-style:none;padding:0;margin:28px auto 0;display:grid;gap:18px;max-width:640px}
+.callouts li{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:30px 28px;box-shadow:0 18px 40px -30px rgba(20,17,18,.35);display:flex;flex-direction:column;gap:12px;text-align:center;align-items:center}
 .callouts .big{font-family:var(--display);font-weight:800;font-size:clamp(24px,2.6vw,30px);line-height:1.15;color:var(--ink)}
 .callouts .big em{font-style:normal;color:var(--pink-ink)}
 .callouts .full{font-size:16px;line-height:1.65;color:var(--muted)}
 .callouts .who{margin-top:auto;padding-top:6px;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--pink-ink)}
-.hero-quote{margin-top:10px;max-width:620px;text-align:center;font-family:var(--body);font-weight:500;font-size:15px;line-height:1.55;color:var(--ink)}
-.hero-quote::before{content:"\2665";color:var(--pink);margin-right:8px}
+.hero-proof{width:100%;max-width:560px;margin-bottom:10px;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:20px 24px;text-align:center;box-shadow:0 14px 34px -26px rgba(20,17,18,.35)}
+.hp-quote{font-family:var(--display);font-weight:700;font-size:clamp(19px,2vw,22px);line-height:1.35;color:var(--ink);text-wrap:balance}
+.hp-quote em{font-style:normal;color:var(--pink-ink);white-space:nowrap}
 
 .proof{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:18px;grid-template-columns:1fr}
 @media (min-width:640px){.proof{grid-template-columns:repeat(2,1fr)}}
@@ -359,9 +359,9 @@ src="https://www.facebook.com/tr?id=655365576722795&ev=PageView&noscript=1"
     </div>
   </div>
   <div class="hero-cta">
+    <div class="hero-proof"><p class="hp-quote">&ldquo;The first EFT script managed to move from a <em>10/10 to a 2/10</em> within a few minutes!&rdquo;</p></div>
     <a class="btn buy" href="#buy">Get Love SOS for $7</a>
     <p class="reassure"><span>Instant access</span><span>One-time $7, no subscription</span><span>7-day money-back guarantee</span></p>
-    <p class="hero-quote">&ldquo;The first EFT script managed to move from a 10/10 to a 2/10 within a few minutes!&rdquo;</p>
   </div>
 </header>
 
@@ -507,8 +507,8 @@ src="https://www.facebook.com/tr?id=655365576722795&ev=PageView&noscript=1"
     <div id="proof-wrap" hidden><p class="eyebrow center voices-label">What women are saying about Love SOS</p><ul class="proof" id="proof"></ul><p class="proof-note">Real messages, shared with permission.</p></div>
     <p class="eyebrow center voices-label" id="voices-label">What women are saying about Love SOS</p>
     <ul class="callouts" id="voices">
-      <li><p class="big">From <em>10/10 to 2/10</em> in a few minutes</p><p class="full">"My go to tool for when I'm feeling triggered. The first EFT script managed to move from a 10/10 (as bad as it gets) to a 2/10 within a few minutes! So much calmer, and a lot easier to have those hard relationship conversations from a regulated state. Thank you Nicky x"</p><p class="who">Love SOS tester</p></li>
-      <li><p class="big">My <em>saviour</em> before a wobble</p><p class="full">"Honestly this has been my saviour when we're just about to hit a wobble!"</p><p class="who">Love SOS tester</p></li>
+      <li><p class="big">From <em>10/10 to 2/10</em> in a few minutes</p><p class="full">"My go to tool for when I'm feeling triggered. The first EFT script managed to move from a 10/10 (as bad as it gets) to a 2/10 within a few minutes! So much calmer, and a lot easier to have those hard relationship conversations from a regulated state. Thank you Nicky x"</p></li>
+      <li><p class="big">My <em>saviour</em> before a wobble</p><p class="full">"Honestly this has been my saviour when we're just about to hit a wobble!"</p></li>
     </ul>
   </div>
 </section>
