@@ -98,7 +98,9 @@ hr{border:0;border-top:1px solid var(--line);margin:6px 0}
 .clue .big{color:#fff;font-size:26px}
 .clue .big em{color:var(--pink)}
 .clue p{color:#F3E9EA}
-.fromto{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center}
+.fromto{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:stretch}
+.fromto .arrow{align-self:center}
+.fromto .box{display:flex;flex-direction:column;justify-content:center}
 .fromto .box{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:16px;text-align:center}
 .fromto .box.to{background:var(--blush);border-color:transparent}
 .fromto .box span{display:block;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
@@ -120,40 +122,41 @@ a.inl{color:var(--pink-ink);font-weight:600;text-decoration:underline;text-under
 var PASSWORD = "TRACKME";                 /* the shared password buyers type in */
 var LOVE_SOS_LINK = "https://energydetective.online/lovesos-tool";      /* where the Love SOS kit lives */
 var TEST_PASSWORD = "TRACKME-TEST";     /* typing this instead turns on the test buttons, for Nicky only */
+var BOOK_LINK = "https://energydetective.online/work-with-me";   /* where "Book my Block Release Session" goes */
 var PREVIEW = false;                      /* true shows a "load a sample week" button for testing */
 
 /* ===== WORDS ===== */
 var TRIGGERS = [
  {id:"said", short:"something they said", label:"Something they said got to me", when:"something they say gets to you", script:"I Feel Triggered",
-  note:"It hurts most when what they say sounds like something you already worry is true about you. It hit you before you'd even had a chance to think about what they meant."},
+  note:"When they say the very thing you already worry about, it cuts deep. You're upset before you've had a chance to think about what they actually meant."},
  {id:"crit", short:"feeling criticised", label:"I felt criticised", when:"you feel criticised", script:"I Feel Triggered",
-  note:"When someone picks at one thing, it can sound like 'I can't do anything right.' That's why it hit so hard, so fast."},
+  note:"When someone picks at one thing, it can sound like “I can't do anything right.” That's why it hurt so much."},
  {id:"ignored", short:"feeling ignored or pushed aside", label:"I felt ignored or pushed aside", when:"you feel ignored or pushed aside", script:"I Feel Rejected",
-  note:"Being overlooked by someone you love can feel like being invisible. That ache is often older than this moment."},
+  note:"When the person you love doesn't notice you, you can feel invisible in your own home. And it's probably not the first time you've felt that way."},
  {id:"quiet", short:"them going quiet", label:"They went quiet on me", when:"they go quiet on you", script:"I Feel Rejected",
-  note:"Silence leaves a gap, and a worried mind fills it with the worst. Not knowing can feel harder than bad news."},
+  note:"When they go quiet, your mind monkeys fill in the gaps with the worst case scenario, at lightning speed. “What have I done?” Not knowing can feel worse than a row."},
  {id:"granted", short:"feeling taken for granted", label:"I felt taken for granted", when:"you feel taken for granted", script:"Resentment",
-  note:"When what you give goes unnoticed, it quietly piles up. This is your needs asking to count too."},
+  note:"You do so much. It builds up day by day, one job at a time, and all you want is to be noticed for the role you play."},
  {id:"scared", short:"fear of how they'll react", label:"I was scared of how they'd react", when:"you're scared of how they'll react", script:"Fear of Fallout",
-  note:"You were reading the room to keep everyone safe. That alertness was learnt somewhere, and it's exhausting to carry."},
+  note:"You were treading on eggshells, watching their face and choosing every word to keep the peace. It's exhausting always being the one who keeps everyone calm."},
  {id:"blame", short:"whose fault it is", label:"It turned into whose fault it was", when:"it turns into whose fault it is", script:"Releasing the Blame Game",
-  note:"Blame is a shield. Working out whose fault it is can feel safer than feeling the hurt underneath."},
+  note:"Arguing about whose fault it is happens when it doesn't feel safe to say “that really hurt me” and know you'll be heard."},
  {id:"trust", short:"not trusting something", label:"I didn't trust something", when:"you don't trust something", script:"Open to Love",
-  note:"Doubt puts your nervous system on watch. It's an old protection, trying to make sure you're not hurt again."},
+  note:"Part of you is waiting to be let down, so you're checking, questioning and looking for evidence. That's not you being difficult. It's because experience has shown you it's not safe to trust."},
  {id:"boxed", short:"feeling controlled or boxed in", label:"I felt controlled or boxed in", when:"you feel controlled or boxed in", script:"Feeling Like I've Lost Myself",
-  note:"Feeling boxed in pulls you away from yourself. Part of you is asking for room to breathe and choose."},
+  note:"When you feel controlled, you go along with things to keep the peace, and one day you realise you've lost your voice. You long for the day you have choices again."},
  {id:"much", short:"it all getting too much", label:"It all got too much", when:"it all gets too much", script:"Emergency Emotional Reset",
-  note:"Sometimes it isn't one thing, it's everything at once. Your nervous system hit its limit, and the kindest thing is to calm it first."}
+  note:"Sometimes it's just one thing that tips the balance, but it comes from everything that came before it. Work, the house, the family. You're not overreacting. You've reached your limit."}
 ];
 var REACTIONS = [
- {id:"tongue", label:"I bit my tongue", you:"bite your tongue", note:"You kept the peace on the outside, but the feeling didn't go anywhere. Unsaid words have a way of coming out later, over something small."},
- {id:"snap", label:"I snapped", you:"snap", note:"The feeling arrived faster than your words could catch it. Snapping isn't who you are. It's what happens when your nervous system is flooded."},
- {id:"ask", label:"I kept asking if we're okay", you:"keep asking if you're okay", note:"Not knowing where you stand feels unbearable, so you looked for proof you're safe. That need is asking to feel secure."},
- {id:"quiet", label:"I went quiet", you:"go quiet", note:"Going quiet is how you protect yourself when it's too much. The hard part is that no one can see what's happening inside."},
- {id:"gave", label:"I gave in and did it anyway", you:"give in and do it anyway", note:"Saying yes kept things smooth, but it cost you. Somewhere along the way, your needs learnt to come last."},
- {id:"fix", label:"I tried to fix it", you:"try to fix it", note:"Sorting it out feels safer than sitting in the discomfort. You care so much that you carry what isn't yours to carry."},
- {id:"guard", label:"I put my guard up", you:"put your guard up", note:"Your guard went up to stop you being hurt again. It's done its job for a long time, and it's tiring to hold up."},
- {id:"self", label:"I blamed myself", you:"blame yourself", note:"You turned it inward and decided it must be you. That voice is old, and it isn't telling you the truth."}
+ {id:"tongue", label:"I bit my tongue", you:"bite your tongue", note:"So you bit your tongue to keep the peace. But the feeling didn't go away, and it came out later over something small."},
+ {id:"snap", label:"I snapped", you:"snap", note:"And it came out before you could stop it. Afterwards you probably wondered why you reacted over something so small. That isn't who you are. It's what happens when you've held it in for too long."},
+ {id:"ask", label:"I kept asking if we're okay", you:"keep asking if you're okay", note:"So you kept asking if you're okay, needing to hear that everything's alright. That's not being needy. Not knowing where you stand is just too painful."},
+ {id:"quiet", label:"I went quiet", you:"go quiet", note:"So you went quiet. On the outside it looks like nothing's wrong, because you're used to putting this mask on. Inside you're hurting, and they don't see the pain you feel."},
+ {id:"gave", label:"I gave in and did it anyway", you:"give in and do it anyway", note:"So you said “it's fine, I'll do it”. It kept the peace, but it cost you. Once again, your needs came last."},
+ {id:"fix", label:"I tried to fix it", you:"try to fix it", note:"So you tried to fix it, because sorting it out feels better than sitting with the upset. But you end up carrying more than your share, and that builds resentment."},
+ {id:"guard", label:"I put my guard up", you:"put your guard up", note:"So you put your guard up to stop yourself getting hurt again. It's protected you for a long time, but it's exhausting, and you long for the day you can just be."},
+ {id:"self", label:"I blamed myself", you:"blame yourself", note:"Then you turned it on yourself: “it must be me”. You've probably told yourself that for years, and you may even have been told it. But it isn't true."}
 ];
 var WHO = ["My partner","Mum","Dad","Sister","Brother","My child","A friend","Work","Someone else"];
 var WHO_FIRST = ["My partner","Mum","Dad","Sister","Brother","Grandparent","Teacher","A friend","An ex","Someone else","I don't remember"];
@@ -166,6 +169,7 @@ var WORDS = ["Calm","A little stirred","Noticeable","Noticeable","Noticeable","N
 
 /* ===== STORAGE ===== */
 var KEY = "triggerTracker.v1";
+var IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 var S = load();
 try { if (/^#test$/i.test(location.hash) || /[?&]test\b/i.test(location.search)) { S.test = true; save(); } } catch(e){}
 if (S.test) PREVIEW = true;
@@ -191,7 +195,7 @@ function googleCal(){
   var e = new Date(d); e.setMinutes(10);
   return "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("Trigger Tracker")+"&details="+encodeURIComponent("Did anything get to you today? Log it in under a minute: https://energydetective.online/trigger-tracker")+"&dates="+f(d)+"/"+f(e)+"&recur="+encodeURIComponent("RRULE:FREQ=DAILY;COUNT=7");
 }
-function topBar(){ var d = Math.min(dayNum(), 30); return '<div class="top"><span class="brand">Trigger Tracker</span><span class="daypill">Day '+d+(d<=7?' of 7':'')+'</span></div>'+(PREVIEW && d<7 ? '<button class="btn" data-nextday style="background:var(--ink);color:#fff;min-height:46px;margin:-8px 0 20px">Test: go to day '+(d+1)+'</button>' : ''); }
+function topBar(noTest){ var d = Math.min(dayNum(), 30); return '<div class="top"><span class="brand">Trigger Tracker</span><span class="daypill">Day '+d+(d<=7?' of 7':'')+'</span></div>'+(PREVIEW && d<7 && !noTest ? '<button class="btn" data-nextday style="background:var(--ink);color:#fff;min-height:46px;margin:-8px 0 20px">Test: go to day '+(d+1)+'</button>' : ''); }
 function nextDay(){ var dd = 864e5; if (!S.start) S.start = Date.now(); S.start -= dd; S.entries.forEach(function(e){ e.time -= dd; if (e.ref) e.ref -= dd; }); S.checkins.forEach(function(c){ c.time -= dd; }); save(); toast("Now on day "+dayNum()); home(); }
 document.addEventListener("click", function(ev){ var b = ev.target.closest && ev.target.closest("[data-nextday]"); if (b) nextDay(); });
 function toast(t){ var x = document.createElement("div"); x.className="toast"; x.textContent=t; document.body.appendChild(x); setTimeout(function(){ x.remove(); }, 2200); }
@@ -224,7 +228,7 @@ function gate(){
     '<h1>Trigger Tracker</h1><p class="muted">Enter the password from your welcome email.</p>'+
     '<label class="eyebrow" for="pw" style="text-align:left">Password</label><input id="pw" type="password" autocomplete="off" autocapitalize="characters">'+
     '<p id="err" class="small" style="color:var(--pink-ink)" hidden>That password didn\'t match. Please check your email and try again.</p>'+
-    '<button class="btn" id="go">Enter</button><p class="small muted">Version 11</p></div>');
+    '<button class="btn" id="go">Enter</button><p class="small muted">Version 14</p></div>');
   var pw = document.getElementById("pw");
   function tryIt(){ var v = pw.value.trim().toUpperCase(); if (v === TEST_PASSWORD.toUpperCase()){ S.unlocked = true; S.test = true; PREVIEW = true; save(); route(); } else if (v === PASSWORD.toUpperCase()){ S.unlocked = true; save(); route(); } else { document.getElementById("err").hidden = false; } }
   document.getElementById("go").addEventListener("click", tryIt);
@@ -242,15 +246,18 @@ function welcome(){
      '<p><b>Day 7:</b> your personalised trigger report. What\'s really going on behind the trigger.</p>'+
    '</div>'+
    '<p class="small muted">Everything you log stays private on this phone. Nothing is sent anywhere.</p>'+
-   '<h3 style="margin-top:6px">Would you like a check-in reminder each evening?</h3><p class="small muted">Choose the calendar you use. It adds 7 reminders at 8pm, one for each day.</p>'+
-   '<div class="row"><button class="btn ghost" id="cal">iPhone or Outlook</button><a class="btn ghost" id="gcal" href="'+googleCal()+'" target="_blank" rel="noopener">Google Calendar</a></div>'+
+   '<h3 style="margin-top:6px">Would you like a check-in reminder each evening?</h3>'+(IOS ? '<p class="small muted">This adds 7 reminders at 8pm, one for each day. Your phone will ask which calendar to put them in, so it works with Google Calendar too.</p>'+
+     '<button class="btn ghost" id="cal">Add 7 reminders to my calendar</button>'
+   : '<p class="small muted">Choose the calendar you use. It adds 7 reminders at 8pm, one for each day.</p>'+
+     '<div class="row"><button class="btn ghost" id="cal">Apple or Outlook</button><a class="btn ghost" id="gcal" href="'+googleCal()+'" target="_blank" rel="noopener">Google Calendar</a></div>'+
+     '<p class="small muted">Google Calendar: if it says <b>Does not repeat</b>, tap it and choose <b>Every day</b> before you save. You can delete it after day 7.</p>')+
    '<div class="ask" style="margin-top:8px"><p><b>We\'re not waiting for the perfect time to begin. Tracking starts now.</b></p><p>We\'re starting a fresh 7 days, but I understand what you\'re feeling may not be new.</p><p>So let\'s dive into how you\'re feeling right now.</p>'+
    '<button class="btn" id="start">Start tracking</button></div>'+
    (PREVIEW ? '<button class="link" id="demo">Preview only: load a sample week</button>' : '')+
    '</div>');
   document.getElementById("cal").addEventListener("click", calendar);
   document.getElementById("start").addEventListener("click", function(){ if (!S.start){ S.start = Date.now(); save(); } logStep(1, {kind:"new"}); });
-  document.getElementById("gcal").addEventListener("click", function(){ S.reminders = "google"; save(); });
+  var gc = document.getElementById("gcal"); if (gc) gc.addEventListener("click", function(){ S.reminders = "google"; save(); });
   if (PREVIEW) document.getElementById("demo").addEventListener("click", demo);
 }
 
@@ -277,16 +284,16 @@ function calendar(){
 function home(){
   var d = dayNum(), st = stats(), news = S.entries.filter(isNew), n = news.length;
   var checkedToday = S.checkins.some(function(c){ return dayStart(c.time) === today(); });
-  var h = topBar()+'<div class="stack">';
+  var h = topBar(true)+'<div class="stack">';
   if (PREVIEW){
-    var CHECK = {1:"Log one or two moments, as she would today. When you're done, tap the black button at the top.",
+    var CHECK = {1:"Log one or two moments, as she would today. When you're done, tap the black button below.",
       2:"The morning check-in shows now. Do it, and try the 'still troubling you' question. Log anything new.",
       3:"Her first glimpse appears: what's getting to her most. Check that it matches what you logged.",
       4:"A normal day. Check in, log a moment, and look at your week's dots.",
-      5:"The 'who and when' insight appears. Check it matches who you chose.",
+      5:"The 'who and what time of day' insight appears. Check it matches who you chose.",
       6:"A normal day. Check in and log a moment. Tomorrow is the report.",
       7:"Tap 'Get my day 7 report', answer the questions and read every part."};
-    h += '<div class="card stack" style="gap:10px;border:2px dashed var(--pink)"><p class="eyebrow" style="color:var(--pink-ink)">Test mode: day '+d+' (only you see this). Version 11</p><p class="small">'+(CHECK[d]||"Past day 7. Your report is still here, and tracking carries on to day 30.")+'</p>'+
+    h += '<div class="card stack" style="gap:10px;border:2px dashed var(--pink)"><p class="eyebrow" style="color:var(--pink-ink)">Test mode: day '+d+' (only you see this). Version 14</p><p class="small">'+(CHECK[d]||"Past day 7. Your report is still here, and tracking carries on to day 30.")+'</p>'+(d<7 ? '<button class="btn" data-nextday style="background:var(--ink);color:#fff">Test: go to day '+(d+1)+'</button>' : '')+
       '<button class="link" id="demo2" style="align-self:flex-start">Fill a whole week with sample data instead</button></div>';
   }
   var showCheck = !checkedToday && d >= 2;
@@ -311,7 +318,7 @@ function home(){
   h += '<div class="sect"><h3>Your week</h3>'+journal()+'</div>';
   if (d >= 7 && n) h += '<button class="btn" id="rep">'+(S.day7 ? 'See my report' : 'Get my day 7 report')+'</button>';
   else h += '<div class="card center"><p class="eyebrow">Day 7</p><p>'+(d>=7 ? 'Log a moment to unlock your report.' : 'Your full report unlocks in '+(7-d)+' day'+(7-d===1?'':'s')+'.')+'</p></div>';
-  h += '<div class="foot"><button class="link" id="reset">Start again</button><p class="small muted" style="margin-top:8px">Version 11</p></div></div>';
+  h += '<div class="foot"><button class="link" id="reset">Start again</button><p class="small muted" style="margin-top:8px">Version 14</p></div></div>';
   el(h);
   if (showCheck) document.getElementById("chk").addEventListener("click", checkin);
   document.getElementById("log").addEventListener("click", function(){ if (!S.start){ S.start = Date.now(); save(); } logStep(1, {kind:"new"}); });
@@ -396,7 +403,7 @@ function logStep(step, e){
 function afterLog(e){
   var t = trig(e.trigger), first = S.entries.length === 1, still = !isNew(e);
   el(topBar()+'<div class="stack">'+heart()+'<p class="eyebrow">'+(first ? 'Your first dot. Day '+Math.min(dayNum(),30)+(dayNum()<=7?' of 7':'') : still ? 'Logged as still troubling you' : 'Logged')+'</p>'+
-    '<h2>'+esc(t.label)+'</h2><div class="card pink"><p>'+esc(still ? "When something is still troubling you days later, it's a sign it touched something deeper than the moment itself. That's useful to know." : t.note)+'</p></div>'+
+    '<h2>'+esc(t.label)+'</h2><div class="card pink"><p>'+esc(still ? "If it's still bothering you days later, it's usually about more than what happened on the day." : t.note)+'</p></div>'+
     '<h3>Want to bring this feeling down a notch?</h3><p class="muted">The Love SOS tapping script for this moment is <b>'+esc(t.script)+'</b>.</p>'+sosLink(t.script)+
     '<button class="btn soft" id="after">I\'ve tapped. Rate it again</button>'+
     '<button class="btn soft" id="note">Add what I needed or a note</button>'+
@@ -442,13 +449,13 @@ function day7Step(step, a){
     document.getElementById("nx").addEventListener("click", function(){ var v = document.getElementById("n").value; a[key] = v==="" ? null : Math.max(0, Math.min(110, +v)); day7Step(step+1, a); });
     if (skip) document.getElementById("sk").addEventListener("click", function(){ a[key] = null; day7Step(step+1, a); });
   }
-  if (step===1){ num("How old are you now?", "ageNow", "This helps us work out how long you've carried this feeling."); }
+  if (step===1){ num("How old are you now?", "ageNow", "This helps me work out how long you've been carrying this feeling."); }
   else if (step===2){ num("When did you first feel this?", "firstAge", lt ? 'Think about <b>'+esc(lt.label.toLowerCase())+'</b>. Roughly how old were you the first time you remember feeling it?' : 'Roughly how old were you?', "I don't remember"); }
   else if (step===3){ choose("Who was there?", WHO_FIRST, "firstWho", false, "Optional. The first person that comes to mind is enough."); }
   else if (step===4){ num("How long have you been with your partner?", "partnerYears", "In years. Put 0 if it's under a year."); }
   else if (step===5){ choose("Was this a typical week?", ["About the same as usual","A bit better than usual","A bit worse than usual"], "typical", false); }
   else if (step===6){ choose("What has your week felt like?", WEEK_FELT, "felt", true, "Choose as many as fit."); }
-  else if (step===7){ choose("How would you prefer it to feel?", PREFER, "prefer", true, "Choose as many as fit."); }
+  else if (step===7){ choose("How would you like it to feel?", PREFER, "prefer", true, "Choose as many as fit."); }
   else { a.time = Date.now(); S.day7 = a; save(); report(); }
 }
 
@@ -481,41 +488,42 @@ function report(){
 
   /* 1 */
   h += '<div class="chap"><p class="num">1 of 4 &middot; What keeps happening</p><div class="headline"><p class="big">When '+esc(lt.when)+', you '+esc(rc.you)+'.</p></div>'+
-       '<p>'+esc(lt.note)+' '+esc(rc.note)+'</p><p class="muted">None of this is your fault. It\'s your nervous system trying to keep you safe.</p></div>';
+       '<p>'+esc(lt.note)+'</p><p>'+esc(rc.note)+'</p><p class="muted">None of this means you\'re broken or too much. It\'s your nervous system trying to keep you safe.</p></div>';
 
   /* 2 */
   h += '<div class="chap"><p class="num">2 of 4 &middot; What it\'s costing you</p><h2>This week in numbers</h2>'+
-       '<div class="tiles"><div class="tile"><b>'+news.length+'</b><span>moment'+(news.length===1?'':'s')+' that got to you</span></div>'+
-       '<div class="tile"><b>'+nDays+'</b><span>day'+(nDays===1?'':'s')+' out of 7 something got to you</span></div>'+
-       '<div class="tile"><b>'+poorNights.length+'</b><span>night'+(poorNights.length===1?'':'s')+' of poor sleep</span></div></div>';
+       '<div class="tiles"'+(S.checkins.length?'':' style="grid-template-columns:1fr 1fr"')+'><div class="tile"><b>'+news.length+'</b><span>time'+(news.length===1?'':'s')+' something got to you</span></div>'+
+       '<div class="tile"><b>'+nDays+'</b><span>day'+(nDays===1?'':'s')+' out of 7 when something got to you</span></div>'+
+       (S.checkins.length ? '<div class="tile"><b>'+poorNights.length+'</b><span>night'+(poorNights.length===1?'':'s')+' you didn\'t sleep well</span></div>' : '')+'</div>';
   var lines = [];
-  if (longest) lines.push('The moment on day '+dayNum(longest.o.time)+' ('+esc(trig(longest.o.trigger).short)+') kept troubling you for <b>'+longest.days+' days</b>. That\'s how much one moment can carry.');
-  if (avgSleep!=null) lines.push('You slept about <b>'+(Math.round(avgSleep*2)/2)+' hours</b> a night'+(afterHard.length ? ', and slept badly after <b>'+badAfter.length+' of '+afterHard.length+'</b> hard days.' : '.'));
-  if (worse) lines.push('<span class="muted">You said this was a harder week than usual.</span>');
-  h += lines.map(function(l){ return '<p>'+l+'</p>'; }).join("")+'<p>The good news: you don\'t have to keep carrying this. Every time you calm it, you give yourself a little peace back.</p></div>';
+  if (longest) lines.push('On day '+dayNum(longest.o.time)+', '+esc(trig(longest.o.trigger).short)+' was still troubling you <b>'+(longest.days-1)+' day'+(longest.days-1===1?'':'s')+' later</b>. That\'s '+longest.days+' days of it playing on your mind.');
+  if (avgSleep!=null) lines.push('You slept about <b>'+(Math.round(avgSleep*2)/2)+' hours</b> a night.'+(afterHard.length && badAfter.length ? ' On <b>'+badAfter.length+' of the '+afterHard.length+'</b> days something got to you, you didn\'t sleep well that night.' : ''));
+  if (worse) lines.push('You said this week was harder than usual, so please be gentle with yourself.');
+  h += lines.map(function(l){ return '<p>'+l+'</p>'; }).join("")+'<p>The good news: you don\'t have to keep carrying this. Every time you tap and calm it down, you feel more like yourself again.</p></div>';
 
   /* 3: the clue */
   if (a.firstAge!=null || whoFirst){
     h += '<div class="chap"><p class="num">3 of 4 &middot; The clue to where it really began</p><div class="clue"><p class="eyebrow">Case notes</p>';
     if (a.firstAge!=null) h += '<p class="big">You first felt this around age <em>'+a.firstAge+'</em>'+(whoFirst ? ', with <em>'+esc(whoFirst)+'</em>' : '')+'.</p>';
     else h += '<p class="big">The first person who came to mind was <em>'+esc(whoFirst)+'</em>.</p>';
-    if (before!=null && before>0) h += '<p>That\'s <b>'+before+' years</b> before you met your partner. It started long before your partner.</p>';
+    if (before!=null && before>0) h += '<p>That\'s <b>'+before+' years</b> before your partner was even in your life.</p>';
     if (carried) h += '<p>You\'ve been carrying this feeling for around <b>'+carried+' years</b>. No wonder it still feels so awful today.</p>';
-    h += '</div></div>';
+    h += '<p>Think of it like an old file that never got cleared. When something today feels a bit like back then, that old file opens, and you feel all of it, not just what happened today.</p></div></div>';
   } else {
-    h += '<div class="chap"><p class="num">3 of 4 &middot; The clue to where it really began</p><div class="clue"><p class="eyebrow">Case notes</p><p class="big">Feelings this quick are rarely new.</p><p>If a memory comes to you later, notice who was there. That\'s often where it began.</p></div></div>';
+    h += '<div class="chap"><p class="num">3 of 4 &middot; The clue to where it really began</p><div class="clue"><p class="eyebrow">Case notes</p><p class="big">Feelings this strong are rarely new.</p><p>If a memory pops up over the next few days, notice who was there. That\'s often where it began.</p><p>Think of it like an old file that never got cleared. When something today feels a bit like back then, that old file opens, and you feel all of it, not just what happened today.</p></div></div>';
   }
 
   /* 4 */
   h += '<div class="chap"><p class="num">4 of 4 &middot; Where you go from here</p><h2>Your week, dot by dot</h2>'+journal();
-  if ((a.felt||[]).length || (a.prefer||[]).length) h += '<div class="fromto"><div class="box"><span>This week felt</span>'+esc((a.felt||[]).join(", ").toLowerCase()||"-")+'</div><div class="arrow" aria-hidden="true">&rarr;</div><div class="box to"><span>You\'d prefer</span>'+esc((a.prefer||[]).join(", ").toLowerCase()||"-")+'</div></div>';
+  if ((a.felt||[]).length || (a.prefer||[]).length) h += '<div class="fromto"><div class="box"><span>This week felt</span>'+esc((a.felt||[]).map(function(x){ return x.replace(/^A /,""); }).join(", ").toLowerCase()||"-")+'</div><div class="arrow" aria-hidden="true">&rarr;</div><div class="box to"><span>You\'d like to feel</span>'+esc((a.prefer||[]).join(", ").toLowerCase()||"-")+'</div></div>';
   if (tapped.length){
     var drop = tapped.reduce(function(s,e){ return s + (e.strength - e.after); },0)/tapped.length;
-    h += '<p>When you tapped, your feelings dropped by <b>'+drop.toFixed(1).replace(/\.0$/,"")+' points</b> on average. That\'s you calming your nervous system and feeling safer in the moment. Keep reaching for the '+scriptLink(lt.script)+'.</p>';
+    h += drop > 0.4 ? '<p>When you tapped, the feeling came down by <b>'+drop.toFixed(1).replace(/\.0$/,"")+' point'+(drop.toFixed(1)==="1.0"?'':'s')+'</b> on average. That\'s you calming your nervous system and feeling safer in the moment. Keep reaching for the '+scriptLink(lt.script)+'.</p>'
+      : '<p>When you tapped, it didn\'t move much this week. Some feelings need a few rounds, so keep going with the '+scriptLink(lt.script)+'.</p>';
   } else {
-    h += '<p>Next time it happens, try the '+scriptLink(lt.script)+' in Love SOS and watch the number come down.</p>'+sosLink(lt.script);
+    h += '<p>Next time it happens, open the '+scriptLink(lt.script)+' in Love SOS and watch the number come down.</p>'+sosLink(lt.script);
   }
-  h += '<div class="card stack" style="gap:10px">'+(st.loudCount>=3 ? '<p>The same yucky feeling came up <b>'+st.loudCount+' times</b> this week. When a feeling keeps coming back like this, it usually means you have unprocessed emotions that need clearing, and it\'s not necessarily about what\'s going on for you right now. That\'s the deeper work I do. Keep an eye on your inbox.</p>' : '<p>Keep using Love SOS whenever something gets to you. You can carry on tracking for up to 30 days and come back to this report any time.</p>')+'<p style="font-family:var(--display);font-style:italic;font-size:20px">Nicky xoxo</p></div>';
+  h += '<div class="card stack" style="gap:10px">'+(st.loudCount>=3 ? '<p>The same yucky feeling came up <b>'+st.loudCount+' times</b> this week. When a feeling keeps coming back like this, it usually means you have unprocessed emotions that need clearing, and it\'s not necessarily about what\'s going on for you right now. That\'s the deeper work I do. Keep an eye on your inbox.</p>' : '<p>Keep using Love SOS whenever something gets to you. You can carry on tracking for up to 30 days and come back to this report any time.</p>')+'<p>If you\'d like me to find and clear what\'s sitting underneath this, so that old file stops opening, this is your final nudge to book your Block Release Session.</p><a class="btn" href="'+esc(BOOK_LINK)+'" target="_blank" rel="noopener">Book my Block Release Session</a><p>I\'m so proud of you for sticking with this for 7 days. Sending lots of love,</p><p style="font-family:var(--display);font-style:italic;font-size:20px">Nicky xoxo</p></div>';
   if (notes.length) h += '<details class="notes card"><summary>Your diary notes ('+notes.length+')</summary><ul class="list" style="margin-top:10px">'+notes.map(function(e){ return '<li><span class="muted small">Day '+dayNum(e.time)+':</span> '+esc(e.note)+'</li>'; }).join("")+'</ul></details>';
   h += '</div>';
 
