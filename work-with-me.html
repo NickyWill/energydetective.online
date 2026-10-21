@@ -194,6 +194,8 @@
   .cur{background:var(--gold);mix-blend-mode:normal;box-shadow:0 0 10px color-mix(in oklch,var(--gold) 55%,transparent)}
   .cur-r{width:26px;height:26px;margin:-13px 0 0 -13px;border-color:color-mix(in oklch,var(--gold) 60%,transparent);mix-blend-mode:normal}
   .cur-r.hot{width:42px;height:42px;margin:-21px 0 0 -21px;background:color-mix(in oklch,var(--gold) 14%,transparent);border-color:color-mix(in oklch,var(--gold) 75%,transparent)}
+  /* "Book now" jumps land just below the fixed nav */
+  #block-release-buy,#rewire-buy,#private-programme{scroll-margin-top:96px}
 </style>
 <!-- Meta Pixel Code -->
 <script>
@@ -494,6 +496,16 @@ src="https://www.facebook.com/tr?id=655365576722795&ev=PageView&noscript=1"
   document.getElementById('rewireOpenBtn').addEventListener('click',()=>rewireModal.classList.add('open'));
   document.getElementById('rewireCloseBtn').addEventListener('click',()=>rewireModal.classList.remove('open'));
   rewireModal.addEventListener('click',e=>{ if(e.target===rewireModal) rewireModal.classList.remove('open'); });
+
+  // "Book now" jumps straight to a booking box near the end of a tall section, where too little of the
+  // section is on screen for its fade-in to start, so show that section as soon as we jump to it
+  function revealHashTarget(){
+    const t=location.hash && document.getElementById(location.hash.slice(1));
+    const sec=t && t.closest('[data-reveal]');
+    if(sec) sec.classList.add('in');
+  }
+  addEventListener('hashchange',revealHashTarget);
+  revealHashTarget();
   addEventListener('keydown',e=>{ if(e.key==='Escape') rewireModal.classList.remove('open'); });
 
   // Meta Pixel — this page views both paid offers

@@ -844,6 +844,8 @@
   var PASSWORD = "HEALME";
   var KEY_UNLOCKED = "love-sos-unlocked";
   var KEY_WELCOMED = "love-sos-welcomed";
+  /* opened from the Trigger Tracker (lovesos-tool?from=tracker): offer a way back at the end of each script */
+  var FROM_TRACKER = /[?&]from=tracker(&|$)/.test(location.search);
   var memory = {};
   function getFlag(k) {
     try { if (window.localStorage.getItem(k) === "1") return true; } catch (e) { /* storage blocked */ }
@@ -1214,6 +1216,7 @@
           '<button type="button" class="ls-btn" id="ls-again">Go again</button>' +
           '<button type="button" class="ls-btn ls-ghost" id="ls-other">Try another script</button>' +
           '<button type="button" class="ls-btn ls-ghost" data-go="#/">Back to home</button>' +
+          (FROM_TRACKER ? '<a class="ls-btn ls-ghost" href="https://energydetective.online/trigger-tracker">Back to my Trigger Tracker</a>' : "") +
         "</div>",
         opts
       );

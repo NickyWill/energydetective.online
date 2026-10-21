@@ -202,8 +202,8 @@ function toast(t){ var x = document.createElement("div"); x.className="toast"; x
 function prog(n, of){ var s='<div class="progress" aria-hidden="true">'; for (var i=1;i<=of;i++) s+='<i class="'+(i<=n?'on':'')+'"></i>'; return s+'</div>'; }
 function bind(sel, fn){ app.querySelectorAll(sel).forEach(function(b){ b.addEventListener("click", fn); }); }
 function slug(t){ return t.toLowerCase().replace(/'/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,""); }
-function scriptLink(script){ return '<a class="inl" href="'+esc(LOVE_SOS_LINK)+'#'+slug(script)+'" target="_blank" rel="noopener">'+esc(script)+' tapping script</a>'; }
-function sosLink(script){ return '<a class="btn" href="'+esc(LOVE_SOS_LINK)+'#'+slug(script)+'" target="_blank" rel="noopener">Let\'s bring it down in just a few minutes</a>'; }
+function scriptLink(script){ return '<a class="inl" href="'+esc(LOVE_SOS_LINK)+'?from=tracker#'+slug(script)+'">'+esc(script)+' tapping script</a>'; }
+function sosLink(script){ return '<a class="btn sos" href="'+esc(LOVE_SOS_LINK)+'?from=tracker#'+slug(script)+'">Let\'s bring it down in just a few minutes</a>'; }
 
 /* ===== STATS ===== */
 function stats(entries){
@@ -228,7 +228,7 @@ function gate(){
     '<h1>Trigger Tracker</h1><p class="muted">Enter the password from your welcome email.</p>'+
     '<label class="eyebrow" for="pw" style="text-align:left">Password</label><input id="pw" type="password" autocomplete="off" autocapitalize="characters">'+
     '<p id="err" class="small" style="color:var(--pink-ink)" hidden>That password didn\'t match. Please check your email and try again.</p>'+
-    '<button class="btn" id="go">Enter</button><p class="small muted">Version 14</p></div>');
+    '<button class="btn" id="go">Enter</button><p class="small muted">Version 15</p></div>');
   var pw = document.getElementById("pw");
   function tryIt(){ var v = pw.value.trim().toUpperCase(); if (v === TEST_PASSWORD.toUpperCase()){ S.unlocked = true; S.test = true; PREVIEW = true; save(); route(); } else if (v === PASSWORD.toUpperCase()){ S.unlocked = true; save(); route(); } else { document.getElementById("err").hidden = false; } }
   document.getElementById("go").addEventListener("click", tryIt);
@@ -293,7 +293,7 @@ function home(){
       5:"The 'who and what time of day' insight appears. Check it matches who you chose.",
       6:"A normal day. Check in and log a moment. Tomorrow is the report.",
       7:"Tap 'Get my day 7 report', answer the questions and read every part."};
-    h += '<div class="card stack" style="gap:10px;border:2px dashed var(--pink)"><p class="eyebrow" style="color:var(--pink-ink)">Test mode: day '+d+' (only you see this). Version 14</p><p class="small">'+(CHECK[d]||"Past day 7. Your report is still here, and tracking carries on to day 30.")+'</p>'+(d<7 ? '<button class="btn" data-nextday style="background:var(--ink);color:#fff">Test: go to day '+(d+1)+'</button>' : '')+
+    h += '<div class="card stack" style="gap:10px;border:2px dashed var(--pink)"><p class="eyebrow" style="color:var(--pink-ink)">Test mode: day '+d+' (only you see this). Version 15</p><p class="small">'+(CHECK[d]||"Past day 7. Your report is still here, and tracking carries on to day 30.")+'</p>'+(d<7 ? '<button class="btn" data-nextday style="background:var(--ink);color:#fff">Test: go to day '+(d+1)+'</button>' : '')+
       '<button class="link" id="demo2" style="align-self:flex-start">Fill a whole week with sample data instead</button></div>';
   }
   var showCheck = !checkedToday && d >= 2;
@@ -318,7 +318,7 @@ function home(){
   h += '<div class="sect"><h3>Your week</h3>'+journal()+'</div>';
   if (d >= 7 && n) h += '<button class="btn" id="rep">'+(S.day7 ? 'See my report' : 'Get my day 7 report')+'</button>';
   else h += '<div class="card center"><p class="eyebrow">Day 7</p><p>'+(d>=7 ? 'Log a moment to unlock your report.' : 'Your full report unlocks in '+(7-d)+' day'+(7-d===1?'':'s')+'.')+'</p></div>';
-  h += '<div class="foot"><button class="link" id="reset">Start again</button><p class="small muted" style="margin-top:8px">Version 14</p></div></div>';
+  h += '<div class="foot"><button class="link" id="reset">Start again</button><p class="small muted" style="margin-top:8px">Version 15</p></div></div>';
   el(h);
   if (showCheck) document.getElementById("chk").addEventListener("click", checkin);
   document.getElementById("log").addEventListener("click", function(){ if (!S.start){ S.start = Date.now(); save(); } logStep(1, {kind:"new"}); });
@@ -409,6 +409,7 @@ function afterLog(e){
     '<button class="btn soft" id="note">Add what I needed or a note</button>'+
     '<button class="btn ghost" id="done">Done for now</button></div>');
   document.getElementById("after").addEventListener("click", function(){ rateAfter(e); });
+  bind(".sos", function(){ S.pendingRate = e.time; save(); });
   document.getElementById("note").addEventListener("click", function(){ addNote(e); });
   document.getElementById("done").addEventListener("click", home);
 }
@@ -417,7 +418,7 @@ function rateAfter(e){
   var v = Math.min(e.strength, 5);
   el(topBar()+'<div class="stack"><h2>How strong does it feel now?</h2><p class="muted">You started at '+e.strength+'.</p><div class="card"><div class="score" id="sc">'+v+'</div><p class="scorelab" id="sl">'+WORDS[v]+'</p><input type="range" id="rg" min="0" max="10" value="'+v+'" aria-label="How strong it feels now"><div class="ends"><span>Calm</span><span>As strong as it gets</span></div></div><button class="btn" id="sv">Save</button></div>');
   var rg = document.getElementById("rg"); rg.addEventListener("input", function(){ document.getElementById("sc").textContent = rg.value; document.getElementById("sl").textContent = WORDS[rg.value]; });
-  document.getElementById("sv").addEventListener("click", function(){ e.after = +rg.value; save();
+  document.getElementById("sv").addEventListener("click", function(){ e.after = +rg.value; S.pendingRate = null; save();
     var drop = e.strength - e.after;
     el(topBar()+'<div class="stack center">'+heart().replace('class="heart"','class="heart" style="margin:0 auto"')+'<h2>'+(drop>0 ? 'You went from '+e.strength+' to '+e.after+'.' : 'Thank you for checking in.')+'</h2><p class="muted">'+(drop>0 ? 'That\'s your nervous system settling.' : 'Some feelings need a few rounds. You can go again whenever you\'re ready.')+'</p><button class="btn soft" id="nt">'+(e.note||e.needed ? 'Change what I needed or my note' : 'Add what I needed or a note')+'</button><button class="btn" id="h">Back to my week</button></div>');
     document.getElementById("nt").addEventListener("click", function(){ addNote(e); });
@@ -577,6 +578,16 @@ function demo(){
   S.day7 = null; save(); home();
 }
 
-function route(){ if (!S.unlocked) gate(); else if (!S.start) welcome(); else home(); }
+function route(){
+  if (!S.unlocked) return gate();
+  if (!S.start) return welcome();
+  /* back from Love SOS: go straight to "how strong does it feel now?" */
+  if (S.pendingRate){
+    var pe = S.entries.filter(function(x){ return x.time === S.pendingRate; })[0];
+    S.pendingRate = null; save();
+    if (pe && pe.after == null && Date.now() - pe.time < 6*36e5) return rateAfter(pe);
+  }
+  home();
+}
 route();
 </script>
