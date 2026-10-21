@@ -2,19 +2,95 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
-    { "source": "/dread-quiz", "destination": "/dreadquiz", "permanent": false },
-    { "source": "/dread_quiz", "destination": "/dreadquiz", "permanent": false },
-    { "source": "/dread-report", "destination": "/dreadquiz", "permanent": false },
-    { "source": "/dreadreport", "destination": "/dreadquiz", "permanent": false },
-    { "source": "/DreadQuiz", "destination": "/dreadquiz", "permanent": false },
-    { "source": "/Dreadquiz", "destination": "/dreadquiz", "permanent": false },
-    { "source": "/DREADQUIZ", "destination": "/dreadquiz", "permanent": false },
-    { "source": "/Dread-Quiz", "destination": "/dreadquiz", "permanent": false },
-    { "source": "/guilt-quiz", "destination": "/guiltquiz", "permanent": false },
-    { "source": "/guilt_quiz", "destination": "/guiltquiz", "permanent": false },
-    { "source": "/GuiltQuiz", "destination": "/guiltquiz", "permanent": false },
-    { "source": "/Guiltquiz", "destination": "/guiltquiz", "permanent": false },
-    { "source": "/GUILTQUIZ", "destination": "/guiltquiz", "permanent": false },
-    { "source": "/Guilt-Quiz", "destination": "/guiltquiz", "permanent": false }
+    {
+      "source": "/dread-quiz",
+      "destination": "/dreadquiz",
+      "permanent": false
+    },
+    {
+      "source": "/dread_quiz",
+      "destination": "/dreadquiz",
+      "permanent": false
+    },
+    {
+      "source": "/dread-report",
+      "destination": "/dreadquiz",
+      "permanent": false
+    },
+    {
+      "source": "/dreadreport",
+      "destination": "/dreadquiz",
+      "permanent": false
+    },
+    {
+      "source": "/DreadQuiz",
+      "destination": "/dreadquiz",
+      "permanent": false
+    },
+    {
+      "source": "/Dreadquiz",
+      "destination": "/dreadquiz",
+      "permanent": false
+    },
+    {
+      "source": "/DREADQUIZ",
+      "destination": "/dreadquiz",
+      "permanent": false
+    },
+    {
+      "source": "/Dread-Quiz",
+      "destination": "/dreadquiz",
+      "permanent": false
+    },
+    {
+      "source": "/guilt-quiz",
+      "destination": "/guiltquiz",
+      "permanent": false
+    },
+    {
+      "source": "/guilt_quiz",
+      "destination": "/guiltquiz",
+      "permanent": false
+    },
+    {
+      "source": "/GuiltQuiz",
+      "destination": "/guiltquiz",
+      "permanent": false
+    },
+    {
+      "source": "/Guiltquiz",
+      "destination": "/guiltquiz",
+      "permanent": false
+    },
+    {
+      "source": "/GUILTQUIZ",
+      "destination": "/guiltquiz",
+      "permanent": false
+    },
+    {
+      "source": "/Guilt-Quiz",
+      "destination": "/guiltquiz",
+      "permanent": false
+    },
+    {
+      "source": "/Jane-healing",
+      "destination": "/jane-healing",
+      "permanent": false
+    },
+    {
+      "source": "/Jane-Healing",
+      "destination": "/jane-healing",
+      "permanent": false
+    },
+    {
+      "source": "/JANE-HEALING",
+      "destination": "/jane-healing",
+      "permanent": false
+    },
+    {
+      "source": "/jane-healing-support-space",
+      "destination": "/jane-healing",
+      "permanent": false
+    }
   ]
 }
