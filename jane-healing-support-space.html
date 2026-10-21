@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Your Healing Support Space | The Energy Detective</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #F7F3EE;
+  --warm:  #FDFAF7;
+  --deep:  #1C1916;
+  --bark:  #2d3d32;
+  --clay:  #4a5a4f;
+  --mist:  #a7b9a0;
+  --gd:    #2d3d32;
+  --bd:    rgba(74,90,79,.15);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--cream); color:var(--deep); font-family:'Poppins',sans-serif; font-weight:300; line-height:1.7; overflow-x:hidden; }
+.screen { display:none; min-height:100vh; }
+.screen.active { display:block; }
+.serif   { font-family:'Cormorant Garamond',serif !important; }
+.eyebrow { font-family:'Poppins',sans-serif; font-size:11px; font-weight:500; letter-spacing:.25em; text-transform:uppercase; color:var(--mist); }
+.btn-p { display:block; width:100%; padding:15px; background:var(--bark); color:#FDFAF7; border:none; font-family:'Poppins',sans-serif; font-size:11px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; cursor:pointer; border-radius:2px; transition:background .2s; }
+.btn-p:hover { background:#3d5043; }
+.btn-p:disabled { background:rgba(74,90,79,.3); cursor:default; }
+.btn-o { display:block; width:100%; padding:13px; background:transparent; color:var(--clay); border:1px solid var(--bd); font-family:'Poppins',sans-serif; font-size:11px; font-weight:500; letter-spacing:.15em; text-transform:uppercase; cursor:pointer; border-radius:2px; }
+.btn-o:hover { border-color:var(--mist); }
+.topbar  { background:var(--gd); padding:18px 24px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:10; }
+.tbback  { background:none; border:none; color:rgba(253,250,247,.5); font-family:'Poppins',sans-serif; font-size:10px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; cursor:pointer; }
+.tbtitle { font-family:'Poppins',sans-serif; font-size:10px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--mist); }
+.progbar  { height:3px; background:rgba(74,90,79,.12); }
+.progfill { height:100%; background:var(--mist); transition:width .5s ease; }
+.phasetabs { display:flex; border-bottom:1px solid var(--bd); background:var(--cream); }
+.ptab { flex:1; padding:12px 4px; text-align:center; font-family:'Poppins',sans-serif; font-size:10px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:rgba(74,90,79,.35); border-bottom:2px solid transparent; }
+.ptab.active { color:var(--bark); border-bottom-color:var(--mist); }
+.ptab.done   { color:rgba(74,90,79,.55); }
+.scard { background:var(--warm); padding:28px 36px; border-top:2px solid var(--mist); display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; margin-bottom:2px; }
+.taprow { display:flex; gap:16px; align-items:flex-start; padding:14px 0; border-bottom:1px solid rgba(167,185,160,.2); }
+.tappt  { min-width:100px; font-family:'Poppins',sans-serif; font-size:9px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:rgba(167,185,160,.85); padding-top:4px; flex-shrink:0; }
+.tapln  { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:300; color:var(--bark); line-height:1.5; }
+.setupcard { padding:22px 28px; background:var(--warm); border-left:3px solid var(--mist); margin-bottom:14px; border-radius:0 2px 2px 0; }
+.setuptxt  { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:300; color:var(--bark); line-height:1.65; }
+.sud-btn { width:40px; height:40px; border-radius:50%; border:1px solid var(--bd); background:var(--warm); font-family:'Poppins',sans-serif; font-size:13px; font-weight:400; color:var(--clay); cursor:pointer; transition:all .15s; flex-shrink:0; }
+.sud-btn:hover { border-color:var(--mist); color:var(--bark); }
+.sud-btn.sel   { background:var(--bark); color:#FDFAF7; border-color:var(--bark); }
+.sud-trail { display:flex; align-items:flex-start; gap:6px; flex-wrap:wrap; justify-content:center; margin:0 auto 36px; max-width:520px; }
+.sud-chip  { text-align:center; }
+.sud-arrow { color:var(--mist); font-size:16px; padding-top:18px; }
+.content { max-width:680px; margin:0 auto; padding:56px 24px; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+.fade-up { animation:fadeUp .5s ease forwards; }
+</style>
+</head>
+<body>
+
+<div id="s-pw" class="screen active">
+  <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 24px;">
+    <div style="text-align:center;max-width:380px;width:100%;" class="fade-up">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" style="margin:0 auto 28px;display:block;">
+        <circle cx="16" cy="16" r="15" stroke="#a7b9a0" stroke-width="1"/>
+        <circle cx="16" cy="16" r="6"  stroke="#a7b9a0" stroke-width="1"/>
+        <line x1="16" y1="1"  x2="16" y2="10" stroke="#a7b9a0" stroke-width="1"/>
+        <line x1="16" y1="22" x2="16" y2="31" stroke="#a7b9a0" stroke-width="1"/>
+        <line x1="1"  y1="16" x2="10" y2="16" stroke="#a7b9a0" stroke-width="1"/>
+        <line x1="22" y1="16" x2="31" y2="16" stroke="#a7b9a0" stroke-width="1"/>
+      </svg>
+      <p class="eyebrow" style="margin-bottom:20px;">The Energy Detective</p>
+      <h1 class="serif" style="font-size:52px;font-weight:300;color:var(--bark);line-height:1.1;margin-bottom:12px;">
+        Your Healing<br><em style="color:var(--mist);">Support Space</em>
+      </h1>
+      <p style="font-size:13px;color:var(--clay);margin-bottom:48px;line-height:1.75;">Your personal tapping scripts are waiting for you.</p>
+      <input type="password" id="pw-in" placeholder="Enter your access code"
+        onkeydown="if(event.key==='Enter')chkPw()"
+        style="width:100%;padding:16px 20px;border:1px solid var(--bd);border-radius:2px;background:white;font-size:14px;font-family:Poppins;color:var(--deep);outline:none;text-align:center;letter-spacing:.12em;margin-bottom:8px;">
+      <p id="pw-err" style="font-size:12px;color:#c84b2f;min-height:18px;margin-bottom:10px;"></p>
+      <button class="btn-p" onclick="chkPw()">Enter</button>
+    </div>
+  </div>
+</div>
+
+<div id="s-welcome" class="screen">
+  <div style="background:var(--gd);padding:56px 24px;text-align:center;position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(167,185,160,.12) 0%,transparent 65%);pointer-events:none;"></div>
+    <p class="eyebrow" style="color:var(--mist);margin-bottom:20px;position:relative;">The Energy Detective</p>
+    <h1 class="serif" style="font-size:clamp(36px,7vw,64px);font-weight:300;color:#FDFAF7;line-height:1.05;margin-bottom:14px;position:relative;">
+      Jane's Healing<br><em style="color:var(--mist);">Support Space</em>
+    </h1>
+    <p class="serif" style="font-size:20px;font-style:italic;font-weight:300;color:rgba(253,250,247,.5);position:relative;">Everything you need, in one place</p>
+  </div>
+
+  <div style="max-width:680px;margin:0 auto;padding:56px 24px;">
+
+    <!-- Tapping points image -->
+    <div style="text-align:center;margin-bottom:64px;">
+      <p class="eyebrow" style="margin-bottom:20px;">Tapping Points</p>
+      <img src="/assets/tapping-points.png" onerror="this.style.display='none'"
+        alt="EFT Tapping Points"
+        style="max-width:100%;height:auto;border-radius:2px;display:block;margin:0 auto;">
+    </div>
+
+    <!-- Videos -->
+    <p class="eyebrow" style="text-align:center;margin-bottom:44px;">Your Personal Videos</p>
+
+    <div style="margin-bottom:48px;">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:var(--bark);margin-bottom:6px;">1. Emergency Tapping</p>
+      <p style="font-size:12px;color:var(--clay);margin-bottom:16px;">Use this whenever you need immediate relief.</p>
+      <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:2px;">
+        <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;" src="https://www.youtube.com/embed/gQCd-0_zaxM?si=DP6T1-2_jYnLJdlX" title="Emergency Tapping" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <div style="margin-bottom:48px;">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:var(--bark);margin-bottom:6px;">2. Tapping Overview</p>
+      <p style="font-size:12px;color:var(--clay);margin-bottom:16px;">An introduction to how your sessions will work.</p>
+      <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:2px;">
+        <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;" src="https://www.youtube.com/embed/qGzQHxBN6_c?si=7nnpqkvNGWZntHym" title="Tapping Overview" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <div style="margin-bottom:64px;">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:var(--bark);margin-bottom:6px;">3. Tapping Walkthrough</p>
+      <p style="font-size:12px;color:var(--clay);margin-bottom:16px;">A full walkthrough of the tapping process.</p>
+      <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:2px;">
+        <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;" src="https://www.youtube.com/embed/yYwBl3MWtdQ?si=7Gos8YjWVBBm6FXl" title="Tapping Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <div style="border-top:1px solid var(--bd);padding-top:48px;text-align:center;">
+      <p class="eyebrow" style="margin-bottom:20px;">Ready to begin</p>
+      <button class="btn-p" style="max-width:320px;margin:0 auto;" onclick="goScripts()">Go to my scripts</button>
+    </div>
+
+  </div>
+</div>
+
+<div id="s-home" class="screen">
+  <div style="background:var(--gd);padding:80px 24px;text-align:center;position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(167,185,160,.12) 0%,transparent 65%);pointer-events:none;"></div>
+    <p class="eyebrow" style="color:var(--mist);margin-bottom:24px;position:relative;">The Energy Detective</p>
+    <h1 class="serif" style="font-size:clamp(40px,8vw,72px);font-weight:300;color:#FDFAF7;line-height:1.05;margin-bottom:16px;position:relative;">
+      Jane's Personal<br><em style="color:var(--mist);">Tapping Scripts</em>
+    </h1>
+    <p class="serif" style="font-size:22px;font-style:italic;font-weight:300;color:rgba(253,250,247,.5);position:relative;">A private space for your healing work</p>
+  </div>
+  <div style="max-width:720px;margin:0 auto;padding:64px 24px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:12px;">
+      <p class="eyebrow">Scripts</p>
+      <button onclick="goWelcome()" style="background:none;border:none;font-family:Poppins;font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--mist);cursor:pointer;">&#8592; Resources</button>
+    </div>
+    <div id="scripts-list"></div>
+  </div>
+</div>
+
+<div id="s-tap" class="screen">
+  <div class="progbar"><div class="progfill" id="prog" style="width:0%"></div></div>
+  <div class="content" id="tap-body"></div>
+</div>
+
+<div id="s-jour" class="screen">
+  <div class="topbar">
+    <button class="tbback" onclick="backToTap()">Back</button>
+    <p class="tbtitle">After your tapping</p>
+    <div style="width:44px;"></div>
+  </div>
+  <div class="content">
+    <div style="text-align:center;margin-bottom:16px;">
+      <p class="eyebrow" style="margin-bottom:14px;">What came up</p>
+      <h2 class="serif" style="font-size:clamp(32px,5vw,48px);font-weight:300;color:var(--bark);line-height:1.15;">
+        Take a moment.<br><em style="color:var(--mist);">What are you noticing?</em>
+      </h2>
+    </div>
+    <div id="sud-trail-wrap" style="margin:32px 0;"></div>
+    <p style="font-size:13px;color:var(--clay);text-align:center;max-width:500px;margin:0 auto 40px;line-height:1.85;">
+      This space is yours. If you would like to track your progress, note how you are feeling, or capture any emotions, words or memories that came up during your tapping, you are welcome to do that here. There is no pressure and nothing you need to write.
+    </p>
+    <textarea id="jour-txt" placeholder="Write freely here, or simply close the page..."
+      style="width:100%;min-height:220px;padding:24px;border:1px solid var(--bd);border-radius:2px;background:var(--warm);font-size:19px;font-family:'Cormorant Garamond',serif;font-weight:300;color:var(--bark);line-height:1.7;resize:vertical;outline:none;"></textarea>
+    <p style="font-size:12px;color:var(--mist);text-align:center;margin-top:14px;line-height:1.7;">
+      You may want to copy what you have written before closing this page.<br>Your notes will not be saved automatically.
+    </p>
+    <div style="margin-top:28px;display:flex;flex-direction:column;gap:12px;">
+      <button class="btn-p" id="copy-notes-btn" onclick="copyNotes()">Copy my notes</button>
+      <button class="btn-o" onclick="goScripts()">Back to scripts</button>
+    </div>
+    <p id="copy-notes-confirm" style="display:none;font-size:12px;color:var(--mist);text-align:center;margin-top:12px;">Notes copied to clipboard.</p>
+  </div>
+</div>
+
+<script>
+
+const PASS = "VOICE";
+
+const TP = ["Eyebrow","Side of Eye","Under Eye","Under Nose","Chin","Collarbone","Under Arm","Top of Head"];
+
+const SCRIPTS = [
+  {
+    id:1, week:1,
+    title:"It Is Safe to Speak and Be Myself",
+    setup:[
+      "Even though my body still doesn't always feel safe to speak, I accept how hard it has worked to protect me.",
+      "Even though I often hold things in, especially around certain people, I'm open to discovering that my voice matters too.",
+      "Even though speaking up has never felt completely safe, I choose to believe that I can express myself one step at a time."
+    ],
+    rounds:[
+      {title:"Round 1 – Acknowledging What's Happening",lines:["My body still wants to protect me.","Sometimes my cough says it for me.","Especially around certain people.","I notice it with family.","I notice it when I feel uncomfortable.","Part of me still holds back.","It's easier to stay quiet.","This has been my way for a long time."]},
+      {title:"Round 2 – Understanding the Pattern",lines:["My body has been trying to help me.","It learned to protect me.","It thought silence was safer.","It thought the cough was keeping me safe.","It didn't know another way.","I can appreciate how hard it's worked.","My body has been trying to look after me.","Maybe I don't need quite so much protection now."]},
+      {title:"Round 3 – Allowing a Shift",lines:["Maybe I can feel a little safer.","Maybe my voice matters too.","I don't have to force anything.","I can express myself one step at a time.","I know who I love.","I know who I need stronger boundaries with.","My body doesn't have to do all the talking anymore.","It is becoming safer to speak and be myself."]}
+    ]
+  },
+  {
+    id:2, week:1,
+    title:"Releasing the Need to Keep the Peace",
+    setup:[
+      "Even though I've spent so much of my life giving in to keep the peace, I accept why I learned to do that.",
+      "Even though I've often put other people's needs before my own, I'm open to believing that my needs matter too.",
+      "Even though holding my boundaries feels unfamiliar, I choose to discover that peace doesn't have to come at the expense of myself."
+    ],
+    rounds:[
+      {title:"Round 1 – Acknowledging the Pattern",lines:["I've always tried to keep the peace.","Sometimes at my own expense.","I give in so things settle down.","It feels easier than conflict.","I don't like upsetting people.","I've ignored my own needs.","Just to make life easier.","This has become so familiar."]},
+      {title:"Round 2 – Understanding the Pattern",lines:["It made sense at the time.","I was trying to feel safe.","I was trying to avoid more stress.","My body thought this protected me.","It was doing the best it could.","I don't need to judge myself for that.","I can thank this old pattern.","And maybe I don't need it in the same way anymore."]},
+      {title:"Round 3 – Allowing a Shift",lines:["My peace matters too.","I can care about others.","Without abandoning myself.","I don't have to give in automatically.","I can pause before I respond.","I can honour my own needs.","It can be safe to hold my boundaries.","I'm learning a different way."]}
+    ]
+  },
+  {
+    id:3, week:1,
+    title:"I Don't Have to Run Away Anymore",
+    setup:[
+      "Even though part of me still wants to run away when life feels overwhelming, I accept how that once helped me cope.",
+      "Even though I've learned to leave in my mind when things become too much, I'm open to discovering another way of feeling safe.",
+      "Even though staying has sometimes felt harder than leaving, I choose to trust that I can stay with myself, one moment at a time."
+    ],
+    rounds:[
+      {title:"Round 1 – Acknowledging the Feeling",lines:["Sometimes I just want to get away.","I've felt that since I was little.","It all becomes too much.","Part of me wants to leave.","Even if only in my mind.","That became my safe place.","Leaving felt easier than staying.","I've carried this for a long time."]},
+      {title:"Round 2 – Understanding the Pattern",lines:["My younger self was overwhelmed.","She was trying to cope.","She wanted somewhere safe.","Running away made sense then.","It helped me survive.","I don't need to criticise that part of me.","She did the best she could.","Maybe she's safe now."]},
+      {title:"Round 3 – Allowing a Shift",lines:["Maybe I can stay.","Just for this moment.","I don't have to escape.","I can stay with myself.","I can breathe through discomfort.","My body can begin to settle.","I don't have to leave to feel safe.","Staying is becoming easier."]}
+    ]
+  },
+  {
+    id:4, week:1,
+    title:"I Am Not a Bad Person",
+    setup:[
+      "Even though I've carried this feeling that I'm somehow a bad person underneath it all, I accept how painful that has been.",
+      "Even though part of me has believed that if I don't like myself no one else will either, I'm open to questioning that belief.",
+      "Even though I've carried this story for many years, I choose to become curious about who I really am beneath it."
+    ],
+    rounds:[
+      {title:"Round 1 – Acknowledging the Feeling",lines:["I've carried this for years.","What if I'm a bad person?","What if people really knew me?","They might not like me.","I've felt like a fraud.","I've hidden behind being nice.","I've doubted myself for so long.","This feels very old."]},
+      {title:"Round 2 – Understanding the Pattern",lines:["I didn't choose this belief.","It grew over time.","It tried to explain my experiences.","It tried to keep me safe.","Even if it hurt me.","My mind believed it was protecting me.","I can understand why it's here.","And maybe it doesn't have to stay."]},
+      {title:"Round 3 – Allowing a Shift",lines:["Maybe this isn't who I am.","Maybe it's only a story.","I can become curious.","I don't have to prove I'm good.","I can simply be myself.","I can be kinder to myself.","I'm open to seeing myself differently.","I'm allowing a little more self-acceptance."]}
+    ]
+  },
+  {
+    id:5, week:2,
+    title:"Feeling Safe During Uncomfortable Conversations",
+    setup:[
+      "Even though my body reacts during certain conversations and I notice my cough gets worse, I accept how my body has been trying to protect me.",
+      "Even though I don't always feel comfortable speaking my truth, especially with certain people, I'm open to feeling a little safer.",
+      "Even though these conversations still affect me, I choose to trust that I can stay present, stay calm and take care of myself."
+    ],
+    rounds:[
+      {title:"Round 1 – Acknowledging the Feeling",lines:["My body reacts so quickly.","I notice it when I'm uncomfortable.","Especially with certain people.","My cough can become overwhelming.","It feels difficult to speak.","My body takes over.","I can feel myself shutting down.","This feels so familiar."]},
+      {title:"Round 2 – Understanding the Pattern",lines:["My body learned to protect me.","It thought this was keeping me safe.","It wanted me to avoid conflict.","It wanted life to feel easier.","It didn't want me to get hurt.","I appreciate how hard it's worked.","It has been trying to help me.","Maybe it doesn't need to work quite so hard now."]},
+      {title:"Round 3 – Allowing a Shift",lines:["I can notice what's happening.","Without judging myself.","I can stay present.","I can take one breath at a time.","My body can begin to relax.","I can feel safer during conversations.","I don't have to protect myself in the same way.","I'm learning that I can stay calm and present."]}
+    ]
+  },
+  {
+    id:6, week:2,
+    title:"Letting Go of Hypervigilance",
+    setup:[
+      "Even though part of me is always watching, preparing and trying to stay one step ahead, I accept why my body learned to do that.",
+      "Even though I feel more settled when everything is organised and under control, I'm open to discovering that I don't have to carry everything.",
+      "Even though my body has stayed on alert for such a long time, I choose to allow it to experience a little more peace and ease."
+    ],
+    rounds:[
+      {title:"Round 1 – Acknowledging the Feeling",lines:["My body is always alert.","I'm always noticing everything.","I like things in order.","Clutter makes me feel stressed.","I want things sorted.","I want life to move more quickly.","My body rarely switches off.","It's exhausting always being on guard."]},
+      {title:"Round 2 – Understanding the Pattern",lines:["This wasn't random.","My body learned to stay prepared.","It thought it had to stay alert.","It believed that was safer.","It has been trying to protect me.","I don't need to fight this pattern.","I can appreciate everything it has done for me.","Maybe I can soften a little."]},
+      {title:"Round 3 – Allowing a Shift",lines:["I don't have to be on alert all the time.","I can let my shoulders soften.","I can slow down.","Things don't all have to happen today.","My body can begin to trust.","I can allow a little more ease.","It feels safe to relax.","My nervous system is learning a new rhythm."]}
+    ]
+  },
+  {
+    id:7, week:2,
+    title:"Allowing Life to Feel Easier",
+    setup:[
+      "Even though life has felt like such a struggle for so long, I accept how heavy that has been.",
+      "Even though part of me doesn't quite know how to be if life becomes easier, I'm open to discovering a different way.",
+      "Even though everything feels a little unfamiliar right now, I choose to trust that it's safe to grow into this new version of myself."
+    ],
+    rounds:[
+      {title:"Round 1 – Acknowledging the Feeling",lines:["Life has felt like a struggle.","I've carried so much.","Sometimes it's all felt too much.","I've felt burnt out.","I've wondered if it would ever change.","I've carried this for years.","No wonder I feel tired.","This has been a long journey."]},
+      {title:"Round 2 – Understanding the Pattern",lines:["My body adapted.","It found ways to cope.","It kept me going.","Even when things felt overwhelming.","It has worked so hard.","I don't need to judge that.","I can thank my body.","And maybe it can begin to rest."]},
+      {title:"Round 3 – Allowing a Shift",lines:["Maybe life can feel lighter.","I don't have to force it.","I can let it unfold.","I can be curious about what's changing.","I'm learning a new way of being.","It doesn't have to make perfect sense yet.","I can trust the process.","I'm allowing a little more ease into my life."]}
+    ]
+  }
+];
+
+const PHASES = [
+  {t:'sud',label:'Before we begin',roundTab:0,baseline:true},
+  {t:'setup'},
+  {t:'rounds'},
+  {t:'sud',label:'After all three rounds',roundTab:3,last:true}
+];
+
+let curScript=null,phaseIdx=0,sudScores=[],curSUD=null;
+
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('s-'+id).classList.add('active');window.scrollTo(0,0);}
+
+function chkPw(){
+  const v=document.getElementById('pw-in').value;
+  if(v.trim().toUpperCase()===PASS.toUpperCase()){show('welcome');}
+  else{const e=document.getElementById('pw-err');e.textContent="That code doesn't match. Try again.";setTimeout(()=>e.textContent='',2500);}
+}
+
+function renderHome(){
+  const list=document.getElementById('scripts-list');list.innerHTML='';
+  SCRIPTS.forEach((s,i)=>{
+    const d=document.createElement('div');d.className='scard';
+    d.innerHTML=`<div><p style="font-family:Poppins;font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--mist);margin-bottom:8px;">Script ${i+1}</p><h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;color:var(--bark);line-height:1.2;">${s.title}</h3><p style="font-size:12px;color:var(--clay);margin-top:6px;">Setup + 3 rounds</p></div><button onclick="startScript(${s.id})" style="padding:12px 24px;background:var(--bark);color:#FDFAF7;border:none;font-family:Poppins;font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;border-radius:2px;white-space:nowrap;">Begin Tapping</button>`;
+    list.appendChild(d);
+  });
+}
+
+function startScript(id){curScript=SCRIPTS.find(s=>s.id===id);phaseIdx=0;sudScores=[];curSUD=null;renderTap();show('tap');}
+
+function renderTap(){
+  const ph=PHASES[phaseIdx];
+  document.getElementById('prog').style.width=(phaseIdx/(PHASES.length-1)*100)+'%';
+  const body=document.getElementById('tap-body');
+  if(ph.t==='setup'){
+    const somaticSetup=curScript.somatic?`<div style="background:var(--warm);border-left:3px solid var(--mist);padding:20px 24px;margin-bottom:28px;border-radius:0 2px 2px 0;"><p style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:var(--bark);line-height:1.7;">Before you begin, close your eyes and bring your attention to the pain in your back. Give it a <strong>shape</strong>. Give it a <strong>colour</strong>. Notice how big it feels. Hold those in your mind as you work through the setup — and use your own words where you see [colour] and [shape].</p></div>`:'';
+    body.innerHTML=`<p class="eyebrow" style="text-align:center;margin-bottom:6px;">Script</p><p style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--bark);text-align:center;margin-bottom:40px;">${curScript.title}</p>${somaticSetup}<div style="text-align:center;margin-bottom:48px;"><p class="eyebrow" style="margin-bottom:12px;">Setup Statements</p><h2 class="serif" style="font-size:36px;font-weight:300;color:var(--bark);margin-bottom:14px;">Karate Chop Point</h2><p style="font-size:13px;color:var(--clay);max-width:480px;margin:0 auto;line-height:1.8;">Tap the side of your hand continuously as you read each statement aloud. Say each one three times if you can.</p></div><div style="margin-bottom:56px;">${curScript.setup.map(s=>`<div class="setupcard"><p class="setuptxt">${s}</p></div>`).join('')}</div><div style="text-align:center;"><button class="btn-p" style="max-width:320px;margin:0 auto;" onclick="adv()">Continue to Rounds</button></div>`;
+  } else if(ph.t==='rounds'){
+    const roundsHtml=curScript.rounds.map((r,ri)=>{
+      const rNum=ri+1;
+      return`<div style="margin-bottom:48px;"><div style="text-align:center;margin-bottom:28px;padding-top:${ri>0?'48px':'0'};${ri>0?'border-top:2px solid rgba(167,185,160,.2);':''}"><p class="eyebrow" style="margin-bottom:8px;">Round ${rNum}</p><h3 class="serif" style="font-size:26px;font-weight:300;color:var(--bark);">${r.title.replace(/Round \d+ – /,'')}</h3></div><div style="border-top:1px solid rgba(167,185,160,.2);">${r.lines.map((l,i)=>`<div class="taprow"><div class="tappt">${TP[i]}</div><p class="tapln">${l}</p></div>`).join('')}</div></div>`;
+    }).join('');
+    const somaticPrompt=curScript.somatic?`<div style="background:var(--warm);border-left:3px solid var(--mist);padding:20px 24px;margin-bottom:44px;border-radius:0 2px 2px 0;"><p style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:var(--bark);line-height:1.7;">Before you begin, close your eyes and bring your attention to the pain in your back. Give it a <strong>shape</strong>. Give it a <strong>colour</strong>. Notice how big it feels. Hold those in your mind as you tap — and use your own words in the lines below where you see [colour] and [shape].</p></div>`:'';
+    const closingCard=curScript.somatic?`<div style="background:var(--warm);border-left:3px solid var(--mist);padding:20px 24px;margin-bottom:32px;border-radius:0 2px 2px 0;"><p style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:var(--bark);line-height:1.7;">Close your eyes again. What does the shape look like now? Has the colour changed? Has the size shifted? Notice whatever is there.<br><br>If it has shifted in size, shape, texture or colour, go through the rounds again — feel free to add your own words as you go.</p></div>`:'';
+    body.innerHTML=`<p class="eyebrow" style="text-align:center;margin-bottom:6px;">Script</p><p style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--bark);text-align:center;margin-bottom:40px;">${curScript.title}</p><p style="font-size:13px;color:var(--clay);text-align:center;margin-bottom:40px;line-height:1.8;">Tap each point as you say the phrase aloud. Work through all three rounds, then check in with how you feel.</p>${somaticPrompt}${roundsHtml}${closingCard}<div style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px;padding-top:8px;"><button class="btn-p" style="max-width:320px;" onclick="adv()">Complete — how do I feel now?</button><button class="btn-o" style="max-width:320px;" onclick="repeatRounds()">Tap the rounds again</button></div>`;
+  } else if(ph.t==='sud'){
+    const isFinal=ph.last;
+    const isBaseline=ph.baseline;
+    const prompt=isFinal
+      ?'Having completed all three rounds, how would you rate the intensity of this feeling now?'
+      :'Before you begin, how would you rate the intensity of this feeling right now?';
+    const btnLabel=isFinal?'Continue to Journal':'Continue to Setup';
+    const continueMsg=isFinal?`<p style="font-size:13px;color:var(--clay);max-width:480px;margin:24px auto 0;line-height:1.85;text-align:center;">If you are still rating yourself 3 or above, please continue with the rounds, feel free to add your own words that pop into your head as you move through the scripts again.</p>`:'';
+    body.innerHTML=`<p class="eyebrow" style="text-align:center;margin-bottom:6px;">Script</p><p style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--bark);text-align:center;margin-bottom:40px;">${curScript.title}</p><div style="text-align:center;margin-bottom:44px;"><p class="eyebrow" style="margin-bottom:12px;">${ph.label}</p><h2 class="serif" style="font-size:36px;font-weight:300;color:var(--bark);margin-bottom:16px;">How does it feel?</h2><p style="font-size:13px;color:var(--clay);max-width:460px;margin:0 auto;line-height:1.8;">${prompt}</p><p style="font-size:11px;color:var(--mist);margin-top:10px;display:block;overflow:hidden;text-overflow:ellipsis;">0&nbsp;=&nbsp;nothing there &nbsp;&middot;&nbsp; 10&nbsp;=&nbsp;as intense as it gets</p></div><div style="display:flex;gap:6px;justify-content:center;flex-wrap:nowrap;margin:0 auto 36px;max-width:520px;">${Array.from({length:11},(_,i)=>`<button class="sud-btn" id="sn-${i}" onclick="pickSUD(${i})">${i}</button>`).join('')}</div>${continueMsg}<div style="text-align:center;margin-top:36px;"><button class="btn-p" id="sud-cont" style="max-width:320px;margin:0 auto;" disabled onclick="sudContinue()">${btnLabel}</button></div>`;
+    curSUD=null;
+  }
+}
+
+function repeatRounds(){phaseIdx=PHASES.findIndex(p=>p.t==='rounds');renderTap();window.scrollTo(0,0);}
+function pickSUD(n){curSUD=n;document.querySelectorAll('.sud-btn').forEach(b=>b.classList.remove('sel'));document.getElementById('sn-'+n).classList.add('sel');document.getElementById('sud-cont').disabled=false;}
+function sudContinue(){sudScores.push({label:PHASES[phaseIdx].label,score:curSUD});adv();}
+function adv(){phaseIdx++;if(phaseIdx>=PHASES.length){renderJournal();show('jour');}else{renderTap();window.scrollTo(0,0);}}
+function goScripts(){renderHome();show('home');}
+function goWelcome(){show('welcome');}
+function goHome(){show('welcome');}
+function backToTap(){renderTap();show('tap');}
+
+function renderJournal(){
+  document.getElementById('jour-txt').value='';
+  document.getElementById('copy-notes-confirm').style.display='none';
+  const wrap=document.getElementById('sud-trail-wrap');
+  if(sudScores.length>0){
+    const items=sudScores.map((s,i)=>{
+      const arrow=i<sudScores.length-1?'<span class="sud-arrow">&#8594;</span>':'';
+      return`<span class="sud-chip"><span style="font-size:10px;color:var(--mist);display:block;text-align:center;margin-bottom:3px;">${s.label.replace('Before ','').replace('After all three rounds','After')}</span><span style="font-size:26px;font-family:'Cormorant Garamond',serif;font-weight:300;color:var(--bark);">${s.score}</span></span>${arrow}`;
+    });
+    wrap.innerHTML=`<div class="sud-trail"><span style="font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--mist);width:100%;text-align:center;display:block;margin-bottom:14px;">Your ratings this session</span>${items.join('')}</div>`;
+  } else {wrap.innerHTML='';}
+}
+
+function copyNotes(){
+  const txt=document.getElementById('jour-txt').value.trim();
+  if(!txt)return;
+  const date=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+  let out=`MY TAPPING NOTES — ${date}\n\n`;
+  if(sudScores.length>0){out+='SUD SCORES: '+sudScores.map(s=>s.label.replace('Before ','').replace('After all three rounds','After')+': '+s.score).join(' > ')+'\n\n';}
+  out+=txt;
+  navigator.clipboard.writeText(out).then(()=>{
+    const btn=document.getElementById('copy-notes-btn');const conf=document.getElementById('copy-notes-confirm');
+    btn.textContent='Copied';btn.style.background='var(--mist)';conf.style.display='block';
+    setTimeout(()=>{btn.textContent='Copy my notes';btn.style.background='var(--bark)';},3000);
+  });
+}
+
+</script>
+</body>
+</html>
