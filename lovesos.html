@@ -214,6 +214,12 @@ main > section:nth-of-type(3n){background:var(--bg)}
 .proof img{display:block;width:100%;height:auto;border-radius:14px}
 .proof-note{margin-top:14px;font-size:13px;color:var(--muted);text-align:center}
 
+/* Checkout (ThriveCart embedded checkout, inside the price section) */
+#checkout{padding-block:0;margin-top:56px;scroll-margin-top:16px}
+#checkout .checkout-h{font-size:clamp(26px, 3.4vw, 34px);text-align:center;margin-bottom:24px}
+#checkout .tc-v2-embeddable-target{max-width:640px;margin-inline:auto}
+#checkout .tc-v2-embeddable-target:empty{min-height:560px;border-radius:22px;background:var(--paper);border:1px solid var(--line)}
+
 /* Price */
 .price{max-width:480px;margin:44px auto 0;background:var(--paper);border:1.5px solid var(--pink);border-radius:22px;padding:36px 30px 30px;text-align:center;box-shadow:0 24px 50px -32px rgba(194,64,90,.45)}
 .amount{font-family:var(--display);font-weight:800;font-size:76px;line-height:1;margin-top:10px}
@@ -247,7 +253,7 @@ footer{border-top:1px solid var(--line);padding-block:28px 110px;font-size:13px;
 </style>
 
 <!-- BUY LINK: swap #buy for the ThriveCart checkout link here once, it updates every button -->
-<script>window.LOVE_SOS_BUY = "#buy";
+<script>window.LOVE_SOS_BUY = "#checkout";
 /* SHOWCASE VIDEO (the silent video of the tool in use): put the video file path (e.g. assets/lovesos/lovesos-showcase.mp4) or a YouTube link between the quotes. It plays silently on a loop. Leave empty to hide it. */
 window.LOVE_SOS_VIDEO = "assets/lovesos/lovesos-showcase.mp4";
 /* VIDEO SPEED for a video file: 1 = normal, 2 = twice as fast, 3 = three times as fast. */
@@ -255,13 +261,13 @@ window.LOVE_SOS_VIDEO_SPEED = 1;
 /* PROOF SCREENSHOTS: list the screenshot files from Love SOS users here, e.g. ["assets/lovesos/proof-1.jpg", "assets/lovesos/proof-2.jpg"]. When this list has files in it, they replace the client quotes. Leave empty to keep the quotes. */
 window.LOVE_SOS_PROOF = [];</script>
 
-<!-- THRIVECART POP-UP: every "Get Love SOS for $7" button opens this checkout as a pop-up.
-     These settings come from your ThriveCart embed code for Love SOS (product 50). -->
+<!-- THRIVECART CHECKOUT: the embedded ThriveCart checkout for Love SOS (product 50) sits in the price section, id="checkout".
+     It starts loading once the rest of the page has finished loading. Every "Get Love SOS for $7" button scrolls down to it. -->
 <script>
 window.LOVE_SOS_THRIVECART = {
   account: "nickywilliams",
   product: "50",
-  modalOpts: {"style_modal_width":"40","style_content_border_radius":"0.5","attr_modal_background":"on","style_modal_background_color":"#000000","style_modal_background_opacity":"40","attr_modal_blur":"off","attr_content_shadow":"off"}
+  embedId: "tc-nickywilliams-50-H47OB7"
 };
 </script>
 
@@ -533,6 +539,10 @@ src="https://www.facebook.com/tr?id=655365576722795&ev=PageView&noscript=1"
       <a class="btn buy full" href="#buy">Get Love SOS for $7</a>
       <p class="small">Instant access. And if it's not for you, email me within 7 days for a full refund.</p>
     </div>
+    <section id="checkout" aria-labelledby="checkout-h">
+      <h2 class="checkout-h" id="checkout-h">Get your Love SOS kit</h2>
+      <div class="tc-v2-embeddable-target" data-thrivecart-account="nickywilliams" data-thrivecart-tpl="v2" data-thrivecart-product="50" data-thrivecart-embeddable="tc-nickywilliams-50-H47OB7"></div>
+    </section>
   </div>
 </section>
 
@@ -622,34 +632,37 @@ src="https://www.facebook.com/tr?id=655365576722795&ev=PageView&noscript=1"
     bar.classList.toggle("show", visible.size === 0);
   });
   mains.forEach(function(m){ io.observe(m); });
+  var checkout = document.getElementById("checkout");
+  if (checkout) io.observe(checkout);
 })();
 </script>
 
 <script>
-/* ThriveCart pop-up: a hidden ThriveCart button does the work, and every buy button on the page clicks it */
+/* ThriveCart embedded checkout: loads after the rest of the page, so the top of the page stays fast.
+   Every "Get Love SOS for $7" button scrolls smoothly down to it and tells Meta about the checkout. */
 (function(){
   var TC = window.LOVE_SOS_THRIVECART;
-  if (!TC || !TC.account || !TC.product) return;
-  var w = document.createElement("div");
-  w.className = "builder-v2-widget tc-v2-widget-embeddable_button tc-v2-embeddable-trigger";
-  w.setAttribute("data-widget-layout", "embeddable_button");
-  w.setAttribute("data-thrivecart-account", TC.account);
-  w.setAttribute("data-thrivecart-tpl", "v2");
-  w.setAttribute("data-thrivecart-product", TC.product);
-  w.setAttribute("data-thrivecart-modal", "on");
-  w.setAttribute("data-thrivecart-modal-opts", JSON.stringify(TC.modalOpts || {}));
-  w.setAttribute("aria-hidden", "true");
-  w.style.cssText = "position:absolute;left:-9999px;top:0;width:1px;height:1px;overflow:hidden";
-  w.innerHTML = '<div data-size="auto" data-style="rounded" data-align="center" data-block="embeddable_button" class="builder-v2-block builder-v2-block-embeddable_button"><button type="button" tabindex="-1" class="tc-v2-embeddable-trigger-el button"><span class="builder-v2-block builder-v2-block-plaintext" data-block="plaintext">Get Love SOS</span></button></div>';
-  document.body.appendChild(w);
-  var s = document.createElement("script");
-  s.async = true; s.src = "https://tinder.thrivecart.com/embed/v2/thrivecart.js";
-  document.body.appendChild(s);
+  var target = document.getElementById("checkout");
+  var loaded = false;
+  function loadCheckout(){
+    if (loaded || !TC || !TC.embedId) return;
+    loaded = true;
+    var s = document.createElement("script");
+    s.async = true; s.id = TC.embedId; s.src = "https://tinder.thrivecart.com/embed/v2/thrivecart.js";
+    document.body.appendChild(s);
+  }
+  if (document.readyState === "complete") loadCheckout();
+  else window.addEventListener("load", loadCheckout);
+
+  var tracked = false;
   document.addEventListener("click", function(e){
     var a = e.target.closest && e.target.closest("a.buy");
-    if (!a) return;
+    if (!a || !target) return;
     e.preventDefault();
-    w.querySelector("button").click();
+    loadCheckout();
+    if (!tracked && window.fbq) { tracked = true; window.fbq("track", "InitiateCheckout", { value: 7.00, currency: "USD", content_name: "Love SOS" }); }
+    var calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    target.scrollIntoView({ behavior: calm ? "auto" : "smooth", block: "start" });
   });
 })();
 </script>
