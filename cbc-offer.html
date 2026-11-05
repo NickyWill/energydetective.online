@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calm Before Christmas | Energy Detective</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Five private 1:1 sessions to clear the emotional baggage you carry into Christmas. Before it all lands, not in the middle of it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Poppins:wght@300;400;500;600&display=swap">
+<style>
+/* Calm Before Christmas sales page. Uses the main site's palette, type and components
+   (eyebrow, gold rule, bands, gold button, testimonial plate, accordion, footer). Mobile first. */
+:root{
+  --cream:#f5f2ec;     /* main background */
+  --white:#fffdf9;     /* white bands, a touch warm so it sits with the cream */
+  --sand:#d8cbb7;
+  --gold:#b89a6a;      /* accent: buttons, rules, emphasis */
+  --gold-ink:#8f7448;  /* gold text on light backgrounds, readable */
+  --sage:#a7b9a0;
+  --forest:#4a5a4f;
+  --charcoal:#424242;  /* body text */
+  --hair:rgba(66,66,66,.14);
+  --hair-dark:rgba(245,242,236,.18);
+  --disp:'Instrument Serif', 'Cormorant Garamond', Georgia, serif;
+  --sans:'Poppins', 'Helvetica Neue', Arial, sans-serif;
+  --pad:max(20px, env(safe-area-inset-left, 0px));
+  --band:clamp(76px, 12vw, 140px);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--cream);color:var(--charcoal);font-family:var(--sans);font-weight:300;font-size:16.5px;line-height:1.75;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+@media (min-width:900px){body{font-size:17.5px}}
+img{max-width:100%;display:block}
+a{color:inherit}
+p{margin:0}
+::selection{background:var(--gold);color:#fff}
+h1,h2,h3{font-family:var(--disp);font-weight:400;margin:0;line-height:1.1;text-wrap:balance;letter-spacing:-.005em}
+h1 em,h2 em,h3 em{font-style:italic;color:var(--gold-ink)}
+.dark h1 em,.dark h2 em,.dark h3 em{color:var(--gold)}
+
+.wrap{max-width:680px;margin:0 auto;padding-inline:var(--pad)}
+.wrap-wide{max-width:1140px;margin:0 auto;padding-inline:var(--pad)}
+.center{text-align:center}
+
+.band{padding-block:var(--band)}
+.cream{background:var(--cream)}
+.white{background:var(--white)}
+.dark{background:var(--forest);color:var(--cream)}
+.dark p{color:rgba(245,242,236,.88)}
+
+.eyebrow{font-family:var(--sans);font-size:11.5px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--forest);margin:0 0 18px}
+.dark .eyebrow{color:var(--gold)}
+.rule{width:36px;height:1px;background:var(--gold);opacity:.8;margin:0 0 22px}
+.center .rule{margin-inline:auto}
+
+.h2{font-size:clamp(34px, 8.4vw, 58px)}
+.h-xl{font-size:clamp(42px, 11vw, 92px);line-height:1.02}
+.copy p+p{margin-top:1.15em}
+
+/* Button: the site's gold button, made bigger for thumbs */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:56px;padding:16px 36px;background:var(--gold);color:#2f2a22;font-family:var(--sans);font-weight:500;font-size:14px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-radius:3px;transition:filter .25s, transform .25s;-webkit-tap-highlight-color:transparent}
+.btn:hover{filter:brightness(1.07)}
+.btn:active{transform:translateY(1px)}
+@media (max-width:560px){.btn{width:100%}}
+.under{margin-top:16px;font-size:13px;line-height:1.6;letter-spacing:.02em;color:rgba(66,66,66,.78)}
+.dark .under{color:rgba(245,242,236,.74)}
+.cta{margin-top:44px}
+
+/* ---------- Top bar ---------- */
+.top{padding:22px var(--pad) 0;max-width:1140px;margin:0 auto}
+.wm{display:inline-block;font-family:var(--disp);line-height:1.15;text-decoration:none}
+.wm .n{font-style:italic;font-size:18px;color:var(--charcoal)}
+.wm .t{display:block;font-family:var(--sans);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(66,66,66,.66);margin-top:3px}
+
+/* ---------- 1. Hero ---------- */
+.hero{padding:clamp(44px, 9vw, 96px) 0 var(--band)}
+.hero-grid{display:grid;gap:44px;align-items:center}
+.hero h1{font-size:clamp(40px, 10.6vw, 78px);line-height:1.04;max-width:13ch}
+.hero .sub{font-size:clamp(17px, 4.4vw, 20px);line-height:1.65;margin-top:24px;max-width:36ch}
+.tags{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 0;padding:0}
+.tags li{font-size:12px;font-weight:400;letter-spacing:.06em;padding:7px 14px;border:1px solid rgba(74,90,79,.32);border-radius:999px;color:var(--forest);background:rgba(255,253,249,.55)}
+.hero .cta{margin-top:34px}
+.hero-img{position:relative;border-radius:999px 999px 4px 4px;overflow:hidden;aspect-ratio:4/3;background:var(--sand)}
+.hero-img img{width:100%;height:100%;object-fit:cover}
+@media (min-width:900px){
+  .hero-grid{grid-template-columns:1.25fr .75fr;gap:72px}
+  .hero-img{aspect-ratio:3/4}
+}
+
+/* ---------- 2. Story ---------- */
+.story .lead{font-family:var(--disp);font-size:clamp(28px, 7vw, 42px);line-height:1.2;color:var(--charcoal);margin-bottom:34px}
+.story .lead em{font-style:italic;color:var(--gold-ink)}
+.story .aside{font-family:var(--disp);font-style:italic;font-size:clamp(24px, 6vw, 32px);line-height:1.3;color:var(--forest);margin:44px 0;padding-left:22px;border-left:1px solid var(--gold)}
+.story .close{margin-top:40px;padding-top:30px;border-top:1px solid var(--hair);font-weight:400;font-size:1.08em;color:var(--forest)}
+
+/* ---------- 3. Which one are you ---------- */
+.which-grid{display:grid;gap:16px;margin-top:48px}
+.card{background:var(--white);border:1px solid rgba(216,203,183,.7);border-radius:4px;padding:30px 26px 32px}
+.card .num{font-family:var(--disp);font-size:44px;line-height:1;color:var(--gold);margin-bottom:18px}
+.card h3{font-size:clamp(25px, 6vw, 30px);line-height:1.15;margin-bottom:12px}
+.card p{font-size:15.5px;line-height:1.7}
+@media (min-width:760px){.which-grid{grid-template-columns:1fr 1fr;gap:22px}.card{padding:40px 38px 42px}}
+.which .after{font-family:var(--disp);font-style:italic;font-size:clamp(24px, 6vw, 32px);line-height:1.3;color:var(--forest);margin-top:48px}
+
+/* ---------- 4. The turn ---------- */
+.turn h2{max-width:14ch;margin-inline:auto}
+.turn .copy{max-width:56ch;margin:36px auto 0}
+.turn .pivot{font-family:var(--disp);font-size:clamp(26px, 6.6vw, 38px);line-height:1.25;color:var(--cream)!important;margin-top:44px!important}
+.turn .pivot em{color:var(--gold);font-style:italic}
+
+/* ---------- 5. Why now ---------- */
+.why-grid{display:grid;gap:48px}
+.why h2{max-width:16ch}
+.why .copy{margin-top:26px;max-width:44ch}
+.timeline{list-style:none;margin:0;padding:0;position:relative}
+.timeline::before{content:"";position:absolute;left:7px;top:10px;bottom:10px;width:1px;background:var(--sand)}
+.timeline li{position:relative;padding:0 0 38px 42px}
+.timeline li:last-child{padding-bottom:0}
+.timeline li::before{content:"";position:absolute;left:0;top:6px;width:15px;height:15px;border-radius:50%;background:var(--white);border:1px solid var(--gold)}
+.timeline li:first-child::before{background:var(--gold)}
+.timeline .when{font-size:11.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-ink);margin-bottom:8px}
+.timeline .what{font-family:var(--disp);font-size:clamp(24px, 5.8vw, 30px);line-height:1.2;color:var(--charcoal);margin-bottom:6px}
+.timeline p{font-size:15.5px;line-height:1.7}
+@media (min-width:900px){.why-grid{grid-template-columns:1fr 1fr;gap:90px;align-items:start}.why .why-head{position:sticky;top:60px}}
+
+/* ---------- 6. So this year ---------- */
+.year-grid{display:grid;gap:44px;align-items:center}
+.year-img{border-radius:4px;overflow:hidden;aspect-ratio:16/10;background:var(--sand)}
+.year-img img{width:100%;height:100%;object-fit:cover}
+.year-list{list-style:none;margin:34px 0 0;padding:0;border-top:1px solid var(--hair)}
+.year-list li{position:relative;padding:18px 0 18px 30px;border-bottom:1px solid var(--hair);font-size:16px;line-height:1.6}
+.year-list li::before{content:"";position:absolute;left:2px;top:28px;width:12px;height:1px;background:var(--gold)}
+@media (min-width:900px){.year-grid{grid-template-columns:.85fr 1.15fr;gap:80px}.year-img{aspect-ratio:4/5}}
+
+/* ---------- 7. 9.36am ---------- */
+.clock{font-family:var(--disp);font-size:clamp(96px, 30vw, 220px);line-height:.9;color:var(--gold);letter-spacing:-.02em;margin-bottom:22px}
+.clock-story h2{font-size:clamp(32px, 8vw, 52px);max-width:16ch;margin-inline:auto}
+.clock-story .copy{max-width:56ch;margin:40px auto 0;text-align:left}
+.ripple{display:flex;align-items:center;justify-content:center;gap:clamp(14px, 4vw, 40px);margin:64px auto 0;max-width:560px}
+.ripple .node{flex:1;text-align:center}
+.ripple .ring{width:clamp(108px, 30vw, 156px);aspect-ratio:1;border-radius:50%;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-size:clamp(26px, 7vw, 36px);letter-spacing:.06em;border:1px solid var(--gold);color:var(--cream)}
+.ripple .three .ring{background:var(--gold);color:#2f2a22;box-shadow:0 0 0 10px rgba(184,154,106,.16),0 0 0 22px rgba(184,154,106,.08)}
+.ripple .lbl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,242,236,.74)}
+.ripple .arrow{font-family:var(--disp);font-size:clamp(28px, 7vw, 40px);color:var(--gold);flex:0 0 auto;margin-bottom:34px}
+.four{font-family:var(--disp);font-style:italic;font-size:clamp(30px, 8vw, 46px);line-height:1.2;color:var(--cream);margin-top:56px}
+
+/* ---------- 8. Review (the site's testimonial style, full length) ---------- */
+.review h2{font-size:clamp(32px, 8.4vw, 56px);max-width:16ch;margin-inline:auto}
+.review-card{position:relative;max-width:760px;margin:52px auto 0;background:var(--white);border:1px solid rgba(216,203,183,.7);border-radius:4px;padding:56px 24px 40px}
+.review-card::before{content:"\201C";position:absolute;top:-6px;left:50%;transform:translateX(-50%);font-family:var(--disp);font-size:120px;line-height:1;color:var(--gold);opacity:.55}
+.review-card p{font-size:16px;line-height:1.85}
+.review-card p+p{margin-top:1.1em}
+.review-card .hl{font-family:var(--disp);font-style:italic;font-size:clamp(23px, 5.8vw, 29px);line-height:1.42;color:var(--forest);margin:1.5em 0;padding:4px 0 4px 20px;border-left:2px solid var(--gold)}
+.review-card .signoff{font-family:var(--disp);font-style:italic;font-size:clamp(22px, 5.4vw, 26px);line-height:1.4;color:var(--charcoal)}
+.credit{margin-top:34px;padding-top:24px;border-top:1px solid var(--hair);text-align:center;font-size:12px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-ink)}
+@media (min-width:760px){.review-card{padding:72px 64px 52px}}
+
+/* ---------- 9. What's included ---------- */
+.inc-grid{display:grid;gap:0;margin-top:48px;border-top:1px solid var(--hair)}
+.inc{padding:30px 0;border-bottom:1px solid var(--hair);display:grid;grid-template-columns:auto 1fr;gap:20px}
+.inc{grid-template-columns:52px 1fr}
+.inc .n{font-family:var(--disp);font-size:40px;line-height:1;color:var(--gold)}
+.inc h3{font-size:clamp(24px, 6vw, 28px);line-height:1.15;margin-bottom:10px}
+.inc p{font-size:15.5px;line-height:1.7}
+@media (min-width:860px){.inc-grid{grid-template-columns:1fr 1fr;column-gap:64px}.inc{padding:38px 0}}
+.price-box{margin:64px auto 0;max-width:620px;background:var(--forest);color:var(--cream);border-radius:4px;padding:48px 26px 44px;text-align:center}
+.price-box .was{font-size:15px;letter-spacing:.02em;color:rgba(245,242,236,.82)}
+.price-box .was s{color:rgba(245,242,236,.6);text-decoration-thickness:1px}
+.price-box .now{display:block;font-family:var(--disp);font-size:clamp(68px, 18vw, 96px);line-height:1;color:var(--gold);margin:14px 0 18px}
+.price-box .note{font-size:15px;line-height:1.7;max-width:40ch;margin:0 auto;color:rgba(245,242,236,.88)}
+.price-box .cta{margin-top:34px}
+.price-box .under{color:rgba(245,242,236,.74)}
+
+/* ---------- 10. FAQ (the site's accordion) ---------- */
+.faq h2{margin-bottom:44px}
+details{border-bottom:1px solid var(--hair)}
+details:first-of-type{border-top:1px solid var(--hair)}
+summary{cursor:pointer;list-style:none;padding:24px 44px 24px 0;position:relative;font-family:var(--disp);font-size:clamp(21px, 5.2vw, 24px);line-height:1.3;color:var(--charcoal);-webkit-tap-highlight-color:transparent}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:4px;top:50%;transform:translateY(-50%);font-family:var(--sans);font-weight:300;font-size:26px;color:var(--gold);transition:transform .25s}
+details[open] summary::after{transform:translateY(-50%) rotate(45deg)}
+summary:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+details .ans{padding:0 0 26px;font-size:15.5px;line-height:1.75;max-width:60ch}
+
+/* ---------- 11. I'm Nicky ---------- */
+.nicky-grid{display:grid;gap:44px;align-items:center}
+.photo{aspect-ratio:4/5;border-radius:999px 999px 4px 4px;overflow:hidden;background:var(--sand);max-width:420px;width:100%;margin:0 auto}
+.photo img{width:100%;height:100%;object-fit:cover}
+.nicky h2{font-size:clamp(40px, 10vw, 64px)}
+.stat{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 14px;margin:26px 0 30px;padding:20px 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.stat b{font-family:var(--disp);font-weight:400;font-size:clamp(44px, 11vw, 60px);line-height:1;color:var(--gold-ink)}
+.stat span{font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--forest)}
+@media (min-width:900px){.nicky-grid{grid-template-columns:.9fr 1.1fr;gap:90px}}
+
+/* ---------- 12. Closing ---------- */
+.closing h2{font-size:clamp(32px, 8.4vw, 60px);line-height:1.12;max-width:20ch;margin-inline:auto}
+.closing .meta{margin-top:30px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,242,236,.82)}
+
+/* ---------- 13. Checkout ---------- */
+#checkout{scroll-margin-top:0}
+.checkout h2{font-size:clamp(40px, 10vw, 64px)}
+.checkout-box{max-width:680px;margin:44px auto 0;margin-inline:max(20px, calc((100% - 680px) / 2))}
+@media (min-width:720px){.checkout-box{margin-inline:auto}}
+.checkout-box .tc-v2-embeddable-target{max-width:680px;margin-inline:auto}
+.checkout-box .tc-v2-embeddable-target:empty{min-height:560px;border:1px solid rgba(216,203,183,.7);border-radius:4px;background:var(--white)}
+.checkout-box:empty{min-height:420px;border:1px dashed var(--sand);border-radius:4px;background:var(--white)}
+
+/* ---------- Footer (site footer) ---------- */
+footer{background:var(--charcoal);color:var(--cream);padding:40px 0}
+.ffoot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;align-items:center}
+.fwm{font-family:var(--disp);font-style:italic;font-size:16px}
+.fnl{display:flex;flex-wrap:wrap;gap:12px 22px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,242,236,.74)}
+.fnl a{text-decoration:none;white-space:nowrap}
+.fnl a:hover{color:var(--cream)}
+.fcr{text-align:center;margin-top:18px;font-size:11px;letter-spacing:.04em;color:rgba(245,242,236,.5)}
+
+/* Gentle fade-in as sections arrive (skipped for reduced motion and when JS is off) */
+.js [data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1)}
+.js [data-reveal].in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.js [data-reveal]{opacity:1;transform:none;transition:none}}
+</style>
+<script>document.documentElement.classList.add('js')</script>
+<!-- THRIVECART CHECKOUT: the embedded ThriveCart checkout for Calm Before Christmas sits at the bottom of the page, id="checkout".
+     Fill in the product number and embed ID from ThriveCart's "Embed" code (it looks like tc-nickywilliams-NN-XXXXXX).
+     The checkout starts loading once the rest of the page has finished, so the top of the page stays fast. -->
+<script>
+window.CBC_THRIVECART = {
+  account: "nickywilliams",
+  product: "",
+  embedId: ""
+};
+</script>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '655365576722795');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=655365576722795&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<header class="top">
+  <a class="wm" href="/"><span class="n">Nicky Williams</span><span class="t">Founder of The Deep Release Method&trade;</span></a>
+</header>
+
+<main>
+
+<!-- 1. Opening -->
+<section class="hero cream">
+  <div class="wrap-wide hero-grid">
+    <div>
+      <p class="eyebrow">Calm Before Christmas</p>
+      <div class="rule"></div>
+      <h1>It's never about Christmas, truly. It's the <em>people</em> impacting your life.</h1>
+      <p class="sub">Five private 1:1 sessions to clear the emotional baggage you carry into Christmas. Before it all lands, not in the middle of it.</p>
+      <ul class="tags" aria-label="At a glance">
+        <li>5 private sessions</li><li>At least 4 people</li><li>No calls</li><li>Limited spaces</li>
+      </ul>
+      <div class="cta">
+        <a class="btn" href="#checkout" data-book>Book your place</a>
+        <p class="under">$595 · Booking closes Monday 9 November at midnight (UK time)</p>
+      </div>
+    </div>
+    <div class="hero-img">
+      <picture><source srcset="assets/cbc/linen.webp" type="image/webp"><img src="assets/cbc/linen.jpg" alt="" width="1100" height="614" fetchpriority="high"></picture>
+    </div>
+  </div>
+</section>
+
+<!-- 2. My story -->
+<section class="band white story">
+  <div class="wrap" data-reveal>
+    <p class="lead">I asked my eldest one tiny question. <em>"So, what's happening about Christmas?"</em></p>
+    <div class="copy">
+      <p>And there it was. The squirm and rolling eyes.</p>
+      <p>Meanwhile, in my head, I've already got the logistics planned like an undercover paratrooper. Who's going where. Who can't be in the same room. Who needs picking up, who needs placating, and who's going to moan about the sprouts.</p>
+    </div>
+    <p class="aside">Then I popped to the shops. Five aisles of Christmas. On the 5th of November.</p>
+    <p class="close">Christmas isn't here yet. But you already know the pressure is building.</p>
+  </div>
+</section>
+
+<!-- 3. Which one are you? -->
+<section class="band cream which">
+  <div class="wrap-wide">
+    <div class="center" data-reveal>
+      <div class="rule"></div>
+      <h2 class="h2">Which <em>one</em> are you?</h2>
+    </div>
+    <div class="which-grid">
+      <article class="card" data-reveal>
+        <div class="num">01</div>
+        <h3>The one holding it all together</h3>
+        <p>The lists, the timings, everyone's happiness. Wrapping at midnight, alarm set for silly o'clock. Everyone else gets Christmas. You get the logistics and hide the sadness.</p>
+      </article>
+      <article class="card" data-reveal>
+        <div class="num">02</div>
+        <h3>The one dreading someone</h3>
+        <p>You love them, mostly. But put you in the same room and you're twelve again. Same roles. Same digs. Same knot in your stomach on the drive over.</p>
+      </article>
+      <article class="card" data-reveal>
+        <div class="num">03</div>
+        <h3>The one counting the days with your partner</h3>
+        <p>A whole week off together sounds lovely on paper. In real life it shines a light on everything you've both been too busy to deal with all year.</p>
+      </article>
+      <article class="card" data-reveal>
+        <div class="num">04</div>
+        <h3>The one with an empty chair</h3>
+        <p>Here or passed, someone won't be at the table. The bauble they bought. The song in the supermarket that catches you by the frozen peas.</p>
+      </article>
+    </div>
+    <p class="after center" data-reveal>Maybe you're more than one. Most people are.</p>
+  </div>
+</section>
+
+<!-- 4. The turn -->
+<section class="band dark turn">
+  <div class="wrap center" data-reveal>
+    <p class="eyebrow">Here's the thing</p>
+    <div class="rule"></div>
+    <h2 class="h-xl">None of that is about <em>Christmas</em>.</h2>
+    <div class="copy">
+      <p>It's years of hurt you've had to swallow. The comment about your weight that still stings. The things you never got to say. The memories you'd rather forget.</p>
+      <p>They stack up over Christmas like giant Jenga, and you're the one trying to stop it all falling down while spinning plates with a broom up your bum.</p>
+    </div>
+    <p class="pivot">It's not a YOU problem. It's emotional baggage. And it can be <em>cleared</em>.</p>
+  </div>
+</section>
+
+<!-- 5. Why now -->
+<section class="band white why">
+  <div class="wrap-wide why-grid">
+    <div class="why-head" data-reveal>
+      <p class="eyebrow">Why now</p>
+      <div class="rule"></div>
+      <h2 class="h2">Clear it <em>before</em> it lands. Not in the middle of it.</h2>
+      <div class="copy">
+        <p>By mid December you're in it. The plans are made, the people are coming, and there's no space left to breathe. That's why your sessions start now.</p>
+      </div>
+    </div>
+    <ol class="timeline" data-reveal>
+      <li>
+        <div class="when">Week of 23 November</div>
+        <div class="what">Session 1.</div>
+        <p>Before the first mince pie.</p>
+      </li>
+      <li>
+        <div class="when">Through December</div>
+        <div class="what">Sessions 2, 3 and 4,</div>
+        <p>finishing the week of 14 December. So you walk into Christmas lighter.</p>
+      </li>
+      <li>
+        <div class="when">First week of January</div>
+        <div class="what">Session 5.</div>
+        <p>To clear whatever Christmas stirred up, when you finally sit and feel it without the noise.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- 6. So this year -->
+<section class="band cream year">
+  <div class="wrap-wide year-grid">
+    <div class="year-img" data-reveal>
+      <picture><source srcset="assets/cbc/shore.webp" type="image/webp"><img src="assets/cbc/shore.jpg" alt="A calm shoreline at dusk" width="1100" height="821" loading="lazy"></picture>
+    </div>
+    <div data-reveal>
+      <div class="rule"></div>
+      <h2 class="h2">So <em>this year</em>…</h2>
+      <ul class="year-list">
+        <li>The dig doesn't land like a knife to the heart.</li>
+        <li>Aunt P's comment about your weight just doesn't sting.</li>
+        <li>The row over the board game (which was never about the game) doesn't pull you in.</li>
+        <li>The song comes on, and you smile.</li>
+        <li>You sit down with a cup of tea while the dishes wait.</li>
+        <li>You're actually there. Present. Not ticking boxes.</li>
+      </ul>
+      <div class="cta">
+        <a class="btn" href="#checkout" data-book>Book your place</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. The 9.36am story -->
+<section class="band dark clock-story">
+  <div class="wrap center" data-reveal>
+    <div class="clock">9.36am</div>
+    <h2>Two months of silence. Two <em>messages</em>.</h2>
+    <div class="copy">
+      <p>Her brother had stopped speaking to her. No big row. Just silence. And she was heartbroken. A close friendship felt horribly wobbly too.</p>
+      <p>For weeks she was low. Flat. Just getting through the days.</p>
+      <p>One afternoon, I worked on her relationship with her brother.</p>
+      <p>Before 7am the next morning, she messaged me. She'd woken up full of energy. Calm. Happy. Herself again for the first time in weeks.</p>
+      <p>At 9.36am, she messaged me again. Her brother had been in touch. Sorry he'd been quiet. How was she? Then her friend, telling her how much she loved her, and that she never wanted to be without her.</p>
+    </div>
+    <div class="ripple" role="img" aria-label="ONE person chosen, THREE people's day changed">
+      <div class="node one"><div class="ring">ONE</div><div class="lbl">person chosen</div></div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="node three"><div class="ring">THREE</div><div class="lbl">people's day changed</div></div>
+    </div>
+    <p class="four">You get at least four.</p>
+  </div>
+</section>
+
+<!-- 8. The review -->
+<section class="band cream review">
+  <div class="wrap-wide">
+    <div class="center" data-reveal>
+      <p class="eyebrow">In her own words</p>
+      <div class="rule"></div>
+      <h2>"This woman is <em>like no other</em>."</h2>
+    </div>
+    <figure class="review-card" style="margin-inline:auto" data-reveal>
+      <blockquote style="margin:0">
+        <p>I honestly don't know where to begin when it comes to writing a review for Nicky Williams, an incredible Energy Detective.</p>
+        <p>My first experience of Nicky's work was when I was struggling with my counselling business. Nicky explained how she felt she might be able to help me and, although I have to admit I was a little sceptical, I thought I'd give it a go.</p>
+        <p>Now, I'm going to be completely honest here. Even though Nicky clearly knew what she was talking about, I couldn't quite get my head around how on earth she was going to channel in and unblock whatever energies were keeping me stuck. But let me tell you something…</p>
+        <p>Within a couple of weeks, I started receiving more and more enquiries, to the point where I've now exceeded my initial client target. And months on, that momentum has continued and I'm now booked up weeks in advance.</p>
+        <p>Fast forward to this week, and I contacted Nicky again, explaining how utterly low and overwhelmed I'd been feeling and some of the situations contributing to that. She told me she'd do some work on me, after which she sent me a detailed explanation of what she'd picked up, including negative energies she felt were attached to me. As before, she'd gone surprisingly deep into my personal history.</p>
+        <p>At the time, I felt so hopeless that I genuinely couldn't see how any of this was going to help, although I was incredibly grateful for the time and effort Nicky had put into trying.</p>
+        <p>And here's where things get interesting.</p>
+        <p class="hl">As I write this, I can almost hear people thinking, "Yeah, right!" But I woke up the following morning feeling an enormous shift in my mood and energy. I felt lighter, had more get up and go than I'd had in ages and, overall, felt genuinely positive.</p>
+        <p>The things that had been weighing me down suddenly didn't feel quite so insurmountable. I felt more able to face them and cope.</p>
+        <p>But here's the part that really left me gobsmacked.</p>
+        <p class="hl">That very same morning, I received two unexpected messages from people who had caused me considerable worry and upset. Both were apologising and expressing a desire to reconnect. And this was after months of hurt and silence.</p>
+        <p>Now, I'm not going to pretend I understand exactly what Nicky does, let alone how she does it. But what I can say to anyone who, like me, might be sitting on the fence wondering whether to give her a chance is this: do it.</p>
+        <p>Give Nicky the opportunity to show you what she does, because my own experiences have been nothing short of extraordinary.</p>
+        <p>This woman is like no other. She's a rare gem. I honestly cannot put into words how much of a difference her work has made to me, both personally and professionally.</p>
+        <p>I have 100% faith in Nicky and what she does. I may not understand the mechanics behind it, but I know what I've experienced, and I cannot thank her enough.</p>
+        <p class="signoff">Thank you, Nicky. You really are my personal angel. ❤️🙏🏻</p>
+      </blockquote>
+      <figcaption class="credit">Counsellor · Google review</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 9. What's included -->
+<section class="band white included">
+  <div class="wrap-wide">
+    <div class="center" data-reveal>
+      <div class="rule"></div>
+      <h2 class="h2">What's <em>included</em></h2>
+    </div>
+    <div class="inc-grid">
+      <div class="inc" data-reveal>
+        <div class="n">5</div>
+        <div><h3>Five private 1:1 sessions</h3><p>Using my Deep Release Method™, paced around you. Some relationships clear in one session. Some need two. I go where you need me most.</p></div>
+      </div>
+      <div class="inc" data-reveal>
+        <div class="n">4+</div>
+        <div><h3>At least four people you choose</h3><p>Family, partner, friends, the one who's gone quiet, the one you're missing. Here or passed. They never need to know.</p></div>
+      </div>
+      <div class="inc" data-reveal>
+        <div class="n">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><rect x="2.5" y="5.5" width="14" height="13" rx="1.5"/><path d="M16.5 10l5-3v10l-5-3"/></svg>
+        </div>
+        <div><h3>A personalised video after every session</h3><p>It lands in your inbox. Watch it when you're ready, with a cup of tea. Or a mince pie. I won't judge.</p></div>
+      </div>
+      <div class="inc" data-reveal>
+        <div class="n">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="1.5"/><path d="M3 6l9 7 9-7"/></svg>
+        </div>
+        <div><h3>No calls. Completely confidential.</h3><p>Nothing to log on to and no story to retell. We keep in touch by email, and everything stays between you and me.</p></div>
+      </div>
+    </div>
+
+    <div class="price-box" data-reveal>
+      <p class="was">Five single sessions would be <s>$735</s></p>
+      <span class="now">$595</span>
+      <p class="note">With your sessions locked into my diary before Christmas, and your January session timed for when you need it most.</p>
+      <div class="cta">
+        <a class="btn" href="#checkout" data-book>Book your place</a>
+        <p class="under">Limited spaces · Closes Monday 9 November at midnight (UK time)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. Your questions -->
+<section class="band cream faq">
+  <div class="wrap">
+    <div class="center" data-reveal>
+      <div class="rule"></div>
+      <h2 class="h2">Your <em>questions</em></h2>
+    </div>
+    <div data-reveal>
+      <details><summary>Do the people I choose need to know?</summary><div class="ans"><p>No. This is about what you're carrying around those relationships. It's just between you and me.</p></div></details>
+      <details><summary>What if they've passed, or we don't speak any more?</summary><div class="ans"><p>It doesn't matter. Some of the heaviest emotional baggage is with people who aren't in our lives any more.</p></div></details>
+      <details><summary>Do I have to tell you the whole story?</summary><div class="ans"><p>No. You give me the names. You've told the painful stories enough.</p></div></details>
+      <details><summary>Do I need to be on a call?</summary><div class="ans"><p>No calls. Your time is too precious. I run your session, then send a fully personalised feedback video to your inbox. You watch it when you're ready, and everything is confidential.</p></div></details>
+      <details><summary>What if one person needs more time?</summary><div class="ans"><p>Then they get it. Some relationships clear in one session. Some need two. Your five sessions are shaped around you.</p></div></details>
+      <details><summary>Will this fix the relationship?</summary><div class="ans"><p>It changes how you feel around them. And that has a funny way of changing everything else too.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- 11. I'm Nicky -->
+<section class="band white nicky">
+  <div class="wrap-wide nicky-grid">
+    <div class="photo" data-reveal>
+      <!-- PASTE PHOTO HERE: replace this comment with e.g. <img src="assets/your-photo.jpg" alt="Nicky Williams"> -->
+    </div>
+    <div data-reveal>
+      <p class="eyebrow">Your Energy Detective</p>
+      <div class="rule"></div>
+      <h2>I'm <em>Nicky</em></h2>
+      <div class="stat"><b>56,000+</b><span>emotions cleared for clients</span></div>
+      <div class="copy">
+        <p>I've spent 40 years studying energy work. Today I work 1:1 with clients in the UK and US, all remotely, and I'm usually booked weeks in advance.</p>
+        <p>Almost everyone who comes to me has been carrying something for far too long. My job is to find it and clear it, so you don't have to keep carrying it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 12. Closing -->
+<section class="band dark closing">
+  <div class="wrap-wide center" data-reveal>
+    <div class="rule"></div>
+    <h2>You can't control who sits round the table. You can control how much you're <em>carrying</em> when you get there.</h2>
+    <p class="meta">Five private 1:1 sessions · $595 · Limited spaces</p>
+    <div class="cta">
+      <a class="btn" href="#checkout" data-book>Book your place</a>
+      <p class="under">Booking closes Monday 9 November at midnight (UK time), or sooner if the spaces go</p>
+    </div>
+  </div>
+</section>
+
+<!-- 13. Checkout -->
+<section class="band cream checkout" id="checkout">
+  <div class="wrap center">
+    <p class="eyebrow">Calm Before Christmas</p>
+    <div class="rule"></div>
+    <h2>Book your <em>place</em></h2>
+  </div>
+  <div class="checkout-box" id="checkout-box"><!-- PASTE THRIVECART EMBED CODE HERE --></div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap-wide ffoot">
+    <span class="fwm">Nicky Williams · Energy Detective</span>
+    <div class="fnl"><a href="/">Home</a><a href="/about">About</a><a href="/testimonials">Testimonials</a><a href="/policies-hub">Policies</a></div>
+  </div>
+  <div class="wrap-wide fcr">&copy; 2026 Nicky Williams &middot; Energy Detective. All rights reserved.</div>
+</footer>
+
+<script>
+/* ThriveCart embedded checkout: built from window.CBC_THRIVECART once the page has loaded.
+   (If the full ThriveCart embed code is pasted into the checkout box instead, that is used as is.) */
+var cbcLoaded = false;
+function loadCheckout(){
+  var TC = window.CBC_THRIVECART, box = document.getElementById('checkout-box');
+  if (cbcLoaded || !TC || !TC.product || !TC.embedId || !box) return;
+  cbcLoaded = true;
+  if (!box.querySelector('.tc-v2-embeddable-target')) {
+    var d = document.createElement('div');
+    d.className = 'tc-v2-embeddable-target';
+    d.setAttribute('data-thrivecart-account', TC.account);
+    d.setAttribute('data-thrivecart-tpl', 'v2');
+    d.setAttribute('data-thrivecart-product', TC.product);
+    d.setAttribute('data-thrivecart-embeddable', TC.embedId);
+    box.appendChild(d);
+  }
+  if (!document.getElementById(TC.embedId)) {
+    var s = document.createElement('script');
+    s.async = true; s.id = TC.embedId; s.src = 'https://tinder.thrivecart.com/embed/v2/thrivecart.js';
+    document.body.appendChild(s);
+  }
+}
+if (document.readyState === 'complete') loadCheckout(); else window.addEventListener('load', loadCheckout);
+
+/* Every "Book your place" button glides down to the checkout and tells Meta a checkout has started */
+var cbcTracked = false;
+document.querySelectorAll('[data-book]').forEach(function(a){
+  a.addEventListener('click', function(e){
+    var t = document.getElementById('checkout');
+    if(!t) return;
+    e.preventDefault();
+    loadCheckout();
+    if (!cbcTracked && window.fbq) { cbcTracked = true; window.fbq('track', 'InitiateCheckout', {value: 595.00, currency: 'USD', content_name: 'Calm Before Christmas'}); }
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    t.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block: 'start'});
+    if(history.replaceState) history.replaceState(null, '', '#checkout');
+  });
+});
+
+/* Gentle fade-in as each section arrives */
+(function(){
+  var els = document.querySelectorAll('[data-reveal]');
+  if(!('IntersectionObserver' in window)){ els.forEach(function(el){ el.classList.add('in'); }); return; }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, {rootMargin: '0px 0px -8% 0px', threshold: 0.05});
+  els.forEach(function(el){ io.observe(el); });
+})();
+</script>
+</body>
+</html>
